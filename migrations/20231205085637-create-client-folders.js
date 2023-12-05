@@ -2,39 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Stats', {
+    await queryInterface.createTable('clientFolders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      sold: {
+      name: {
+        type: Sequelize.STRING
+      },
+      pdf: {
+        type: Sequelize.STRING
+      },
+      idUser: {
         type: Sequelize.INTEGER
-      },
-      signed: {
-        type: Sequelize.INTEGER
-      },
-      clicCount: {
-        type: Sequelize.INTEGER
-      },
-      idEmployee: {
-        type: Sequelize.INTEGER,
-        
-        references: { 
-          model : 'employees',
-          key : 'id',
-        }
-
-      },
-      idProperties: {
-        type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'properties',
-          key : 'id',
-        }
-        
       },
       createdAt: {
         allowNull: false,
@@ -47,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Stats');
+    await queryInterface.dropTable('clientFolders');
   }
 };

@@ -2,27 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Histories', {
+    await queryInterface.createTable('Photos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idUser: {
-        type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'users',
-          key : 'id',
-        }
-
+      photo: {
+        type: Sequelize.STRING
       },
-      idRole: {
+      idProperties: {
         type: Sequelize.INTEGER,
 
         references: { 
-          model : 'role',
+          model : 'properties',
           key : 'id',
         }
 
@@ -38,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Histories');
+    await queryInterface.dropTable('Photos');
   }
 };

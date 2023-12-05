@@ -16,9 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Status.init({
     sold: DataTypes.BOOLEAN,
     rent: DataTypes.BOOLEAN,
-    hidden: DataTypes.BOOLEAN,
-    idProperty: DataTypes.INTEGER,
-    idUser: DataTypes.INTEGER
+    hidden: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Status',

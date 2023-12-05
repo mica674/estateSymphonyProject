@@ -18,24 +18,6 @@ module.exports = {
       hidden: {
         type: Sequelize.BOOLEAN
       },
-      idProperty: {
-        type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'properties',
-          key : 'id',
-        }
-        
-      },
-      idUser: {
-        type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'users',
-          key : 'id',
-        }
-
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

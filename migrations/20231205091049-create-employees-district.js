@@ -2,24 +2,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('clientFolders', {
+    await queryInterface.createTable('Employees_Districts', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
-      },
-      pdf: {
-        type: Sequelize.STRING
-      },
-      idUser: {
+      idDistrict: {
         type: Sequelize.INTEGER,
 
         references: { 
-          model : 'users',
+          model : 'districts',
+          key : 'id',
+        }
+
+      },
+      idEmployees: {
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'employees',
           key : 'id',
         }
 
@@ -35,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('clientFolders');
+    await queryInterface.dropTable('Employees_Districts');
   }
 };

@@ -28,11 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     parking: DataTypes.BOOLEAN,
     rooms: DataTypes.INTEGER,
     idStatus: DataTypes.INTEGER,
-    idPhoto: DataTypes.INTEGER,
-    idStats: DataTypes.INTEGER,
-    idUser: DataTypes.INTEGER,
-    idDistrict: DataTypes.INTEGER,
-    idInventory: DataTypes.INTEGER
+    idDistrict: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Properties',
