@@ -31,15 +31,15 @@ Commande MIGRATIONS generate
 
  
 
-- Model Agendas: 
-
-    npx sequelize-cli model:generate --name Agendas --attributes date:Date,visitInformations:string,idUser:integer,idEmployee:integer 
-
- 
-
 - Model Employees:  
 
     npx sequelize-cli model:generate --name Employees --attributes descriptions:string,name:string,idUser:integer,idInventory:integer,idDistrict:integer 
+
+ 
+
+- Model Agendas: 
+
+    npx sequelize-cli model:generate --name Agendas --attributes date:Date,visitInformations:string,idUser:integer,idEmployee:integer 
 
  
 
