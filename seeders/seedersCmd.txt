@@ -1,0 +1,14 @@
+Générer un seeder :
+    npx sequelize-cli seed:generate --name demo-user
+
+Run tous les seeders :
+    npx sequelize-cli db:seed:all
+
+Undo le seed le plus récent :
+    npx sequelize-cli db:seed:Undo
+
+Undo un seed spécifique :
+    npx sequelize-cli db:seed:undo --seed name-of-seed
+
+Undo tous les seeds :
+    npx sequelize-cli db:seed:undo:all
