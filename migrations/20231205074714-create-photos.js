@@ -13,7 +13,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       idProperty: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'properties',
+          key : 'id',
+        }
+        
       },
       createdAt: {
         allowNull: false,

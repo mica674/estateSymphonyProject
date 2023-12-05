@@ -16,13 +16,31 @@ module.exports = {
         type: Sequelize.STRING
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'users',
+          key : 'id',
+        }
+
       },
       inventoryId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'inventory',
+          key : 'id',
+        }
+
       },
       districtId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'district',
+          key : 'id',
+        }
+
       },
       createdAt: {
         allowNull: false,

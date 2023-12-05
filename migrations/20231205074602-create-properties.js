@@ -49,22 +49,58 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idStatus: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'status',
+          key : 'id',
+        }
+
       },
-      idPhoto: {
-        type: Sequelize.INTEGER
+      idPhotos: {
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'photos',
+          key : 'id',
+        }
+
       },
       idStats: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'stats',
+          key : 'id',
+        }
+
       },
       idUser: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'users',
+          key : 'id',
+        }
+
       },
       idDistrict: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'district',
+          key : 'id',
+        }
+
       },
       idInventory: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'inventory',
+          key : 'id',
+        }
+
       },
       createdAt: {
         allowNull: false,
