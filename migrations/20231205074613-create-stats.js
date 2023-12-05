@@ -19,10 +19,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idEmployee: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        
+        references: { 
+          model : 'employees',
+          key : 'id',
+        }
+
       },
       idProperties: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'properties',
+          key : 'id',
+        }
+        
       },
       createdAt: {
         allowNull: false,
