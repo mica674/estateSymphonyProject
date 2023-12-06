@@ -1,5 +1,10 @@
-Commande MIGRATIONS generate
+Autres Commandes
 
+Update une migration existante:
+npx sequelize-cli migration:generate --name rename-column
+
+------------------------------------
+Commande MIGRATIONS generate
 
 - Model Role: (DEPENDANCE null)
 
@@ -65,6 +70,6 @@ Commande MIGRATIONS generate
 
     npx sequelize-cli model:generate --name Favorites --attributes idUsers:integer,idProperties:integer 
 
------------------------------------- OK JUSQU'ICI après c'est le bordel^^
+ 
 
 

@@ -1,20 +1,18 @@
 const db = require('../models/index.js');
 const userTable = db['User'];
-// const dotenv = require('dotenv')
-// dotenv config
 
+const getUser = async (req, res) => {
 
-const getAllUser = async (req, res) =>{
     try {
         
-        const user = await userTable.findAll();
+        const user = await userTable.findByPk(req.params.id);
 
         res.status(200).send({
-            message : 'select',
-            data : user
+            message : 'Holà' + user.lastname + user.firstname
         })
 
     } catch (error) {
+
         console.log(error);
 
         res.status(400).send({
@@ -44,4 +42,4 @@ const getAllUser = async (req, res) =>{
     }
 }
 
-module.exports = {getAllUser};
+module.exports = {getUser};
