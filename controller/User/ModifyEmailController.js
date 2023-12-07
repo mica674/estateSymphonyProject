@@ -1,4 +1,4 @@
-const db = require('../models/index.js');
+const db = require('../../models/index.js');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();

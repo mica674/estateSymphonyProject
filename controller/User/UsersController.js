@@ -1,4 +1,4 @@
-const db = require('../models/index.js');
+const db = require('../../models/index.js');
 const userTable = db['User'];
 
 const getAllUser = async (req, res) =>{

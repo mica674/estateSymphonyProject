@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllUser } = require('../controller/UsersController');
-const { createUser } = require('../controller/CreateUserController');
-const { getUser } = require('../controller/UserController');
-const { loginUser } = require('../controller/LoginUserController');
-const { middleWare } = require('../controller/MiddleWareController');
-const {modifyPassword} = require('../controller/ModifyPasswordController');
-const {modifyEmail} = require('../controller/ModifyEmailController');
+const { getAllUser } = require('../controller/User/UsersController');
+const { createUser } = require('../controller/User/CreateUserController');
+const { getUser } = require('../controller/User/UserController');
+const { loginUser } = require('../controller/User/LoginUserController');
+const { middleWare } = require('../controller/User/MiddleWareController');
+const {modifyPassword} = require('../controller/User/ModifyPasswordController');
+const {modifyEmail} = require('../controller/User/ModifyEmailController');
+
+
 
 router.get('/', (req, res) => {
     res.status(200).json({
