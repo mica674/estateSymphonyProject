@@ -49,6 +49,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       idStatus: {
+        allowNull: false,
         type: Sequelize.INTEGER,
 
         references: { 
@@ -58,6 +59,7 @@ module.exports = {
 
       },
       idDistrict: {
+        allowNull: false,
         type: Sequelize.INTEGER,
 
         references: { 
