@@ -2,30 +2,30 @@ const db = require('../models/index.js');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
-const bcrypt = require('bcrypt');
 const userTable = db['User'];
 
-const modifyPassword = async (req, res) =>{
+
+const modifyEmail = async (req, res) =>{
+
     try {
-        
-        const { password } = req.body;
-        const salt = await bcrypt.genSaltSync(12);
-        const hash = await bcrypt.hashSync(password, salt);
-        let newData = {password: hash};
+
+        const { email } = req.body;
+        let newData = {email: email};
         //req.token est le token transmis par le middleware
-        let email = jwt.verify(req.token,process.env.SECRET_TOKEN).email;
-        console.log(email);
+        let email1 = jwt.verify(req.token,process.env.SECRET_TOKEN).email;
+        console.log(email1);
 
 
-        const newPassword = await userTable.update(newData, {
+        const newEmail = await userTable.update(newData, {
             where:{ 
-                email:email           
+                email:email1           
             }
         });
         
+
         res.status(200).send({
-            message : 'Vous avez bien modifié votre mot de passe',
-            data : newPassword
+            message : 'Vous avez bien modifié votre email',
+            data : newEmail
         })
 
     } catch (error) {
@@ -56,8 +56,9 @@ const modifyPassword = async (req, res) =>{
             message : 'Erreur serveur.',
             error : error.message
         })
+
     }
-    
+
 }
 
-module.exports = {modifyPassword};
+module.exports = {modifyEmail}

@@ -7,6 +7,7 @@ const { getUser } = require('../controller/UserController');
 const { loginUser } = require('../controller/LoginUserController');
 const { middleWare } = require('../controller/MiddleWareController');
 const {modifyPassword} = require('../controller/ModifyPasswordController');
+const {modifyEmail} = require('../controller/ModifyEmailController');
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -18,8 +19,8 @@ router.get('/users/:id', getUser);
 router.get('/users', getAllUser);
 router.post('/users', createUser);
 router.post('/login', loginUser);
-router.put('/modify', middleWare, modifyPassword);
-router.put('/test',middleWare, modifyPassword);
+router.put('/modifyPassword', middleWare, modifyPassword);
+router.put('/modifyEmail', middleWare, modifyEmail);
 
 router.get('/me', middleWare );
 
