@@ -2,8 +2,7 @@ const db = require('../../models/index.js');
 const bcrypt = require('bcrypt');
 const userTable = db['User'];
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-dotenv.config();
+const dotenv = require('dotenv').config();
 
 const loginUser = async (req, res, next) => {
     try {
