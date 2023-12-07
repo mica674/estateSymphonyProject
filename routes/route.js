@@ -18,8 +18,10 @@ router.get('/users/:id', getUser);
 router.get('/users', getAllUser);
 router.post('/users', createUser);
 router.post('/login', loginUser);
-router.post('/modify', modifyPassword);
-router.get('/me', middleWare);
+router.put('/modify', middleWare, modifyPassword);
+router.put('/test',middleWare, modifyPassword);
+
+router.get('/me', middleWare );
 
 
 

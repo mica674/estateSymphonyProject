@@ -1,4 +1,8 @@
 const db = require('../models/index.js');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
+//const token = require ('../controller/MiddleWareController.js');
 const bcrypt = require('bcrypt');
 const userTable = db['User'];
 
@@ -9,8 +13,16 @@ const modifyPassword = async (req, res) =>{
         const salt = await bcrypt.genSaltSync(12);
         const hash = await bcrypt.hashSync(password, salt);
         let newData = {password: hash};
+        //req.token est le token transmis par le middleware
+        let email = jwt.verify(req.token,process.env.SECRET_TOKEN).email;
+        console.log(email);
 
-        const newPassword = await userTable.update(newData);
+
+        const newPassword = await userTable.update(newData, {
+            where:{ 
+                email:email           
+            }
+        });
         
         res.status(200).send({
             message : 'Vous avez bien modifié votre mot de passe',

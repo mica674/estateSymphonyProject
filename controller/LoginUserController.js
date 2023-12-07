@@ -20,7 +20,7 @@ const loginUser = async (req, res, next) => {
                     expiresIn : '1d'
                 });
                 //Réponse HTTP 200 et le token en data
-                res.status(200).json({ token: token });
+                res.status(200).send({ token: token });
             }
         }
 

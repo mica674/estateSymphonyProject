@@ -12,9 +12,10 @@ const middleWare = async (req, res, next) => {
         let decoded = jwt.verify(token, process.env.SECRET_TOKEN);
         console.log("decoded : " + decoded);
         req.user = decoded;
-        console.log("dis moi" + decoded);
-        res.status(200).json(req.user);
-
+        console.log("req.user : " + req.user);
+        req.token = token;
+        // res.status(200).json(req.user);
+        next();
 
         // CODE DE NICOLAS
         // const token = req.headers.authorization;
