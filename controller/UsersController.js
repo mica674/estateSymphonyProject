@@ -9,7 +9,7 @@ const getAllUser = async (req, res) =>{
         //  Envoie de tous les utilisateurs
         res.status(200).send({
             message : 'select',
-            data : user
+            data : users
         })
 
     } catch (error) {
