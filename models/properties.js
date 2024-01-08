@@ -11,6 +11,24 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Properties.hasMany(models.Favories,{
+        foreignKey : 'idFavories'
+      });
+      Properties.hasMany(models.Histories,{
+        foreignKey : 'idHistories'
+      });
+      Properties.belongsTo(models.District,{
+        foreignKey : 'idDistrict'
+      });
+      Properties.belongsTo(models.Status, {
+        foreignKey : 'idStatus'
+      });
+      Properties.belongsToMany(models.User, {
+        through : 'properties_folder'
+      });
+      Properties.hasMany(models.Photos,{
+        foreignKey : 'idPhotos'
+      })
     }
   }
   Properties.init({

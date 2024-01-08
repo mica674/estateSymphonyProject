@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      clientFolders.hasOne(models.User,{
+        foreignKey: 'idUsers'
+      });
     }
   }
   clientFolders.init({
     name: DataTypes.STRING,
     pdf: DataTypes.STRING,
-    idUser: DataTypes.INTEGER
+    idUsers: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'clientFolders',

@@ -15,7 +15,7 @@ module.exports = {
       visitInformations: {
         type: Sequelize.STRING
       },
-      userId: {
+      idUsers: {
         type: Sequelize.INTEGER,
 
         references: { 

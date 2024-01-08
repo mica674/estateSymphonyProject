@@ -15,8 +15,14 @@ module.exports = {
       pdf: {
         type: Sequelize.STRING
       },
-      idUser: {
-        type: Sequelize.INTEGER
+      idUsers: {
+        type: Sequelize.INTEGER,
+
+        references: { 
+          model : 'users',
+          key : 'id',
+        }
+
       },
       createdAt: {
         allowNull: false,

@@ -9,6 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      //OWNER
       idUsers: {
         type: Sequelize.INTEGER,
 
@@ -27,6 +28,7 @@ module.exports = {
         }
 
       },
+      //BUYER
       idUsers1: {
         type: Sequelize.INTEGER,
 
