@@ -1,5 +1,11 @@
 "use strict";
 const nodemailer = require('nodemailer');
+const {google}= require('google-auth-library');
+
+//Function to create a OAuth2 Client
+async function createOAuth2Client(){
+    const credentials = require('')
+}
 
 let transporter = nodemailer.createTransport({
     // service: 'gmail',
@@ -15,7 +21,7 @@ var mailOptions = {
     from : 'estatesymphonyproject.service@gmail.com',
     to: 'mica.fournier@hotmail.fr',
     subject: 'Coucou c\'est moi EstateSymphony',
-    text: 'C\'était pas facile !'
+    text: 'C\'était pas si facile !'
 }
 
 transporter.sendMail(mailOptions, function(error, info) {

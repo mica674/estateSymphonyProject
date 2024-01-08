@@ -15,3 +15,6 @@ app.use(router);
 app.listen(port, hostname, () => {
     console.log(`Serveur démarrer à l'adresse http://${hostname}:${port}/`);
 })
+
+//test email
+require ('./NodeMailerTest.js');

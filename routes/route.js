@@ -59,7 +59,5 @@ router.put('/delectedEstimations', delectedEstimations);*/
 
 
 
-//test email
-// require ('../NodeMailerTest.js');
 
 module.exports = router;
