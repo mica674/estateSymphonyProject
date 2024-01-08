@@ -11,13 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      District.hasMany(models.District,{
+        foreignKey : 'idEmployees_District'
+      });
+      District.hasMany(models.Properties,{
+        foreignKey : 'idProperties'
+      })
     }
   }
   District.init({
     name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'District',
+    modelName: 'District'
   });
   return District;
 };

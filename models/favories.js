@@ -11,6 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Favories.hasOne(models.User,{
+        foreignKey: 'idUsers'
+      });
+      Favories.hasOne(models.Properties,{
+        foreignKey: 'idProperties'
+      });
     }
   }
   Favories.init({

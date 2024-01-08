@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Estimations.hasOne(models.User,{
+        foreignKey: 'idUsers'
+      });
     }
   }
   Estimations.init({
@@ -22,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     floor: DataTypes.INTEGER,
     balcony: DataTypes.INTEGER,
     parking: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    idUsers: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Estimations',

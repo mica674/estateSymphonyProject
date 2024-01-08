@@ -2,25 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 //------------------------------------- USER ---------------------------------------
-const { getAllUser } = require('../controller/User/UsersController');
-const { createUser } = require('../controller/User/CreateUserController');
+const { getAllUser } = require('../controller/User/UserController');
+const { createUser } = require('../controller/User/UserController');
 const { getUser } = require('../controller/User/UserController');
-const { loginUser } = require('../controller/User/LoginUserController');
-const { middleWare } = require('../controller/User/MiddleWareController');
-const {modifyPassword} = require('../controller/User/ModifyPasswordController');
-const {modifyEmail} = require('../controller/User/ModifyEmailController');
+const { loginUser } = require('../controller/User/UserController');
+const { middleWare } = require('../controller/User/UserController');
+const {modifyPassword} = require('../controller/User/UserController');
+const {modifyEmail} = require('../controller/User/UserController');
 
 //------------------------------------- PROPERTIES ----------------------------------
-const {createProperties} = require ('../controller/Properties/createProperties');
-const {modifyProperties} = require ('../controller/Properties/modifyProperties');
-const {viewProperties} = require ('../controller/Properties/viewProperties');
-const {delectedProperties} = require ('../controller/Properties/delectedProperties');
+const {createProperties} = require ('../controller/Properties/PropertiesController');
 
 //------------------------------------- ESTIMATIONS ----------------------------------
-const {createEstimations} = require ('../controller/Estimations/createEstimations');
-const {modifyEstimations} = require ('../controller/Estimations/modifyEstimations');
-const {viewEstimations} = require ('../controller/Estimations/viewEstimations');
-const {delectedEstimations} = require ('../controller/Estimations/delectedEstimations');
 
 
 
@@ -44,9 +37,6 @@ router.put('/modifyEmail', middleWare, modifyEmail);
 
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
 router.post('/createProperties', createProperties);
-/*router.put('/modifyProperties', modifyProperties);
-router.get('/viewsProperties', viewProperties);
-router.put('/delectedProperties', delectedProperties);*/
 
 
 //------------------------------------- ESTIMATIONS ROUTER ---------------------------------

@@ -12,7 +12,7 @@ module.exports = {
       comment: {
         type: Sequelize.STRING
       },
-      userId: {
+      idUsers: {
         type: Sequelize.INTEGER,
 
         references: { 

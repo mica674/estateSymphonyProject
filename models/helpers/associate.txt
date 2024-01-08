@@ -1,0 +1,16 @@
+// Exemple HasOne
+User.hasOne(Profile);
+// Un utilisateur a un profil
+
+// Exemple BelongsTo
+Profile.belongsTo(User);
+// Un profil appartient à un utilisateur
+
+// Exemple HasMany
+User.hasMany(Post);
+// Un utilisateur a plusieurs articles
+
+// Exemple BelongsToMany
+User.belongsToMany(Role, { through: 'UserRole' });
+Role.belongsToMany(User, { through: 'UserRole' });
+// Un utilisateur peut avoir plusieurs rôles, et un rôle peut être associé à plusieurs utilisateurs

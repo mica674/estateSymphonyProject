@@ -33,7 +33,7 @@ module.exports = {
       parking: {
         type: Sequelize.STRING
       },
-      userId: {
+      idUsers: {
         type: Sequelize.INTEGER,
 
         references: { 
