@@ -1,17 +1,17 @@
 const { where } = require('sequelize');
 const db = require('../../models/index.js');
-const propertiesTable = db['Estimations'];
+const agendasTable = db['Agendas'];
 
-const createEstimations = async (req, res)  =>{
+const createAgendas = async (req, res)  =>{
 
     try {
 
         const data = { ...req.body};
-        const newEstimations = await estimationsTable.create(data);
+        const newAgendas = await agendasTable.create(data);
 
         res.status(200).send({
             message: 'Create',
-            data: newEstimations
+            data: newAgendas
         })
         
     } catch (error) {
@@ -22,31 +22,28 @@ const createEstimations = async (req, res)  =>{
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })
+        
     }
 }
-const modifyEstimations = async (req, res) =>{
+const modifyAgendas = async (req, res) =>{
 
     try {
 
-        const {location, houseType, surface, showerRoom, room, floor, balcony, parking} = req.body;
-        const idEstimations = req.params.id;
-        const updateEstimations = await estimationsTable.update(
-            {location : location},
-            {houseType : houseType},
-            {surface : surface},
-            {showerRoom: showerRoom},
-            {room : room},	
-            {floor : floor},	
-            {balcony : balcony},	
-            {parking : parking},	
+        const {date, visitInformations, userId, idEmployee} = req.body;
+        const idAgendas = req.params.id;
+        const updateAgendas = await agendasTable.update(
+            {date : date},
+            {visitInformations : visitInformations},
+            {userId : userId},
+            {idEmployee : idEmployee},
             {where :{
-                    id : idEstimations
+                    id : idAgendas
                 }
             })
         
-            if(updateEstimations[0] == 1){
+            if(updateAgendas[0] == 1){
                 res.status(200).send({
-                    message : 'Estimations modifié'
+                    message : 'RDV modifié'
                 })
             }
 
@@ -58,18 +55,19 @@ const modifyEstimations = async (req, res) =>{
             message : 'Erreur de synthaxe de la requête.',
             error : error.message
         })
+
     }
 
 }
-const getEstimation = async (req, res) => {
+const getAgenda = async (req, res) => {
 
     try {
-        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const propertie = await propertiesTable.findByPk(req.params.id, {include: 'roles'});
+        
+        const agenda = await agendasTable.findByPk(req.params.id, {include: 'roles'});
         
         res.status(200).send({
-            message : `Bonjour ${user.firstname} ${user.firstname}`, 
-            data:propertie
+            message : ``, 
+            data:agenda
         })
 
     } catch (error) {
@@ -82,15 +80,15 @@ const getEstimation = async (req, res) => {
         })
     }
 }
-const getAllEstimations = async (req, res) =>{
+const getAllAgendas = async (req, res) =>{
     try {
         //  Récupération de tous les utilisateurs
-        const estimations = await estimationsTable.findAll();
+        const agendas = await agendasTable.findAll();
 
         //  Envoie de tous les utilisateurs
         res.status(200).send({
             message : 'select',
-            data : estimations
+            data : properties
         })
 
     } catch (error) {
@@ -100,15 +98,20 @@ const getAllEstimations = async (req, res) =>{
             message : 'Erreur de synthaxe de la requête.',
             error : error.message
         })
+
+        res.status(401).send({
+            message : 'Vous n\'êtes pas autorisé.',
+            error : error.message
+        })
     }
 }
-const deleteEstimations = async (req, res) =>{
+const deleteAgenda = async (req, res) =>{
     try {
 
-        const deleteProperties = await propertiesTable.destroy({where :{id:req.params.id} });
+        const deleteAgenda = await agendasTable.destroy({where :{id:req.params.id} });
         res.status(201).send({
             message : 'Deleted',
-            data : deleteProperties
+            data : deleteAgenda
         })
 
     } catch (error) {
@@ -120,5 +123,4 @@ const deleteEstimations = async (req, res) =>{
         })
     }
 }
-module.exports = {createEstimations, getEstimation, getAllEstimations, modifyEstimations, deleteEstimations };
-
+module.exports = {createAgendas, getAgenda, getAllAgendas, modifyAgendas, deleteAgenda };

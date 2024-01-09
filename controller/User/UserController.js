@@ -1,6 +1,8 @@
 const db = require('../../models/index.js');
 const bcrypt = require('bcrypt');
 const userTable = db['User'];
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 
 const createUser = async (req, res) => {
@@ -60,7 +62,6 @@ const loginUser = async (req, res, next) => {
         if (user) {
             //Comparaison du mot de passe renseigné par l'utilisateur et le hash stocké en base
             const compare = await bcrypt.compareSync(req.body.password, user.password);
-            console.log(compare);
             //Si la comparaison est bonne
             if (compare) {
                 //Génération d'un token contenant les informations (id et email) & la clé secrète 'SECRET_TOKEN'
@@ -249,11 +250,11 @@ const getUser = async (req, res) => {
 
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const user = await userTable.findByPk(req.params.id);
-
+        const user = await userTable.findByPk(req.params.id, {include: 'roles'});
         
         res.status(200).send({
-            message : `Bonjour ${user.firstname} ${user.firstname}`
+            message : `Bonjour ${user.firstname} ${user.firstname}`, 
+            data:user
         })
 
     } catch (error) {
