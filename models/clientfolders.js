@@ -10,9 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      clientFolders.hasOne(models.User,{
-        foreignKey: 'idUsers'
-      });
+      clientFolders.belongsTo(models.User)
     }
   }
   clientFolders.init({
