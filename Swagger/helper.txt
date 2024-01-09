@@ -1,0 +1,6 @@
+Installation de la documentation et de l'interface utilisateur:
+    npm install swagger-jsdoc swagger-ui-express
+
+Import de 2 modules dans index.js :
+    import swaggerUI from “swagger-ui-express”;
+    import swaggerJsDoc from “swagger-jsdoc”;

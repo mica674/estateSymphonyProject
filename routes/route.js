@@ -1,4 +1,5 @@
 const express = require('express');
+const {specs, swaggerUi} = require('../Swagger/swaggerConfig')
 const router = express.Router();
 
 //------------------------------------- USER ---------------------------------------
@@ -11,9 +12,7 @@ const {createProperties} = require ('../controller/Properties/PropertiesControll
 //------------------------------------- ROLE ---------------------------------------
 const roleController = require('../controller/Roles/RolesController');
 
-
-
-
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -21,7 +20,20 @@ router.get('/', (req, res) => {
     })
 })
 
+
 //------------------------------------- ROLE ROUTER ---------------------------------------
+/**
+ * @swagger
+ * /example:
+ *   get:
+ *     summary: Récupérer toutes les données d'exemple
+ *     description: Obtenez toutes les données d'exemple à partir de la base de données.
+ *     responses:
+ *       200:
+ *         description: Succès
+ *       500:
+ *         description: Erreur du serveur
+*/
 router.get('/roles/:id', roleController.getRole);
 router.get('/roles', roleController.getAllRoles);
 router.post('/role', roleController.createRole);
