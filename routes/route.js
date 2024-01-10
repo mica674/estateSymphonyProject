@@ -757,13 +757,6 @@ router.delete('/deleteProperties', propertieController.deleteProperties);
 router.get('/properties', propertieController.getAllProperties);
 router.get('/propertie/:id', propertieController.getPropertie);
 
-//------------------------------------- ESTIMATIONS ROUTER ---------------------------------
-router.post('/createEstimations', estimationsController.createEstimations);
-router.put('/modifyEstimations', estimationsController.modifyEstimations);
-router.delete('/deleteEstimations', estimationsController.deleteEstimations);
-router.get('/estimations', estimationsController.getAllEstimations);
-router.get('/estimation/:id', estimationsController.getEstimation);
-
 //------------------------------------- AGENDAS ROUTER ---------------------------------
 router.post('/createAgendas', agendasController.createAgendas);
 router.put('/modifyAgendas', agendasController.modifyAgendas);
@@ -792,12 +785,7 @@ router.delete('/deleteHistories', historiesController.deleteHistories);
 router.get('/histories', historiesController.getAllHistories);
 router.get('/historie/:id', historiesController.getHistorie);*/
 
-//------------------------------------- MESSAGES ROUTER ---------------------------------
-router.post('/createMessages', messagesController.createMessages);
-router.put('/modifyMessages', messagesController.modifyMessages);
-router.delete('/deleteMessages', messagesController.deleteMessages);
-router.get('/messages', messagesController.getAllMessages)
-router.get('/message/:id', messagesController.getMessage);
+
 
 //------------------------------------- CLIENTFOLDER ROUTER -----------------------------
 router.post('/createClientFolder', clientFolderController.createClientFolders);
