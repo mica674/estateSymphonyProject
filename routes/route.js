@@ -221,6 +221,8 @@
  *              name: Authorization
  *              required: true
  *              description: Token d'authentification de l'utilisateur
+ *              example:
+ *                  Authorization: Bearer $TOKEN
  *              schema:
  *                  type: string
  *      description: Modifie le mot de passe d'un utilisateur dans la base de données
@@ -574,6 +576,17 @@
  *          required: true
  *          content:
  *              application/json:
+ *                  example:
+ *                      data:
+ *                          location: Achat
+ *                          houseType: Maison
+ *                          surface: 90
+ *                          showerRoom: 1
+ *                          room: 5
+ *                          floor: 2
+ *                          balcony: 1
+ *                          parking: true
+ *                          idUser: 1
  *                  schema:
  *                      type: object
  *                      properties:
@@ -601,7 +614,7 @@
  *                          parking:
  *                              type: boolean
  *                              description: Présence d'une place parking (true/false)
- *                          idUsers:
+ *                          idUser:
  *                              type: integer
  *                              description: ID de l'utilisateur demandeur de l'estimation
  *      responses:
@@ -692,31 +705,31 @@
     //  DELETE
  /**
  * @swagger
- * /role/{id}:
+ * /estimation/delete/{id}:
  *      delete:
- *          summary: To delete a 'Role' with his ID
- *          tags: [ROLE]
+ *          summary: To delete a 'Estimation' with his ID
+ *          tags: [ESTIMATION]
  *          parameters:
  *              -   in : path
  *                  name: id
- *                  description: ID of Role
+ *                  description: ID of Estimation
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Deleting a 'Role' in the database
+ *          description: Deleting a 'Estimation' in the database
  *          responses: 
  *              200:
- *                  description: Delete Role by ID
+ *                  description: Delete Estimation by ID
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Role supprimé
+ *                              message: Estimation supprimée
  *              400:
- *                description: Erreur lors de la suppression du role
+ *                description: Erreur lors de la suppression de l'estimation
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Erreur survenue lors de la suppression d\'un role par son ID
+ *                            message: Erreur survenue lors de la suppression d\'une estimation par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
    
