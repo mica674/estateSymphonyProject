@@ -1,17 +1,17 @@
-const { where } = require('sequelize');
+// const { where } = require('sequelize');
 const db = require('../../models/index.js');
-const propertiesTable = db['Estimations'];
+const estimationsTable = db['Estimations'];
 
-const createEstimations = async (req, res)  =>{
+const createEstimation = async (req, res)  =>{
 
     try {
 
         const data = { ...req.body};
-        const newEstimations = await estimationsTable.create(data);
+        const newEstimation = await estimationsTable.create(data);
 
         res.status(200).send({
-            message: 'Create',
-            data: newEstimations
+            message: 'Estimation créée',
+            data: newEstimation
         })
         
     } catch (error) {
@@ -24,10 +24,8 @@ const createEstimations = async (req, res)  =>{
         })
     }
 }
-const modifyEstimations = async (req, res) =>{
-
+const modifyEstimation = async (req, res) =>{
     try {
-
         const {location, houseType, surface, showerRoom, room, floor, balcony, parking} = req.body;
         const idEstimations = req.params.id;
         const updateEstimations = await estimationsTable.update(
@@ -46,7 +44,7 @@ const modifyEstimations = async (req, res) =>{
         
             if(updateEstimations[0] == 1){
                 res.status(200).send({
-                    message : 'Estimations modifié'
+                    message : 'Estimation modifiée'
                 })
             }
 
@@ -61,15 +59,15 @@ const modifyEstimations = async (req, res) =>{
     }
 
 }
-const getEstimation = async (req, res) => {
+const getEstimationID = async (req, res) => {
 
     try {
-        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const propertie = await propertiesTable.findByPk(req.params.id, {include: 'roles'});
+        //  Récupération de l'estimation avec son id passé en paramètre d'URL
+        const estimation = await estimationsTable.findByPk(req.params.id);
         
         res.status(200).send({
-            message : `Bonjour ${user.firstname} ${user.firstname}`, 
-            data:propertie
+            message : `Estimation id = ${estimation.id}`, 
+            data: estimation
         })
 
     } catch (error) {
@@ -82,14 +80,14 @@ const getEstimation = async (req, res) => {
         })
     }
 }
-const getAllEstimations = async (req, res) =>{
+const getEstimations = async (req, res) =>{
     try {
-        //  Récupération de tous les utilisateurs
+        //  Récupération de toutes les estimations
         const estimations = await estimationsTable.findAll();
 
-        //  Envoie de tous les utilisateurs
+        //  Envoie de toutes les estimations
         res.status(200).send({
-            message : 'select',
+            message : 'select all',
             data : estimations
         })
 
@@ -102,13 +100,12 @@ const getAllEstimations = async (req, res) =>{
         })
     }
 }
-const deleteEstimations = async (req, res) =>{
+const deleteEstimation = async (req, res) =>{
     try {
 
-        const deleteProperties = await propertiesTable.destroy({where :{id:req.params.id} });
+        await estimationsTable.destroy({where :{id:req.params.id} });
         res.status(201).send({
-            message : 'Deleted',
-            data : deleteProperties
+            message : 'Estimation deleted'
         })
 
     } catch (error) {
@@ -120,5 +117,5 @@ const deleteEstimations = async (req, res) =>{
         })
     }
 }
-module.exports = {createEstimations, getEstimation, getAllEstimations, modifyEstimations, deleteEstimations };
+module.exports = {createEstimation, getEstimationID, getEstimations, modifyEstimation, deleteEstimation };
 

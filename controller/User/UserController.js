@@ -46,11 +46,12 @@ const createUser = async (req, res) => {
                 message: 'L\'adresse e-mail existe déjà.',
                 error: error.message
             });
+        } else if (true) {
+            res.status(400).send({
+                message: 'Une erreur est survenue.',
+                error: error.message
+            })
         }
-        res.status(400).send({
-            message: 'Une erreur est survenue.',
-            error: error.message
-        })
 
         // res.status(401).send({
         //     message: 'Vous n\'êtes pas autorisé.',

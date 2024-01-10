@@ -487,25 +487,216 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
    
+//  ESTIMATIONS
+    //  GET BY ID
+/**
+ * @swagger
+ * /estimation/{id}:
+ *      get:
+ *          summary: To find a 'Estimation' with his ID
+ *          tags: [ESTIMATION]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of Estimation
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un role par son ID
+ *          responses: 
+ *              200:
+ *                  description: Role by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: Role 2
+ *                          data:
+ *                              id: 2
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la récupétion du role
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d\'un role par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ */
+    //  GET ALL
+/**
+ * @swagger
+ * /roles:
+ *      get:
+ *          summary: Récupérer tous les roles de la base de données
+ *          tags: [ROLE]
+ *          description: Récupère tous les roles ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Role by ID
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all
+ *                         data: 
+ *                             -   id: 1
+ *                                 name: Admin
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -   id: 2
+ *                                 name: Manager
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 3
+ *                                 name: Employee
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 4
+ *                                 name: User
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *              400:
+ *                  description: Erreur lors de la récupétion du role
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d\'un role par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  CREATE
+/**
+ * @swagger
+ * /role/create:
+ *  post:
+ *      summary: Créer un nouveau role
+ *      tags: [ROLE]
+ *      description: Crée un nouveau role dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name:
+ *                              type: string
+ *                              description: Nom du role
+ *      responses:
+ *          200:
+ *              description: Role créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Role créé
+ *                          data: 
+ *                              id: 25
+ *                              name: SuperAdmin
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          400:
+ *              description: Erreur lors de la création de l'utilisateur
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: L'adresse email existe déjà
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  MODIFY 
+/**
+ * @swagger
+ * /modifyRole/{id}:
+ *  put:
+ *      summary: Modifier le nom d'un role
+ *      tags: [ROLE]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du role
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie le nom d'un role dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name:
+ *                              type: string
+ *                              description: Nom du role
+ *      responses:
+ *          200:
+ *              description: Nom du role modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Role modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du role
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du nom du role
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  DELETE
+ /**
+ * @swagger
+ * /role/{id}:
+ *      delete:
+ *          summary: To delete a 'Role' with his ID
+ *          tags: [ROLE]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of Role
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Deleting a 'Role' in the database
+ *          responses: 
+ *              200:
+ *                  description: Delete Role by ID
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Role supprimé
+ *              400:
+ *                description: Erreur lors de la suppression du role
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d\'un role par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+   
 
 
-
+ // INITIALISATION DES CONSTANTES
+    //ROUTER
 const express = require('express');
-const {specs, swaggerUi} = require('../Swagger/swaggerConfig')
 const router = express.Router();
+    //SWAGGER
+const {specs, swaggerUi} = require('../Swagger/swaggerConfig')
 
 //------------------------------------- USER ---------------------------------------
 const UserController = require('../controller/User/UserController')
+//------------------------------------- ROLE ---------------------------------------
+const roleController = require('../controller/Roles/RolesController');
+//------------------------------------- ESTIMATIONS ----------------------------------
+const estimationController = require('../controller/Estimations/EstimationsController');
+//------------------------------------- MESSAGES ----------------------------------
+const messageController = require('../controller/Messages/MessagesController');
+
+
 
 //------------------------------------- PROPERTIES ----------------------------------
 const {createProperties} = require ('../controller/Properties/PropertiesController');
-
-//------------------------------------- ESTIMATIONS ----------------------------------
-//------------------------------------- ROLE ---------------------------------------
-const roleController = require('../controller/Roles/RolesController');
-
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+    //  RACINE
 router.get('/', (req, res) => {
     res.status(200).json({
         message: 'Bonjour'
@@ -514,7 +705,6 @@ router.get('/', (req, res) => {
 
 
 //------------------------------------- ROLE ROUTER ---------------------------------------
-
 router.get('/roles/:id', roleController.getRole);//S
 router.get('/roles', roleController.getAllRoles);//S
 router.post('/role', roleController.createRole);//S
@@ -532,16 +722,23 @@ router.put('/user/modifyPassword', UserController.middleWare, UserController.mod
 router.put('/user/modify', UserController.middleWare, UserController.modify);//S
 // router.put('/user/modifyEmail', UserController.middleWare, UserController.modifyEmail);
 
+//------------------------------------- ESTIMATIONS ROUTER ---------------------------------
+router.post('/estimation/create', estimationController.createEstimation);
+router.put('/estimation/modify/:id', estimationController.modifyEstimation);
+router.get('/estimation/:id', estimationController.getEstimationID);
+router.get('/estimations', estimationController.getEstimations);
+router.delete('/estimation/delete/:id', estimationController.deleteEstimation);
+
+//------------------------------------- MESSAGES ROUTER ---------------------------------
+router.post('/message/create', messageController.createMessage);
+router.put('/message/modify/:id', messageController.modifyMessage);
+router.get('/message/:id', messageController.getMessageID);
+router.get('/messages', messageController.getMessages);
+router.delete('/message/delete/:id', messageController.deleteMessage);
 
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
 router.post('/createProperties', createProperties);
 
-
-//------------------------------------- ESTIMATIONS ROUTER ---------------------------------
-/*router.post('/createEstimations', createEstimations);
-router.put('/modifyEstimations', modifyEstimations);
-router.get('/viewsEstimations', viewEstimations);
-router.put('/delectedEstimations', delectedEstimations);*/
 
 //router.get('/me', middleWare );
 

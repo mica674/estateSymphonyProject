@@ -1,13 +1,13 @@
 const db = require('../../models/index.js');
 const messagesTable = db['Messages'];
 
-const getMessage = async (req,res)=>{
+const getMessageID = async (req, res)=>{
     try {
         const message = await messagesTable.findByPk(req.params.id);
 
         res.status(200).send({
-            message: `Messageaire ${message.id}`,
-            data:message
+            message: `Message id : ${message.id}`,
+            data:   message
         })
     } catch (error) {
         res.status(400).send({
@@ -17,13 +17,13 @@ const getMessage = async (req,res)=>{
     }
 }
 
-const getAllMessages = async (req,res)=>{
+const getMessages = async (req, res)=>{
     try {
         const messages = await messagesTable.findAll();
 
         res.status(200).send({
             message : 'select all',
-            data:messages
+            data:   messages
         })
 
     } catch (error) {
@@ -34,14 +34,14 @@ const getAllMessages = async (req,res)=>{
     }
 }
 
-const createMessages = async (req,res)=>{
+const createMessage = async (req, res)=>{
     try {
         let data = {...req.body};
-        const newMessages = await messagesTable.create(data);
+        const newMessage = await messagesTable.create(data);
         
         res.status(200).send({
-            message : 'Messages créé',
-            data: newMessages
+            message : 'Message créé',
+            data: newMessage
         })
     } catch (error) {
         res.status(400).send({
@@ -51,19 +51,19 @@ const createMessages = async (req,res)=>{
     }
 }
 
-const modifyMessages = async (req,res)=>{
+const modifyMessage = async (req, res)=>{
     try {
         const {message} = req.body;
-        const idMessages = req.params.id;
+        const idMessage = req.params.id;
         const updateMessages = await messagesTable.update(
             {message : message},
             {where :{
-                    id : idMessages
+                    id : idMessage
                 }
             })
             if(updateMessages[0] == 1){
                 res.status(200).send({
-                    message : 'Messages modifié'
+                    message : 'Message modifié'
                 })
             }
     } catch (error) {
@@ -74,13 +74,12 @@ const modifyMessages = async (req,res)=>{
     }
 }
 
-const deleteMessages =async (req, res)=>{
+const deleteMessage =async (req,  res)=>{
     try {
-        const idMessages = req.params.id;
+        const idMessage = req.params.id;
         const deletedMessage = await messagesTable.destroy({
             where  : {id : idMessage}
         })
-        console.log(deletedMessage);
         if (deletedMessage == 1) {
             res.status(200).send({
                 message: 'Message supprimé'
@@ -94,4 +93,4 @@ const deleteMessages =async (req, res)=>{
     }
 }
 
-module.exports = {getMessage, getAllMessages, createMessages, modifyMessages, deleteMessages}
+module.exports = {getMessageID, getMessages, createMessage, modifyMessage, deleteMessage}
