@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       surface: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER //ATTENTION C'EST BIEN UN INTEGER PAS UN STRING
       },
       showerRoom: {
         type: Sequelize.INTEGER
@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       parking: {
-        type: Sequelize.STRING
+        type: Sequelize.BOOLEAN  //ATTENTION C'EST BIEN UN BOOLEAN PAS UN STRING
       },
       idUsers: {
         type: Sequelize.INTEGER,

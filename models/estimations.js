@@ -17,12 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   Estimations.init({
     location: DataTypes.STRING,
     houseType: DataTypes.STRING,
-    surface: DataTypes.STRING,
+    surface: DataTypes.INTEGER, //ATTENTION C'EST BIEN UN INTEGER PAS UN STRING
     showerRoom: DataTypes.INTEGER,
     room: DataTypes.INTEGER,
     floor: DataTypes.INTEGER,
     balcony: DataTypes.INTEGER,
-    parking: DataTypes.STRING,
+    parking: DataTypes.BOOLEAN, //ATTENTION C'EST BIEN UN BOOLEAN PAS UN STRING
     idUsers: DataTypes.INTEGER
   }, {
     sequelize,

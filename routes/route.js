@@ -1,82 +1,5 @@
 //SWAGGER
 //  USER
-    //  CREATE
-/**
- * @swagger
- * /user/create:
- *  post:
- *      summary: Créer un nouvel utilisateur
- *      tags: [USER]
- *      description: Crée un nouvel utilisateur dans la base de données
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          email:
- *                              type: string
- *                              description: Email de l'utilisateur
- *                          password:
- *                              type: string
- *                              description: Mot de passe de l'utilisateur
- *      responses:
- *          200:
- *              description: Utilisateur créé avec succès
- *              content:
- *                  application/json:
- *                      example:
- *                          message: Create
- *                          data: 
- *                              email: contact-amiens@lamanu.fr
- *                              password: $2b$12$FRE3BYhXhUyfeOI/ryIs3OG/ZomZJbO7QiPwslNAFEdDkBU8z1Mt
- *          400:
- *              description: Erreur lors de la création de l'utilisateur
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: L'adresse email existe déjà
- *                          error: Message de l'erreur spécifique le cas échéant
-*/
-    //  LOGIN
-/**
- * @swagger
- * /login:
- *  post:
- *      summary: Connexion d'un nouvel utilisateur
- *      tags: [USER]
- *      description: Connecte un nouvel utilisateur
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          email:
- *                              type: string
- *                              description: Email de l'utilisateur
- *                          password:
- *                              type: string
- *                              description: Mot de passe de l'utilisateur
- *      responses:
- *          200:
- *              description: Utilisateur connecté avec succès
- *              content:
- *                  application/json:
- *                      example:
- *                          message: Login successed
- *                          data: 
- *                              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFsYmVydGxlYmVhdWdvc3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwNDc5NTEyMCwiZXhwIjoxNzA0ODgxNTIwfQ.lBRfXtbc-TH8oPQv3kgb04D9xEqarU7IQF0qHNO2rz4
- *          400:
- *              description: Erreur lors de la connexion de l'utilisateur
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: La connexion a échouée
- *                          error: Message de l'erreur spécifique le cas échéant
-*/
     //  GET BY ID
 /**
  * @swagger
@@ -153,7 +76,7 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son EMAIL
  *                          error: Message de l'erreur spécifique le cas échéant
- */
+*/
     //  GET ALL
 /**
  * @swagger
@@ -177,7 +100,7 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs
  *                          error: Message de l'erreur spécifique le cas échéant
- */
+*/
     //  GET ALL BY ID ROLE
 /**
  * @swagger
@@ -207,6 +130,83 @@
  *                  application/json:
  *                      example:
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs avec un role spécifique
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  CREATE
+/**
+* @swagger
+* /user/create:
+*  post:
+*      summary: Créer un nouvel utilisateur
+*      tags: [USER]
+*      description: Crée un nouvel utilisateur dans la base de données
+*      requestBody:
+*          required: true
+*          content:
+*              application/json:
+*                  schema:
+*                      type: object
+*                      properties:
+*                          email:
+*                              type: string
+*                              description: Email de l'utilisateur
+*                          password:
+*                              type: string
+*                              description: Mot de passe de l'utilisateur
+*      responses:
+*          200:
+*              description: Utilisateur créé avec succès
+*              content:
+*                  application/json:
+*                      example:
+*                          message: Create
+*                          data: 
+*                              email: contact-amiens@lamanu.fr
+*                              password: $2b$12$FRE3BYhXhUyfeOI/ryIs3OG/ZomZJbO7QiPwslNAFEdDkBU8z1Mt
+*          400:
+*              description: Erreur lors de la création de l'utilisateur
+*              content: 
+*                  application/json:
+*                      example:
+*                          message: L'adresse email existe déjà
+*                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  LOGIN
+/**
+ * @swagger
+ * /login:
+ *  post:
+ *      summary: Connexion d'un nouvel utilisateur
+ *      tags: [USER]
+ *      description: Connecte un nouvel utilisateur
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          email:
+ *                              type: string
+ *                              description: Email de l'utilisateur
+ *                          password:
+ *                              type: string
+ *                              description: Mot de passe de l'utilisateur
+ *      responses:
+ *          200:
+ *              description: Utilisateur connecté avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Login successed
+ *                          data: 
+ *                              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFsYmVydGxlYmVhdWdvc3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwNDc5NTEyMCwiZXhwIjoxNzA0ODgxNTIwfQ.lBRfXtbc-TH8oPQv3kgb04D9xEqarU7IQF0qHNO2rz4
+ *          400:
+ *              description: Erreur lors de la connexion de l'utilisateur
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: La connexion a échouée
  *                          error: Message de l'erreur spécifique le cas échéant
 */
     //  MODIFY PASSWORD
@@ -330,7 +330,7 @@
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
- *              description: Erreur lors de la récupétion du role
+ *              description: Erreur lors de la récupération du role
  *              content: 
  *                  application/json:
  *                      example:
@@ -347,7 +347,7 @@
  *          description: Récupère tous les roles ajoutés dans la base de données
  *          responses: 
  *              200:
- *                  description: Role by ID
+ *                  description: Roles ALL
  *                  content:
  *                      application/json:
  *                        example:
@@ -370,11 +370,11 @@
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *              400:
- *                  description: Erreur lors de la récupétion du role
+ *                  description: Erreur lors de la récupération des roles
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération d\'un role par son ID
+ *                              message: Erreur survenue lors de la récupération de tous les roles
  *                              error: Message de l'erreur spécifique le cas échéant
  */
     //  CREATE
@@ -487,7 +487,7 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
    
-//  ESTIMATIONS
+//  ESTIMATION
     //  GET BY ID
 /**
  * @swagger
@@ -502,74 +502,74 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Obtenir un role par son ID
+ *          description: Obtenir une estimation par son ID
  *          responses: 
  *              200:
- *                  description: Role by ID
+ *                  description: Estimation by ID
  *                  content:
  *                  application/json:
  *                      example:
- *                          message: Role 2
+ *                          message: Estimation 2
  *                          data:
  *                              id: 2
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
- *              description: Erreur lors de la récupétion du role
+ *              description: Erreur lors de la récupération de l'estimation
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Erreur survenue lors de la récupération d\'un role par son ID
+ *                          message: Erreur survenue lors de la récupération d\'une estimation par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
     //  GET ALL
 /**
  * @swagger
- * /roles:
+ * /estimations:
  *      get:
- *          summary: Récupérer tous les roles de la base de données
- *          tags: [ROLE]
- *          description: Récupère tous les roles ajoutés dans la base de données
+ *          summary: Récupérer toutes les estimations de la base de données
+ *          tags: [ESTIMATION]
+ *          description: Récupère toutes les estimations ajoutées dans la base de données
  *          responses: 
  *              200:
- *                  description: Role by ID
+ *                  description: Estimations ALL
  *                  content:
  *                      application/json:
  *                        example:
  *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: Admin
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                                 name: A MODIFIER APRES TEST
+ *                                 createdAt: 
+ *                                 updatedAt: 
  *                             -   id: 2
  *                                 name: Manager
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 createdAt: 
+ *                                 updatedAt: 
  *                             -   id: 3
  *                                 name: Employee
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 createdAt: 
+ *                                 updatedAt: 
  *                             -   id: 4
  *                                 name: User
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 createdAt: 
+ *                                 updatedAt: 
  *              400:
- *                  description: Erreur lors de la récupétion du role
+ *                  description: Erreur lors de la récupération de toutes les estimations
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération d\'un role par son ID
+ *                              message: Erreur survenue lors de la récupération de toutes les estimations
  *                              error: Message de l'erreur spécifique le cas échéant
  */
     //  CREATE
 /**
  * @swagger
- * /role/create:
+ * /estimation/create:
  *  post:
- *      summary: Créer un nouveau role
- *      tags: [ROLE]
- *      description: Crée un nouveau role dans la base de données
+ *      summary: Créer une nouvelle estimation
+ *      tags: [ESTIMATION]
+ *      description: Crée une nouvelle estimation dans la base de données
  *      requestBody:
  *          required: true
  *          content:
@@ -577,45 +577,69 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          name:
+ *                          location:
  *                              type: string
- *                              description: Nom du role
+ *                              description: Type de vente (achat/vente ou location) du bien
+ *                          houseType:
+ *                              type: string
+ *                              description: Type de bien (maison, appartement ...)
+ *                          surface:
+ *                              type: integer
+ *                              description: Surface en m²
+ *                          showerRoom:
+ *                              type: integer
+ *                              description: Nombre de pièces d'eau (salle de bain, salle de douche ...)
+ *                          room:
+ *                              type: integer
+ *                              description: Nombre de pièces du bien
+ *                          floor:
+ *                              type: integer
+ *                              description: Nombre d'étage du bien
+ *                          balcony:
+ *                              type: integer
+ *                              description: Balcon/Terrasse
+ *                          parking:
+ *                              type: boolean
+ *                              description: Présence d'une place parking (true/false)
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur demandeur de l'estimation
  *      responses:
  *          200:
- *              description: Role créé avec succès
+ *              description: Estimation créée avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Role créé
+ *                          message: Estimation créée
  *                          data: 
  *                              id: 25
- *                              name: SuperAdmin
+ *                              name: A MODIFIER APRES TEST
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
- *              description: Erreur lors de la création de l'utilisateur
+ *              description: Erreur lors de la création de l'estimation
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: L'adresse email existe déjà
+ *                          message: Une erreur est survenue lors de la création d'une estimation
  *                          error: Message de l'erreur spécifique le cas échéant
 */
     //  MODIFY 
 /**
  * @swagger
- * /modifyRole/{id}:
+ * /modifyEstimation/{id}:
  *  put:
- *      summary: Modifier le nom d'un role
- *      tags: [ROLE]
+ *      summary: Modifier les informations d'une estimation
+ *      tags: [ESTIMATION]
  *      parameters:
  *          -   in: path
  *              name: id
  *              required: true
- *              description: ID du role
+ *              description: ID de l'estimation
  *              schema:
  *                  type: integer
  *                  required: true
- *      description: Modifie le nom d'un role dans la base de données
+ *      description: Modifie les informations d'une estimation dans la base de données d'après son ID
  *      requestBody:
  *          required: true
  *          content:
@@ -623,22 +647,46 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          name:
+ *                          location:
  *                              type: string
- *                              description: Nom du role
+ *                              description: Type de vente (achat/vente ou location) du bien
+ *                          houseType:
+ *                              type: string
+ *                              description: Type de bien (maison, appartement ...)
+ *                          surface:
+ *                              type: integer
+ *                              description: Surface en m²
+ *                          showerRoom:
+ *                              type: integer
+ *                              description: Nombre de pièces d'eau (salle de bain, salle de douche ...)
+ *                          room:
+ *                              type: integer
+ *                              description: Nombre de pièces du bien
+ *                          floor:
+ *                              type: integer
+ *                              description: Nombre d'étage du bien
+ *                          balcony:
+ *                              type: integer
+ *                              description: Balcon/Terrasse
+ *                          parking:
+ *                              type: boolean
+ *                              description: Présence d'une place parking (true/false)
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur demandeur de l'estimation
  *      responses:
  *          200:
- *              description: Nom du role modifié avec succès
+ *              description: Informations de l'estimation modifiées avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Role modifié avec succès
+ *                          message: Estimation modifiée avec succès
  *          400:
- *              description: Erreur lors de la modification du role
+ *              description: Erreur lors de la modification des informations de l'estimation
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du nom du role
+ *                          message: Echec de la modification des informations de l'estimation
  *                          error: Message de l'erreur spécifique le cas échéant
 */
     //  DELETE
@@ -672,6 +720,197 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
    
+ //  MESSAGE
+    //  GET BY ID
+/**
+ * @swagger
+ * /message/{id}:
+ *      get:
+ *          summary: To find a 'Message' with his ID
+ *          tags: [MESSAGE]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of Message
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un message par son ID
+ *          responses: 
+ *              200:
+ *                  description: Message by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: Message id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la récupération du message
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d\'un message par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ */
+    //  GET ALL
+/**
+ * @swagger
+ * /messages:
+ *      get:
+ *          summary: Récupérer tous les messages de la base de données
+ *          tags: [MESSAGE]
+ *          description: Récupère tous les messages ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Messages ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all
+ *                         data: 
+ *                             -   id: 1
+ *                                 name: MODIFIER APRES TEST
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -   id: 2
+ *                                 name: Manager
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 3
+ *                                 name: Employee
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 4
+ *                                 name: User
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *              400:
+ *                  description: Erreur lors de la récupération des messages
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les messages
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  CREATE
+/**
+ * @swagger
+ * /message/create:
+ *  post:
+ *      summary: Créer un nouveau message
+ *      tags: [MESSAGE]
+ *      description: Crée un nouveau message dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          message:
+ *                              type: string
+ *                              description: Contenu du message
+ *                          userIdSender:
+ *                              type: integer
+ *                              description: ID de l'utilisateur expéditeur du message
+ *                          userIdReceiver:
+ *                              type: integer
+ *                              description: ID de l'utilisateur destinataire du message
+ *      responses:
+ *          200:
+ *              description: Message créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Message créé
+ *                          data: 
+ *                              id: 25
+ *                              name: A MODIFIER APRES TEST
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          400:
+ *              description: Erreur lors de la création du message
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du message
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  MODIFY 
+/**
+ * @swagger
+ * /modifyMessage/{id}:
+ *  put:
+ *      summary: Modifier le contenu d'un message
+ *      tags: [MESSAGE]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du message
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie le contenu d'un message dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          message:
+ *                              type: string
+ *                              description: Contenu du message
+ *      responses:
+ *          200:
+ *              description: Contenu du message modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Message modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du message
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du contenu du message
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  DELETE
+ /**
+ * @swagger
+ * /message/delete/{id}:
+ *      delete:
+ *          summary: To delete a 'Message' with his ID
+ *          tags: [MESSAGE]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of Message
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Deleting a 'Message' in the database
+ *          responses: 
+ *              200:
+ *                  description: Delete Message by ID
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Message supprimé
+ *              400:
+ *                description: Erreur lors de la suppression du message
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d\'un message par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
 
 
  // INITIALISATION DES CONSTANTES
@@ -726,28 +965,28 @@ router.put('/modifyRole/:id', roleController.modifyRole);//S
 router.delete('/role/:id', roleController.deleteRole);//S
 
 //------------------------------------- USER ROUTER ---------------------------------------
-router.post('/user/create', userController.createUser);//S
 router.get('/user/id/:id', userController.getUserId);//S
 router.get('/user/email/:email', userController.getUserEmail);//S
 router.get('/users', userController.getAllUser);//S
 router.get('/users/:idRole', userController.getAllUserByIdRole);//S
+router.post('/user/create', userController.createUser);//S
 router.post('/login', userController.loginUser);//S
 router.put('/user/modifyPassword', userController.middleWare, userController.modifyPassword);//S
 router.put('/user/modify', userController.middleWare, userController.modify);//S
 // router.put('/user/modifyEmail', UserController.middleWare, UserController.modifyEmail);
 
 //------------------------------------- ESTIMATIONS ROUTER ---------------------------------
-router.post('/estimation/create', estimationController.createEstimation);
-router.put('/estimation/modify/:id', estimationController.modifyEstimation);
 router.get('/estimation/:id', estimationController.getEstimationID);
 router.get('/estimations', estimationController.getEstimations);
+router.post('/estimation/create', estimationController.createEstimation);
+router.put('/estimation/modify/:id', estimationController.modifyEstimation);
 router.delete('/estimation/delete/:id', estimationController.deleteEstimation);
 
 //------------------------------------- MESSAGES ROUTER ---------------------------------
-router.post('/message/create', messageController.createMessage);
-router.put('/message/modify/:id', messageController.modifyMessage);
 router.get('/message/:id', messageController.getMessageID);
 router.get('/messages', messageController.getMessages);
+router.post('/message/create', messageController.createMessage);
+router.put('/message/modify/:id', messageController.modifyMessage);
 router.delete('/message/delete/:id', messageController.deleteMessage);
 
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
