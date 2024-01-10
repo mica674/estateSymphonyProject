@@ -495,7 +495,6 @@ const {specs, swaggerUi} = require('../Swagger/swaggerConfig')
 const router = express.Router();
 
 //------------------------------------- USER ---------------------------------------
-<<<<<<< HEAD
 const userController = require('../controller/User/UserController');
 //------------------------------------- ROLE ---------------------------------------
 const roleController = require('../controller/Roles/RolesController');
@@ -517,19 +516,8 @@ const messagesController= require ('../controller/Messages/MessagesController');
 const photosMiddleware= require ('../middleware/Photos/PhotosMiddleware');
 //------------------------------------- CLIENT FOLDERS ------------------------------
 const clientFolderController = require ('../controller/Client Folder/ClientFolderController');
+//------------------------------------- PHOTOS FOLDERS ------------------------------
 const PhotosMiddleware = require('../middleware/Photos/PhotosMiddleware');
-=======
-const UserController = require('../controller/User/UserController')
-
-//------------------------------------- PROPERTIES ----------------------------------
-const {createProperties} = require ('../controller/Properties/PropertiesController');
-
-//------------------------------------- ESTIMATIONS ----------------------------------
-//------------------------------------- ROLE ---------------------------------------
-const roleController = require('../controller/Roles/RolesController');
-
-router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
->>>>>>> 9496c87545d4924e7d95957cbef12e45a2316bb6
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -537,14 +525,6 @@ router.get('/', (req, res) => {
     })
 })
 
-<<<<<<< HEAD
-//------------------------------------- ROLE ROUTER ---------------------------------------
-router.get('/roles/:id', roleController.getRole);
-router.get('/roles', roleController.getAllRoles);
-router.post('/role', roleController.createRole);
-router.put('/modifyRole/:id', roleController.modifyRole);
-router.delete('/role/:id', roleController.deleteRole);
-=======
 
 //------------------------------------- ROLE ROUTER ---------------------------------------
 
@@ -555,24 +535,23 @@ router.put('/modifyRole/:id', roleController.modifyRole);//S
 router.delete('/role/:id', roleController.deleteRole);//S
 
 //------------------------------------- USER ROUTER ---------------------------------------
-router.post('/user/create', UserController.createUser);//S
-router.get('/user/id/:id', UserController.getUserId);//S
-router.get('/user/email/:email', UserController.getUserEmail);//S
-router.get('/users', UserController.getAllUser);//S
-router.get('/users/:idRole', UserController.getAllUserByIdRole);//S
-router.post('/login', UserController.loginUser);//S
-router.put('/user/modifyPassword', UserController.middleWare, UserController.modifyPassword);//S
-router.put('/user/modify', UserController.middleWare, UserController.modify);//S
+router.post('/user/create', userController.createUser);//S
+router.get('/user/id/:id', userController.getUserId);//S
+router.get('/user/email/:email', userController.getUserEmail);//S
+router.get('/users', userController.getAllUser);//S
+router.get('/users/:idRole', userController.getAllUserByIdRole);//S
+router.post('/login', userController.loginUser);//S
+router.put('/user/modifyPassword', userController.middleWare, userController.modifyPassword);//S
+router.put('/user/modify', userController.middleWare, userController.modify);//S
 // router.put('/user/modifyEmail', UserController.middleWare, UserController.modifyEmail);
->>>>>>> 9496c87545d4924e7d95957cbef12e45a2316bb6
 
-//------------------------------------- USER ROUTER ---------------------------------------
+/*//------------------------------------- USER ROUTER ---------------------------------------
 router.get('/users/:id', userController.getUser);
 router.get('/users', userController.getAllUser);
 router.post('/users', userController.createUser);
 router.post('/login', userController.loginUser);
 router.put('/modifyPassword', userController.middleWare, userController.modifyPassword);
-router.put('/modifyEmail', userController.middleWare, userController.modifyEmail);
+router.put('/modifyEmail', userController.middleWare, userController.modifyEmail);*/
 
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
 router.post('/createProperties', photosMiddleware.upload, propertieController.createProperties);

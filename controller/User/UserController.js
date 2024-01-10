@@ -96,35 +96,9 @@ const loginUser = async (req, res, next) => {
     } catch (error) {
 
         res.status(400).send({
-<<<<<<< HEAD
             message : 'Erreur de synthaxe de la requête.',
             error : error.message
         })    
-=======
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
-
-        // res.status(401).send({
-        //     message: 'Vous n\'êtes pas autorisé.',
-        //     error: error.message
-        // })
-
-        // res.status(403).send({
-        //     message: 'Vous n\'avez pas les droits d\'accès.',
-        //     error: error.message
-        // })
-
-        // res.status(404).send({
-        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
-        //     error: error.message
-        // })
-
-        // res.status(500).send({
-        //     message: 'Erreur serveur.',
-        //     error: error.message
-        // })
->>>>>>> 9496c87545d4924e7d95957cbef12e45a2316bb6
     }
 
 }
