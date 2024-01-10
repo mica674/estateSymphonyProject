@@ -286,7 +286,7 @@ const modifyPassword = async (req, res) => {
         });
 
         res.status(200).send({
-            message: 'Vous avez bien modifié votre mot de passe',
+            message: 'Mot de passe modifié',
             data: newPassword
         })
 

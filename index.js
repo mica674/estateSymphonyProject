@@ -17,4 +17,4 @@ app.listen(port, hostname, () => {
 })
 
 //test email
-require ('./NodeMailerTest.js');
+// require ('./NodeMailerTest.js');
