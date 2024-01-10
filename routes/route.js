@@ -694,29 +694,29 @@
  * @swagger
  * /role/{id}:
  *      delete:
- *          summary: To delete a 'Role' with his ID
- *          tags: [ROLE]
+ *          summary: To delete a estimation with his ID
+ *          tags: [ESTIMATION]
  *          parameters:
  *              -   in : path
  *                  name: id
- *                  description: ID of Role
+ *                  description: ID of estimation
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Deleting a 'Role' in the database
+ *          description: Deleting a 'ESTIMATION' in the database
  *          responses: 
  *              200:
- *                  description: Delete Role by ID
+ *                  description: Delete estimation by ID
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Role supprimé
+ *                              message: estimation supprimé
  *              400:
- *                description: Erreur lors de la suppression du role
+ *                description: Erreur lors de la suppression du estimation
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Erreur survenue lors de la suppression d\'un role par son ID
+ *                            message: Erreur survenue lors de la suppression d\'une estimation par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
    
@@ -910,6 +910,392 @@
  *                            message: Erreur survenue lors de la suppression d\'un message par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
+
+//  CLIENT FOLDERS
+    //  GET BY ID
+/**
+ * @swagger
+ * /clientfolder/{id}:
+ *      get:
+ *          summary: Pour trouver un dossier client avec son ID
+ *          tags: [CLIENTFOLDERS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of ClientFolders
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un ClientFolder par son ID
+ *          responses: 
+ *              200:
+ *                  description: ClientFolders by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          ClientFolders: ClientFolders id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la récupération du dossier client 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération du dossier client par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ */
+    //  GET ALL
+/**
+ * @swagger
+ * /clientFolders:
+ *      get:
+ *          summary: Récupérer tous les dossiers clients de la base de données
+ *          tags: [CLIENTFOLDERS]
+ *          description: Récupère tous les dossiers clients ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Messages ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all
+ *                         data: 
+ *                             -   id: 1
+ *                                 name: MODIFIER APRES TEST
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -   id: 2
+ *                                 name: Manager
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 3
+ *                                 name: Employee
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 4
+ *                                 name: User
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *              400:
+ *                  description: Erreur lors de la récupération des dossiers clients
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les dossiers clients
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  CREATE
+/**
+ * @swagger
+ * /clientFoldersCreate:
+ *  post:
+ *      summary: Créer un nouveau dossier client
+ *      tags: [CLIENTFOLDERS]
+ *      description: Crée un nouveau dossier client dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          message:
+ *                              type: string
+ *                              description: Contenu du dossier client
+ *                          userIdSender:
+ *                              type: integer
+ *                              description: ID de l'utilisateur expéditeur du dossier client
+ *                          userIdReceiver:
+ *                              type: integer
+ *                              description: ID de l'utilisateur destinataire du dossier client
+ *      responses:
+ *          200:
+ *              description: Dossier client créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Dossier client créé
+ *                          data: 
+ *                              id: 25
+ *                              name: A MODIFIER APRES TEST
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          400:
+ *              description: Erreur lors de la création du dossier client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du dossier client
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  MODIFY 
+/**
+ * @swagger
+ * /modifyClientFolders/{id}:
+ *  put:
+ *      summary: Modifier le contenu d'un dossier client
+ *      tags: [CLIENTFOLDERS]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du dossier client
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie le contenu d'un dossier client dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          message:
+ *                              type: string
+ *                              description: Contenu du dossier client
+ *      responses:
+ *          200:
+ *              description: Contenu du dossier client modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: dossier client modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du dossier client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du contenu du dossier client
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  DELETE
+ /**
+ * @swagger
+ * /clientFolder/delete/{id}:
+ *      delete:
+ *          summary: POur supprimer un dossier client avec son ID
+ *          tags: [CLIENTFOLDERS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du dossier client
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprimé le dossier client dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression du message par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Dossier client supprimé
+ *              400:
+ *                description: Erreur lors de la suppression du dossier client
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression du dossier client par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+//  COMMENTS
+    //  GET BY ID
+/**
+ * @swagger
+ * /comment/{id}:
+ *      get:
+ *          summary: Pour trouver un commentaire avec son ID
+ *          tags: [COMMENTS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du commentaire
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un commentaire par son ID
+ *          responses: 
+ *              200:
+ *                  description: Commentaire par son ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          Comments: Comments id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la récupération du commentaire 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération du commentaire par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ */
+    //  GET ALL
+/**
+ * @swagger
+ * /getAllComments:
+ *      get:
+ *          summary: Récupérer tous les commentaires de la base de données
+ *          tags: [COMMENTS]
+ *          description: Récupère tous les commentaires ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Comments ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all
+ *                         data: 
+ *                             -   id: 1
+ *                                 name: MODIFIER APRES TEST
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -   id: 2
+ *                                 name: Manager
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 3
+ *                                 name: Employee
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 4
+ *                                 name: User
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *              400:
+ *                  description: Erreur lors de la récupération des commentaires
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les commentaires
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  CREATE
+/**
+ * @swagger
+ * /createComments:
+ *  post:
+ *      summary: Créer un nouveau commentaire
+ *      tags: [COMMENTS]
+ *      description: Crée un nouveau commentaire dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          message:
+ *                              type: string
+ *                              description: Contenu du commentaire
+ *                          userIdSender:
+ *                              type: integer
+ *                              description: ID de l'utilisateur expéditeur du commentaire
+ *                          userIdReceiver:
+ *                              type: integer
+ *                              description: ID de l'utilisateur destinataire du commentaire
+ *      responses:
+ *          200:
+ *              description: Commentaire créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Commentaire créé
+ *                          data: 
+ *                              id: 25
+ *                              name: A MODIFIER APRES TEST
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          400:
+ *              description: Erreur lors de la création du commentaire
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du commentaire
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  MODIFY 
+/**
+ * @swagger
+ * /modifyComments/{id}:
+ *  put:
+ *      summary: Modifier le contenu d'un commentaire
+ *      tags: [COMMENTS]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du commentaire
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie le contenu d'un commentaire dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          message:
+ *                              type: string
+ *                              description: Contenu du commentaire
+ *      responses:
+ *          200:
+ *              description: Contenu du commentaire modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Commentaire modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du commentaire
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du contenu du commentaire
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  DELETE
+ /**
+ * @swagger
+ * /delectedComments/{id}:
+ *      delete:
+ *          summary: Pour supprimer un commentaire avec son ID
+ *          tags: [COMMENTS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du commentaire
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprimé le commentaire dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression du message par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Commentaire supprimé
+ *              400:
+ *                description: Erreur lors de la suppression du commentaire
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression du commentaire par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
+
+
 
 
 
