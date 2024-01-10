@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Estimations.hasOne(models.User,{
-        foreignKey: 'idUsers'
-      });
+      //Estimations.hasOne(models.User);
     }
   }
   Estimations.init({

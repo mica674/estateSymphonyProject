@@ -8,15 +8,16 @@ module.exports = {
       descriptions: 'Ceci est une description',
       name: 'Laure Test', 
       createdAt : new Date(),
-    },
-  },
+    }, 
+    {
+      descriptions: 'Ceci est une description 1',
+      name: 'Laure Test2', 
+      createdAt : new Date(),
+    }
+  ], {});
+},
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+async down(queryInterface, Sequelize) {
+  return queryInterface.bulkDelete('Employees', null, {});
+}
 };

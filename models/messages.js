@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Messages.belongsTo(models.User, {
-        foreignKey : 'userId'
-      })
-      Messages.belongsTo(models.User, {
-        foreignKey : 'userId2'
-      })
+      // Messages.belongsTo(models.User, {
+      //   foreignKey : 'userId'
+      // })
+      // Messages.belongsTo(models.User, {
+      //   foreignKey : 'userId2'
+      // })
     }
   }
   Messages.init({

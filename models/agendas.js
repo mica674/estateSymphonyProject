@@ -12,9 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // console.log(models);
 
-      Agendas.hasOne(models.User,{
-        foreignKey: 'idUsers'
-      });
+      // Agendas.hasOne(models.User,);
       Agendas.hasOne(models.Employees,{
         foreignKey: 'idEmployee'
       });
