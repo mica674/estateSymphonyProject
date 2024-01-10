@@ -10,12 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     static associate(models) {
+<<<<<<< HEAD
       // console.log(models);
 
       // Agendas.hasOne(models.User,);
       Agendas.hasOne(models.Employees,{
         foreignKey: 'idEmployee'
       });
+=======
+      Agendas.belongsTo(models.User);
+      Agendas.belongsTo(models.Employees);
+>>>>>>> 9496c87545d4924e7d95957cbef12e45a2316bb6
     }
   }
   Agendas.init({
