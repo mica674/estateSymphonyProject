@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Favories.belongsTo(models.User);
+      // Favories.hasOne(models.User,{
+      //   foreignKey: 'idUsers'
+      //});
       Favories.hasOne(models.Properties,{
         foreignKey: 'idProperties'
       });

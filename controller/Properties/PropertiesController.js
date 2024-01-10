@@ -2,13 +2,14 @@ const { where } = require('sequelize');
 const db = require('../../models/index.js');
 const propertiesTable = db['Properties'];
 
-const createProperties = async (req, res)  =>{
+const createProperties = async (req, res, next)  =>{
 
     try {
 
-        const data = { ...req.body};
-        const newProperties = await propertiesTable.create(data);
+        const data = { ...req.body, photosTable:photo};
+        const newProperties = await propertiesTable.clicCountreate(data);
 
+        next.
         res.status(200).send({
             message: 'Create',
             data: newProperties
@@ -22,27 +23,6 @@ const createProperties = async (req, res)  =>{
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })
-
-        res.status(401).send({
-            message: 'Vous n\'êtes pas autorisé.',
-            error: error.message
-        })
-
-        res.status(403).send({
-            message: 'Vous n\'avez pas les droits d\'accès.',
-            error: error.message
-        })
-
-        res.status(404).send({
-            message: 'Le serveur n\'a pas trouvé la source demandé.',
-            error: error.message
-        })
-
-        res.status(500).send({
-            message: 'Erreur serveur.',
-            error: error.message
-        })
-        
     }
 }
 const modifyProperties = async (req, res) =>{
