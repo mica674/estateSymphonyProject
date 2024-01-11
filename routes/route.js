@@ -3175,6 +3175,215 @@
  */
 
 
+//  USERS PROPERTIES
+// ------
+//  GET BY ID
+/**
+ * @swagger
+ * /usersProperties/one/{id}:
+ *      get:
+ *          summary: Pour trouver un usersProperties avec son ID
+ *          tags: [USERS_PROPERTIES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of usersProperties
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un usersProperties par son ID
+ *          responses: 
+ *              200:
+ *                  description: UsersProperties by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: UsersProperties id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération d'un usersProperties 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un usersProperties par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /usersProperties/all:
+ *      get:
+ *          summary: Récupérer tous les usersProperties de la base de données
+ *          tags: [USERS_PROPERTIES]
+ *          description: Récupère tous les usersProperties ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: UsersProperties ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: Select all of usersProperties
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des usersProperties
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les usersProperties
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  CREATE
+/**
+ * @swagger
+ * /usersProperties/create:
+ *  post:
+ *      summary: Créer un nouveau usersProperties
+ *      tags: [USERS_PROPERTIES]
+ *      description: Crée un nouveau usersProperties dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          sold: 
+ *                              type: boolean
+ *                              description: A MODIFIER APRES TEST
+ *                          rent: 
+ *                              type: boolean
+ *                              description: Bien loué (true/false)
+ *                          hidden: 
+ *                              type: boolean
+ *                              description: Bien caché (true/false)
+ *      responses:
+ *          200:
+ *              description: UsersProperties créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: UsersProperties créé
+ *                          data: 
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la création d'un usersProperties
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création d'un usersProperties
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  MODIFY 
+/**
+ * @swagger
+ * /usersProperties/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations d'un usersProperties
+ *      tags: [USERS_PROPERTIES]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du usersProperties
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du usersProperties dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date:
+ *                              type: MODIFIER APRES TEST
+ *                              description: Date du rendez-vous
+ *                          visitInformations:
+ *                              type: string
+ *                              description: Infomations complémentaires pour le rendez-vous
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: UsersProperties modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: UsersProperties modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du usersProperties
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du usersProperties
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  DELETE
+/**
+ * @swagger
+ * /usersProperties/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un usersProperties avec son ID
+ *          tags: [USERS_PROPERTIES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du usersProperties
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le usersProperties dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression d'un usersProperties par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: UsersProperties deleted
+ *              400:
+ *                description: Erreur lors de la suppression d'un usersProperties
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un usersProperties par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
 // INITIALISATION DES CONSTANTES
 //ROUTER
 const express = require('express');
