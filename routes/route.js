@@ -1550,9 +1550,9 @@ const statusesController= require ('../controller/Statuses/StatusesController');
 const propertiesController= require ('../controller/Properties/PropertiesController');
 //------------------------------------- PROPERTIES FOLDERS ----------------------------------
 const propertiesFoldersController= require ('../controller/PropertiesFolders/PropertiesFoldersController');
-
 //------------------------------------- HISTORIES -----------------------------------
 const historiesController= require ('../controller/Histories/HistoriesController');
+
 //------------------------------------- FAVORIES ------------------------------------
 const favoriesController= require ('../controller/Favories/FavoriesController');
 //------------------------------------- PHOTOS --------------------------------------
@@ -1666,6 +1666,13 @@ router.post('/propertyFolder/create', propertiesFoldersController.createProperty
 router.put('/propertyFolder/modify/:id', propertiesFoldersController.modifyPropertyFolder);
 router.delete('/propertyFolder/delete/:id', propertiesFoldersController.deletePropertyFolder);
 
+//------------------------------------- HISTORIES ROUTER ---------------------------------
+router.get('/history/:id', historiesController.getHistory);
+router.get('/histories', historiesController.getHistories);
+router.post('/history/create', historiesController.createHistory);
+router.put('/history/modify/:id', historiesController.modifyHistory);
+router.delete('/history/:id', historiesController.deleteHistory);
+
 
 
 
@@ -1675,13 +1682,6 @@ router.delete('/propertyFolder/delete/:id', propertiesFoldersController.deletePr
 // router.post('/favori/create', favoriesController.createFavori);
 // router.put('/favori/modify/:id', favoriesController.modifyFavori);
 // router.delete('/favori/delete/:id', favoriesController.deleteFavori);
-
-//------------------------------------- HISTORIES ROUTER ---------------------------------
-// router.get('/history/:id', historiesController.getHistory);
-// router.get('/histories', historiesController.getHistories);
-// router.post('/history/create', historiesController.createHistory);
-// router.put('/history/modify/:id', historiesController.modifyHistory);
-// router.delete('/history/:id', historiesController.deleteHistory);
 
 //------------------------------------- PHOTOS ROUTER -----------------------------
 router.post('/photos', photosMiddleware.upload);
