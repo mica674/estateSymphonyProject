@@ -18,6 +18,9 @@ module.exports = {
       hidden: {
         type: Sequelize.BOOLEAN
       },
+      //
+      //AJOUTER idProperties ?
+      //
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

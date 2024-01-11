@@ -1,5 +1,7 @@
 //SWAGGER
+
 //  USER
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -304,7 +306,9 @@
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 
+
 //  ROLE
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -489,7 +493,9 @@
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
+
 //  ESTIMATION
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -742,7 +748,9 @@
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
+
 //  MESSAGE
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -933,7 +941,9 @@
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
+
 //  COMMENTS
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -1122,7 +1132,9 @@
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
+
 //  CLIENT FOLDERS
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -1200,7 +1212,7 @@
 //  CREATE
 /**
  * @swagger
- * /clientFolder/Create:
+ * /clientFolder/create:
  *  post:
  *      summary: Créer un nouveau dossier client
  *      tags: [CLIENTFOLDER]
@@ -1319,7 +1331,9 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
+
 //  EMPLOYEES
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -1397,7 +1411,7 @@
 //  CREATE
 /**
  * @swagger
- * /employee/Create:
+ * /employee/create:
  *  post:
  *      summary: Créer un nouvel employé
  *      tags: [EMPLOYEE]
@@ -1516,7 +1530,9 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
+
 //  DISTRICTS
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -1594,7 +1610,7 @@
 //  CREATE
 /**
  * @swagger
- * /district/Create:
+ * /district/create:
  *  post:
  *      summary: Créer un nouvel district
  *      tags: [DISTRICT]
@@ -1703,6 +1719,7 @@
 
 
 //  EMPLOYEES DISTRICTS
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -1781,7 +1798,7 @@
 //  CREATE
 /**
  * @swagger
- * /employees-districts/Create:
+ * /employees-districts/create:
  *  post:
  *      summary: Créer un nouvel employees-districts
  *      tags: [EMPLOYEES_DISTRICTS]
@@ -1897,6 +1914,7 @@
 
 
 //  AGENDAS
+// ------
 //  GET BY ID
 /**
  * @swagger
@@ -1921,7 +1939,7 @@
  *                          message: agenda id = 2
  *                          data:
  *                              id: A MODIFIER APRES TEST
- *                              date: "2024-05-08T14:47:27.000Z"
+ *                              date: true
  *                              visitInformations: "Location meublé..."
  *                              idUsers: 52
  *                              idEmployees: 69
@@ -1983,7 +2001,7 @@
 //  CREATE
 /**
  * @swagger
- * /agenda/Create:
+ * /agenda/create:
  *  post:
  *      summary: Créer un nouvel agenda
  *      tags: [AGENDA]
@@ -1996,7 +2014,7 @@
  *                      type: object
  *                      properties:
  *                          date: 
- *                              type: date
+ *                              type: string
  *                              description: Date du rendez-vous
  *                          visitInformations: 
  *                              type: string
@@ -2023,11 +2041,11 @@
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
- *              description: Erreur lors de la création du agenda
+ *              description: Erreur lors de la création d'un agenda
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Une erreur est survenue lors de la création du agenda
+ *                          message: Une erreur est survenue lors de la création d'un agenda
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  MODIFY 
@@ -2054,7 +2072,7 @@
  *                      type: object
  *                      properties:
  *                          date:
- *                              type: date
+ *                              type: string
  *                              description: Date du rendez-vous
  *                          visitInformations:
  *                              type: string
@@ -2073,11 +2091,11 @@
  *                      example:
  *                          message: Agenda modifié avec succès
  *          400:
- *              description: Erreur lors de la modification du agenda
+ *              description: Erreur lors de la modification d'un agenda
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du agenda
+ *                          message: Echec de la modification d'un agenda
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  DELETE
@@ -2108,6 +2126,215 @@
  *                    application/json:
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un agenda par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
+//  STATUSES
+// ------
+//  GET BY ID
+/**
+ * @swagger
+ * /status/{id}:
+ *      get:
+ *          summary: Pour trouver un status avec son ID
+ *          tags: [STATUS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of status
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un status par son ID
+ *          responses: 
+ *              200:
+ *                  description: Status by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: Status id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération d'un status 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un status par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /statuses:
+ *      get:
+ *          summary: Récupérer tous les status de la base de données
+ *          tags: [STATUS]
+ *          description: Récupère tous les status ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Statuses ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all of statuses
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des status
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les status
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  CREATE
+/**
+ * @swagger
+ * /status/create:
+ *  post:
+ *      summary: Créer un nouveau status
+ *      tags: [STATUS]
+ *      description: Crée un nouveau status dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          sold: 
+ *                              type: boolean
+ *                              description: Bien vendu (true/false)
+ *                          rent: 
+ *                              type: boolean
+ *                              description: Bien loué (true/false)
+ *                          hidden: 
+ *                              type: boolean
+ *                              description: Bien caché (true/false)
+ *      responses:
+ *          200:
+ *              description: Status créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Status créé
+ *                          data: 
+ *                              id: 3
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la création du status
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du status
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  MODIFY 
+/**
+ * @swagger
+ * /status/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations du status
+ *      tags: [STATUS]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du status
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du status dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date:
+ *                              type: MODIFIER APRES TEST
+ *                              description: Date du rendez-vous
+ *                          visitInformations:
+ *                              type: string
+ *                              description: Infomations complémentaires pour le rendez-vous
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: Status modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Status modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du status
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du status
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  DELETE
+/**
+ * @swagger
+ * /status/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un status avec son ID
+ *          tags: [STATUS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du status
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le status dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression d'un status par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Status deleted
+ *              400:
+ *                description: Erreur lors de la suppression d'un status
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un status par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
