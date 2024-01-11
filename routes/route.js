@@ -1554,7 +1554,7 @@ const propertiesFoldersController= require ('../controller/PropertiesFolders/Pro
 const historiesController= require ('../controller/Histories/HistoriesController');
 
 //------------------------------------- FAVORIES ------------------------------------
-const favoriesController= require ('../controller/Favories/FavoriesController');
+const favoritesController= require ('../controller/Favorites/FavoritesController');
 //------------------------------------- PHOTOS --------------------------------------
 const photosMiddleware= require ('../middleware/Photos/PhotosMiddleware');
 //------------------------------------- PHOTOS FOLDERS ------------------------------
@@ -1673,15 +1673,15 @@ router.post('/history/create', historiesController.createHistory);
 router.put('/history/modify/:id', historiesController.modifyHistory);
 router.delete('/history/:id', historiesController.deleteHistory);
 
-
-
-
 //------------------------------------- FAVORIES ROUTER ---------------------------------
-// router.get('/favori/:id', favoriesController.getFavori);
-// router.get('/favoris', favoriesController.getFavories);
-// router.post('/favori/create', favoriesController.createFavori);
-// router.put('/favori/modify/:id', favoriesController.modifyFavori);
-// router.delete('/favori/delete/:id', favoriesController.deleteFavori);
+router.get('/favorite/:id', favoritesController.getFavorite);
+router.get('/favorites', favoritesController.getFavorites);
+router.post('/favorite/create', favoritesController.createFavorite);
+router.put('/favorite/modify/:id', favoritesController.modifyFavorite);
+router.delete('/favorite/delete/:id', favoritesController.deleteFavorite);
+
+
+
 
 //------------------------------------- PHOTOS ROUTER -----------------------------
 router.post('/photos', photosMiddleware.upload);
