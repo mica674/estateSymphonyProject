@@ -1516,6 +1516,191 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
+//  DISTRICTS
+    //  GET BY ID
+/**
+ * @swagger
+ * /district/{id}:
+ *      get:
+ *          summary: Pour trouver un district avec son ID
+ *          tags: [DISTRICT]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of District
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un district par son ID
+ *          responses: 
+ *              200:
+ *                  description: District by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: District id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du district 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération du district par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  GET ALL
+/**
+ * @swagger
+ * /districts:
+ *      get:
+ *          summary: Récupérer tous les districts de la base de données
+ *          tags: [DISTRICT]
+ *          description: Récupère tous les districts ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Districts ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all
+ *                         data: 
+ *                             -   id: 1
+ *                                 name: MODIFIER APRES TEST
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -   id: 2
+ *                                 name: Manager
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 3
+ *                                 name: Employee
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 4
+ *                                 name: User
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *              400:
+ *                  description: Erreur lors de la récupération des districts
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les districts
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  CREATE
+/**
+ * @swagger
+ * /district/Create:
+ *  post:
+ *      summary: Créer un nouvel district
+ *      tags: [DISTRICT]
+ *      description: Crée un nouveau district dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name:
+ *                              type: string
+ *                              description: Nom du district
+ *      responses:
+ *          200:
+ *              description: District créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: District créé
+ *                          data: 
+ *                              id: 2
+ *                              name: A MODIFIER APRES TEST
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          400:
+ *              description: Erreur lors de la création du district
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du district
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  MODIFY 
+/**
+ * @swagger
+ * /district/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations du district
+ *      tags: [DISTRICT]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du district
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du district dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name:
+ *                              type: string
+ *                              description: Nom du district
+ *      responses:
+ *          200:
+ *              description: District modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: District modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du district
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du district
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  DELETE
+/**
+ * @swagger
+ * /district/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un district avec son ID
+ *          tags: [DISTRICT]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du district
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le district dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression du district par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: District deleted
+ *              400:
+ *                description: Erreur lors de la suppression du district
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression du district par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
 
  // INITIALISATION DES CONSTANTES
     //ROUTER
