@@ -1,14 +1,12 @@
 // const { where } = require('sequelize');
 const db = require('../../models/index.js');
-const estimationsTable = db['Estimations'];
+const estimationsTable =  db['Estimations'];
 
 const createEstimation = async (req, res)  =>{
 
     try {
-
         let data = { ...req.body};
         const newEstimation = await estimationsTable.create(data);
-
         console.log(data);
         res.status(200).send({
             message: 'Estimation créée',
@@ -16,9 +14,7 @@ const createEstimation = async (req, res)  =>{
         })
         
     } catch (error) {
-
         console.log(error.message);
-
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
@@ -27,18 +23,11 @@ const createEstimation = async (req, res)  =>{
 }
 const modifyEstimation = async (req, res) =>{
     try {
-        const {location, houseType, surface, showerRoom, room, floor, balcony, parking} = req.body;
+        const newData = {...req.body};
         // const newData = { location: location, houseType: houseType, surface: surface, showerRoom: showerRoom, room: room, floor: floor, balcony: balcony, parking: parking };
         const idEstimations = req.params.id;
         const updateEstimations = await estimationsTable.update(
-            {location : location},
-            {houseType : houseType},
-            {surface : surface},
-            {showerRoom: showerRoom},
-            {room : room},	
-            {floor : floor},	
-            {balcony : balcony},	
-            {parking : parking},	
+            newData,	
             {where :{
                     id : idEstimations
                 }
