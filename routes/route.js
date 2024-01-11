@@ -1542,11 +1542,13 @@ const employeeController = require ('../controller/Employees/EmployeesController
 const districtController = require ('../controller/Districts/DistrictController');
 //------------------------------------- EMPLOYEES DISTRICTS ------------------------------
 const employeeDistrictController = require ('../controller/EmployeesDistricts/EmployeesDistricts');
+//------------------------------------- AGENDAS -------------------------------------
+const agendasController= require ('../controller/Agendas/AgendasController');
+//------------------------------------- STATUSES -------------------------------------
+const statusesController= require ('../controller/Statuses/StatusesController');
 
 //------------------------------------- PROPERTIES ----------------------------------
 const propertieController= require ('../controller/Properties/PropertiesController');
-//------------------------------------- AGENDAS -------------------------------------
-const agendasController= require ('../controller/Agendas/AgendasController');
 //------------------------------------- HISTORIES -----------------------------------
 const historiesController= require ('../controller/Histories/HistoriesController');
 //------------------------------------- FAVORIES ------------------------------------
@@ -1567,14 +1569,14 @@ router.get('/', (req, res) => {
 })
 
 
-//------------------------------------- ROLE ROUTER ---------------------------------------//Tested with swagger
+//------------------------------------- ROLES ROUTER ---------------------------------------//Tested with swagger
 router.get('/role/:id', roleController.getRole);//S
 router.get('/roles', roleController.getAllRoles);//S
 router.post('/role/create', roleController.createRole);//S
 router.put('/role/modify/:id', roleController.modifyRole);//S
 router.delete('/role/delete/:id', roleController.deleteRole);//S
 
-//------------------------------------- USER ROUTER ---------------------------------------//Tested with swagger
+//------------------------------------- USERS ROUTER ---------------------------------------//Tested with swagger
 router.get('/user/id/:id', userController.getUserId);//S
 router.get('/user/email/:email', userController.getUserEmail);//S
 router.get('/users', userController.getAllUser);//S
@@ -1606,7 +1608,7 @@ router.post('/comment/create', commentController.createComment);
 router.put('/comment/modify/:id', commentController.modifyComment);
 router.delete('/comment/delete/;id', commentController.deleteComment);
 
-//------------------------------------- CLIENTFOLDER ROUTER -----------------------------
+//------------------------------------- CLIENTFOLDERS ROUTER -----------------------------
 router.post('/clientFolder/create', clientFolderController.createClientFolder);
 router.put('/clientFolder/modify/:id', clientFolderController.modifyClientFolder);
 router.delete('/clientFolder/delete/:id', clientFolderController.deleteClientFolder);
@@ -1620,7 +1622,7 @@ router.post('/employee/create', employeeController.createEmployee);
 router.put('/employee/modify/:id', employeeController.modifyEmployee);
 router.delete('/employee/delete/:id', employeeController.deleteEmployee);
 
-//------------------------------------- DISTRICT ROUTER ---------------------------------
+//------------------------------------- DISTRICTS ROUTER ---------------------------------
 router.get('/district/:id', districtController.getDistrict);
 router.get('/districts', districtController.getDistricts);
 router.post('/district/create', districtController.createDistrict);
@@ -1634,6 +1636,20 @@ router.post('/employeesDistricts/create', employeeDistrictController.createEmplo
 router.put('/employeesDistricts/modify/:id', employeeDistrictController.modifyEmployeeDistrict);
 router.delete('/employeesDistricts/delete/:id', employeeDistrictController.deleteEmployeeDistrict);
 
+//------------------------------------- AGENDAS ROUTER ---------------------------------
+router.get('/agenda/:id', agendasController.getAgenda);
+router.get('/agendas', agendasController.getAgendas);
+router.post('/agenda/create', agendasController.createAgenda);
+router.put('/agenda/modify/:id', agendasController.modifyAgenda);
+router.delete('/agenda/delete/:id', agendasController.deleteAgenda);
+
+//------------------------------------- STATUS ROUTER ---------------------------------
+router.get('/status/:id', statusesController.getStatus);
+router.get('/statuses', statusesController.getStatuses);
+router.post('/status/create', statusesController.createStatus);
+router.put('/status/modify/:id', statusesController.modifyStatus);
+router.delete('/status/delete/:id', statusesController.deleteStatus);
+
 
 
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
@@ -1642,13 +1658,6 @@ router.get('/properties', propertieController.getProperties);
 router.post('/property/create', photosMiddleware.upload, propertieController.createProperty);
 router.put('/property/modify/:id', propertieController.modifyProperty);
 router.delete('/property/delete/:id', propertieController.deleteProperty);
-
-//------------------------------------- AGENDAS ROUTER ---------------------------------
-router.get('/agenda/:id', agendasController.getAgenda);
-router.get('/agendas', agendasController.getAgendas);
-router.post('/agenda/create', agendasController.createAgenda);
-router.put('/agenda/modify/:id', agendasController.modifyAgenda);
-router.delete('/agenda/delete/:id', agendasController.deleteAgenda);
 
 
 //------------------------------------- FAVORIES ROUTER ---------------------------------
