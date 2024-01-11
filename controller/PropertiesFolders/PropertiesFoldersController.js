@@ -1,15 +1,15 @@
 const db = require('../../models/index.js');
-const propertiesTable = db['Properties'];
+const propertiesFoldersTable = db['Properties_Folders'];
 
-const getProperty = async (req, res) => {
+const getPropertyFolder = async (req, res) => {
 
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const property = await propertiesTable.findByPk(req.params.id);
+        const propertyFolder = await propertiesFoldersTable.findByPk(req.params.id);
 
         res.status(200).send({
-            message: `Property ID : ${property.id}`,
-            data: property
+            message: `Property-Folder ID : ${propertyFolder.id}`,
+            data: propertyFolder
         })
 
     } catch (error) {
@@ -42,15 +42,15 @@ const getProperty = async (req, res) => {
         // })
     }
 }
-const getProperties = async (req, res) => {
+const getPropertiesFolders = async (req, res) => {
     try {
         //  Récupération de tous les utilisateurs
-        const properties = await propertiesTable.findAll();
+        const propertiesFolders = await propertiesFoldersTable.findAll();
 
         //  Envoie de tous les utilisateurs
         res.status(200).send({
-            message: 'Select all of properties',
-            data: properties
+            message: 'Select all of properties-folders',
+            data: propertiesFolders
         })
 
     } catch (error) {
@@ -82,19 +82,16 @@ const getProperties = async (req, res) => {
         // })
     }
 }
-const createProperty = async (req, res, next) => {
+const createPropertyFolder = async (req, res, next) => {
 
     try {
-
-        // const data = { ...req.body, photosTable: photo };
-        // const newProperties = await propertiesTable.clicCount(data);
         const data = { ...req.body };
-        const newProperty = await propertiesTable.create(data);
+        const newPropertyFolder = await propertiesFoldersTable.create(data);
 
         next.
             res.status(200).send({
-                message: 'Property created',
-                data: newProperty
+                message: 'Property-Folder created',
+                data: newPropertyFolder
             })
 
     } catch (error) {
@@ -107,22 +104,22 @@ const createProperty = async (req, res, next) => {
         })
     }
 }
-const modifyProperty = async (req, res) => {
+const modifyPropertyFolder = async (req, res) => {
 
     try {
 
         const newData = { ...req.body };
-        const idProperty = req.params.id;
-        const updateProperty = await propertiesTable.update(
+        const idPropertyFolder = req.params.id;
+        const updatePropertyFolder = await propertiesFoldersTable.update(
             newData,
             {
                 where: {
-                    id: idProperty
+                    id: idPropertyFolder
                 }
             })
-        if (updateProperty[0] == 1) {
+        if (updatePropertyFolder[0] == 1) {
             res.status(200).send({
-                message: 'Property updated'
+                message: 'Property-Folder updated'
             })
         }
 
@@ -137,13 +134,13 @@ const modifyProperty = async (req, res) => {
     }
 
 }
-const deleteProperty = async (req, res) => {
+const deletePropertyFolder = async (req, res) => {
     try {
 
-        const deleteProperty = await propertiesTable.destroy({ where: { id: req.params.id } });
+        const deletePropertyFolder = await propertiesFoldersTable.destroy({ where: { id: req.params.id } });
         res.status(201).send({
-            message: 'Property deleted',
-            data: deleteProperty
+            message: 'Property-Folder deleted',
+            data: deletePropertyFolder
         })
 
     } catch (error) {
@@ -155,4 +152,4 @@ const deleteProperty = async (req, res) => {
         })
     }
 }
-module.exports = { getProperty, getProperties, createProperty, modifyProperty, deleteProperty };
+module.exports = { getPropertyFolder, getPropertiesFolders, createPropertyFolder, modifyPropertyFolder, deletePropertyFolder };

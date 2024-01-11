@@ -1534,7 +1534,7 @@ const estimationController = require('../controller/Estimations/EstimationsContr
 const messageController = require('../controller/Messages/MessagesController');
 //------------------------------------- COMMENTS ------------------------------------
 const commentController= require ('../controller/Comments/CommentsController');
-//------------------------------------- CLIENT FOLDERS ------------------------------
+//------------------------------------- CLIENTS FOLDERS ------------------------------
 const clientFolderController = require ('../controller/Client Folder/ClientFolderController');
 //------------------------------------- EMPLOYEES ------------------------------
 const employeeController = require ('../controller/Employees/EmployeesController');
@@ -1547,7 +1547,9 @@ const agendasController= require ('../controller/Agendas/AgendasController');
 //------------------------------------- STATUSES -------------------------------------
 const statusesController= require ('../controller/Statuses/StatusesController');
 //------------------------------------- PROPERTIES ----------------------------------
-const propertieController= require ('../controller/Properties/PropertiesController');
+const propertiesController= require ('../controller/Properties/PropertiesController');
+//------------------------------------- PROPERTIES FOLDERS ----------------------------------
+const propertiesFoldersController= require ('../controller/PropertiesFolders/PropertiesFoldersController');
 
 //------------------------------------- HISTORIES -----------------------------------
 const historiesController= require ('../controller/Histories/HistoriesController');
@@ -1651,11 +1653,18 @@ router.put('/status/modify/:id', statusesController.modifyStatus);
 router.delete('/status/delete/:id', statusesController.deleteStatus);
 
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
-router.get('/property/:id', propertieController.getProperty);
-router.get('/properties', propertieController.getProperties);
-router.post('/property/create', photosMiddleware.upload, propertieController.createProperty);
-router.put('/property/modify/:id', propertieController.modifyProperty);
-router.delete('/property/delete/:id', propertieController.deleteProperty);
+router.get('/property/:id', propertiesController.getProperty);
+router.get('/properties', propertiesController.getProperties);
+router.post('/property/create', photosMiddleware.upload, propertiesController.createProperty);
+router.put('/property/modify/:id', propertiesController.modifyProperty);
+router.delete('/property/delete/:id', propertiesController.deleteProperty);
+
+//------------------------------------- PROPERTIES FOLDERS ROUTER ---------------------------------
+router.get('/propertyFolder/:id', propertiesFoldersController.getPropertyFolder);
+router.get('/properties', propertiesFoldersController.getPropertiesFolders);
+router.post('/propertyFolder/create', propertiesFoldersController.createPropertyFolder);
+router.put('/propertyFolder/modify/:id', propertiesFoldersController.modifyPropertyFolder);
+router.delete('/propertyFolder/delete/:id', propertiesFoldersController.deletePropertyFolder);
 
 
 
