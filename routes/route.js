@@ -577,16 +577,15 @@
  *          content:
  *              application/json:
  *                  example:
- *                      data:
- *                          location: Achat
- *                          houseType: Maison
- *                          surface: 90
- *                          showerRoom: 1
- *                          room: 5
- *                          floor: 2
- *                          balcony: 1
- *                          parking: true
- *                          idUser: 1
+ *                      location: Achat
+ *                      houseType: Maison
+ *                      surface: 90
+ *                      showerRoom: 1
+ *                      room: 5
+ *                      floor: 2
+ *                      balcony: 1
+ *                      parking: true
+ *                      idUser: 1
  *                  schema:
  *                      type: object
  *                      properties:
@@ -657,6 +656,16 @@
  *          required: true
  *          content:
  *              application/json:
+ *                  example:
+ *                      location: Achat
+ *                      houseType: Maison
+ *                      surface: 90
+ *                      showerRoom: 1
+ *                      room: 5
+ *                      floor: 2
+ *                      balcony: 1
+ *                      parking: true
+ *                      idUser: 1
  *                  schema:
  *                      type: object
  *                      properties:
@@ -1528,7 +1537,11 @@ const commentController= require ('../controller/Comments/CommentsController');
 //------------------------------------- CLIENT FOLDERS ------------------------------
 const clientFolderController = require ('../controller/Client Folder/ClientFolderController');
 //------------------------------------- EMPLOYEES ------------------------------
-const employeesController = require ('../controller/Employees/EmployeesController');
+const employeeController = require ('../controller/Employees/EmployeesController');
+//------------------------------------- DISTRICTS ------------------------------
+const districtController = require ('../controller/Districts/DistrictController');
+//------------------------------------- EMPLOYEES DISTRICTS ------------------------------
+const employeeDistrictController = require ('../controller/EmployeesDistricts/EmployeesDistricts');
 
 //------------------------------------- PROPERTIES ----------------------------------
 const propertieController= require ('../controller/Properties/PropertiesController');
@@ -1554,14 +1567,14 @@ router.get('/', (req, res) => {
 })
 
 
-//------------------------------------- ROLE ROUTER ---------------------------------------
+//------------------------------------- ROLE ROUTER ---------------------------------------//Tested with swagger
 router.get('/role/:id', roleController.getRole);//S
 router.get('/roles', roleController.getAllRoles);//S
 router.post('/role/create', roleController.createRole);//S
 router.put('/role/modify/:id', roleController.modifyRole);//S
 router.delete('/role/delete/:id', roleController.deleteRole);//S
 
-//------------------------------------- USER ROUTER ---------------------------------------
+//------------------------------------- USER ROUTER ---------------------------------------//Tested with swagger
 router.get('/user/id/:id', userController.getUserId);//S
 router.get('/user/email/:email', userController.getUserEmail);//S
 router.get('/users', userController.getAllUser);//S
@@ -1572,7 +1585,7 @@ router.put('/user/modifyPassword', userController.middleWare, userController.mod
 router.put('/user/modify', userController.middleWare, userController.modify);//S
 // router.put('/user/modifyEmail', UserController.middleWare, UserController.modifyEmail);
 
-//------------------------------------- ESTIMATIONS ROUTER ---------------------------------
+//------------------------------------- ESTIMATIONS ROUTER ---------------------------------//Tested with swagger
 router.get('/estimation/:id', estimationController.getEstimationID);
 router.get('/estimations', estimationController.getEstimations);
 router.post('/estimation/create', estimationController.createEstimation);
@@ -1601,11 +1614,27 @@ router.get('/clientFolders', clientFolderController.getClientFolders)
 router.get('/clientFolder/:id', clientFolderController.getClientFolder);
 
 //------------------------------------- EMPLOYEES ROUTER ---------------------------------
-router.get('/employee/:id', employeesController.getEmployee);
-router.get('/employees', employeesController.getEmployees);
-router.post('/employee/create', employeesController.createEmployee);
-router.put('/employee/modify/:id', employeesController.modifyEmployee);
-router.delete('/employee/delete/:id', employeesController.deleteEmployee);
+router.get('/employee/:id', employeeController.getEmployee);
+router.get('/employees', employeeController.getEmployees);
+router.post('/employee/create', employeeController.createEmployee);
+router.put('/employee/modify/:id', employeeController.modifyEmployee);
+router.delete('/employee/delete/:id', employeeController.deleteEmployee);
+
+//------------------------------------- DISTRICT ROUTER ---------------------------------
+router.get('/district/:id', districtController.getDistrict);
+router.get('/districts', districtController.getDistricts);
+router.post('/district/create', districtController.createDistrict);
+router.put('/district/modify/:id', districtController.modifyDistrict);
+router.delete('/district/delete/:id', districtController.deleteDistrict);
+
+//------------------------------------- EMPLOYEES DISTRICTS ROUTER ---------------------------------
+router.get('/employeesDistricts/one/:id', employeeDistrictController.getEmployeeDistrict);
+router.get('/employeesDistricts/all', employeeDistrictController.getEmployeesDistricts);
+router.post('/employeesDistricts/create', employeeDistrictController.createEmployeeDistrict);
+router.put('/employeesDistricts/modify/:id', employeeDistrictController.modifyEmployeeDistrict);
+router.delete('/employeesDistricts/delete/:id', employeeDistrictController.deleteEmployeeDistrict);
+
+
 
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
 router.get('/property/:id', propertieController.getProperty);
