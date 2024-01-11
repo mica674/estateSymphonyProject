@@ -1702,6 +1702,200 @@
  */
 
 
+//  EMPLOYEES DISTRICTS
+    //  GET BY ID
+/**
+ * @swagger
+ * /employeesDistricts/one/{id}:
+ *      get:
+ *          summary: Pour trouver un employees-districts avec son ID
+ *          tags: [EMPLOYEES_DISTRICTS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of employees-districts
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un employees-districts par son ID
+ *          responses: 
+ *              200:
+ *                  description: employees-districts by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: employees-districts id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              idEmployees: 1
+ *                              idDistricts: 3
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du employees-districts 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération du employees-districts par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /employees-districts/all:
+ *      get:
+ *          summary: Récupérer tous les employees-districts de la base de données
+ *          tags: [EMPLOYEES_DISTRICTS]
+ *          description: Récupère tous les employees-districts ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Employees-districts ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all of employees-districts
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  idEmployees: 1
+ *                                  idDistricts: 3
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -    id: 2
+ *                                  idEmployees: 1
+ *                                  idDistricts: 3
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -    id: 3
+ *                                  idEmployees: 1
+ *                                  idDistricts: 3
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T08:22:15.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des employees-districts
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les employees-districts
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  CREATE
+/**
+ * @swagger
+ * /employees-districts/Create:
+ *  post:
+ *      summary: Créer un nouvel employees-districts
+ *      tags: [EMPLOYEES_DISTRICTS]
+ *      description: Crée un nouveau employees-districts dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *                          idDistrict:
+ *                              type: integer
+ *                              description: ID du district
+ *      responses:
+ *          200:
+ *              description: Employees-districts créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: employees-districts créé
+ *                          data: 
+ *                              id: 2
+ *                              idEmployees: A MODIFIER APRES TEST
+ *                              idDistricts: A MODIFIER APRES TEST
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          400:
+ *              description: Erreur lors de la création du employees-districts
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du employees-districts
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  MODIFY 
+/**
+ * @swagger
+ * /employees-districts/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations du employees-districts
+ *      tags: [EMPLOYEES_DISTRICTS]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du employees-districts
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du employees-districts dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *                          idDistricts:
+ *                              type: integer
+ *                              description: ID du district
+ *      responses:
+ *          200:
+ *              description: Employees-districts modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Employees-districts modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du employees-districts
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du employees-districts
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  DELETE
+/**
+ * @swagger
+ * /employees-districts/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un employees-districts avec son ID
+ *          tags: [EMPLOYEES_DISTRICTS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du employees-districts
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le employees-districts dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression du employees-districts par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Employees-districts deleted
+ *              400:
+ *                description: Erreur lors de la suppression du employees-districts
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression du employees-districts par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
  // INITIALISATION DES CONSTANTES
     //ROUTER
 const express = require('express');
@@ -1737,7 +1931,7 @@ const propertiesController= require ('../controller/Properties/PropertiesControl
 const propertiesFoldersController= require ('../controller/PropertiesFolders/PropertiesFoldersController');
 //------------------------------------- HISTORIES -----------------------------------
 const historiesController= require ('../controller/Histories/HistoriesController');
-//------------------------------------- FAVORIES ------------------------------------
+//------------------------------------- FAVORITES ------------------------------------
 const favoritesController= require ('../controller/Favorites/FavoritesController');
 //------------------------------------- USERS PROPERTIES ------------------------------------
 const usersPropertiesController= require ('../controller/UsersProperties/UsersProperties');
@@ -1847,11 +2041,11 @@ router.put('/property/modify/:id', propertiesController.modifyProperty);
 router.delete('/property/delete/:id', propertiesController.deleteProperty);
 
 //------------------------------------- PROPERTIES FOLDERS ROUTER ---------------------------------
-router.get('/propertyFolder/:id', propertiesFoldersController.getPropertyFolder);
-router.get('/properties', propertiesFoldersController.getPropertiesFolders);
-router.post('/propertyFolder/create', propertiesFoldersController.createPropertyFolder);
-router.put('/propertyFolder/modify/:id', propertiesFoldersController.modifyPropertyFolder);
-router.delete('/propertyFolder/delete/:id', propertiesFoldersController.deletePropertyFolder);
+router.get('/propertiesFolders/one/:id', propertiesFoldersController.getPropertyFolder);
+router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFolders);
+router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
+router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
+router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
 
 //------------------------------------- HISTORIES ROUTER ---------------------------------
 router.get('/history/:id', historiesController.getHistory);
@@ -1868,11 +2062,11 @@ router.put('/favorite/modify/:id', favoritesController.modifyFavorite);
 router.delete('/favorite/delete/:id', favoritesController.deleteFavorite);
 
 //------------------------------------- USERS PROPERTIES ROUTER ---------------------------------
-router.get('/userProperty/:id', usersPropertiesController.getUserProperty);
-router.get('/usersProperties', usersPropertiesController.getUsersProperties);
-router.post('/userProperty/create', usersPropertiesController.createUserProperty);
-router.put('/userProperty/modify/:id', usersPropertiesController.modifyUserProperty);
-router.delete('/userProperty/delete/:id', usersPropertiesController.deleteUserProperty);
+router.get('/usersProperties/one/:id', usersPropertiesController.getUserProperty);
+router.get('/usersProperties/all', usersPropertiesController.getUsersProperties);
+router.post('/usersProperties/create', usersPropertiesController.createUserProperty);
+router.put('/usersProperties/modify/:id', usersPropertiesController.modifyUserProperty);
+router.delete('/usersProperties/delete/:id', usersPropertiesController.deleteUserProperty);
 
 
 
