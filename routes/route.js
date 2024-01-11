@@ -2655,11 +2655,11 @@
  *                              description: Bien caché (true/false)
  *      responses:
  *          200:
- *              description: Dossier de propriété créée avec succès
+ *              description: Dossier de propriété créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Dossier de propriété créée
+ *                          message: Dossier de propriété créé
  *                          data: 
  *                              id: A MODIFIER APRES TEST
  *                              sold: true
@@ -2757,30 +2757,30 @@
  */
 
 
-//  
+//  HISTORIES
 // ------
 //  GET BY ID
 /**
  * @swagger
- * /propertiesFolders/one/{id}:
+ * /history/{id}:
  *      get:
- *          summary: Pour trouver un dossier de propriété avec son ID
- *          tags: [PROPERTIES_FOLDERS]
+ *          summary: Pour trouver un historique utilisateur avec son ID
+ *          tags: [HISTORIES]
  *          parameters:
  *              -   in : path
  *                  name: id
- *                  description: ID of properties-folders
+ *                  description: ID of history
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Obtenir un dossier de propriété par son ID
+ *          description: Obtenir un historique utilisateur par son ID
  *          responses: 
  *              200:
- *                  description: PropertiesFolders by ID
+ *                  description: Hystory by ID
  *                  content:
  *                  application/json:
  *                      example:
- *                          message: PropertiesFolders id = 2
+ *                          message: Hystory id = 2
  *                          data:
  *                              id: A MODIFIER APRES TEST
  *                              sold: true
@@ -2789,28 +2789,28 @@
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
- *                  description: Erreur lors de la récupération d'un dossier de propriété 
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération d'un dossier de propriété par son ID
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
 */
 //  GET ALL
 /**
  * @swagger
- * /propertiesFolders/all:
+ * /histories:
  *      get:
- *          summary: Récupérer tous les dossiers de propriété de la base de données
- *          tags: [PROPERTIES_FOLDERS]
- *          description: Récupère tous les dossiers de propriété ajoutées dans la base de données
+ *          summary: Récupérer tous les historiques utilisateur de la base de données
+ *          tags: [HISTORIES]
+ *          description: Récupère tous les historiques utilisateur ajoutées dans la base de données
  *          responses: 
  *              200:
- *                  description: propertiesFolders ALL
+ *                  description: Histories ALL
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: Select all of propertiesFolders
+ *                         message: Select all of histories
  *                         data: 
  *                             -    id: A MODIFIER APRES TEST
  *                                  sold: true
@@ -2831,21 +2831,21 @@
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
- *                  description: Erreur lors de la récupération des dossiers de propriété
+ *                  description: Erreur lors de la récupération des historiques utilisateur
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération de tous les dossiers de propriété
+ *                              message: Erreur survenue lors de la récupération de tous les historiques utilisateur
  *                              error: Message de l'erreur spécifique le cas échéant
 */
 //  CREATE
 /**
  * @swagger
- * /propertiesFolders/create:
+ * /history/create:
  *  post:
- *      summary: Créer un nouveau dossier de propriété
- *      tags: [PROPERTIES_FOLDERS]
- *      description: Crée un nouveau dossier de propriété dans la base de données
+ *      summary: Créer un nouvel historique utilisateur
+ *      tags: [HISTORIES]
+ *      description: Crée un nouvel historique utilisateur dans la base de données
  *      requestBody:
  *          required: true
  *          content:
@@ -2864,11 +2864,11 @@
  *                              description: Bien caché (true/false)
  *      responses:
  *          200:
- *              description: Dossier de propriété créée avec succès
+ *              description: Historique utilisateur créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Dossier de propriété créée
+ *                          message: Historique utilisateur créée
  *                          data: 
  *                              id: A MODIFIER APRES TEST
  *                              sold: true
@@ -2877,29 +2877,29 @@
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
- *              description: Erreur lors de la création d'un dossier de propriété
+ *              description: Erreur lors de la création d'un historique utilisateur
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Une erreur est survenue lors de la création d'un dossier de propriété
+ *                          message: Une erreur est survenue lors de la création d'un historique utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  MODIFY 
 /**
  * @swagger
- * /propertiesFolders/modify/{id}:
+ * /history/modify/{id}:
  *  put:
- *      summary: Modifier les informations d'un dossier de propriété
- *      tags: [PROPERTIES_FOLDERS]
+ *      summary: Modifier les informations d'un historique utilisateur
+ *      tags: [HISTORIES]
  *      parameters:
  *          -   in: path
  *              name: id
  *              required: true
- *              description: ID du dossier de la propriété
+ *              description: ID de l'historique utilisateur
  *              schema:
  *                  type: integer
  *                  required: true
- *      description: Modifie les informations du dossier de la propriété dans la base de données
+ *      description: Modifie les informations de l'historique utilisateur dans la base de données
  *      requestBody:
  *          required: true
  *          content:
@@ -2921,47 +2921,47 @@
  *                              description: ID de l'employé
  *      responses:
  *          200:
- *              description: Dossier de propriété modifié avec succès
+ *              description: Historique utilisateur modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Dossier de propriété modifié avec succès
+ *                          message: Historique utilisateur modifié avec succès
  *          400:
- *              description: Erreur lors de la modification du dossier de la propriété
+ *              description: Erreur lors de la modification de l'historique utilisateur
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du dossier de la propriété
+ *                          message: Echec de la modification de l'historique utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  DELETE
 /**
  * @swagger
- * /propertiesFolders/delete/{id}:
+ * /histories/delete/{id}:
  *      delete:
- *          summary: Pour supprimer un dossier de propriété avec son ID
- *          tags: [PROPERTIES_FOLDERS]
+ *          summary: Pour supprimer un historique utilisateur avec son ID
+ *          tags: [HISTORIES]
  *          parameters:
  *              -   in : path
  *                  name: id
- *                  description: ID du dossier de la propriété
+ *                  description: ID de l'historique utilisateur
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Supprime le dossier de propriété dans la base de données
+ *          description: Supprime l'historique utilisateur dans la base de données
  *          responses: 
  *              200:
- *                  description: Suppression d'un dossier de propriété par son ID 
+ *                  description: Suppression d'un historique utilisateur par son ID 
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: PropertyFolder deleted
+ *                              message: History deleted
  *              400:
- *                description: Erreur lors de la suppression d'un dossier de propriété
+ *                description: Erreur lors de la suppression d'un historique utilisateur
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Erreur survenue lors de la suppression d'un dossier de propriété par son ID
+ *                            message: Erreur survenue lors de la suppression d'un historique utilisateur par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
