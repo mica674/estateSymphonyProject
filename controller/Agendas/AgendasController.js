@@ -6,11 +6,11 @@ const createAgenda = async (req, res)  =>{
     try {
 
         const data = { ...req.body};
-        const newAgendas = await agendasTable.create(data);
+        const newAgenda = await agendasTable.create(data);
 
         res.status(200).send({
             message: 'Create',
-            data: newAgendas
+            data: newAgenda
         })
         
     } catch (error) {
@@ -30,7 +30,7 @@ const modifyAgenda = async (req, res) =>{
 
         const {date, visitInformations, userId, idEmployee} = req.body;
         const idAgendas = req.params.id;
-        const updateAgendas = await agendasTable.update(
+        const updateAgenda = await agendasTable.update(
             {date : date},
             {visitInformations : visitInformations},
             {userId : userId},
@@ -40,7 +40,7 @@ const modifyAgenda = async (req, res) =>{
                 }
             })
         
-            if(updateAgendas[0] == 1){
+            if(updateAgenda[0] == 1){
                 res.status(200).send({
                     message : 'RDV modifié'
                 })
@@ -87,7 +87,7 @@ const getAgendas = async (req, res) =>{
         //  Envoie de tous les utilisateurs
         res.status(200).send({
             message : 'select',
-            data : properties
+            data : agendas
         })
 
     } catch (error) {
