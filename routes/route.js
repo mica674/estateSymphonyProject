@@ -1546,9 +1546,9 @@ const employeeDistrictController = require ('../controller/EmployeesDistricts/Em
 const agendasController= require ('../controller/Agendas/AgendasController');
 //------------------------------------- STATUSES -------------------------------------
 const statusesController= require ('../controller/Statuses/StatusesController');
-
 //------------------------------------- PROPERTIES ----------------------------------
 const propertieController= require ('../controller/Properties/PropertiesController');
+
 //------------------------------------- HISTORIES -----------------------------------
 const historiesController= require ('../controller/Histories/HistoriesController');
 //------------------------------------- FAVORIES ------------------------------------
@@ -1650,14 +1650,14 @@ router.post('/status/create', statusesController.createStatus);
 router.put('/status/modify/:id', statusesController.modifyStatus);
 router.delete('/status/delete/:id', statusesController.deleteStatus);
 
-
-
 //------------------------------------- PROPERTIES ROUTER ---------------------------------
 router.get('/property/:id', propertieController.getProperty);
 router.get('/properties', propertieController.getProperties);
 router.post('/property/create', photosMiddleware.upload, propertieController.createProperty);
 router.put('/property/modify/:id', propertieController.modifyProperty);
 router.delete('/property/delete/:id', propertieController.deleteProperty);
+
+
 
 
 //------------------------------------- FAVORIES ROUTER ---------------------------------

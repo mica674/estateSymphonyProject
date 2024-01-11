@@ -2,19 +2,102 @@ const { where } = require('sequelize');
 const db = require('../../models/index.js');
 const propertiesTable = db['Properties'];
 
-const createProperty = async (req, res, next)  =>{
+const getProperty = async (req, res) => {
+
+    try {
+        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
+        const property = await propertiesTable.findByPk(req.params.id);
+
+        res.status(200).send({
+            message: `Property ID : ${property.id}`,
+            data: property
+        })
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+
+        // res.status(401).send({
+        //     message: 'Vous n\'êtes pas autorisé.',
+        //     error: error.message
+        // })
+
+        // res.status(403).send({
+        //     message: 'Vous n\'avez pas les droits d\'accès.',
+        //     error: error.message
+        // })
+
+        // res.status(404).send({
+        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
+        //     error: error.message
+        // })
+
+        // res.status(500).send({
+        //     message: 'Erreur serveur.',
+        //     error: error.message
+        // })
+    }
+}
+const getProperties = async (req, res) => {
+    try {
+        //  Récupération de tous les utilisateurs
+        const properties = await propertiesTable.findAll();
+
+        //  Envoie de tous les utilisateurs
+        res.status(200).send({
+            message: 'Select all of properties',
+            data: properties
+        })
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+
+        // res.status(401).send({
+        //     message: 'Vous n\'êtes pas autorisé.',
+        //     error: error.message
+        // })
+
+        // res.status(403).send({
+        //     message: 'Vous n\'avez pas les droits d\'accès.',
+        //     error: error.message
+        // })
+
+        // res.status(404).send({
+        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
+        //     error: error.message
+        // })
+
+        // res.status(500).send({
+        //     message: 'Erreur serveur.',
+        //     error: error.message
+        // })
+    }
+}
+const createProperty = async (req, res, next) => {
 
     try {
 
-        const data = { ...req.body, photosTable:photo};
-        const newProperties = await propertiesTable.clicCountreate(data);
+        // const data = { ...req.body, photosTable: photo };
+        // const newProperties = await propertiesTable.clicCount(data);
+        const data = { ...req.body };
+        const newProperty = await propertiesTable.create(data);
 
         next.
-        res.status(200).send({
-            message: 'Create',
-            data: newProperties
-        })
-        
+            res.status(200).send({
+                message: 'Property created',
+                data: newProperty
+            })
+
     } catch (error) {
 
         console.log(error.message);
@@ -25,147 +108,52 @@ const createProperty = async (req, res, next)  =>{
         })
     }
 }
-const modifyProperty = async (req, res) =>{
+const modifyProperty = async (req, res) => {
 
     try {
 
-        const {price, location, surface, showerRoom, energising, typeEnergic, clicCount,description,
-                heatingSystem, floor, balcony, parking, rooms, idStatus, idDistrict } = req.body;
-        const idProperties = req.params.id;
-        const updateProperties = await propertiesTable.update(
-            {price : price},
-            {location : location},
-            {surface : surface},
-            {showerRoom : showerRoom},
-            {energising : energising},
-            {typeEnergic : typeEnergic},
-            {clicCount : clicCount},
-            {description : description},
-            {heatingSystem : heatingSystem},
-            {floor : floor},
-            {balcony : balcony},
-            {parking : parking},
-            {rooms : rooms},
-            {idStatus : idStatus},
-            {idDistrict  : idDistrict },
-            {where :{
-                    id : idProperties
+        const newData = { ...req.body };
+        const idProperty = req.params.id;
+        const updateProperty = await propertiesTable.update(
+            newData,
+            {
+                where: {
+                    id: idProperty
                 }
             })
-            if(updateProperties[0] == 1){
-                res.status(200).send({
-                    message : 'Role modifié'
-                })
-            }
-
-    } catch (error) {
-        
-        console.log(error);
-
-        res.status(400).send({
-            message : 'Erreur de synthaxe de la requête.',
-            error : error.message
-        })
-    }
-
-}
-const getProperty = async (req, res) => {
-
-    try {
-        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const propertie = await propertiesTable.findByPk(req.params.id, {include: 'roles'});
-        
-        res.status(200).send({
-            message : `Bonjour ${user.firstname} ${user.firstname}`, 
-            data:propertie
-        })
+        if (updateProperty[0] == 1) {
+            res.status(200).send({
+                message: 'Property updated'
+            })
+        }
 
     } catch (error) {
 
         console.log(error);
 
         res.status(400).send({
-            message : 'Erreur de synthaxe de la requête.',
-            error : error.message
-        })
-
-        res.status(401).send({
-            message : 'Vous n\'êtes pas autorisé.',
-            error : error.message
-        })
-
-        res.status(403).send({
-            message : 'Vous n\'avez pas les droits d\'accès.',
-            error : error.message
-        })
-
-        res.status(404).send({
-            message : 'Le serveur n\'a pas trouvé la source demandé.',
-            error : error.message
-        })
-
-        res.status(500).send({
-            message : 'Erreur serveur.',
-            error : error.message
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
         })
     }
+
 }
-const getProperties = async (req, res) =>{
-    try {
-        //  Récupération de tous les utilisateurs
-        const properties = await propertiesTable.findAll();
-
-        //  Envoie de tous les utilisateurs
-        res.status(200).send({
-            message : 'select',
-            data : properties
-        })
-
-    } catch (error) {
-        console.log(error);
-
-        res.status(400).send({
-            message : 'Erreur de synthaxe de la requête.',
-            error : error.message
-        })
-
-        res.status(401).send({
-            message : 'Vous n\'êtes pas autorisé.',
-            error : error.message
-        })
-
-        res.status(403).send({
-            message : 'Vous n\'avez pas les droits d\'accès.',
-            error : error.message
-        })
-
-        res.status(404).send({
-            message : 'Le serveur n\'a pas trouvé la source demandé.',
-            error : error.message
-        })
-
-        res.status(500).send({
-            message : 'Erreur serveur.',
-            error : error.message
-        })
-    }
-}
-const deleteProperty = async (req, res) =>{
+const deleteProperty = async (req, res) => {
     try {
 
-        const deleteProperties = await propertiesTable.destroy({where :{id:req.params.id} });
+        const deleteProperty = await propertiesTable.destroy({ where: { id: req.params.id } });
         res.status(201).send({
-            message : 'Deleted',
-            data : deleteProperties
+            message: 'Property deleted',
+            data: deleteProperty
         })
 
     } catch (error) {
         console.log(error);
 
         res.status(400).send({
-            message : 'Erreur de synthaxe de la requête.',
-            error : error.message
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
         })
     }
 }
-module.exports = {createProperty, getProperty, getProperties, modifyProperty, deleteProperty };
+module.exports = { getProperty, getProperties, createProperty, modifyProperty, deleteProperty };
