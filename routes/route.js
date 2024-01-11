@@ -308,7 +308,7 @@
     //  GET BY ID
 /**
  * @swagger
- * /roles/{id}:
+ * /role/{id}:
  *      get:
  *          summary: To find a 'Role' with his ID
  *          tags: [ROLE]
@@ -420,7 +420,7 @@
     //  MODIFY 
 /**
  * @swagger
- * /modifyRole/{id}:
+ * /role/modify/{id}:
  *  put:
  *      summary: Modifier le nom d'un role
  *      tags: [ROLE]
@@ -461,7 +461,7 @@
     //  DELETE
  /**
  * @swagger
- * /role/{id}:
+ * /role/delete/{id}:
  *      delete:
  *          summary: To delete a 'Role' with his ID
  *          tags: [ROLE]
@@ -640,7 +640,7 @@
     //  MODIFY 
 /**
  * @swagger
- * /modifyEstimation/{id}:
+ * /estimation/modify/{id}:
  *  put:
  *      summary: Modifier les informations d'une estimation
  *      tags: [ESTIMATION]
@@ -855,7 +855,7 @@
     //  MODIFY 
 /**
  * @swagger
- * /modifyMessage/{id}:
+ * /message/modify/{id}:
  *  put:
  *      summary: Modifier le contenu d'un message
  *      tags: [MESSAGE]
@@ -924,29 +924,218 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
+//  COMMENTS
+//  GET BY ID
+/**
+ * @swagger
+ * /comment/{id}:
+ *      get:
+ *          summary: To find a 'Comment' with his ID
+ *          tags: [COMMENT]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+
+ *                  description: ID du commentaire
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un commentaire par son ID
+ *          responses: 
+ *              200:
+ *                  description: Commentaire par son ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          Comments: Comment id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la récupération du commentaire 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération du commentaire par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ */
+    //  GET ALL
+/**
+ * @swagger
+ * /comments:
+ *      get:
+ *          summary: Récupérer tous les commentaires de la base de données
+ *          tags: [COMMENT]
+ *          description: Récupère tous les commentaires ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Comments ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all
+ *                         data: 
+ *                             -   id: 1
+ *                                 name: MODIFIER APRES TEST
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                             -   id: 2
+ *                                 name: Manager
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 3
+ *                                 name: Employee
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *                             -   id: 4
+ *                                 name: User
+ *                                 createdAt: "2024-01-08T14:47:27.000Z"
+ *                                 updatedAt: null
+ *              400:
+ *                  description: Erreur lors de la récupération de tous les commentaires
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les commentaires
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
+    //  CREATE
+/**
+ * @swagger
+ * /comment/create:
+ *  post:
+ *      summary: Créer un nouveau commentaire
+ *      tags: [COMMENT]
+ *      description: Crée un nouveau commentaire dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          userID:
+ *                              type: integer
+ *                              description: ID de l'utilisateur auteur du commentaire
+ *                          comment:
+ *                              type: string
+ *                              description: Contenu du commentaire
+ *      responses:
+ *          200:
+ *              description: Commentaire créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Commentaire créé
+ *                          data: 
+ *                              id: 25
+ *                              name: A MODIFIER APRES TEST
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          400:
+ *              description: Erreur lors de la création du commentaire
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du commentaire
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  MODIFY 
+/**
+ * @swagger
+ * /comment/modify/{id}:
+ *  put:
+ *      summary: Modifier le contenu d'un commentaire
+ *      tags: [COMMENT]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du commentaire
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie le contenu d'un commentaire dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          comment:
+ *                              type: string
+ *                              description: Contenu du commentaire
+ *      responses:
+ *          200:
+ *              description: Commentaire modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Commentaire modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du commentaire
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du contenu du commentaire
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+    //  DELETE
+ /**
+ * @swagger
+ * /comment/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un commentaire avec son ID
+ *          tags: [COMMENT]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du commentaire
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le commentaire dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Commentaire supprimé avec succès 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Commentaire supprimé
+ *              400:
+ *                description: Erreur lors de la suppression du commentaire
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression du commentaire par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
 //  CLIENT FOLDERS
     //  GET BY ID
 /**
  * @swagger
- * /clientfolder/{id}:
+ * /clientFolder/{id}:
  *      get:
  *          summary: Pour trouver un dossier client avec son ID
- *          tags: [CLIENTFOLDERS]
+ *          tags: [CLIENTFOLDER]
  *          parameters:
  *              -   in : path
  *                  name: id
- *                  description: ID of ClientFolders
+ *                  description: ID of ClientFolder
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Obtenir un ClientFolder par son ID
+ *          description: Obtenir un dossier client par son ID
  *          responses: 
  *              200:
- *                  description: ClientFolders by ID
+ *                  description: ClientFolder by ID
  *                  content:
  *                  application/json:
  *                      example:
- *                          ClientFolders: ClientFolders id = 2
+ *                          message: Dossier client id = 2
  *                          data:
  *                              id: A MODIFIER APRES TEST
  *                              createdAt: "2024-01-08T14:47:27.000Z"
@@ -965,11 +1154,11 @@
  * /clientFolders:
  *      get:
  *          summary: Récupérer tous les dossiers clients de la base de données
- *          tags: [CLIENTFOLDERS]
+ *          tags: [CLIENTFOLDER]
  *          description: Récupère tous les dossiers clients ajoutés dans la base de données
  *          responses: 
  *              200:
- *                  description: Messages ALL
+ *                  description: ClientFolders ALL
  *                  content:
  *                      application/json:
  *                        example:
@@ -1002,10 +1191,10 @@
     //  CREATE
 /**
  * @swagger
- * /clientFoldersCreate:
+ * /clientFolder/Create:
  *  post:
  *      summary: Créer un nouveau dossier client
- *      tags: [CLIENTFOLDERS]
+ *      tags: [CLIENTFOLDER]
  *      description: Crée un nouveau dossier client dans la base de données
  *      requestBody:
  *          required: true
@@ -1014,15 +1203,15 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          message:
+ *                          userId:
+ *                              type: integer
+ *                              description: ID de l'utilisateur
+ *                          name:
  *                              type: string
- *                              description: Contenu du dossier client
- *                          userIdSender:
- *                              type: integer
- *                              description: ID de l'utilisateur expéditeur du dossier client
- *                          userIdReceiver:
- *                              type: integer
- *                              description: ID de l'utilisateur destinataire du dossier client
+ *                              description: Nom du dossier
+ *                          pdf:
+ *                              type: string
+ *                              description: Nom du fichier pdf
  *      responses:
  *          200:
  *              description: Dossier client créé avec succès
@@ -1031,7 +1220,7 @@
  *                      example:
  *                          message: Dossier client créé
  *                          data: 
- *                              id: 25
+ *                              userId: 2
  *                              name: A MODIFIER APRES TEST
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
@@ -1046,10 +1235,10 @@
     //  MODIFY 
 /**
  * @swagger
- * /modifyClientFolders/{id}:
+ * /clientFolder/modify/{id}:
  *  put:
  *      summary: Modifier le contenu d'un dossier client
- *      tags: [CLIENTFOLDERS]
+ *      tags: [CLIENTFOLDER]
  *      parameters:
  *          -   in: path
  *              name: id
@@ -1066,31 +1255,37 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          message:
+ *                          userId:
+ *                              type: integer
+ *                              description: Id de l'utilisateur
+ *                          name:
  *                              type: string
- *                              description: Contenu du dossier client
+ *                              description: Nom du dossier
+ *                          pdf:
+ *                              type: string
+ *                              description: Nom du fichier pdf
  *      responses:
  *          200:
- *              description: Contenu du dossier client modifié avec succès
+ *              description: Dossier client modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: dossier client modifié avec succès
+ *                          message: Dossier client modifié avec succès
  *          400:
  *              description: Erreur lors de la modification du dossier client
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du contenu du dossier client
+ *                          message: Echec de la modification du dossier client
  *                          error: Message de l'erreur spécifique le cas échéant
 */
     //  DELETE
- /**
+/**
  * @swagger
  * /clientFolder/delete/{id}:
  *      delete:
- *          summary: POur supprimer un dossier client avec son ID
- *          tags: [CLIENTFOLDERS]
+ *          summary: Pour supprimer un dossier client avec son ID
+ *          tags: [CLIENTFOLDER]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -1098,10 +1293,10 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Supprimé le dossier client dans la base de données
+ *          description: Supprime le dossier client dans la base de données
  *          responses: 
  *              200:
- *                  description: Suppression du message par son ID 
+ *                  description: Suppression du dossier client par son ID 
  *                  content:
  *                      application/json:
  *                          example:
@@ -1115,52 +1310,52 @@
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
-//  COMMENTS
+//  EMPLOYEES
     //  GET BY ID
 /**
  * @swagger
- * /comment/{id}:
+ * /employee/{id}:
  *      get:
- *          summary: Pour trouver un commentaire avec son ID
- *          tags: [COMMENTS]
+ *          summary: Pour trouver un employé avec son ID
+ *          tags: [EMPLOYEE]
  *          parameters:
  *              -   in : path
  *                  name: id
- *                  description: ID du commentaire
+ *                  description: ID of Employee
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Obtenir un commentaire par son ID
+ *          description: Obtenir un employé par son ID
  *          responses: 
  *              200:
- *                  description: Commentaire par son ID
+ *                  description: Employee by ID
  *                  content:
  *                  application/json:
  *                      example:
- *                          Comments: Comments id = 2
+ *                          message: Employé id = 2
  *                          data:
  *                              id: A MODIFIER APRES TEST
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
- *              description: Erreur lors de la récupération du commentaire 
+ *              description: Erreur lors de la récupération de l'employé 
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Erreur survenue lors de la récupération du commentaire par son ID
+ *                          message: Erreur survenue lors de la récupération de l'employé par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
     //  GET ALL
 /**
  * @swagger
- * /getAllComments:
+ * /employees:
  *      get:
- *          summary: Récupérer tous les commentaires de la base de données
- *          tags: [COMMENTS]
- *          description: Récupère tous les commentaires ajoutés dans la base de données
+ *          summary: Récupérer tous les employés de la base de données
+ *          tags: [EMPLOYEE]
+ *          description: Récupère tous les employés ajoutés dans la base de données
  *          responses: 
  *              200:
- *                  description: Comments ALL
+ *                  description: Employees ALL
  *                  content:
  *                      application/json:
  *                        example:
@@ -1183,21 +1378,21 @@
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *              400:
- *                  description: Erreur lors de la récupération des commentaires
+ *                  description: Erreur lors de la récupération des employés
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération de tous les commentaires
+ *                              message: Erreur survenue lors de la récupération de tous les employés
  *                              error: Message de l'erreur spécifique le cas échéant
  */
     //  CREATE
 /**
  * @swagger
- * /createComments:
+ * /employee/Create:
  *  post:
- *      summary: Créer un nouveau commentaire
- *      tags: [COMMENTS]
- *      description: Crée un nouveau commentaire dans la base de données
+ *      summary: Créer un nouvel employé
+ *      tags: [EMPLOYEE]
+ *      description: Crée un nouvel employé dans la base de données
  *      requestBody:
  *          required: true
  *          content:
@@ -1205,51 +1400,51 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          message:
+ *                          description:
  *                              type: string
- *                              description: Contenu du commentaire
- *                          userIdSender:
+ *                              description: Description de l'employé
+ *                          name:
+ *                              type: string
+ *                              description: Nom de l'employé
+ *                          idUser:
  *                              type: integer
- *                              description: ID de l'utilisateur expéditeur du commentaire
- *                          userIdReceiver:
- *                              type: integer
- *                              description: ID de l'utilisateur destinataire du commentaire
+ *                              description: ID utilisateur (foreign key)
  *      responses:
  *          200:
- *              description: Commentaire créé avec succès
+ *              description: Employé créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Commentaire créé
+ *                          message: Employé créé
  *                          data: 
- *                              id: 25
+ *                              userId: 2
  *                              name: A MODIFIER APRES TEST
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
- *              description: Erreur lors de la création du commentaire
+ *              description: Erreur lors de la création de l'employé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Une erreur est survenue lors de la création du commentaire
+ *                          message: Une erreur est survenue lors de la création de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
 */
     //  MODIFY 
 /**
  * @swagger
- * /modifyComments/{id}:
+ * /employee/modify/{id}:
  *  put:
- *      summary: Modifier le contenu d'un commentaire
- *      tags: [COMMENTS]
+ *      summary: Modifier les informations de l'employé
+ *      tags: [EMPLOYEE]
  *      parameters:
  *          -   in: path
  *              name: id
  *              required: true
- *              description: ID du commentaire
+ *              description: ID de l'employé
  *              schema:
  *                  type: integer
  *                  required: true
- *      description: Modifie le contenu d'un commentaire dans la base de données
+ *      description: Modifie les informations de l'employé dans la base de données
  *      requestBody:
  *          required: true
  *          content:
@@ -1257,52 +1452,58 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          message:
+ *                          descriptions:
  *                              type: string
- *                              description: Contenu du commentaire
+ *                              description: Description de l'employé
+ *                          name:
+ *                              type: string
+ *                              description: Nom de l'employé
+ *                          idUser:
+ *                              type: integer
+ *                              description: ID de l'utilisateur
  *      responses:
  *          200:
- *              description: Contenu du commentaire modifié avec succès
+ *              description: Employé modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Commentaire modifié avec succès
+ *                          message: Employé modifié avec succès
  *          400:
- *              description: Erreur lors de la modification du commentaire
+ *              description: Erreur lors de la modification de l'employé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du contenu du commentaire
+ *                          message: Echec de la modification de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
 */
     //  DELETE
- /**
+/**
  * @swagger
- * /delectedComments/{id}:
+ * /employee/delete/{id}:
  *      delete:
- *          summary: Pour supprimer un commentaire avec son ID
- *          tags: [COMMENTS]
+ *          summary: Pour supprimer un employé avec son ID
+ *          tags: [EMPLOYEE]
  *          parameters:
  *              -   in : path
  *                  name: id
- *                  description: ID du commentaire
+ *                  description: ID de l'employé
  *                  schema: 
  *                      type: integer
  *                      required: true
- *          description: Supprimé le commentaire dans la base de données
+ *          description: Supprime l'employé dans la base de données
  *          responses: 
  *              200:
- *                  description: Suppression du message par son ID 
+ *                  description: Suppression de l'employé par son ID 
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Commentaire supprimé
+ *                              message: Employé supprimé
  *              400:
- *                description: Erreur lors de la suppression du commentaire
+ *                description: Erreur lors de la suppression de l'employé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Erreur survenue lors de la suppression du commentaire par son ID
+ *                            message: Erreur survenue lors de la suppression de l'employé par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
@@ -1322,21 +1523,23 @@ const roleController = require('../controller/Roles/RolesController');
 const estimationController = require('../controller/Estimations/EstimationsController');
 //------------------------------------- MESSAGES ----------------------------------
 const messageController = require('../controller/Messages/MessagesController');
+//------------------------------------- COMMENTS ------------------------------------
+const commentController= require ('../controller/Comments/CommentsController');
+//------------------------------------- CLIENT FOLDERS ------------------------------
+const clientFolderController = require ('../controller/Client Folder/ClientFolderController');
+//------------------------------------- EMPLOYEES ------------------------------
+const employeesController = require ('../controller/Employees/EmployeesController');
 
 //------------------------------------- PROPERTIES ----------------------------------
 const propertieController= require ('../controller/Properties/PropertiesController');
 //------------------------------------- AGENDAS -------------------------------------
 const agendasController= require ('../controller/Agendas/AgendasController');
-//------------------------------------- COMMENTS ------------------------------------
-const commentsController= require ('../controller/Comments/CommentsController');
 //------------------------------------- HISTORIES -----------------------------------
 const historiesController= require ('../controller/Histories/HistoriesController');
 //------------------------------------- FAVORIES ------------------------------------
 const favoriesController= require ('../controller/Favories/FavoriesController');
 //------------------------------------- PHOTOS --------------------------------------
 const photosMiddleware= require ('../middleware/Photos/PhotosMiddleware');
-//------------------------------------- CLIENT FOLDERS ------------------------------
-const clientFolderController = require ('../controller/Client Folder/ClientFolderController');
 //------------------------------------- PHOTOS FOLDERS ------------------------------
 const PhotosMiddleware = require('../middleware/Photos/PhotosMiddleware');
 
@@ -1352,11 +1555,11 @@ router.get('/', (req, res) => {
 
 
 //------------------------------------- ROLE ROUTER ---------------------------------------
-router.get('/roles/:id', roleController.getRole);//S
+router.get('/role/:id', roleController.getRole);//S
 router.get('/roles', roleController.getAllRoles);//S
-router.post('/role', roleController.createRole);//S
-router.put('/modifyRole/:id', roleController.modifyRole);//S
-router.delete('/role/:id', roleController.deleteRole);//S
+router.post('/role/create', roleController.createRole);//S
+router.put('/role/modify/:id', roleController.modifyRole);//S
+router.delete('/role/delete/:id', roleController.deleteRole);//S
 
 //------------------------------------- USER ROUTER ---------------------------------------
 router.get('/user/id/:id', userController.getUserId);//S
@@ -1383,49 +1586,55 @@ router.post('/message/create', messageController.createMessage);
 router.put('/message/modify/:id', messageController.modifyMessage);
 router.delete('/message/delete/:id', messageController.deleteMessage);
 
-//------------------------------------- PROPERTIES ROUTER ---------------------------------
-router.post('/createProperties', photosMiddleware.upload, propertieController.createProperties);
-router.put('/modifyProperties', propertieController.modifyProperties);
-router.delete('/deleteProperties', propertieController.deleteProperties);
-router.get('/properties', propertieController.getAllProperties);
-router.get('/propertie/:id', propertieController.getPropertie);
-
-//------------------------------------- AGENDAS ROUTER ---------------------------------
-router.post('/createAgendas', agendasController.createAgendas);
-router.put('/modifyAgendas', agendasController.modifyAgendas);
-router.delete('/deleteAgendas', agendasController.deleteAgenda);
-router.get('/agendas', agendasController.getAllAgendas);
-router.get('/agenda/:id', agendasController.getAgenda);
-
 //------------------------------------- COMMENTS ROUTER ---------------------------------
-router.post('/createComments', commentsController.createComments);
-router.put('/modifyComments', commentsController.modifyComments);
-router.delete('/deleteComments', commentsController.deleteComments);
-router.get('/comments', commentsController.getAllComments);
-router.get('/comment/:id', commentsController.getComment);
-
-/*//------------------------------------- FAVORIES ROUTER ---------------------------------
-router.post('/createFavories', favoriesController.createFavories);
-router.put('/modifyFavories', favoriesController.modifyFavories);
-router.delete('/deleteFavories', favoriesController.deleteFavories);
-router.get('/favories', favoriesController.getAllFavories);
-router.get('/favorie/:id', favoriesController.getFavorie);
-
-//------------------------------------- HISTORIES ROUTER ---------------------------------
-router.post('/createHistories', historiesController.createHistories);
-router.put('/modifyHistories', historiesController.modifyHistories);
-router.delete('/deleteHistories', historiesController.deleteHistories);
-router.get('/histories', historiesController.getAllHistories);
-router.get('/historie/:id', historiesController.getHistorie);*/
-
-
+router.get('/comment/:id', commentController.getComment);
+router.get('/comments', commentController.getComments);
+router.post('/comment/create', commentController.createComment);
+router.put('/comment/modify/:id', commentController.modifyComment);
+router.delete('/comment/delete/;id', commentController.deleteComment);
 
 //------------------------------------- CLIENTFOLDER ROUTER -----------------------------
-router.post('/createClientFolder', clientFolderController.createClientFolders);
-router.put('/modifyClientFolders', clientFolderController.modifyClientFolders);
-router.delete('/deleteClientFolder', clientFolderController.deleteClientFolder);
-router.get('/clientFolders', clientFolderController.getAllClientFolders)
+router.post('/clientFolder/create', clientFolderController.createClientFolder);
+router.put('/clientFolder/modify/:id', clientFolderController.modifyClientFolder);
+router.delete('/clientFolder/delete/:id', clientFolderController.deleteClientFolder);
+router.get('/clientFolders', clientFolderController.getClientFolders)
 router.get('/clientFolder/:id', clientFolderController.getClientFolder);
+
+//------------------------------------- EMPLOYEES ROUTER ---------------------------------
+router.get('/employee/:id', employeesController.getEmployee);
+router.get('/employees', employeesController.getEmployees);
+router.post('/employee/create', employeesController.createEmployee);
+router.put('/employee/modify/:id', employeesController.modifyEmployee);
+router.delete('/employee/delete/:id', employeesController.deleteEmployee);
+
+//------------------------------------- PROPERTIES ROUTER ---------------------------------
+router.get('/property/:id', propertieController.getProperty);
+router.get('/properties', propertieController.getProperties);
+router.post('/property/create', photosMiddleware.upload, propertieController.createProperty);
+router.put('/property/modify/:id', propertieController.modifyProperty);
+router.delete('/property/delete/:id', propertieController.deleteProperty);
+
+//------------------------------------- AGENDAS ROUTER ---------------------------------
+router.get('/agenda/:id', agendasController.getAgenda);
+router.get('/agendas', agendasController.getAgendas);
+router.post('/agenda/create', agendasController.createAgenda);
+router.put('/agenda/modify/:id', agendasController.modifyAgenda);
+router.delete('/agenda/delete/:id', agendasController.deleteAgenda);
+
+
+//------------------------------------- FAVORIES ROUTER ---------------------------------
+// router.get('/favori/:id', favoriesController.getFavori);
+// router.get('/favoris', favoriesController.getFavories);
+// router.post('/favori/create', favoriesController.createFavori);
+// router.put('/favori/modify/:id', favoriesController.modifyFavori);
+// router.delete('/favori/delete/:id', favoriesController.deleteFavori);
+
+//------------------------------------- HISTORIES ROUTER ---------------------------------
+// router.get('/history/:id', historiesController.getHistory);
+// router.get('/histories', historiesController.getHistories);
+// router.post('/history/create', historiesController.createHistory);
+// router.put('/history/modify/:id', historiesController.modifyHistory);
+// router.delete('/history/:id', historiesController.deleteHistory);
 
 //------------------------------------- PHOTOS ROUTER -----------------------------
 router.post('/photos', photosMiddleware.upload);

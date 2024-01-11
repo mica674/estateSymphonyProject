@@ -1,13 +1,13 @@
 const db = require('../../models/index.js');
-const commentsTable = db['Comments'];
+const employeesTable = db['Employees'];
 
-const getComment = async (req,res)=>{
+const getEmployee = async (req,res)=>{
     try {
-        const comment = await commentsTable.findByPk(req.params.id);
+        const employee = await employeesTable.findByPk(req.params.id);
 
         res.status(200).send({
-            message: `Commentaire ${comment.id}`,
-            data:comment
+            message: `Employé ${employee.id}`,
+            data:employee
         })
     } catch (error) {
         res.status(400).send({
@@ -17,13 +17,13 @@ const getComment = async (req,res)=>{
     }
 }
 
-const getComments = async (req,res)=>{
+const getEmployees = async (req,res)=>{
     try {
-        const comments = await commentsTable.findAll();
+        const employees = await employeesTable.findAll();
 
         res.status(200).send({
             message : 'select all',
-            data:comments
+            data:   employees
         })
 
     } catch (error) {
@@ -34,14 +34,14 @@ const getComments = async (req,res)=>{
     }
 }
 
-const createComment = async (req,res)=>{
+const createEmployee = async (req,res)=>{
     try {
         let data = {...req.body};
-        const newComments = await commentsTable.create(data);
+        const newEmployees = await employeesTable.create(data);
         
         res.status(200).send({
-            message : 'Commentaire créé',
-            data: newComments
+            message : 'Employé créé',
+            data: newEmployees
         })
     } catch (error) {
         res.status(400).send({
@@ -51,19 +51,19 @@ const createComment = async (req,res)=>{
     }
 }
 
-const modifyComment = async (req,res)=>{
+const modifyEmployee = async (req,res)=>{
     try {
-        const {comment} = req.body;
-        const idComments = req.params.id;
-        const updateComments = await commentsTable.update(
-            {comment : comment},
+        const {employee} = req.body;
+        const idEmployee = req.params.id;
+        const updateEmployee = await employeesTable.update(
+            {employee : employee},
             {where :{
-                    id : idComments
+                    id : idEmployee
                 }
             })
-            if(updateComments[0] == 1){
+            if(updateEmployee[0] == 1){
                 res.status(200).send({
-                    message : 'Commentaire modifié'
+                    message : 'Employé modifié'
                 })
             }
     } catch (error) {
@@ -74,16 +74,16 @@ const modifyComment = async (req,res)=>{
     }
 }
 
-const deleteComment =async (req, res)=>{
+const deleteEmployee =async (req, res)=>{
     try {
-        const idComment = req.params.id;
-        const deletedComment = await commentsTable.destroy({
-            where  : {id : idComment}
+        const idEmployee = req.params.id;
+        const deletedEmployee = await employeesTable.destroy({
+            where  : {id : idEmployee}
         })
-        console.log(deletedComment);
-        if (deletedComment == 1) {
+        console.log(deletedEmployee);
+        if (deletedEmployee == 1) {
             res.status(200).send({
-                message: 'Commentaire supprimé'
+                message: 'Employé supprimé'
             })
         }
     } catch (error) {
@@ -94,4 +94,4 @@ const deleteComment =async (req, res)=>{
     }
 }
 
-module.exports = {getComment, getComments, createComment, modifyComment, deleteComment}
+module.exports = {getEmployee, getEmployees, createEmployee, modifyEmployee, deleteEmployee}

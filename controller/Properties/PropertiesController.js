@@ -2,7 +2,7 @@ const { where } = require('sequelize');
 const db = require('../../models/index.js');
 const propertiesTable = db['Properties'];
 
-const createProperties = async (req, res, next)  =>{
+const createProperty = async (req, res, next)  =>{
 
     try {
 
@@ -25,7 +25,7 @@ const createProperties = async (req, res, next)  =>{
         })
     }
 }
-const modifyProperties = async (req, res) =>{
+const modifyProperty = async (req, res) =>{
 
     try {
 
@@ -69,7 +69,7 @@ const modifyProperties = async (req, res) =>{
     }
 
 }
-const getPropertie = async (req, res) => {
+const getProperty = async (req, res) => {
 
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
@@ -110,7 +110,7 @@ const getPropertie = async (req, res) => {
         })
     }
 }
-const getAllProperties = async (req, res) =>{
+const getProperties = async (req, res) =>{
     try {
         //  Récupération de tous les utilisateurs
         const properties = await propertiesTable.findAll();
@@ -150,7 +150,7 @@ const getAllProperties = async (req, res) =>{
         })
     }
 }
-const deleteProperties = async (req, res) =>{
+const deleteProperty = async (req, res) =>{
     try {
 
         const deleteProperties = await propertiesTable.destroy({where :{id:req.params.id} });
@@ -168,4 +168,4 @@ const deleteProperties = async (req, res) =>{
         })
     }
 }
-module.exports = {createProperties, getPropertie, getAllProperties, modifyProperties, deleteProperties };
+module.exports = {createProperty, getProperty, getProperties, modifyProperty, deleteProperty };

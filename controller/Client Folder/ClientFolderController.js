@@ -1,7 +1,7 @@
 const db = require('../../models/index.js');
 const clientFoldersTable = db['ClientFolders'];
 
-const createClientFolders = async (req, res)  =>{
+const createClientFolder = async (req, res)  =>{
 
     try {
 
@@ -24,7 +24,7 @@ const createClientFolders = async (req, res)  =>{
         
     }
 }
-const modifyClientFolders = async (req, res) =>{
+const modifyClientFolder = async (req, res) =>{
 
     try {
 
@@ -78,7 +78,7 @@ const getClientFolder = async (req, res) => {
         })
     }
 }
-const getAllClientFolders = async (req, res) =>{
+const getClientFolders = async (req, res) =>{
     try {
         //  Récupération de tous les utilisateurs
         const clientFolders = await clientFoldersTable.findAll();
@@ -116,4 +116,4 @@ const deleteClientFolder = async (req, res) =>{
         })
     }
 }
-module.exports = {createClientFolders, getClientFolder, getAllClientFolders, modifyClientFolders, deleteClientFolder};
+module.exports = {createClientFolder, getClientFolder, getClientFolders, modifyClientFolder, deleteClientFolder};

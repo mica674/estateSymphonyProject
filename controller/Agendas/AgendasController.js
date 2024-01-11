@@ -1,7 +1,7 @@
 const db = require('../../models/index.js');
 const agendasTable = db['Agendas'];
 
-const createAgendas = async (req, res)  =>{
+const createAgenda = async (req, res)  =>{
 
     try {
 
@@ -24,7 +24,7 @@ const createAgendas = async (req, res)  =>{
         
     }
 }
-const modifyAgendas = async (req, res) =>{
+const modifyAgenda = async (req, res) =>{
 
     try {
 
@@ -79,7 +79,7 @@ const getAgenda = async (req, res) => {
         })
     }
 }
-const getAllAgendas = async (req, res) =>{
+const getAgendas = async (req, res) =>{
     try {
         //  Récupération de tous les utilisateurs
         const agendas = await agendasTable.findAll();
@@ -122,4 +122,4 @@ const deleteAgenda = async (req, res) =>{
         })
     }
 }
-module.exports = {createAgendas, getAgenda, getAllAgendas, modifyAgendas, deleteAgenda };
+module.exports = {createAgenda, getAgenda, getAgendas, modifyAgenda, deleteAgenda };
