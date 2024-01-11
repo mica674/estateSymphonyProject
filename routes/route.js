@@ -2937,7 +2937,7 @@
 //  DELETE
 /**
  * @swagger
- * /histories/delete/{id}:
+ * /history/delete/{id}:
  *      delete:
  *          summary: Pour supprimer un historique utilisateur avec son ID
  *          tags: [HISTORIES]
@@ -2962,6 +2962,215 @@
  *                    application/json:
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un historique utilisateur par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
+//  FAVORITES
+// ------
+//  GET BY ID
+/**
+ * @swagger
+ * /favorite/{id}:
+ *      get:
+ *          summary: Pour trouver un favori avec son ID
+ *          tags: [FAVORITES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of favorite
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un favori par son ID
+ *          responses: 
+ *              200:
+ *                  description: Favorite by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: Favorite id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération d'un favori 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un favori par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /favorites:
+ *      get:
+ *          summary: Récupérer tous les favoris de la base de données
+ *          tags: [FAVORITES]
+ *          description: Récupère tous les favoris ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Favorites ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: Select all of favorites
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des favoris
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les favoris
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  CREATE
+/**
+ * @swagger
+ * /favorite/create:
+ *  post:
+ *      summary: Créer un nouveau favori
+ *      tags: [FAVORITES]
+ *      description: Crée un nouveau favori dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          sold: 
+ *                              type: boolean
+ *                              description: A MODIFIER APRES TEST
+ *                          rent: 
+ *                              type: boolean
+ *                              description: Bien loué (true/false)
+ *                          hidden: 
+ *                              type: boolean
+ *                              description: Bien caché (true/false)
+ *      responses:
+ *          200:
+ *              description: Favori créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Favori créée
+ *                          data: 
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la création d'un favori
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création d'un favori
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  MODIFY 
+/**
+ * @swagger
+ * /favorite/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations d'un favori
+ *      tags: [FAVORITES]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du favori
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du favori dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date:
+ *                              type: MODIFIER APRES TEST
+ *                              description: Date du rendez-vous
+ *                          visitInformations:
+ *                              type: string
+ *                              description: Infomations complémentaires pour le rendez-vous
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: Favori modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Favori modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du favori
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du favori
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  DELETE
+/**
+ * @swagger
+ * /favorite/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un favori avec son ID
+ *          tags: [FAVORITES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du favori
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le favori dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression d'un favori par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Favorite deleted
+ *              400:
+ *                description: Erreur lors de la suppression d'un favori
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un favori par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
