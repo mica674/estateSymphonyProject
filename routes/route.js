@@ -2347,7 +2347,7 @@
  * /property/{id}:
  *      get:
  *          summary: Pour trouver une propriété avec son ID
- *          tags: [PROPRIETE]
+ *          tags: [PROPERTY]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2384,7 +2384,7 @@
  * /properties:
  *      get:
  *          summary: Récupérer toutes les propriétés de la base de données
- *          tags: [PROPRIETE]
+ *          tags: [PROPERTY]
  *          description: Récupère toutes les propriétés ajoutées dans la base de données
  *          responses: 
  *              200:
@@ -2426,7 +2426,7 @@
  * /property/create:
  *  post:
  *      summary: Créer une nouvelle propriété
- *      tags: [PROPRIETE]
+ *      tags: [PROPERTY]
  *      description: Crée une nouvelle propriété dans la base de données
  *      requestBody:
  *          required: true
@@ -2472,7 +2472,7 @@
  * /property/modify/{id}:
  *  put:
  *      summary: Modifier les informations d'une propriété
- *      tags: [PROPRIETE]
+ *      tags: [PROPERTY]
  *      parameters:
  *          -   in: path
  *              name: id
@@ -2522,7 +2522,7 @@
  * /property/delete/{id}:
  *      delete:
  *          summary: Pour supprimer une propriété avec son ID
- *          tags: [PROPRIETE]
+ *          tags: [PROPERTY]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2544,6 +2544,424 @@
  *                    application/json:
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'une propriété par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
+//  PROPERTIES FOLDERS
+// ------
+//  GET BY ID
+/**
+ * @swagger
+ * /propertiesFolders/one/{id}:
+ *      get:
+ *          summary: Pour trouver un dossier de propriété avec son ID
+ *          tags: [PROPERTIES_FOLDERS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of properties-folders
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un dossier de propriété par son ID
+ *          responses: 
+ *              200:
+ *                  description: PropertiesFolders by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: PropertiesFolders id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération d'un dossier de propriété 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un dossier de propriété par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /propertiesFolders/all:
+ *      get:
+ *          summary: Récupérer tous les dossiers de propriété de la base de données
+ *          tags: [PROPERTIES_FOLDERS]
+ *          description: Récupère tous les dossiers de propriété ajoutées dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: propertiesFolders ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: Select all of propertiesFolders
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des dossiers de propriété
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les dossiers de propriété
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  CREATE
+/**
+ * @swagger
+ * /propertiesFolders/create:
+ *  post:
+ *      summary: Créer un nouveau dossier de propriété
+ *      tags: [PROPERTIES_FOLDERS]
+ *      description: Crée un nouveau dossier de propriété dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          sold: 
+ *                              type: boolean
+ *                              description: A MODIFIER APRES TEST
+ *                          rent: 
+ *                              type: boolean
+ *                              description: Bien loué (true/false)
+ *                          hidden: 
+ *                              type: boolean
+ *                              description: Bien caché (true/false)
+ *      responses:
+ *          200:
+ *              description: Dossier de propriété créée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Dossier de propriété créée
+ *                          data: 
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la création d'un dossier de propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création d'un dossier de propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  MODIFY 
+/**
+ * @swagger
+ * /propertiesFolders/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations d'un dossier de propriété
+ *      tags: [PROPERTIES_FOLDERS]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du dossier de la propriété
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du dossier de la propriété dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date:
+ *                              type: MODIFIER APRES TEST
+ *                              description: Date du rendez-vous
+ *                          visitInformations:
+ *                              type: string
+ *                              description: Infomations complémentaires pour le rendez-vous
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: Dossier de propriété modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Dossier de propriété modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du dossier de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du dossier de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  DELETE
+/**
+ * @swagger
+ * /propertiesFolders/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un dossier de propriété avec son ID
+ *          tags: [PROPERTIES_FOLDERS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du dossier de la propriété
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le dossier de propriété dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression d'un dossier de propriété par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: PropertyFolder deleted
+ *              400:
+ *                description: Erreur lors de la suppression d'un dossier de propriété
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un dossier de propriété par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
+//  
+// ------
+//  GET BY ID
+/**
+ * @swagger
+ * /propertiesFolders/one/{id}:
+ *      get:
+ *          summary: Pour trouver un dossier de propriété avec son ID
+ *          tags: [PROPERTIES_FOLDERS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of properties-folders
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un dossier de propriété par son ID
+ *          responses: 
+ *              200:
+ *                  description: PropertiesFolders by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: PropertiesFolders id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération d'un dossier de propriété 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un dossier de propriété par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /propertiesFolders/all:
+ *      get:
+ *          summary: Récupérer tous les dossiers de propriété de la base de données
+ *          tags: [PROPERTIES_FOLDERS]
+ *          description: Récupère tous les dossiers de propriété ajoutées dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: propertiesFolders ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: Select all of propertiesFolders
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des dossiers de propriété
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les dossiers de propriété
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  CREATE
+/**
+ * @swagger
+ * /propertiesFolders/create:
+ *  post:
+ *      summary: Créer un nouveau dossier de propriété
+ *      tags: [PROPERTIES_FOLDERS]
+ *      description: Crée un nouveau dossier de propriété dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          sold: 
+ *                              type: boolean
+ *                              description: A MODIFIER APRES TEST
+ *                          rent: 
+ *                              type: boolean
+ *                              description: Bien loué (true/false)
+ *                          hidden: 
+ *                              type: boolean
+ *                              description: Bien caché (true/false)
+ *      responses:
+ *          200:
+ *              description: Dossier de propriété créée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Dossier de propriété créée
+ *                          data: 
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la création d'un dossier de propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création d'un dossier de propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  MODIFY 
+/**
+ * @swagger
+ * /propertiesFolders/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations d'un dossier de propriété
+ *      tags: [PROPERTIES_FOLDERS]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du dossier de la propriété
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du dossier de la propriété dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date:
+ *                              type: MODIFIER APRES TEST
+ *                              description: Date du rendez-vous
+ *                          visitInformations:
+ *                              type: string
+ *                              description: Infomations complémentaires pour le rendez-vous
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: Dossier de propriété modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Dossier de propriété modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du dossier de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du dossier de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  DELETE
+/**
+ * @swagger
+ * /propertiesFolders/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un dossier de propriété avec son ID
+ *          tags: [PROPERTIES_FOLDERS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du dossier de la propriété
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime le dossier de propriété dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression d'un dossier de propriété par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: PropertyFolder deleted
+ *              400:
+ *                description: Erreur lors de la suppression d'un dossier de propriété
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un dossier de propriété par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
  */
 
