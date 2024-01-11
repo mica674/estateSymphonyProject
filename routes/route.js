@@ -1552,9 +1552,11 @@ const propertiesController= require ('../controller/Properties/PropertiesControl
 const propertiesFoldersController= require ('../controller/PropertiesFolders/PropertiesFoldersController');
 //------------------------------------- HISTORIES -----------------------------------
 const historiesController= require ('../controller/Histories/HistoriesController');
-
 //------------------------------------- FAVORIES ------------------------------------
 const favoritesController= require ('../controller/Favorites/FavoritesController');
+//------------------------------------- USERS PROPERTIES ------------------------------------
+const usersPropertiesController= require ('../controller/UsersProperties/UsersProperties');
+
 //------------------------------------- PHOTOS --------------------------------------
 const photosMiddleware= require ('../middleware/Photos/PhotosMiddleware');
 //------------------------------------- PHOTOS FOLDERS ------------------------------
@@ -1679,6 +1681,13 @@ router.get('/favorites', favoritesController.getFavorites);
 router.post('/favorite/create', favoritesController.createFavorite);
 router.put('/favorite/modify/:id', favoritesController.modifyFavorite);
 router.delete('/favorite/delete/:id', favoritesController.deleteFavorite);
+
+//------------------------------------- USERS PROPERTIES ROUTER ---------------------------------
+router.get('/userProperty/:id', usersPropertiesController.getUserProperty);
+router.get('/usersProperties', usersPropertiesController.getUsersProperties);
+router.post('/userProperty/create', usersPropertiesController.createUserProperty);
+router.put('/userProperty/modify/:id', usersPropertiesController.modifyUserProperty);
+router.delete('/userProperty/delete/:id', usersPropertiesController.deleteUserProperty);
 
 
 
