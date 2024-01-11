@@ -2339,6 +2339,215 @@
  */
 
 
+//  PROPERTIES
+// ------
+//  GET BY ID
+/**
+ * @swagger
+ * /property/{id}:
+ *      get:
+ *          summary: Pour trouver une propriété avec son ID
+ *          tags: [PROPRIETE]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of property
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir une propriété par son ID
+ *          responses: 
+ *              200:
+ *                  description: Property by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: Property id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération d'une propriété 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'une propriété par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /properties:
+ *      get:
+ *          summary: Récupérer toutes les propriétés de la base de données
+ *          tags: [PROPRIETE]
+ *          description: Récupère toutes les propriétés ajoutées dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: properties ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: Select all of properties
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des propriétés
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de toutes les propriétés
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  CREATE
+/**
+ * @swagger
+ * /property/create:
+ *  post:
+ *      summary: Créer une nouvelle propriété
+ *      tags: [PROPRIETE]
+ *      description: Crée une nouvelle propriété dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          sold: 
+ *                              type: boolean
+ *                              description: A MODIFIER APRES TEST
+ *                          rent: 
+ *                              type: boolean
+ *                              description: Bien loué (true/false)
+ *                          hidden: 
+ *                              type: boolean
+ *                              description: Bien caché (true/false)
+ *      responses:
+ *          200:
+ *              description: Propriété créée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété créée
+ *                          data: 
+ *                              id: A MODIFIER APRES TEST
+ *                              sold: true
+ *                              rent: false
+ *                              hidden: false
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la création d'une proprété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création d'une propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  MODIFY 
+/**
+ * @swagger
+ * /property/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations d'une propriété
+ *      tags: [PROPRIETE]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID de la propriété
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations de la propriété dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date:
+ *                              type: MODIFIER APRES TEST
+ *                              description: Date du rendez-vous
+ *                          visitInformations:
+ *                              type: string
+ *                              description: Infomations complémentaires pour le rendez-vous
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: Propriété modifiée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété modifiée avec succès
+ *          400:
+ *              description: Erreur lors de la modification de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  DELETE
+/**
+ * @swagger
+ * /property/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer une propriété avec son ID
+ *          tags: [PROPRIETE]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID de la propriété
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime la propriété dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression d'une propriété par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Property deleted
+ *              400:
+ *                description: Erreur lors de la suppression d'une propriété
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'une propriété par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
 // INITIALISATION DES CONSTANTES
 //ROUTER
 const express = require('express');
