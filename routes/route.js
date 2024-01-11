@@ -1,6 +1,6 @@
 //SWAGGER
 //  USER
-    //  GET BY ID
+//  GET BY ID
 /**
  * @swagger
  * /user/id/{id}:
@@ -34,7 +34,7 @@
  *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  GET BY EMAIL
+//  GET BY EMAIL
 /**
  * @swagger
  * /user/email/{email}:
@@ -77,7 +77,7 @@
  *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son EMAIL
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /users:
@@ -101,7 +101,7 @@
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  GET ALL BY ID ROLE
+//  GET ALL BY ID ROLE
 /**
  * @swagger
  * /users/{idRole}:
@@ -132,7 +132,7 @@
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs avec un role spécifique
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  CREATE
+//  CREATE
 /**
 * @swagger
 * /user/create:
@@ -171,7 +171,7 @@
 *                          message: L'adresse email existe déjà
 *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  LOGIN
+//  LOGIN
 /**
  * @swagger
  * /login:
@@ -209,7 +209,7 @@
  *                          message: La connexion a échouée
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY PASSWORD
+//  MODIFY PASSWORD
 /**
  * @swagger
  * /user/modifyPassword:
@@ -252,7 +252,7 @@
  *                          message: Echec de la modification du mot de passe
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /user/modify:
@@ -305,7 +305,7 @@
 */
 
 //  ROLE
-    //  GET BY ID
+//  GET BY ID
 /**
  * @swagger
  * /role/{id}:
@@ -339,7 +339,7 @@
  *                          message: Erreur survenue lors de la récupération d\'un role par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /roles:
@@ -379,7 +379,7 @@
  *                              message: Erreur survenue lors de la récupération de tous les roles
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /role/create:
@@ -417,7 +417,7 @@
  *                          message: L'adresse email existe déjà
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /role/modify/{id}:
@@ -458,39 +458,39 @@
  *                          message: Echec de la modification du nom du role
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
- /**
- * @swagger
- * /role/delete/{id}:
- *      delete:
- *          summary: To delete a 'Role' with his ID
- *          tags: [ROLE]
- *          parameters:
- *              -   in : path
- *                  name: id
- *                  description: ID of Role
- *                  schema: 
- *                      type: integer
- *                      required: true
- *          description: Deleting a 'Role' in the database
- *          responses: 
- *              200:
- *                  description: Delete Role by ID
- *                  content:
- *                      application/json:
- *                          example:
- *                              message: Role supprimé
- *              400:
- *                description: Erreur lors de la suppression du role
- *                content: 
- *                    application/json:
- *                        example:
- *                            message: Erreur survenue lors de la suppression d\'un role par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
- */
-   
+//  DELETE
+/**
+* @swagger
+* /role/delete/{id}:
+*      delete:
+*          summary: To delete a 'Role' with his ID
+*          tags: [ROLE]
+*          parameters:
+*              -   in : path
+*                  name: id
+*                  description: ID of Role
+*                  schema: 
+*                      type: integer
+*                      required: true
+*          description: Deleting a 'Role' in the database
+*          responses: 
+*              200:
+*                  description: Delete Role by ID
+*                  content:
+*                      application/json:
+*                          example:
+*                              message: Role supprimé
+*              400:
+*                description: Erreur lors de la suppression du role
+*                content: 
+*                    application/json:
+*                        example:
+*                            message: Erreur survenue lors de la suppression d\'un role par son ID
+*                            error: Message de l'erreur spécifique le cas échéant
+*/
+
 //  ESTIMATION
-    //  GET BY ID
+//  GET BY ID
 /**
  * @swagger
  * /estimation/{id}:
@@ -524,7 +524,7 @@
  *                          message: Erreur survenue lors de la récupération d\'une estimation par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /estimations:
@@ -564,7 +564,7 @@
  *                              message: Erreur survenue lors de la récupération de toutes les estimations
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /estimation/create:
@@ -636,7 +636,7 @@
  *                          message: Une erreur est survenue lors de la création d'une estimation
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /estimation/modify/{id}:
@@ -711,39 +711,39 @@
  *                          message: Echec de la modification des informations de l'estimation
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
- /**
- * @swagger
- * /estimation/delete/{id}:
- *      delete:
- *          summary: To delete a 'Estimation' with his ID
- *          tags: [ESTIMATION]
- *          parameters:
- *              -   in : path
- *                  name: id
- *                  description: ID of Estimation
- *                  schema: 
- *                      type: integer
- *                      required: true
- *          description: Deleting a 'Estimation' in the database
- *          responses: 
- *              200:
- *                  description: Delete Estimation by ID
- *                  content:
- *                      application/json:
- *                          example:
- *                              message: Estimation supprimée
- *              400:
- *                description: Erreur lors de la suppression de l'estimation
- *                content: 
- *                    application/json:
- *                        example:
- *                            message: Erreur survenue lors de la suppression d\'une estimation par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
- */
-   
- //  MESSAGE
-    //  GET BY ID
+//  DELETE
+/**
+* @swagger
+* /estimation/delete/{id}:
+*      delete:
+*          summary: To delete a 'Estimation' with his ID
+*          tags: [ESTIMATION]
+*          parameters:
+*              -   in : path
+*                  name: id
+*                  description: ID of Estimation
+*                  schema: 
+*                      type: integer
+*                      required: true
+*          description: Deleting a 'Estimation' in the database
+*          responses: 
+*              200:
+*                  description: Delete Estimation by ID
+*                  content:
+*                      application/json:
+*                          example:
+*                              message: Estimation supprimée
+*              400:
+*                description: Erreur lors de la suppression de l'estimation
+*                content: 
+*                    application/json:
+*                        example:
+*                            message: Erreur survenue lors de la suppression d\'une estimation par son ID
+*                            error: Message de l'erreur spécifique le cas échéant
+*/
+
+//  MESSAGE
+//  GET BY ID
 /**
  * @swagger
  * /message/{id}:
@@ -777,7 +777,7 @@
  *                          message: Erreur survenue lors de la récupération d\'un message par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /messages:
@@ -817,7 +817,7 @@
  *                              message: Erreur survenue lors de la récupération de tous les messages
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /message/create:
@@ -861,7 +861,7 @@
  *                          message: Une erreur est survenue lors de la création du message
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /message/modify/{id}:
@@ -902,36 +902,36 @@
  *                          message: Echec de la modification du contenu du message
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
- /**
- * @swagger
- * /message/delete/{id}:
- *      delete:
- *          summary: To delete a 'Message' with his ID
- *          tags: [MESSAGE]
- *          parameters:
- *              -   in : path
- *                  name: id
- *                  description: ID of Message
- *                  schema: 
- *                      type: integer
- *                      required: true
- *          description: Deleting a 'Message' in the database
- *          responses: 
- *              200:
- *                  description: Delete Message by ID
- *                  content:
- *                      application/json:
- *                          example:
- *                              message: Message supprimé
- *              400:
- *                description: Erreur lors de la suppression du message
- *                content: 
- *                    application/json:
- *                        example:
- *                            message: Erreur survenue lors de la suppression d\'un message par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
- */
+//  DELETE
+/**
+* @swagger
+* /message/delete/{id}:
+*      delete:
+*          summary: To delete a 'Message' with his ID
+*          tags: [MESSAGE]
+*          parameters:
+*              -   in : path
+*                  name: id
+*                  description: ID of Message
+*                  schema: 
+*                      type: integer
+*                      required: true
+*          description: Deleting a 'Message' in the database
+*          responses: 
+*              200:
+*                  description: Delete Message by ID
+*                  content:
+*                      application/json:
+*                          example:
+*                              message: Message supprimé
+*              400:
+*                description: Erreur lors de la suppression du message
+*                content: 
+*                    application/json:
+*                        example:
+*                            message: Erreur survenue lors de la suppression d\'un message par son ID
+*                            error: Message de l'erreur spécifique le cas échéant
+*/
 
 //  COMMENTS
 //  GET BY ID
@@ -969,7 +969,7 @@
  *                          message: Erreur survenue lors de la récupération du commentaire par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /comments:
@@ -1009,7 +1009,7 @@
  *                              message: Erreur survenue lors de la récupération de tous les commentaires
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /comment/create:
@@ -1050,7 +1050,7 @@
  *                          message: Une erreur est survenue lors de la création du commentaire
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /comment/modify/{id}:
@@ -1091,39 +1091,39 @@
  *                          message: Echec de la modification du contenu du commentaire
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
- /**
- * @swagger
- * /comment/delete/{id}:
- *      delete:
- *          summary: Pour supprimer un commentaire avec son ID
- *          tags: [COMMENT]
- *          parameters:
- *              -   in : path
- *                  name: id
- *                  description: ID du commentaire
- *                  schema: 
- *                      type: integer
- *                      required: true
- *          description: Supprime le commentaire dans la base de données
- *          responses: 
- *              200:
- *                  description: Commentaire supprimé avec succès 
- *                  content:
- *                      application/json:
- *                          example:
- *                              message: Commentaire supprimé
- *              400:
- *                description: Erreur lors de la suppression du commentaire
- *                content: 
- *                    application/json:
- *                        example:
- *                            message: Erreur survenue lors de la suppression du commentaire par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
- */
+//  DELETE
+/**
+* @swagger
+* /comment/delete/{id}:
+*      delete:
+*          summary: Pour supprimer un commentaire avec son ID
+*          tags: [COMMENT]
+*          parameters:
+*              -   in : path
+*                  name: id
+*                  description: ID du commentaire
+*                  schema: 
+*                      type: integer
+*                      required: true
+*          description: Supprime le commentaire dans la base de données
+*          responses: 
+*              200:
+*                  description: Commentaire supprimé avec succès 
+*                  content:
+*                      application/json:
+*                          example:
+*                              message: Commentaire supprimé
+*              400:
+*                description: Erreur lors de la suppression du commentaire
+*                content: 
+*                    application/json:
+*                        example:
+*                            message: Erreur survenue lors de la suppression du commentaire par son ID
+*                            error: Message de l'erreur spécifique le cas échéant
+*/
 
 //  CLIENT FOLDERS
-    //  GET BY ID
+//  GET BY ID
 /**
  * @swagger
  * /clientFolder/{id}:
@@ -1157,7 +1157,7 @@
  *                          message: Erreur survenue lors de la récupération du dossier client par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /clientFolders:
@@ -1197,7 +1197,7 @@
  *                              message: Erreur survenue lors de la récupération de tous les dossiers clients
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /clientFolder/Create:
@@ -1241,7 +1241,7 @@
  *                          message: Une erreur est survenue lors de la création du dossier client
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /clientFolder/modify/{id}:
@@ -1288,7 +1288,7 @@
  *                          message: Echec de la modification du dossier client
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
+//  DELETE
 /**
  * @swagger
  * /clientFolder/delete/{id}:
@@ -1320,7 +1320,7 @@
  */
 
 //  EMPLOYEES
-    //  GET BY ID
+//  GET BY ID
 /**
  * @swagger
  * /employee/{id}:
@@ -1354,7 +1354,7 @@
  *                          message: Erreur survenue lors de la récupération de l'employé par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
  */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /employees:
@@ -1394,7 +1394,7 @@
  *                              message: Erreur survenue lors de la récupération de tous les employés
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /employee/Create:
@@ -1438,7 +1438,7 @@
  *                          message: Une erreur est survenue lors de la création de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /employee/modify/{id}:
@@ -1485,7 +1485,7 @@
  *                          message: Echec de la modification de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
+//  DELETE
 /**
  * @swagger
  * /employee/delete/{id}:
@@ -1517,7 +1517,7 @@
  */
 
 //  DISTRICTS
-    //  GET BY ID
+//  GET BY ID
 /**
  * @swagger
  * /district/{id}:
@@ -1551,7 +1551,7 @@
  *                              message: Erreur survenue lors de la récupération du district par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  GET ALL
+//  GET ALL
 /**
  * @swagger
  * /districts:
@@ -1591,7 +1591,7 @@
  *                              message: Erreur survenue lors de la récupération de tous les districts
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /district/Create:
@@ -1629,7 +1629,7 @@
  *                          message: Une erreur est survenue lors de la création du district
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /district/modify/{id}:
@@ -1670,7 +1670,7 @@
  *                          message: Echec de la modification du district
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
+//  DELETE
 /**
  * @swagger
  * /district/delete/{id}:
@@ -1703,7 +1703,7 @@
 
 
 //  EMPLOYEES DISTRICTS
-    //  GET BY ID
+//  GET BY ID
 /**
  * @swagger
  * /employeesDistricts/one/{id}:
@@ -1778,14 +1778,14 @@
  *                              message: Erreur survenue lors de la récupération de tous les employees-districts
  *                              error: Message de l'erreur spécifique le cas échéant
  */
-    //  CREATE
+//  CREATE
 /**
  * @swagger
  * /employees-districts/Create:
  *  post:
  *      summary: Créer un nouvel employees-districts
  *      tags: [EMPLOYEES_DISTRICTS]
- *      description: Crée un nouveau employees-districts dans la base de données
+ *      description: Crée un nouvel employees-districts dans la base de données
  *      requestBody:
  *          required: true
  *          content:
@@ -1805,7 +1805,7 @@
  *              content:
  *                  application/json:
  *                      example:
- *                          message: employees-districts créé
+ *                          message: Employees-districts créé
  *                          data: 
  *                              id: 2
  *                              idEmployees: A MODIFIER APRES TEST
@@ -1820,7 +1820,7 @@
  *                          message: Une erreur est survenue lors de la création du employees-districts
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  MODIFY 
+//  MODIFY 
 /**
  * @swagger
  * /employees-districts/modify/{id}:
@@ -1864,7 +1864,7 @@
  *                          message: Echec de la modification du employees-districts
  *                          error: Message de l'erreur spécifique le cas échéant
 */
-    //  DELETE
+//  DELETE
 /**
  * @swagger
  * /employees-districts/delete/{id}:
@@ -1896,55 +1896,271 @@
  */
 
 
- // INITIALISATION DES CONSTANTES
-    //ROUTER
+//  AGENDAS
+//  GET BY ID
+/**
+ * @swagger
+ * /agendas/{id}:
+ *      get:
+ *          summary: Pour trouver un agenda avec son ID
+ *          tags: [AGENDA]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of agenda
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Obtenir un agenda par son ID
+ *          responses: 
+ *              200:
+ *                  description: agenda by ID
+ *                  content:
+ *                  application/json:
+ *                      example:
+ *                          message: agenda id = 2
+ *                          data:
+ *                              id: A MODIFIER APRES TEST
+ *                              date: "2024-05-08T14:47:27.000Z"
+ *                              visitInformations: "Location meublé..."
+ *                              idUsers: 52
+ *                              idEmployees: 69
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération d'un agenda 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un agenda par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  GET ALL
+/**
+ * @swagger
+ * /agendas:
+ *      get:
+ *          summary: Récupérer tous les agendas de la base de données
+ *          tags: [AGENDA]
+ *          description: Récupère tous les agendas ajoutés dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Agendas ALL
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         message: select all of agendas
+ *                         data: 
+ *                             -    id: A MODIFIER APRES TEST
+ *                                  date: "2024-05-08T14:47:27.000Z"
+ *                                  visitInformations: "Location meublée..."
+ *                                  idUsers: 52
+ *                                  idEmployees: 69
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  date: "2024-05-08T14:47:27.000Z"
+ *                                  visitInformations: "Location meublée..."
+ *                                  idUsers: 52
+ *                                  idEmployees: 69
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  date: "2024-05-08T14:47:27.000Z"
+ *                                  visitInformations: "Location meublée..."
+ *                                  idUsers: 52
+ *                                  idEmployees: 69
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des agendas
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les agendas
+ *                              error: Message de l'erreur spécifique le cas échéant
+*/
+//  CREATE
+/**
+ * @swagger
+ * /agenda/Create:
+ *  post:
+ *      summary: Créer un nouvel agenda
+ *      tags: [AGENDA]
+ *      description: Crée un nouvel agenda dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date: 
+ *                              type: date
+ *                              description: Date du rendez-vous
+ *                          visitInformations: 
+ *                              type: string
+ *                              description: Informations complémentaire pour le rendez-vous
+ *                          idUsers: 
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: Agenda créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Agenda créé
+ *                          data: 
+ *                              id: 3
+ *                              date: "2024-05-08T14:47:27.000Z"
+ *                              visitInformations: "Location meublée..."
+ *                              idUsers: 52
+ *                              idEmployees: 69
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la création du agenda
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création du agenda
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  MODIFY 
+/**
+ * @swagger
+ * /agenda/modify/{id}:
+ *  put:
+ *      summary: Modifier les informations de l'agenda
+ *      tags: [AGENDA]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID du agenda
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *      description: Modifie les informations du agenda dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          date:
+ *                              type: date
+ *                              description: Date du rendez-vous
+ *                          visitInformations:
+ *                              type: string
+ *                              description: Infomations complémentaires pour le rendez-vous
+ *                          idUsers:
+ *                              type: integer
+ *                              description: ID de l'utilisateur (client)
+ *                          idEmployees:
+ *                              type: integer
+ *                              description: ID de l'employé
+ *      responses:
+ *          200:
+ *              description: Agenda modifié avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Agenda modifié avec succès
+ *          400:
+ *              description: Erreur lors de la modification du agenda
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du agenda
+ *                          error: Message de l'erreur spécifique le cas échéant
+*/
+//  DELETE
+/**
+ * @swagger
+ * /agenda/delete/{id}:
+ *      delete:
+ *          summary: Pour supprimer un agenda avec son ID
+ *          tags: [AGENDA]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID du agenda
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *          description: Supprime l'agenda dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Suppression d'un agenda par son ID 
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Agenda deleted
+ *              400:
+ *                description: Erreur lors de la suppression d'un agenda
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un agenda par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ */
+
+
+// INITIALISATION DES CONSTANTES
+//ROUTER
 const express = require('express');
 const router = express.Router();
-    //SWAGGER
-const {specs, swaggerUi} = require('../Swagger/swaggerConfig')
+//SWAGGER
+const { specs, swaggerUi } = require('../Swagger/swaggerConfig')
 
-//------------------------------------- USER ---------------------------------------
+//------------------------------------- USER -------------------------------------
 const userController = require('../controller/User/UserController');
-//------------------------------------- ROLE ---------------------------------------
+//------------------------------------- ROLE -------------------------------------
 const roleController = require('../controller/Roles/RolesController');
-//------------------------------------- ESTIMATIONS ----------------------------------
+//------------------------------------- ESTIMATIONS -------------------------------------
 const estimationController = require('../controller/Estimations/EstimationsController');
-//------------------------------------- MESSAGES ----------------------------------
+//------------------------------------- MESSAGES -------------------------------------
 const messageController = require('../controller/Messages/MessagesController');
-//------------------------------------- COMMENTS ------------------------------------
-const commentController= require ('../controller/Comments/CommentsController');
-//------------------------------------- CLIENTS FOLDERS ------------------------------
-const clientFolderController = require ('../controller/Client Folder/ClientFolderController');
-//------------------------------------- EMPLOYEES ------------------------------
-const employeeController = require ('../controller/Employees/EmployeesController');
-//------------------------------------- DISTRICTS ------------------------------
-const districtController = require ('../controller/Districts/DistrictController');
-//------------------------------------- EMPLOYEES DISTRICTS ------------------------------
-const employeeDistrictController = require ('../controller/EmployeesDistricts/EmployeesDistricts');
+//------------------------------------- COMMENTS -------------------------------------
+const commentController = require('../controller/Comments/CommentsController');
+//------------------------------------- CLIENTS FOLDERS -------------------------------------
+const clientFolderController = require('../controller/Client Folder/ClientFolderController');
+//------------------------------------- EMPLOYEES -------------------------------------
+const employeeController = require('../controller/Employees/EmployeesController');
+//------------------------------------- DISTRICTS -------------------------------------
+const districtController = require('../controller/Districts/DistrictController');
+//------------------------------------- EMPLOYEES DISTRICTS -------------------------------------
+const employeeDistrictController = require('../controller/EmployeesDistricts/EmployeesDistricts');
 //------------------------------------- AGENDAS -------------------------------------
-const agendasController= require ('../controller/Agendas/AgendasController');
+const agendasController = require('../controller/Agendas/AgendasController');
 //------------------------------------- STATUSES -------------------------------------
-const statusesController= require ('../controller/Statuses/StatusesController');
-//------------------------------------- PROPERTIES ----------------------------------
-const propertiesController= require ('../controller/Properties/PropertiesController');
-//------------------------------------- PROPERTIES FOLDERS ----------------------------------
-const propertiesFoldersController= require ('../controller/PropertiesFolders/PropertiesFoldersController');
-//------------------------------------- HISTORIES -----------------------------------
-const historiesController= require ('../controller/Histories/HistoriesController');
-//------------------------------------- FAVORITES ------------------------------------
-const favoritesController= require ('../controller/Favorites/FavoritesController');
-//------------------------------------- USERS PROPERTIES ------------------------------------
-const usersPropertiesController= require ('../controller/UsersProperties/UsersProperties');
+const statusesController = require('../controller/Statuses/StatusesController');
+//------------------------------------- PROPERTIES -------------------------------------
+const propertiesController = require('../controller/Properties/PropertiesController');
+//------------------------------------- PROPERTIES FOLDERS -------------------------------------
+const propertiesFoldersController = require('../controller/PropertiesFolders/PropertiesFoldersController');
+//------------------------------------- HISTORIES -------------------------------------
+const historiesController = require('../controller/Histories/HistoriesController');
+//------------------------------------- FAVORITES -------------------------------------
+const favoritesController = require('../controller/Favorites/FavoritesController');
+//------------------------------------- USERS PROPERTIES -------------------------------------
+const usersPropertiesController = require('../controller/UsersProperties/UsersProperties');
 
-//------------------------------------- PHOTOS --------------------------------------
-const photosMiddleware= require ('../middleware/Photos/PhotosMiddleware');
-//------------------------------------- PHOTOS FOLDERS ------------------------------
+//------------------------------------- PHOTOS -------------------------------------
+const photosMiddleware = require('../middleware/Photos/PhotosMiddleware');
+//------------------------------------- PHOTOS FOLDERS -------------------------------------
 const PhotosMiddleware = require('../middleware/Photos/PhotosMiddleware');
 
 
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
-    //  RACINE
+//  RACINE
 router.get('/', (req, res) => {
     res.status(200).json({
         message: 'Bonjour'
@@ -1952,14 +2168,14 @@ router.get('/', (req, res) => {
 })
 
 
-//------------------------------------- ROLES ROUTER ---------------------------------------//Tested with swagger
+//------------------------------------- ROLES ROUTER -------------------------------------//Tested with swagger
 router.get('/role/:id', roleController.getRole);//S
 router.get('/roles', roleController.getAllRoles);//S
 router.post('/role/create', roleController.createRole);//S
 router.put('/role/modify/:id', roleController.modifyRole);//S
 router.delete('/role/delete/:id', roleController.deleteRole);//S
 
-//------------------------------------- USERS ROUTER ---------------------------------------//Tested with swagger
+//------------------------------------- USERS ROUTER -------------------------------------//Tested with swagger
 router.get('/user/id/:id', userController.getUserId);//S
 router.get('/user/email/:email', userController.getUserEmail);//S
 router.get('/users', userController.getAllUser);//S
@@ -1970,98 +2186,98 @@ router.put('/user/modifyPassword', userController.middleWare, userController.mod
 router.put('/user/modify', userController.middleWare, userController.modify);//S
 // router.put('/user/modifyEmail', UserController.middleWare, UserController.modifyEmail);
 
-//------------------------------------- ESTIMATIONS ROUTER ---------------------------------//Tested with swagger
+//------------------------------------- ESTIMATIONS ROUTER -------------------------------------//Tested with swagger
 router.get('/estimation/:id', estimationController.getEstimationID);
 router.get('/estimations', estimationController.getEstimations);
 router.post('/estimation/create', estimationController.createEstimation);
 router.put('/estimation/modify/:id', estimationController.modifyEstimation);
 router.delete('/estimation/delete/:id', estimationController.deleteEstimation);
 
-//------------------------------------- MESSAGES ROUTER ---------------------------------
+//------------------------------------- MESSAGES ROUTER -------------------------------------
 router.get('/message/:id', messageController.getMessageID);
 router.get('/messages', messageController.getMessages);
 router.post('/message/create', messageController.createMessage);
 router.put('/message/modify/:id', messageController.modifyMessage);
 router.delete('/message/delete/:id', messageController.deleteMessage);
 
-//------------------------------------- COMMENTS ROUTER ---------------------------------
+//------------------------------------- COMMENTS ROUTER -------------------------------------
 router.get('/comment/:id', commentController.getComment);
 router.get('/comments', commentController.getComments);
 router.post('/comment/create', commentController.createComment);
 router.put('/comment/modify/:id', commentController.modifyComment);
 router.delete('/comment/delete/;id', commentController.deleteComment);
 
-//------------------------------------- CLIENTFOLDERS ROUTER -----------------------------
+//------------------------------------- CLIENTFOLDERS ROUTER -------------------------------------
 router.post('/clientFolder/create', clientFolderController.createClientFolder);
 router.put('/clientFolder/modify/:id', clientFolderController.modifyClientFolder);
 router.delete('/clientFolder/delete/:id', clientFolderController.deleteClientFolder);
 router.get('/clientFolders', clientFolderController.getClientFolders)
 router.get('/clientFolder/:id', clientFolderController.getClientFolder);
 
-//------------------------------------- EMPLOYEES ROUTER ---------------------------------
+//------------------------------------- EMPLOYEES ROUTER -------------------------------------
 router.get('/employee/:id', employeeController.getEmployee);
 router.get('/employees', employeeController.getEmployees);
 router.post('/employee/create', employeeController.createEmployee);
 router.put('/employee/modify/:id', employeeController.modifyEmployee);
 router.delete('/employee/delete/:id', employeeController.deleteEmployee);
 
-//------------------------------------- DISTRICTS ROUTER ---------------------------------
+//------------------------------------- DISTRICTS ROUTER -------------------------------------
 router.get('/district/:id', districtController.getDistrict);
 router.get('/districts', districtController.getDistricts);
 router.post('/district/create', districtController.createDistrict);
 router.put('/district/modify/:id', districtController.modifyDistrict);
 router.delete('/district/delete/:id', districtController.deleteDistrict);
 
-//------------------------------------- EMPLOYEES DISTRICTS ROUTER ---------------------------------
+//------------------------------------- EMPLOYEES DISTRICTS ROUTER -------------------------------------
 router.get('/employeesDistricts/one/:id', employeeDistrictController.getEmployeeDistrict);
 router.get('/employeesDistricts/all', employeeDistrictController.getEmployeesDistricts);
 router.post('/employeesDistricts/create', employeeDistrictController.createEmployeeDistrict);
 router.put('/employeesDistricts/modify/:id', employeeDistrictController.modifyEmployeeDistrict);
 router.delete('/employeesDistricts/delete/:id', employeeDistrictController.deleteEmployeeDistrict);
 
-//------------------------------------- AGENDAS ROUTER ---------------------------------
+//------------------------------------- AGENDAS ROUTER -------------------------------------
 router.get('/agenda/:id', agendasController.getAgenda);
 router.get('/agendas', agendasController.getAgendas);
 router.post('/agenda/create', agendasController.createAgenda);
 router.put('/agenda/modify/:id', agendasController.modifyAgenda);
 router.delete('/agenda/delete/:id', agendasController.deleteAgenda);
 
-//------------------------------------- STATUS ROUTER ---------------------------------
+//------------------------------------- STATUS ROUTER -------------------------------------
 router.get('/status/:id', statusesController.getStatus);
 router.get('/statuses', statusesController.getStatuses);
 router.post('/status/create', statusesController.createStatus);
 router.put('/status/modify/:id', statusesController.modifyStatus);
 router.delete('/status/delete/:id', statusesController.deleteStatus);
 
-//------------------------------------- PROPERTIES ROUTER ---------------------------------
+//------------------------------------- PROPERTIES ROUTER -------------------------------------
 router.get('/property/:id', propertiesController.getProperty);
 router.get('/properties', propertiesController.getProperties);
 router.post('/property/create', photosMiddleware.upload, propertiesController.createProperty);
 router.put('/property/modify/:id', propertiesController.modifyProperty);
 router.delete('/property/delete/:id', propertiesController.deleteProperty);
 
-//------------------------------------- PROPERTIES FOLDERS ROUTER ---------------------------------
+//------------------------------------- PROPERTIES FOLDERS ROUTER -------------------------------------
 router.get('/propertiesFolders/one/:id', propertiesFoldersController.getPropertyFolder);
 router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFolders);
 router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
 router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
 router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
 
-//------------------------------------- HISTORIES ROUTER ---------------------------------
+//------------------------------------- HISTORIES ROUTER -------------------------------------
 router.get('/history/:id', historiesController.getHistory);
 router.get('/histories', historiesController.getHistories);
 router.post('/history/create', historiesController.createHistory);
 router.put('/history/modify/:id', historiesController.modifyHistory);
 router.delete('/history/:id', historiesController.deleteHistory);
 
-//------------------------------------- FAVORIES ROUTER ---------------------------------
+//------------------------------------- FAVORIES ROUTER -------------------------------------
 router.get('/favorite/:id', favoritesController.getFavorite);
 router.get('/favorites', favoritesController.getFavorites);
 router.post('/favorite/create', favoritesController.createFavorite);
 router.put('/favorite/modify/:id', favoritesController.modifyFavorite);
 router.delete('/favorite/delete/:id', favoritesController.deleteFavorite);
 
-//------------------------------------- USERS PROPERTIES ROUTER ---------------------------------
+//------------------------------------- USERS PROPERTIES ROUTER -------------------------------------
 router.get('/usersProperties/one/:id', usersPropertiesController.getUserProperty);
 router.get('/usersProperties/all', usersPropertiesController.getUsersProperties);
 router.post('/usersProperties/create', usersPropertiesController.createUserProperty);
@@ -2071,7 +2287,7 @@ router.delete('/usersProperties/delete/:id', usersPropertiesController.deleteUse
 
 
 
-//------------------------------------- PHOTOS ROUTER -----------------------------
+//------------------------------------- PHOTOS ROUTER -------------------------------------
 router.post('/photos', photosMiddleware.upload);
 
 

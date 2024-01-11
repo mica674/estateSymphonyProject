@@ -24,7 +24,7 @@ module.exports = {
         }
 
       },
-      idEmployee: {
+      idEmployees: {
         type: Sequelize.INTEGER,
 
         references: { 
