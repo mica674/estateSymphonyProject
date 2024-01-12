@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && node index.js",
-    "instance": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate && sequelize-cli db:seed:all && node index.js",
+    "start1": "npm install && node index.js",
+    "start": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate && sequelize-cli db:seed:all && node index.js",
     "test": "sequelize-cli -h"
   },
   "author": "",
