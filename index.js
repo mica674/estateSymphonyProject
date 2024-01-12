@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(router);
+app.use(express.static('public'));
 
 app.listen(port, hostname, () => {
     console.log(`Serveur démarrer à l'adresse http://${hostname}:${port}/`);

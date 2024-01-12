@@ -3531,7 +3531,12 @@ router.delete('/property/delete/:id', propertiesController.deleteProperty);
 //------------------------------------- PROPERTIES FOLDERS ROUTER -------------------------------------
 router.get('/propertiesFolders/one/:id', propertiesFoldersController.getPropertyFolder);
 router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFolders);
-router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
+router.post('/property/create', function (req, res) {
+    photosMiddleware.upload(req, res, function (err) {
+        console.log(err);
+        res.status(400).send({ message: err.code, code: 400 })
+    })
+}, propertiesController.createProperty);
 router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
 router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
 

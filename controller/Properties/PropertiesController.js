@@ -1,5 +1,7 @@
+const { Sequelize } = require('sequelize');
 const db = require('../../models/index.js');
 const propertiesTable = db['Properties'];
+const photosTable = db['Photos'];
 
 const getProperty = async (req, res) => {
 
@@ -84,23 +86,51 @@ const getProperties = async (req, res) => {
 }
 const createProperty = async (req, res, next) => {
 
+    //const transaction = await sequelize.transaction();
+    const transaction = await sequelize.transaction();
+
+    let files = req.files;
+
+    //console.log(files)
+    //console.log(req.body.name);
     try {
 
-        // const data = { ...req.body, photosTable: photo };
-        // const newProperties = await propertiesTable.clicCount(data);
-        const data = { ...req.body };
-        const newProperty = await propertiesTable.create(data);
 
-        next.
-            res.status(200).send({
-                message: 'Property created',
-                data: newProperty
-            })
+        const newProperties = await propertiesTable.create(req.body, { transaction: transaction });
+        if (!newProperties) {
+            throw "error"
+        }
+
+        let newData = [];
+
+        files.forEach(item => {
+            console.log(item);
+            let path = `propertiesPhotos/${item.filename}`
+            let newItem = {
+                idProperties: newProperties.id,
+                photo: path
+            }
+            newData.push(newItem);
+
+        });
+
+        const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
+        if (!newPhoto) {
+            throw "error"
+        }
+
+        await transaction.commit();
+
+        //const  = await propertiesTable.create(data);
+
+
+        res.status(200).send({
+            message: 'Create',
+            data: newProperties
+        })
 
     } catch (error) {
-
-        console.log(error.message);
-
+        await transaction.rollback();
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
