@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "estatesymphony7893",
+    "password": "75BUHrHjyNX0k5ahhCj9ajjlY5t93j6z",
+    "database": "estatesymphony",
+    "host": "dpg-cmgj49ol5elc73fuf20g-a",
+    "dialect": "postgres"
   }
 }
