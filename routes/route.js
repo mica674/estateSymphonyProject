@@ -388,6 +388,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un role par son ID
  *          responses: 
  *              200:
@@ -466,6 +467,7 @@
  *                          name:
  *                              type: string
  *                              description: Nom du role
+ *                              example: userOverrited
  *      responses:
  *          200:
  *              description: Role créé avec succès
@@ -501,6 +503,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie le nom d'un role dans la base de données
  *      requestBody:
  *          required: true
@@ -512,6 +515,7 @@
  *                          name:
  *                              type: string
  *                              description: Nom du role
+ *                              example: admin
  *      responses:
  *          200:
  *              description: Nom du role modifié avec succès
@@ -541,6 +545,7 @@
 *                  schema: 
 *                      type: integer
 *                      required: true
+*                      example: 28
 *          description: Deleting a 'Role' in the database
 *          responses: 
 *              200:
