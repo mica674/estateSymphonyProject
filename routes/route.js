@@ -7,7 +7,7 @@
  * @swagger
  * /user/id/{id}:
  *  get:
- *      summary: Récupérer les informations d'un utilisateur
+ *      summary: Récupérer les informations d'un utilisateur par son id
  *      tags: [USER]
  *      parameters:
  *          -   in : path
@@ -17,6 +17,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Récupère les informations d'un utilisateur dans la base de données à partir de son ID
  *      responses:
  *          200:
@@ -26,14 +27,21 @@
  *                      example:
  *                          message: Bonjour firstname lastname
  *                          data: 
+ *                              id: 2
  *                              firstname: Mickaël
  *                              lastname: Fournier
+ *                              email: mickael.fournier@gmail.com
+ *                              password: $2b$12$LsSuRasqNwR6kX.Ua3Uni.ofB1eRbK5iP4Fqw7sJGIV5QhoN3VXmu
+ *                              phone: "0612345678"
+ *                              idRole: 2
+ *                              createdAt: 2024-01-08T14:05:18.000Z
+ *                              updatedAt: 2024-01-08T14:05:18.000Z
  *          400:
- *              description: Erreur lors de la récupétion de l'utilisateur
+ *              description: Erreur lors de la récupération de l'utilisateur
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son ID
+ *                          message: Erreur survenue lors de la récupération d'un utilisateur par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  GET BY EMAIL
@@ -41,7 +49,7 @@
  * @swagger
  * /user/email/{email}:
  *  get:
- *      summary: Récupérer les informations d'un utilisateur
+ *      summary: Récupérer les informations d'un utilisateur par email
  *      tags: [USER]
  *      parameters:
  *          -   in : path
@@ -50,27 +58,26 @@
  *              description: EMAIL of User
  *              schema:
  *                  type: string
+ *                  description: Adresse email de l'utilisateur ciblé
+ *                  example: mickael.fournier@gmail.com 
  *      description: Récupère les informations d'un utilisateur dans la base de données à partir de son EMAIL
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          email:
- *                              type: string
- *                              description: Email de l'utilisateur
  *      responses:
  *          200:
  *              description: Utilisateurs trouvés avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Bonjour firstname lastname
+ *                          message: Bonjour Mickaël (prénom) Fournier (nom) 2 (idRole) mickael.fournier@gmail.com (email) 
  *                          data: 
+ *                              id: 2
  *                              firstname: Mickaël
  *                              lastname: Fournier
+ *                              email: mickael.fournier@gmail.com
+ *                              password: $2b$12$LsSuRasqNwR6kX.Ua3Uni.ofB1eRbK5iP4Fqw7sJGIV5QhoN3VXmu
+ *                              phone: "0612345678"
+ *                              idRole: 2
+ *                              createdAt: 2024-01-08T14:05:18.000Z
+ *                              updatedAt: 2024-01-08T14:05:18.000Z
  *          400:
  *              description: Erreur lors de la récupétion de l'utilisateur
  *              content: 
@@ -93,10 +100,37 @@
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Select all
- *                          data: $users
+ *                          message: Select all users
+ *                          data: 
+ *                              -   id: 1
+ *                                  firstname: Nawelle
+ *                                  lastname: Bedrouni
+ *                                  email: nawelle.bedrouni@gmail.com
+ *                                  password: $2b$12$DMery5ubhzFNfDmvnX7APuJhm/bcEM3QsI5/DTm5x1lawiR742dlq
+ *                                  phone: "0712345678"
+ *                                  idRole: 1
+ *                                  createdAt: 2024-01-08T14:05:18.000Z
+ *                                  updatedAt: 2024-01-08T14:05:18.000Z
+ *                              -   id: 33
+ *                                  firstname: Thierry
+ *                                  lastname: Lachat
+ *                                  email: thierry.lachat@gmail.com
+ *                                  password: $2b$12$DMery5ubhzFNfDmvnX7APuJhm/bcEM3QsI5/DTm5x1lawiR742dlq
+ *                                  phone: "0712345689"
+ *                                  idRole: 3
+ *                                  createdAt: 2024-01-08T14:05:18.000Z
+ *                                  updatedAt: 2024-01-08T14:05:18.000Z
+ *                              -   id: 42
+ *                                  firstname: Nicolas
+ *                                  lastname: Personne
+ *                                  email: nicolas.personne@gmail.com
+ *                                  password: $2b$12$DMery5ubhzFNfDmvnX7APuJhm/bcEM3QsI5/DTm5x1lawiR742dlq
+ *                                  phone: "0712345690"
+ *                                  idRole: 4
+ *                                  createdAt: 2024-01-08T14:05:18.000Z
+ *                                  updatedAt: 2024-01-08T14:05:18.000Z
  *          400:
- *              description: Erreur lors de la création de l'utilisateur
+ *              description: Erreur lors de la récupération de tous les utilisateurs
  *              content: 
  *                  application/json:
  *                      example:
@@ -108,15 +142,17 @@
  * @swagger
  * /users/{idRole}:
  *  get:
- *      summary: Récupérer tous les utilisateurs qui ont un certains role
+ *      summary: Récupérer tous les utilisateurs qui ont un role spécifique
  *      tags: [USER]
  *      parameters:
  *          -   in : path
  *              name: idRole
  *              required: true
- *              description: ID ROLE of User
+ *              description: idRole of User
  *              schema:
  *                  type: integer
+ *                  description: Id du role cible
+ *                  example: 1
  *      description: Récupère tous les utilisateurs qui ont un role spécifique
  *      responses:
  *          200:
@@ -125,9 +161,18 @@
  *                  application/json:
  *                      example:
  *                          message: Select all by idRole
- *                          data: $users
+ *                          data: 
+ *                              id: 42
+ *                              firstname: Nicolas
+ *                              lastname: Personne
+ *                              email: nicolas.personne@gmail.com
+ *                              password: $2b$12$DMery5ubhzFNfDmvnX7APuJhm/bcEM3QsI5/DTm5x1lawiR742dlq
+ *                              phone: "0712345690"
+ *                              idRole: 4
+ *                              createdAt: 2024-01-08T14:05:18.000Z
+ *                              updatedAt: 2024-01-08T14:05:18.000Z
  *          400:
- *              description: Erreur lors de la création de l'utilisateur
+ *              description: Erreur lors de la récupération de tous les utilisateurs avec un rôle spécifique
  *              content: 
  *                  application/json:
  *                      example:
@@ -136,42 +181,73 @@
 */
 //  CREATE
 /**
-* @swagger
-* /user/create:
-*  post:
-*      summary: Créer un nouvel utilisateur
-*      tags: [USER]
-*      description: Crée un nouvel utilisateur dans la base de données
-*      requestBody:
-*          required: true
-*          content:
-*              application/json:
-*                  schema:
-*                      type: object
-*                      properties:
-*                          email:
-*                              type: string
-*                              description: Email de l'utilisateur
-*                          password:
-*                              type: string
-*                              description: Mot de passe de l'utilisateur
-*      responses:
-*          200:
-*              description: Utilisateur créé avec succès
-*              content:
-*                  application/json:
-*                      example:
-*                          message: Create
-*                          data: 
-*                              email: contact-amiens@lamanu.fr
-*                              password: $2b$12$FRE3BYhXhUyfeOI/ryIs3OG/ZomZJbO7QiPwslNAFEdDkBU8z1Mt
-*          400:
-*              description: Erreur lors de la création de l'utilisateur
-*              content: 
-*                  application/json:
-*                      example:
-*                          message: L'adresse email existe déjà
-*                          error: Message de l'erreur spécifique le cas échéant
+ * @swagger
+ * /user/create:
+ *  post:
+ *      summary: Créer un nouvel utilisateur
+ *      tags: [USER]
+ *      description: Insère un nouvel utilisateur dans la base de données
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          email:
+ *                              type: string
+ *                              description: Email de l'utilisateur
+ *                              required: true
+ *                              example: nicolas.personne@gmail.com
+ *                          password:
+ *                              type: string
+ *                              description: Mot de passe de l'utilisateur
+ *                              required: true
+ *                              example: Abc123&
+ *                          firstname:
+ *                              type: string
+ *                              description: Prénom de l'utilisateur
+ *                              required: false
+ *                              example: Nicolas
+ *                          lastname:
+ *                              type: string
+ *                              description: Nom de l'utilisateur
+ *                              required: false
+ *                              example: Personne
+ *                          phone:
+ *                              type: string
+ *                              description: Numéro de téléphone de l'utilisateur
+ *                              required: false
+ *                              example: "0712345678"
+ *                          idRole:
+ *                              type: integer
+ *                              description: Role de l'utilisateur
+ *                              required: false
+ *                              example: 4
+ *      responses:
+ *          200:
+ *              description: Utilisateur créé avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: User created
+ *                          data: 
+ *                              id: 42
+ *                              firstname: Nicolas
+ *                              lastname: Personne
+ *                              email: nicolas.personne@gmail.com
+ *                              password: $2b$12$DMery5ubhzFNfDmvnX7APuJhm/bcEM3QsI5/DTm5x1lawiR742dlq
+ *                              phone: "0712345690"
+ *                              idRole: 4
+ *                              createdAt: 2024-01-08T14:05:18.000Z
+ *                              updatedAt: 2024-01-08T14:05:18.000Z
+ *          400:
+ *              description: Erreur lors de la création de l'utilisateur
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: L'adresse email existe déjà
+ *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  LOGIN
 /**
@@ -191,9 +267,11 @@
  *                          email:
  *                              type: string
  *                              description: Email de l'utilisateur
+ *                              example: Albertlebeaugosse@gmail.com
  *                          password:
  *                              type: string
  *                              description: Mot de passe de l'utilisateur
+ *                              example: Abc123&
  *      responses:
  *          200:
  *              description: Utilisateur connecté avec succès
@@ -202,7 +280,7 @@
  *                      example:
  *                          message: Login successed
  *                          data: 
- *                              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFsYmVydGxlYmVhdWdvc3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwNDc5NTEyMCwiZXhwIjoxNzA0ODgxNTIwfQ.lBRfXtbc-TH8oPQv3kgb04D9xEqarU7IQF0qHNO2rz4
+ *                              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFsYmVydGxlYmVhdWdvc3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwNTAwNzc3NywiZXhwIjoxNzA1MDk0MTc3fQ.7odUw0Z5gf3ONpAE5o96uyXgzlU6H3BweChaaj6IU2g
  *          400:
  *              description: Erreur lors de la connexion de l'utilisateur
  *              content: 
@@ -218,15 +296,6 @@
  *  put:
  *      summary: Modifier le mot de passe d'un utilisateur
  *      tags: [USER]
- *      parameters:
- *          -   in: header
- *              name: Authorization
- *              required: true
- *              description: Token d'authentification de l'utilisateur
- *              example:
- *                  Authorization: Bearer $TOKEN
- *              schema:
- *                  type: string
  *      description: Modifie le mot de passe d'un utilisateur dans la base de données
  *      requestBody:
  *          required: true
@@ -238,6 +307,7 @@
  *                          password:
  *                              type: string
  *                              description: Mot de passe de l'utilisateur
+ *                              example: Abc123&
  *      responses:
  *          200:
  *              description: Mot de passe utilisateur modifié avec succès
@@ -261,14 +331,6 @@
  *  put:
  *      summary: Modifier les informations d'un utilisateur
  *      tags: [USER]
- *      parameters:
- *          -   in: header
- *              name: Authorization
- *              required: true
- *              description: Token d'authentification de l'utilisateur
- *              schema:
- *                  type: string
- *                  requried: true
  *      description: Modifie les informations d'un utilisateur dans la base de données
  *      requestBody:
  *          required: false
@@ -280,12 +342,15 @@
  *                          firstname:
  *                              type: string
  *                              description: Prénom de l'utilisateur
+ *                              example: Albert
  *                          lastname:
  *                              type: string
  *                              description: Nom de l'utilisateur
+ *                              example: Einstein
  *                          phone:
  *                              type: string
  *                              description: Numéro de téléphone de l'utilisateur
+ *                              example: "0998989898"
  *      responses:
  *          200:
  *              description: Informations de l'utilisateur modifiés avec succès
@@ -3389,7 +3454,7 @@
 const express = require('express');
 const router = express.Router();
 //SWAGGER
-const { specs, swaggerUi } = require('../Swagger/swaggerConfig')
+const { specs, swaggerUi, swaggerUiOptions } = require('../Swagger/swaggerConfig')
 
 //------------------------------------- USER -------------------------------------
 const userController = require('../controller/User/UserController');
@@ -3430,7 +3495,7 @@ const photosMiddleware = require('../middleware/Photos/PhotosMiddleware');
 const PhotosMiddleware = require('../middleware/Photos/PhotosMiddleware');
 
 
-router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
 
 //  RACINE
 router.get('/', (req, res) => {

@@ -2,6 +2,7 @@ const db = require('../../models/index.js');
 const bcrypt = require('bcrypt');
 const userTable = db['User'];
 const jwt = require('jsonwebtoken');
+const { isNull } = require('util');
 require('dotenv').config();
 
 
@@ -11,11 +12,11 @@ const createUser = async (req, res) => {
 
         //Test si l'adresse email existe déjà en base
         const { email } = req.body;
-        if (!userTable.findOne({
-            where: {
-                email: email
-            }
-        })) {
+        let userFound = await userTable.findOne({
+            where: { email: email }
+        })
+        console.log(userFound);
+        if (userFound == null) {
             console.log("Email est disponible");
 
             const { password } = req.body;
@@ -27,14 +28,14 @@ const createUser = async (req, res) => {
             let data = { ...req.body, password: hash }
             console.log(data);
             //  Créé l'utilisateur dans la base de données
-            await userTable.create(data);
+            let userCreated = await userTable.create(data);
 
             //  Réponse avec l'action faite ('message') et les données de l'utilisateur créé ('data')
             res.status(200).send({
-                message: 'Create',
-                data: data
+                message: 'Created',
+                data: userCreated
             })
-        }else{
+        } else {
             throw new Error("L'adresse email renseignée n'est pas disponible !");
         }
 
@@ -97,24 +98,36 @@ const loginUser = async (req, res, next) => {
     } catch (error) {
 
         res.status(400).send({
-            message : 'Erreur de synthaxe de la requête.',
-            error : error.message
-        })    
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
     }
 
 }
 const middleWare = async (req, res, next) => {
 
-    let token = req.headers['authorization'].split(" ")[1];
-    console.log("token : " + token);
-    console.log(process.env.SECRET_TOKEN);
-    let decoded = jwt.verify(token, process.env.SECRET_TOKEN);
-    console.log("decoded : " + decoded);
-    req.user = decoded;
-    console.log("req.user : " + req.user);
-    req.token = token;
-    // res.status(200).json(req.user);
-    next();
+    try {
+
+        if (typeof req.headers['authorization'] === 'undefined') {
+            throw new Error("Erreur lors de la récupération du TOKEN (headers/Authorization)");
+        }
+        let token = req.headers['authorization'].split(" ")[1];
+        console.log("token : " + token);
+        console.log(process.env.SECRET_TOKEN);
+        let decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+        console.log("decoded : " + decoded);
+        req.user = decoded;
+        console.log("req.user : " + req.user);
+        req.token = token;
+        // res.status(200).json(req.user);
+        next();
+    } catch (error) {
+        res.status(400).send({
+            message: 'Une erreur est survenue',
+            error: error.message
+        })
+    }
+
 
     // CODE DE NICOLAS
     // const token = req.headers.authorization;
@@ -268,7 +281,7 @@ const modifyPassword = async (req, res) => {
 
         res.status(200).send({
             message: 'Mot de passe modifié',
-            data: newPassword
+            data: password
         })
 
     } catch (error) {
@@ -327,12 +340,20 @@ const getUserEmail = async (req, res) => {
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
         const user = await userTable.findOne({ where: { email: req.params.email } });
+        console.log(user);
+        if (user !== null) {
 
-        res.status(200).send({
-            message: `Bonjour ${user.firstname} (prénom) ${user.lastname} (nom) ${user.idRole} (idRole) ${user.email} (email)`,
-            data: user
-        })
+            res.status(200).send({
+                message: `Bonjour ${user.firstname} (prénom) ${user.lastname} (nom) ${user.idRole} (idRole) ${user.email} (email)`,
+                data: user
+            });
+        } else (
 
+            res.status(404).send({
+                message: "Aucune correspondance trouvée"
+
+            })
+        )
     } catch (error) {
 
         console.log(error);
@@ -370,7 +391,7 @@ const getAllUser = async (req, res) => {
 
         //  Envoie de tous les utilisateurs
         res.status(200).send({
-            message: 'select all',
+            message: 'Select all users',
             data: users
         })
 
