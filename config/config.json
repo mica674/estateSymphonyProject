@@ -18,6 +18,7 @@
     "password": "75BUHrHjyNX0k5ahhCj9ajjlY5t93j6z",
     "database": "estatesymphony",
     "host": "dpg-cmgj49ol5elc73fuf20g-a",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": 5432
   }
 }
