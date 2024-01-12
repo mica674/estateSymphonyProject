@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       // User.hasMany(models.Employees,{
       //   foreignKey : 'idEmployees'
       // });
-      User.hasMany(models.Estimations,{
-        foreignKey : 'id',
-        as : 'estimations'
+      User.hasMany(models.Estimations, {
+        foreignKey: 'id',
+        as: 'estimations'
       });
       // User.hasMany(models.Favories,{
       //   foreignKey : 'idFavories'
@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey : 'idHistories'
       // });
       User.belongsTo(models.Role, {
-        foreignKey : 'id',
-        as :'roles'
+        foreignKey: 'idRole',
+        as: 'role'
       })
       // User.hasMany(models.Messages,{
       //   foreignKey : 'idMessages'
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
-    roleId: DataTypes.INTEGER
+    idRole: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'User',
