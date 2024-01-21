@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       // Employees.hasMany(models.Agendas, {
       //   foreignKey: 'idAgenda'
       // });
-      // Employees.hasMany(models.Employees_District, {
-      //   foreignKey: 'idEmployees_District'
-      // });
+      Employees.hasMany(models.Employees_District, {
+        foreignKey: 'idEmployees_District'
+      });
     }
   }
   Employees.init({

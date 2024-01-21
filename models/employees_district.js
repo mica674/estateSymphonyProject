@@ -2,21 +2,18 @@
 const {
   Model
 } = require('sequelize');
+const employees = require('./employees');
 module.exports = (sequelize, DataTypes) => {
   class Employees_District extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      // Employees_District.hasOne(models.Employees,{
-      //   foreignKey: 'idEmployees'
-      // });
-      // Employees_District.hasOne(models.District,{
-      //   foreignKey: 'idDistrict'
-      // });
+      Employees_District.belongsTo(models.Employees, {
+        foreignKey: 'idEmployees',
+        as: 'employees'
+      });
+      Employees_District.belongsTo(models.District, {
+        foreignKey: 'idDistrict',
+        as: 'district'
+      });
     }
   }
   Employees_District.init({

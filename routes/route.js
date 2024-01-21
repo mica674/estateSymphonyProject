@@ -1817,18 +1817,19 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un district par son ID
  *          responses: 
  *              200:
  *                  description: District by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: District id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 2
+ *                                  name: Centre-ville
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération du district 
  *                  content: 
@@ -1836,6 +1837,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération du district par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Le district n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: District not found
  */
 //  GET ALL
 /**
@@ -1851,22 +1858,21 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 name: Centre-ville
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 name: Quartier Nord
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
+ *                                 name: Quartier Sud
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 4
- *                                 name: User
+ *                                 name: Gare
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *              400:
@@ -1876,6 +1882,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les districts
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Aucun district n'a été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: No district found
  */
 //  CREATE
 /**
@@ -1895,16 +1907,17 @@
  *                          name:
  *                              type: string
  *                              description: Nom du district
+ *                              example: Quartier
  *      responses:
  *          200:
  *              description: District créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: District créé
+ *                          message: District created
  *                          data: 
  *                              id: 2
- *                              name: A MODIFIER APRES TEST
+ *                              name: Quartier
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
@@ -1930,6 +1943,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du district dans la base de données
  *      requestBody:
  *          required: true
@@ -1941,13 +1955,14 @@
  *                          name:
  *                              type: string
  *                              description: Nom du district
+ *                              example: Quartier
  *      responses:
  *          200:
  *              description: District modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: District modifié avec succès
+ *                          message: District updated
  *          400:
  *              description: Erreur lors de la modification du district
  *              content: 
@@ -1955,6 +1970,12 @@
  *                      example:
  *                          message: Echec de la modification du district
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: Le district n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: District not found
 */
 //  DELETE
 /**
@@ -1970,6 +1991,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le district dans la base de données
  *          responses: 
  *              200:
@@ -1985,6 +2007,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression du district par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                description: Le district n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: District not found
  */
 
 
