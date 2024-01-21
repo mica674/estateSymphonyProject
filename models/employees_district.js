@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Employees_District.hasOne(models.Employees,{
-        foreignKey: 'idEmployees'
-      });
-      Employees_District.hasOne(models.District,{
-        foreignKey: 'idDistrict'
-      });
+      // Employees_District.hasOne(models.Employees,{
+      //   foreignKey: 'idEmployees'
+      // });
+      // Employees_District.hasOne(models.District,{
+      //   foreignKey: 'idDistrict'
+      // });
     }
   }
   Employees_District.init({

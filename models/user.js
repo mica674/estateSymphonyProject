@@ -10,18 +10,21 @@ module.exports = (sequelize, DataTypes) => {
       // User.hasMany(models.Agendas,{
       //   foreignKey : 'idAgenda'
       // });
-      // User.hasMany(models.clientFolders,{
-      //   foreignKey : 'idClientFolders'
-      // });
-      // User.hasMany(models.Comments,{
-      //   foreignKey : 'idComments'
-      // });
-      // User.hasMany(models.Employees,{
-      //   foreignKey : 'idEmployees'
-      // });
+      User.hasMany(models.clientFolders, {
+        foreignKey: 'idUsers',
+        as: 'userClientFolders'
+      });
+      User.hasMany(models.Comments, {
+        foreignKey: 'idUsers',
+        as: 'userComment'
+      });
+      User.hasMany(models.Employees, {
+        foreignKey: 'idUsers',
+        as: 'userEmployees'
+      });
       User.hasMany(models.Estimations, {
-        foreignKey: 'id',
-        as: 'estimations'
+        foreignKey: 'idUsers',
+        as: 'userEstimation'
       });
       // User.hasMany(models.Favories,{
       //   foreignKey : 'idFavories'
@@ -32,10 +35,15 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsTo(models.Role, {
         foreignKey: 'idRole',
         as: 'role'
+      });
+      User.hasMany(models.Messages, {
+        foreignKey: 'idUser1',
+        as: 'user1'
+      });
+      User.hasMany(models.Messages, {
+        foreignKey: 'idUser2',
+        as: 'user2'
       })
-      // User.hasMany(models.Messages,{
-      //   foreignKey : 'idMessages'
-      // })
     }
   }
   User.init({

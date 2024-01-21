@@ -1,89 +1,17 @@
 const db = require('../../models/index.js');
 const employeesTable = db['Employees'];
+const usersTable = db['User'];
 
-const getEmployee = async (req,res)=>{
+const getEmployee = async (req, res) => {
     try {
         const employee = await employeesTable.findByPk(req.params.id);
-
-        res.status(200).send({
-            message: `Employé ${employee.id}`,
-            data:employee
-        })
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })  
-    }
-}
-
-const getEmployees = async (req,res)=>{
-    try {
-        const employees = await employeesTable.findAll();
-
-        res.status(200).send({
-            message : 'select all',
-            data:   employees
-        })
-
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
-    }
-}
-
-const createEmployee = async (req,res)=>{
-    try {
-        let data = {...req.body};
-        const newEmployees = await employeesTable.create(data);
-        
-        res.status(200).send({
-            message : 'Employé créé',
-            data: newEmployees
-        })
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
-    }
-}
-
-const modifyEmployee = async (req,res)=>{
-    try {
-        const {employee} = req.body;
-        const idEmployee = req.params.id;
-        const updateEmployee = await employeesTable.update(
-            {employee : employee},
-            {where :{
-                    id : idEmployee
-                }
-            })
-            if(updateEmployee[0] == 1){
-                res.status(200).send({
-                    message : 'Employé modifié'
-                })
-            }
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
-    }
-}
-
-const deleteEmployee =async (req, res)=>{
-    try {
-        const idEmployee = req.params.id;
-        const deletedEmployee = await employeesTable.destroy({
-            where  : {id : idEmployee}
-        })
-        console.log(deletedEmployee);
-        if (deletedEmployee == 1) {
+        if (employee != null) {
             res.status(200).send({
-                message: 'Employé supprimé'
+                data: employee
+            })
+        } else {
+            res.status(404).send({
+                message: 'Employee not found'
             })
         }
     } catch (error) {
@@ -94,4 +22,137 @@ const deleteEmployee =async (req, res)=>{
     }
 }
 
-module.exports = {getEmployee, getEmployees, createEmployee, modifyEmployee, deleteEmployee}
+const getEmployees = async (req, res) => {
+    try {
+        const employees = await employeesTable.findAll();
+        if (employees != null && employees.length > 0) {
+            res.status(200).send({
+                data: employees
+            })
+        } else {
+            res.status(404).send({
+                message: 'No employees found'
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+    }
+}
+
+const createEmployee = async (req, res) => {
+    try {
+        let data = { ...req.body };
+        let idUserFound = await usersTable.findOne({
+            where: { id: data.idUsers },
+            include: 'userEmployees'
+        });
+        if (idUserFound !== null) {
+            //Name value from to idUserFound
+            data = { ...req.body, name: idUserFound.firstname }
+            const newEmployee = await employeesTable.create(data);
+            if (newEmployee !== null) {
+                res.status(200).send({
+                    message: 'Employee created',
+                    data: newEmployee
+                })
+            } else {
+                res.status(400).send({
+                    message: 'Employee was not created'
+                })
+            }
+        } else {
+            res.status(404).send({
+                message: 'idUsers not found'
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+    }
+}
+
+const modifyEmployee = async (req, res) => {
+    try {
+        let data = { ...req.body };
+        const idEmployee = req.params.id;
+        let idEmployeeFound = await employeesTable.findByPk(idEmployee)
+        if (idEmployeeFound !== null) {
+            let idUserFound = await usersTable.findOne({
+                where: { id: data.idUsers },
+                include: 'userEmployees'
+            });
+            if (idUserFound !== null) {
+                //Name value from to idUserFound
+                data = { ...req.body, name: idUserFound.firstname }
+                const updateEmployee = await employeesTable.update(
+                    data,
+                    {
+                        where: {
+                            id: idEmployee
+                        }
+                    })
+                if (updateEmployee[0] == 1) {
+                    res.status(200).send({
+                        message: 'Employee updated',
+                        data: data
+                    })
+                } else {
+                    res.status(400).send({
+                        message: 'Employee was not updated'
+                    })
+                }
+            } else {
+                res.status(404).send({
+                    message: 'idUsers not found'
+                })
+            }
+        } else {
+            res.status(404).send({
+                message: 'Employee not found'
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: 'Erreur de syntaxe de la requête.',
+            error: error.message
+        })
+    }
+}
+
+const deleteEmployee = async (req, res) => {
+    try {
+        const idEmployee = req.params.id;
+        const idEmployeeFound = await employeesTable.findByPk(idEmployee);
+        if (idEmployeeFound !== null) {
+            const deletedEmployee = await employeesTable.destroy({
+                where: { id: idEmployee }
+            })
+            if (deletedEmployee == 1) {
+                res.status(200).send({
+                    message: 'Employee deleted',
+                    data: idEmployeeFound
+                })
+            } else {
+                res.status(400).send({
+                    message: 'Employee was not deleted'
+                })
+            }
+        } else {
+            res.status(404).send({
+                message: 'Employee not found'
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: 'Erreur de syntaxe de la requête.',
+            error: error.message
+        })
+    }
+}
+
+module.exports = { getEmployee, getEmployees, createEmployee, modifyEmployee, deleteEmployee }

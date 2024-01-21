@@ -7,7 +7,6 @@ const getComment = async (req, res) => {
         const comment = await commentsTable.findByPk(req.params.id);
         if (comment !== null) {
             res.status(200).send({
-                message: `Comment id : ${comment.id}`,
                 data: comment
             })
         } else {
@@ -29,7 +28,6 @@ const getComments = async (req, res) => {
         const comments = await commentsTable.findAll();
 
         res.status(200).send({
-            message: 'select all of comments',
             data: comments
         })
 

@@ -1,0 +1,10 @@
+Comments :
+    - GET /comment/{id}
+        -   Le paramètre 'id' a une valeur par défaut
+        -   A l'exécution y a pas d'erreur si l'id existe
+        -   L'erreur est gérée si l'id existe pas
+        -   Exemple cohérent dans le responses 200
+    - GET/ALL /comments
+        -   Exemple cohérent dans le responses 200
+    - CREATE /comment/CREATE
+        -   Le body est prérempli avec un exemple fonctionnel

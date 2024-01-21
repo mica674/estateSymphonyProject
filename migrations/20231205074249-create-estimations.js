@@ -35,10 +35,11 @@ module.exports = {
       },
       idUsers: {
         type: Sequelize.INTEGER,
+        required: true,
 
-        references: { 
-          model : 'users',
-          key : 'id',
+        references: {
+          model: 'users',
+          key: 'id',
         }
 
       },

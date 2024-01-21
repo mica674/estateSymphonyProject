@@ -225,7 +225,7 @@
  *                              required: false
  *                              example: 4
  *      responses:
- *          200:
+ *          201:
  *              description: Utilisateur créé avec succès
  *              content:
  *                  application/json:
@@ -469,7 +469,7 @@
  *                              description: Nom du role
  *                              example: userOverrited
  *      responses:
- *          200:
+ *          201:
  *              description: Role créé avec succès
  *              content:
  *                  application/json:
@@ -580,6 +580,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1 
  *          description: Obtenir une estimation par son ID
  *          responses: 
  *              200:
@@ -590,6 +591,15 @@
  *                          message: Estimation 2
  *                          data:
  *                              id: 2
+ *                              location: Achat
+ *                              houseType: Maison
+ *                              surface: 90
+ *                              showerRoom: 1
+ *                              room: 5
+ *                              floor: 2
+ *                              balcony: 1
+ *                              parking: true
+ *                              idUsers: 1
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -616,22 +626,54 @@
  *                        example:
  *                         message: select all
  *                         data: 
- *                             -   id: 1
- *                                 name: A MODIFIER APRES TEST
- *                                 createdAt: 
- *                                 updatedAt: 
- *                             -   id: 2
- *                                 name: Manager
- *                                 createdAt: 
- *                                 updatedAt: 
- *                             -   id: 3
- *                                 name: Employee
- *                                 createdAt: 
- *                                 updatedAt: 
- *                             -   id: 4
- *                                 name: User
- *                                 createdAt: 
- *                                 updatedAt: 
+ *                             -    id: 1
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 4
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération de toutes les estimations
  *                  content: 
@@ -652,48 +694,47 @@
  *          required: true
  *          content:
  *              application/json:
- *                  example:
- *                      location: Achat
- *                      houseType: Maison
- *                      surface: 90
- *                      showerRoom: 1
- *                      room: 5
- *                      floor: 2
- *                      balcony: 1
- *                      parking: true
- *                      idUser: 1
  *                  schema:
  *                      type: object
  *                      properties:
  *                          location:
  *                              type: string
- *                              description: Type de vente (achat/vente ou location) du bien
+ *                              description: Type de vente (Achat/Vente ou Location) du bien
+ *                              example: Achat
  *                          houseType:
  *                              type: string
  *                              description: Type de bien (maison, appartement ...)
+ *                              example: Maison
  *                          surface:
  *                              type: integer
  *                              description: Surface en m²
+ *                              example: 90
  *                          showerRoom:
  *                              type: integer
  *                              description: Nombre de pièces d'eau (salle de bain, salle de douche ...)
+ *                              example: 1
  *                          room:
  *                              type: integer
  *                              description: Nombre de pièces du bien
+ *                              example: 3
  *                          floor:
  *                              type: integer
  *                              description: Nombre d'étage du bien
+ *                              example: 1
  *                          balcony:
  *                              type: integer
  *                              description: Balcon/Terrasse
+ *                              example: 1
  *                          parking:
  *                              type: boolean
  *                              description: Présence d'une place parking (true/false)
+ *                              example: false
  *                          idUser:
  *                              type: integer
  *                              description: ID de l'utilisateur demandeur de l'estimation
+ *                              example: 2
  *      responses:
- *          200:
+ *          201:
  *              description: Estimation créée avec succès
  *              content:
  *                  application/json:
@@ -701,9 +742,15 @@
  *                          message: Estimation créée
  *                          data: 
  *                              id: 25
- *                              name: A MODIFIER APRES TEST
- *                              updatedAt: "2024-01-09T08:43:54.003Z"
- *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *                              location: Achat
+ *                              houseType: Maison
+ *                              surface: 90
+ *                              showerRoom: 1
+ *                              room: 5
+ *                              floor: 2
+ *                              balcony: 1
+ *                              parking: true
+ *                              idUsers: 1
  *          400:
  *              description: Erreur lors de la création de l'estimation
  *              content: 
@@ -727,58 +774,58 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations d'une estimation dans la base de données d'après son ID
  *      requestBody:
  *          required: true
  *          content:
  *              application/json:
- *                  example:
- *                      location: Achat
- *                      houseType: Maison
- *                      surface: 90
- *                      showerRoom: 1
- *                      room: 5
- *                      floor: 2
- *                      balcony: 1
- *                      parking: true
- *                      idUser: 1
  *                  schema:
  *                      type: object
  *                      properties:
  *                          location:
  *                              type: string
  *                              description: Type de vente (achat/vente ou location) du bien
+ *                              example: Achat
  *                          houseType:
  *                              type: string
  *                              description: Type de bien (maison, appartement ...)
+ *                              example: Maison
  *                          surface:
  *                              type: integer
  *                              description: Surface en m²
+ *                              example: 90
  *                          showerRoom:
  *                              type: integer
  *                              description: Nombre de pièces d'eau (salle de bain, salle de douche ...)
+ *                              example: 1
  *                          room:
  *                              type: integer
  *                              description: Nombre de pièces du bien
+ *                              example: 3
  *                          floor:
  *                              type: integer
  *                              description: Nombre d'étage du bien
+ *                              example: 1
  *                          balcony:
  *                              type: integer
  *                              description: Balcon/Terrasse
+ *                              example: 1
  *                          parking:
  *                              type: boolean
  *                              description: Présence d'une place parking (true/false)
+ *                              example: 1
  *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur demandeur de l'estimation
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Informations de l'estimation modifiées avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Estimation modifiée avec succès
+ *                          message: Estimation modifiée
  *          400:
  *              description: Erreur lors de la modification des informations de l'estimation
  *              content: 
@@ -801,6 +848,7 @@
 *                  schema: 
 *                      type: integer
 *                      required: true
+*                      example: 1
 *          description: Deleting a 'Estimation' in the database
 *          responses: 
 *              200:
@@ -808,14 +856,20 @@
 *                  content:
 *                      application/json:
 *                          example:
-*                              message: Estimation supprimée
+*                              message: Estimation deleted
 *              400:
 *                description: Erreur lors de la suppression de l'estimation
 *                content: 
 *                    application/json:
 *                        example:
-*                            message: Erreur survenue lors de la suppression d\'une estimation par son ID
+*                            message: Erreur survenue lors de la suppression d'une estimation par son ID
 *                            error: Message de l'erreur spécifique le cas échéant
+*              404:
+*                description: Estimation was not found
+*                content: 
+*                    application/json:
+*                        example:
+*                            message: Erreur survenue lors de la vérification de l'existence d'une estimation par son ID dans la base de donnée
 */
 
 
@@ -835,25 +889,36 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un message par son ID
  *          responses: 
  *              200:
  *                  description: Message by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Message id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération du message
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Erreur survenue lors de la récupération d\'un message par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      application/json:
+ *                          example:
+ *                              message: Message id = 2
+ *                              data:
+ *                                  id: 2
+ *                                  message: Message test
+ *                                  idUser1: 1
+ *                                  idUser2: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du message
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur lors de la récupération du message
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Erreur lors de la récupération du message
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Message was not found
+ *                              error: Message de l'erreur spécifique le cas échéant
  */
 //  GET ALL
 /**
@@ -872,21 +937,29 @@
  *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 message: Contenu du message
+ *                                 idUser1: 1
+ *                                 idUser2: 2
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 message: Message avec immagination
+ *                                 idUser1: 2
+ *                                 idUser2: 1
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 3
- *                                 name: Employee
+ *                                 message: Bonjour je suis un message
+ *                                 idUser1: 1
+ *                                 idUser2: 2
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 4
- *                                 name: User
+ *                                 message: Bonjour moi aussi je suis un message
+ *                                 idUser1: 2
+ *                                 idUser2: 1
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *              400:
  *                  description: Erreur lors de la récupération des messages
  *                  content: 
@@ -913,24 +986,29 @@
  *                          message:
  *                              type: string
  *                              description: Contenu du message
- *                          userIdSender:
+ *                              example: Exemple de message 
+ *                          idUser1:
  *                              type: integer
  *                              description: ID de l'utilisateur expéditeur du message
- *                          userIdReceiver:
+ *                              example: 1 
+ *                          idUser2:
  *                              type: integer
  *                              description: ID de l'utilisateur destinataire du message
+ *                              example: 2 
  *      responses:
- *          200:
+ *          201:
  *              description: Message créé avec succès
  *              content:
  *                  application/json:
  *                      example:
  *                          message: Message créé
  *                          data: 
- *                              id: 25
- *                              name: A MODIFIER APRES TEST
- *                              updatedAt: "2024-01-09T08:43:54.003Z"
- *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *                              id: 1
+ *                              message: Contenu du message
+ *                              idUser1: 1
+ *                              idUser2: 2
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T08:22:15.000Z"
  *          400:
  *              description: Erreur lors de la création du message
  *              content: 
@@ -954,6 +1032,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie le contenu d'un message dans la base de données
  *      requestBody:
  *          required: true
@@ -965,6 +1044,15 @@
  *                          message:
  *                              type: string
  *                              description: Contenu du message
+ *                              example: Message type
+ *                          idUser1:
+ *                              type: string
+ *                              description: Id de l'utilisateur expéditeur
+ *                              example: 1
+ *                          idUser2:
+ *                              type: string
+ *                              description: Id de l'utilisateur destinataire
+ *                              example: 2
  *      responses:
  *          200:
  *              description: Contenu du message modifié avec succès
@@ -994,6 +1082,7 @@
 *                  schema: 
 *                      type: integer
 *                      required: true
+*                      example: 1
 *          description: Deleting a 'Message' in the database
 *          responses: 
 *              200:
@@ -1007,7 +1096,7 @@
 *                content: 
 *                    application/json:
 *                        example:
-*                            message: Erreur survenue lors de la suppression d\'un message par son ID
+*                            message: Erreur survenue lors de la suppression d'un message par son ID
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
@@ -1024,30 +1113,32 @@
  *          parameters:
  *              -   in : path
  *                  name: id
-
  *                  description: ID du commentaire
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un commentaire par son ID
  *          responses: 
  *              200:
  *                  description: Commentaire par son ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          Comments: Comment id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération du commentaire 
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Erreur survenue lors de la récupération du commentaire par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      application/json:
+ *                          example:
+ *                              Comments: Comment id = 1
+ *                              data:
+ *                                  id: 1
+ *                                  content: Contenu du message
+ *                                  idUsers: 1 
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du commentaire 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération du commentaire par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
  */
 //  GET ALL
 /**
@@ -1066,19 +1157,18 @@
  *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 content: Contenu du message
+ *                                 idUsers: 23
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 content: Contenu du message
+ *                                 idUsers: 52
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
- *                             -   id: 4
- *                                 name: User
+ *                                 content: Contenu du message
+ *                                 idUsers: 74
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *              400:
@@ -1104,22 +1194,25 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          userID:
+ *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur auteur du commentaire
+ *                              example: 1
  *                          comment:
  *                              type: string
  *                              description: Contenu du commentaire
+ *                              example: Exemple de commentaire
  *      responses:
  *          200:
  *              description: Commentaire créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Commentaire créé
+ *                          message: Comment created
  *                          data: 
- *                              id: 25
- *                              name: A MODIFIER APRES TEST
+ *                              id: 1
+ *                              idUsers: 1
+ *                              comment: Exemple de commentaire
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
@@ -1145,6 +1238,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie le contenu d'un commentaire dans la base de données
  *      requestBody:
  *          required: true
@@ -1156,19 +1250,20 @@
  *                          comment:
  *                              type: string
  *                              description: Contenu du commentaire
+ *                              example: Nouveau commentaire
  *      responses:
  *          200:
  *              description: Commentaire modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Commentaire modifié avec succès
+ *                          message: Comment was updated
  *          400:
  *              description: Erreur lors de la modification du commentaire
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du contenu du commentaire
+ *                          message: Comment was not updated
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  DELETE
@@ -1185,6 +1280,7 @@
 *                  schema: 
 *                      type: integer
 *                      required: true
+*                      example: 1
 *          description: Supprime le commentaire dans la base de données
 *          responses: 
 *              200:
@@ -1192,13 +1288,20 @@
 *                  content:
 *                      application/json:
 *                          example:
-*                              message: Commentaire supprimé
+*                              message: Comment deleted
 *              400:
 *                description: Erreur lors de la suppression du commentaire
 *                content: 
 *                    application/json:
 *                        example:
-*                            message: Erreur survenue lors de la suppression du commentaire par son ID
+*                            message: Comment not deleted
+*                            error: Message de l'erreur spécifique le cas échéant
+*              404:
+*                description: Le commentaire a supprimer n'a pas été trouvé
+*                content: 
+*                    text/plain:
+*                        example:
+*                            message: Comment not found
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
@@ -1219,25 +1322,36 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un dossier client par son ID
  *          responses: 
  *              200:
  *                  description: ClientFolder by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Dossier client id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération du dossier client 
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Erreur survenue lors de la récupération du dossier client par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      application/json:
+ *                          example:
+ *                              message: Dossier client id = 2
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  name: Nom du fichier
+ *                                  pdf: Chemin du fichier
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du dossier client 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération du dossier client par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Le dossier client n'a pas été trouvé 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Client folder not found
+ *                              error: Message de l'erreur spécifique le cas échéant
  */
 //  GET ALL
 /**
@@ -1253,22 +1367,29 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 idUsers: 32
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 idUsers: 143
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
+ *                                 idUsers: 235
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 4
- *                                 name: User
+ *                                 idUsers: 1245
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *              400:
@@ -1278,6 +1399,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les dossiers clients
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Aucun dossier client n'a été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: No client folder found
  */
 //  CREATE
 /**
@@ -1294,25 +1421,30 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          userId:
+ *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur
+ *                              example: 1
  *                          name:
  *                              type: string
  *                              description: Nom du dossier
+ *                              example: Folder name
  *                          pdf:
  *                              type: string
  *                              description: Nom du fichier pdf
+ *                              example: File name
  *      responses:
  *          200:
  *              description: Dossier client créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Dossier client créé
+ *                          message: Client folder created
  *                          data: 
- *                              userId: 2
- *                              name: A MODIFIER APRES TEST
+ *                              id: 3
+ *                              idUsers: 2
+ *                              name: Nom du dossier
+ *                              pdfcreate: Nom du fichier
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
@@ -1322,6 +1454,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création du dossier client
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: idUsers n'existe pas
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: idUsers not found
 */
 //  MODIFY 
 /**
@@ -1338,6 +1476,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie le contenu d'un dossier client dans la base de données
  *      requestBody:
  *          required: true
@@ -1346,29 +1485,38 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          userId:
+ *                          idUsers:
  *                              type: integer
  *                              description: Id de l'utilisateur
+ *                              example: 1
  *                          name:
  *                              type: string
  *                              description: Nom du dossier
+ *                              example: Nom du dossier modifié
  *                          pdf:
  *                              type: string
  *                              description: Nom du fichier pdf
+ *                              example: Nom du fichier modifié
  *      responses:
  *          200:
  *              description: Dossier client modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Dossier client modifié avec succès
+ *                          message: Client folder was updated
  *          400:
  *              description: Erreur lors de la modification du dossier client
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du dossier client
+ *                          message: Client folder was not updated
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: Le dossier client n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Client folder not found
 */
 //  DELETE
 /**
@@ -1384,6 +1532,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le dossier client dans la base de données
  *          responses: 
  *              200:
@@ -1391,14 +1540,20 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Dossier client supprimé
+ *                              message: Client folder deleted
  *              400:
  *                description: Erreur lors de la suppression du dossier client
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Erreur survenue lors de la suppression du dossier client par son ID
+ *                            message: Client folder was not deleted
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                description: Le dossier client n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Client folder not found
  */
 
 
@@ -1418,25 +1573,34 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un employé par son ID
  *          responses: 
  *              200:
  *                  description: Employee by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Employé id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération de l'employé 
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Erreur survenue lors de la récupération de l'employé par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  descriptions: Description employé
+ *                                  name: Mickaël
+ *                                  idUsers: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération de l'employé 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de l'employé par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: L'employé n'a pas été trouvé 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Employee not found
  */
 //  GET ALL
 /**
@@ -1452,22 +1616,23 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 descriptions: Description employé
+ *                                 name: Mickaël
+ *                                 idUsers: 2
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                                 updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 descriptions: Description employé
+ *                                 name: Nicolas
+ *                                 idUsers: 52
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
- *                             -   id: 4
- *                                 name: User
+ *                                 descriptions: Description employé
+ *                                 name: Alfred
+ *                                 idUsers: 5432
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *              400:
@@ -1477,6 +1642,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les employés
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Aucun employés n'a été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: No employees found
  */
 //  CREATE
 /**
@@ -1493,25 +1664,26 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          description:
+ *                          descriptions:
  *                              type: string
  *                              description: Description de l'employé
- *                          name:
- *                              type: string
- *                              description: Nom de l'employé
- *                          idUser:
+ *                              example: Description de l'employé
+ *                          idUsers:
  *                              type: integer
  *                              description: ID utilisateur (foreign key)
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Employé créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employé créé
+ *                          message: Employee created
  *                          data: 
- *                              userId: 2
- *                              name: A MODIFIER APRES TEST
+ *                              id: 2
+ *                              descriptions: Description de l'employé
+ *                              idUsers: 2
+ *                              name: Nom de l'employé
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
@@ -1521,6 +1693,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: L'idUsers n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: idUsers not found
 */
 //  MODIFY 
 /**
@@ -1537,6 +1715,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations de l'employé dans la base de données
  *      requestBody:
  *          required: true
@@ -1548,19 +1727,22 @@
  *                          descriptions:
  *                              type: string
  *                              description: Description de l'employé
- *                          name:
- *                              type: string
- *                              description: Nom de l'employé
- *                          idUser:
+ *                              example: Description de l'employé
+ *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Employé modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employé modifié avec succès
+ *                          message: Employee updated
+ *                          data: 
+ *                              descriptions: Description de l'employé 
+ *                              idUsers: 2 
+ *                              name: Mickaël 
  *          400:
  *              description: Erreur lors de la modification de l'employé
  *              content: 
@@ -1568,6 +1750,12 @@
  *                      example:
  *                          message: Echec de la modification de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: L'employé a modifier n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Employee not found
 */
 //  DELETE
 /**
@@ -1583,6 +1771,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime l'employé dans la base de données
  *          responses: 
  *              200:
@@ -1590,7 +1779,12 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Employé supprimé
+ *                              message: Employee deleted
+ *                              data: 
+ *                                  id: 2 
+ *                                  descriptions: Description de l'employé 
+ *                                  name: Mickaël 
+ *                                  idUsers: 2 
  *              400:
  *                description: Erreur lors de la suppression de l'employé
  *                content: 
@@ -1598,6 +1792,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression de l'employé par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                description: L'employé n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Employee not found
  */
 
 
@@ -3547,7 +3747,7 @@ router.get('/comment/:id', commentController.getComment);
 router.get('/comments', commentController.getComments);
 router.post('/comment/create', commentController.createComment);
 router.put('/comment/modify/:id', commentController.modifyComment);
-router.delete('/comment/delete/;id', commentController.deleteComment);
+router.delete('/comment/delete/:id', commentController.deleteComment);
 
 //------------------------------------- CLIENTFOLDERS ROUTER -------------------------------------
 router.post('/clientFolder/create', clientFolderController.createClientFolder);
