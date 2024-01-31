@@ -30,7 +30,6 @@ const getMessages = async (req, res) => {
         if (messagefound !== null) {
             const messages = await messagesTable.findAll();
             res.status(200).send({
-                message: 'select all',
                 data: messages
             })
         } else {

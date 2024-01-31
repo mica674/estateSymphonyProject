@@ -2032,20 +2032,20 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un employees-districts par son ID
  *          responses: 
  *              200:
  *                  description: employees-districts by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: employees-districts id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              idEmployees: 1
- *                              idDistricts: 3
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 2
+ *                                  idEmployees: 73
+ *                                  idDistricts: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération du employees-districts 
  *                  content: 
@@ -2053,11 +2053,17 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération du employees-districts par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: L'employees-districts n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Employees-Districts not found
 */
 //  GET ALL
 /**
  * @swagger
- * /employees-districts/all:
+ * /employeesDistricts/all:
  *      get:
  *          summary: Récupérer tous les employees-districts de la base de données
  *          tags: [EMPLOYEES_DISTRICTS]
@@ -2068,20 +2074,19 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all of employees-districts
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  idEmployees: 1
+ *                             -    id: 1
+ *                                  idEmployees: 73
  *                                  idDistricts: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -    id: 2
- *                                  idEmployees: 1
+ *                                  idEmployees: 74
  *                                  idDistricts: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -    id: 3
- *                                  idEmployees: 1
+ *                                  idEmployees: 75
  *                                  idDistricts: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T08:22:15.000Z"
@@ -2092,11 +2097,17 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les employees-districts
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: La table Employees-Districts est vide
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: No Employees-Districts found
  */
 //  CREATE
 /**
  * @swagger
- * /employees-districts/create:
+ * /employeesDistricts/create:
  *  post:
  *      summary: Créer un nouvel employees-districts
  *      tags: [EMPLOYEES_DISTRICTS]
@@ -2111,20 +2122,22 @@
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
+ *                              example: 1
  *                          idDistrict:
  *                              type: integer
  *                              description: ID du district
+ *                              example: 73
  *      responses:
  *          200:
  *              description: Employees-districts créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employees-districts créé
+ *                          message: Employee-district created
  *                          data: 
  *                              id: 2
- *                              idEmployees: A MODIFIER APRES TEST
- *                              idDistricts: A MODIFIER APRES TEST
+ *                              idEmployees: 1
+ *                              idDistrict: 73
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
@@ -2134,11 +2147,17 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création du employees-districts
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: L'employé n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Employee not found
 */
 //  MODIFY 
 /**
  * @swagger
- * /employees-districts/modify/{id}:
+ * /employeesDistricts/modify/{id}:
  *  put:
  *      summary: Modifier les informations du employees-districts
  *      tags: [EMPLOYEES_DISTRICTS]
@@ -2150,6 +2169,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du employees-districts dans la base de données
  *      requestBody:
  *          required: true
@@ -2161,16 +2181,24 @@
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
- *                          idDistricts:
+ *                              example: 2
+ *                          idDistrict:
  *                              type: integer
  *                              description: ID du district
+ *                              example: 73
  *      responses:
  *          200:
  *              description: Employees-districts modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employees-districts modifié avec succès
+ *                          message: Employees-districts updated
+ *                          data: 
+ *                              id: 2
+ *                              idEmployees: 1
+ *                              idDistrict: 73
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
  *              description: Erreur lors de la modification du employees-districts
  *              content: 
@@ -2178,11 +2206,17 @@
  *                      example:
  *                          message: Echec de la modification du employees-districts
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: L'employé, le district ou l'employees-district n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Employee not found
 */
 //  DELETE
 /**
  * @swagger
- * /employees-districts/delete/{id}:
+ * /employeesDistricts/delete/{id}:
  *      delete:
  *          summary: Pour supprimer un employees-districts avec son ID
  *          tags: [EMPLOYEES_DISTRICTS]
@@ -2193,6 +2227,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le employees-districts dans la base de données
  *          responses: 
  *              200:
@@ -2200,7 +2235,7 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Employees-districts deleted
+ *                              message: Employee-district deleted
  *              400:
  *                description: Erreur lors de la suppression du employees-districts
  *                content: 
@@ -2208,6 +2243,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression du employees-districts par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                description: L'employees-District n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Employees-District not found
  */
 
 

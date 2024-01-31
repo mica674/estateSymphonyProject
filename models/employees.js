@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: 'idAgenda'
       // });
       Employees.hasMany(models.Employees_District, {
-        foreignKey: 'idEmployees_District'
+        foreignKey: 'idEmployees',
+        as: 'employees_EmployeesDistrict'
       });
     }
   }
