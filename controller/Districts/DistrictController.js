@@ -67,7 +67,7 @@ const modifyDistrict = async (req, res) => {
     try {
         let data = { ...req.body };
         const idDistrict = req.params.id;
-        const idDistrictFound = await districtsTable.findByPk(idDistrict);
+        const idDistrictFound = await districtsTable.findOne(idDistrict);
         if (idDistrictFound !== null) {
             const updateDistrict = await districtsTable.update(
                 data,
