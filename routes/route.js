@@ -2257,7 +2257,7 @@
 //  GET BY ID
 /**
  * @swagger
- * /agendas/{id}:
+ * /agenda/{id}:
  *      get:
  *          summary: Pour trouver un agenda avec son ID
  *          tags: [AGENDA]
@@ -2268,6 +2268,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un agenda par son ID
  *          responses: 
  *              200:
@@ -2275,7 +2276,6 @@
  *                  content:
  *                  application/json:
  *                      example:
- *                          message: agenda id = 2
  *                          data:
  *                              id: A MODIFIER APRES TEST
  *                              date: true
@@ -2291,6 +2291,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un agenda par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Agenda n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Agenda not found
 */
 //  GET ALL
 /**
@@ -2306,7 +2312,6 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all of agendas
  *                         data: 
  *                             -    id: A MODIFIER APRES TEST
  *                                  date: "2024-05-08T14:47:27.000Z"
@@ -2355,22 +2360,26 @@
  *                          date: 
  *                              type: string
  *                              description: Date du rendez-vous
+ *                              example: EXAMPLE
  *                          visitInformations: 
  *                              type: string
  *                              description: Informations complémentaire pour le rendez-vous
+ *                              example: EXAMPLE
  *                          idUsers: 
  *                              type: integer
  *                              description: ID de l'utilisateur (client)
+ *                              example: 1
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Agenda créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Agenda créé
+ *                          message: Agenda created
  *                          data: 
  *                              id: 3
  *                              date: "2024-05-08T14:47:27.000Z"
@@ -2402,6 +2411,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du agenda dans la base de données
  *      requestBody:
  *          required: true
@@ -2413,15 +2423,19 @@
  *                          date:
  *                              type: string
  *                              description: Date du rendez-vous
+ *                              example: EXAMPLE
  *                          visitInformations:
  *                              type: string
  *                              description: Infomations complémentaires pour le rendez-vous
+ *                              example: EXAMPLE
  *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur (client)
+ *                              example: 1
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Agenda modifié avec succès
@@ -2436,6 +2450,12 @@
  *                      example:
  *                          message: Echec de la modification d'un agenda
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: Cet agenda n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Agenda not found
 */
 //  DELETE
 /**
@@ -2451,6 +2471,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime l'agenda dans la base de données
  *          responses: 
  *              200:
@@ -2466,6 +2487,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un agenda par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                description: Cet agenda n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Agenda not found
  */
 
 
@@ -2477,7 +2504,7 @@
  * /status/{id}:
  *      get:
  *          summary: Pour trouver un status avec son ID
- *          tags: [STATUS]
+ *          tags: [STATUSES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2485,21 +2512,21 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un status par son ID
  *          responses: 
  *              200:
  *                  description: Status by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Status id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un status 
  *                  content: 
@@ -2507,6 +2534,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un status par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Ce status n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Status not found
 */
 //  GET ALL
 /**
@@ -2514,7 +2547,7 @@
  * /statuses:
  *      get:
  *          summary: Récupérer tous les status de la base de données
- *          tags: [STATUS]
+ *          tags: [STATUSES]
  *          description: Récupère tous les status ajoutés dans la base de données
  *          responses: 
  *              200:
@@ -2522,9 +2555,8 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all of statuses
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
+ *                             -    id: 1
  *                                  sold: true
  *                                  rent: false
  *                                  hidden: false
@@ -2549,102 +2581,117 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les status
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: La table statuses est vide
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: No status found
 */
 //  CREATE
 /**
  * @swagger
  * /status/create:
- *  post:
- *      summary: Créer un nouveau status
- *      tags: [STATUS]
- *      description: Crée un nouveau status dans la base de données
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: Bien vendu (true/false)
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
- *      responses:
- *          200:
- *              description: Status créé avec succès
+ *      post:
+ *          summary: Créer un nouveau status
+ *          tags: [STATUSES]
+ *          description: Crée un nouveau status dans la base de données
+ *          requestBody:
+ *              required: true
  *              content:
  *                  application/json:
- *                      example:
- *                          message: Status créé
- *                          data: 
- *                              id: 3
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la création du status
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Une erreur est survenue lors de la création du status
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              sold: 
+ *                                  type: boolean
+ *                                  description: Bien vendu (true/false)
+ *                                  example: false
+ *                              rent: 
+ *                                  type: boolean
+ *                                  description: Bien loué (true/false)
+ *                                  example: false
+ *                              hidden: 
+ *                                  type: boolean
+ *                                  description: Bien caché (true/false)
+ *                                  example: false
+ *          responses:
+ *              200:
+ *                  description: Status créé avec succès
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              data: 
+ *                                  id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la création du status
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Une erreur est survenue lors de la création du status
+ *                              error: Message de l'erreur spécifique le cas échéant
 */
 //  MODIFY 
 /**
  * @swagger
  * /status/modify/{id}:
- *  put:
- *      summary: Modifier les informations du status
- *      tags: [STATUS]
- *      parameters:
- *          -   in: path
- *              name: id
- *              required: true
- *              description: ID du status
- *              schema:
- *                  type: integer
+ *      put:
+ *          summary: Modifier les informations du status
+ *          tags: [STATUSES]
+ *          parameters:
+ *              -   in: path
+ *                  name: id
  *                  required: true
- *      description: Modifie les informations du status dans la base de données
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
+ *                  description: ID du status
  *                  schema:
- *                      type: object
- *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
- *                          idUsers:
- *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
- *                              type: integer
- *                              description: ID de l'employé
- *      responses:
- *          200:
- *              description: Status modifié avec succès
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Modifie les informations du status dans la base de données
+ *          requestBody:
+ *              required: true
  *              content:
  *                  application/json:
- *                      example:
- *                          message: Status modifié avec succès
- *          400:
- *              description: Erreur lors de la modification du status
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Echec de la modification du status
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              sold: 
+ *                                  type: boolean
+ *                                  description: Bien vendu (true/false)
+ *                                  example: true
+ *                              rent: 
+ *                                  type: boolean
+ *                                  description: Bien loué (true/false)
+ *                                  example: false
+ *                              hidden: 
+ *                                  type: boolean
+ *                                  description: Bien caché (true/false)
+ *                                  example: false
+ *          responses:
+ *              200:
+ *                  description: Status modifié avec succès
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Status updated
+ *              400:
+ *                  description: Erreur lors de la modification du status
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Echec de la modification du status
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Ce status n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Status not found
 */
 //  DELETE
 /**
@@ -2652,7 +2699,7 @@
  * /status/delete/{id}:
  *      delete:
  *          summary: Pour supprimer un status avec son ID
- *          tags: [STATUS]
+ *          tags: [STATUSES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2660,6 +2707,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le status dans la base de données
  *          responses: 
  *              200:
@@ -2675,6 +2723,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un status par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                description: Ce status n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Status not found
  */
 
 
@@ -3747,7 +3801,7 @@ const employeeController = require('../controller/Employees/EmployeesController'
 //------------------------------------- DISTRICTS -------------------------------------
 const districtController = require('../controller/Districts/DistrictController');
 //------------------------------------- EMPLOYEES DISTRICTS -------------------------------------
-const employeeDistrictController = require('../controller/EmployeesDistricts/EmployeesDistricts');
+const employeeDistrictController = require('../controller/EmployeesDistricts/EmployeesDistrictsController');
 //------------------------------------- AGENDAS -------------------------------------
 const agendasController = require('../controller/Agendas/AgendasController');
 //------------------------------------- STATUSES -------------------------------------

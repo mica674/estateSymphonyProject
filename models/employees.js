@@ -9,9 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idUsers',
         as: 'userEmployees'
       });
-      // Employees.hasMany(models.Agendas, {
-      //   foreignKey: 'idAgenda'
-      // });
+      Employees.hasMany(models.Agendas, {
+        foreignKey: 'idEmployees',
+        as: 'employeesAgenda'
+      });
       Employees.hasMany(models.Employees_District, {
         foreignKey: 'idEmployees',
         as: 'employees_EmployeesDistrict'

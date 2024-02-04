@@ -7,9 +7,10 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
-      // User.hasMany(models.Agendas,{
-      //   foreignKey : 'idAgenda'
-      // });
+      User.hasMany(models.Agendas, {
+        foreignKey: 'idUsers',
+        as: 'userAgenda'
+      });
       User.hasMany(models.clientFolders, {
         foreignKey: 'idUsers',
         as: 'userClientFolders'
