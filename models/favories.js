@@ -14,8 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       // Favories.hasOne(models.User,{
       //   foreignKey: 'idUsers'
       //});
-      Favories.hasOne(models.Properties,{
-        foreignKey: 'idProperties'
+      Favories.hasOne(models.Properties, {
+        foreignKey: 'id',
+        as: 'property'
       });
     }
   }

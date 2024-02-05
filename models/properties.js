@@ -4,30 +4,27 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Properties extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      Properties.hasMany(models.Favories,{
-        foreignKey : 'idFavories'
+      Properties.hasMany(models.Favories, {
+        foreignKey: 'idFavories'
       });
-      Properties.hasMany(models.Histories,{
-        foreignKey : 'idHistories'
+      Properties.hasMany(models.Histories, {
+        foreignKey: 'idHistories'
       });
-      Properties.belongsTo(models.District,{
-        foreignKey : 'idDistrict'
+      Properties.belongsTo(models.District, {
+        foreignKey: 'idDistrict',
+        as: 'district'
       });
       Properties.belongsTo(models.Status, {
-        foreignKey : 'idStatus'
+        foreignKey: 'idStatus',
+        as: 'status'
       });
       Properties.belongsToMany(models.User, {
-        through : 'properties_folder'
+        through: 'properties_folder'
       });
-      Properties.hasMany(models.Photos,{
-        foreignKey : 'idPhotos'
+      Properties.hasMany(models.Photos, {
+        foreignKey: 'id',
+        as: 'photos'
       })
     }
   }

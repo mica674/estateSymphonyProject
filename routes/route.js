@@ -2740,7 +2740,7 @@
  * /property/{id}:
  *      get:
  *          summary: Pour trouver une propriété avec son ID
- *          tags: [PROPERTY]
+ *          tags: [PROPERTIES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2748,21 +2748,34 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir une propriété par son ID
  *          responses: 
  *              200:
  *                  description: Property by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Property id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              message: Property id = 2
+ *                              data:
+ *                                  id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 3
+ *                                  idDistrict: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'une propriété 
  *                  content: 
@@ -2770,6 +2783,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'une propriété par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Cette propriété n'a pas été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Property not found
 */
 //  GET ALL
 /**
@@ -2777,7 +2796,7 @@
  * /properties:
  *      get:
  *          summary: Récupérer toutes les propriétés de la base de données
- *          tags: [PROPERTY]
+ *          tags: [PROPERTIES]
  *          description: Récupère toutes les propriétés ajoutées dans la base de données
  *          responses: 
  *              200:
@@ -2785,24 +2804,41 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: Select all of properties
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                              -   id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 3
+ *                                  idDistrict: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
- *                                  createdAt: "2024-01-08T14:47:27.000Z"
- *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                              -   id: 2
+ *                                  price: 898
+ *                                  location: string
+ *                                  surface: 67
+ *                                  showerRoom: 12
+ *                                  energising: E
+ *                                  typeEnergic: Electrique
+ *                                  clicCount: 23
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 9
+ *                                  balcony: 0
+ *                                  parking: 0
+ *                                  rooms: 2
+ *                                  idStatus: 1
+ *                                  idDistrict: 53
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -2812,6 +2848,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de toutes les propriétés
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                  description: Aucune propriété n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: No Property found
 */
 //  CREATE
 /**
@@ -2819,36 +2861,107 @@
  * /property/create:
  *  post:
  *      summary: Créer une nouvelle propriété
- *      tags: [PROPERTY]
+ *      tags: [PROPERTIES]
  *      description: Crée une nouvelle propriété dans la base de données
  *      requestBody:
  *          required: true
  *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties: 
+ *                          file: 
+ *                              type: string 
+ *                              format: binary
+ *                              pattern: .*\/(jpeg|jpg|png)$
  *              application/json:
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          price: 
+ *                              type: int
+ *                              description: Prix du bien 
+ *                              example: 999 
+ *                          location: 
+ *                              type: string
+ *                              description: Location
+ *                              example: Location
+ *                          surface: 
+ *                              type: int
+ *                              description: Surface du bien
+ *                              example: 50
+ *                          showerRoom: 
+ *                              type: int
+ *                              description: Nombre de salle de bain
+ *                              example: 1
+ *                          energising: 
+ *                              type: string
+ *                              description: Catégorie énergétique
+ *                              example: A
+ *                          typeEnergic: 
+ *                              type: string
+ *                              description: Type de chauffage
+ *                              example: Electrique
+ *                          clicCount: 
+ *                              type: int
+ *                              description: Nombre de clique sur le bien
+ *                              example: 312
+ *                          description: 
+ *                              type: string
+ *                              description: Description du bien
+ *                              example: Maison de campagne
+ *                          heatingSystem: 
+ *                              type: string
+ *                              description: String
+ *                              example: Je sais pas
+ *                          floor: 
+ *                              type: int
+ *                              description: Nombre d'étage du bien
+ *                              example: 2
+ *                          balcony: 
+ *                              type: int
+ *                              description: Nombre de balcon
+ *                              example: 1
+ *                          parking: 
+ *                              type: int
+ *                              description: Nombre de place de parking
+ *                              example: 1
+ *                          rooms: 
+ *                              type: int
+ *                              description: Nombre de pièces totales du bien
+ *                              example: 1
+ *                          idStatus: 
+ *                              type: int
+ *                              description: ID du status correspond au bien
+ *                              example: 1
+ *                          idDistrict: 
+ *                              type: int
+ *                              description: ID du district affecté au bien
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Propriété créée avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Propriété créée
+ *                          message: Property created
  *                          data: 
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -2865,7 +2978,7 @@
  * /property/modify/{id}:
  *  put:
  *      summary: Modifier les informations d'une propriété
- *      tags: [PROPERTY]
+ *      tags: [PROPERTIES]
  *      parameters:
  *          -   in: path
  *              name: id
@@ -2874,33 +2987,109 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations de la propriété dans la base de données
  *      requestBody:
  *          required: true
  *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties: 
+ *                          file: 
+ *                              type: string 
+ *                              format: binary
+ *                              pattern: .*\/(jpeg|jpg|png)$
  *              application/json:
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
+ *                          price: 
+ *                              type: int
+ *                              description: Prix du bien 
+ *                              example: 999 
+ *                          location: 
  *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
- *                          idUsers:
- *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
- *                              type: integer
- *                              description: ID de l'employé
+ *                              description: Location
+ *                              example: Location
+ *                          surface: 
+ *                              type: int
+ *                              description: Surface du bien
+ *                              example: 50
+ *                          showerRoom: 
+ *                              type: int
+ *                              description: Nombre de salle de bain
+ *                              example: 1
+ *                          energising: 
+ *                              type: string
+ *                              description: Catégorie énergétique
+ *                              example: A
+ *                          typeEnergic: 
+ *                              type: string
+ *                              description: Type de chauffage
+ *                              example: Electrique
+ *                          clicCount: 
+ *                              type: int
+ *                              description: Nombre de clique sur le bien
+ *                              example: 312
+ *                          description: 
+ *                              type: string
+ *                              description: Description du bien
+ *                              example: Maison de campagne
+ *                          heatingSystem: 
+ *                              type: string
+ *                              description: String
+ *                              example: Je sais pas
+ *                          floor: 
+ *                              type: int
+ *                              description: Nombre d'étage du bien
+ *                              example: 2
+ *                          balcony: 
+ *                              type: int
+ *                              description: Nombre de balcon
+ *                              example: 1
+ *                          parking: 
+ *                              type: int
+ *                              description: Nombre de place de parking
+ *                              example: 1
+ *                          rooms: 
+ *                              type: int
+ *                              description: Nombre de pièces totales du bien
+ *                              example: 1
+ *                          idStatus: 
+ *                              type: int
+ *                              description: ID du status correspond au bien
+ *                              example: 1
+ *                          idDistrict: 
+ *                              type: int
+ *                              description: ID du district affecté au bien
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Propriété modifiée avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Propriété modifiée avec succès
+ *                          message: Property updated
+ *                          data: 
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
  *              description: Erreur lors de la modification de la propriété
  *              content: 
@@ -2908,6 +3097,12 @@
  *                      example:
  *                          message: Echec de la modification de la propriété
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          404:
+ *              description: Cette propriété n'a pas été trouvée
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Property not found
 */
 //  DELETE
 /**
@@ -2915,7 +3110,7 @@
  * /property/delete/{id}:
  *      delete:
  *          summary: Pour supprimer une propriété avec son ID
- *          tags: [PROPERTY]
+ *          tags: [PROPERTIES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2923,6 +3118,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime la propriété dans la base de données
  *          responses: 
  *              200:
@@ -2938,6 +3134,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'une propriété par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              404:
+ *                description: Cette propriété n'a pas été trouvée
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Property not found
  */
 
 
@@ -3924,12 +4126,15 @@ router.delete('/property/delete/:id', propertiesController.deleteProperty);
 //------------------------------------- PROPERTIES FOLDERS ROUTER -------------------------------------
 router.get('/propertiesFolders/one/:id', propertiesFoldersController.getPropertyFolder);
 router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFolders);
-router.post('/property/create', function (req, res) {
-    photosMiddleware.upload(req, res, function (err) {
-        console.log(err);
-        res.status(400).send({ message: err.code, code: 400 })
-    })
-}, propertiesController.createProperty);
+//#NAWELLE Je sais pas si c'est normal qu'il y ait ca donc je laisse en commentaire mais pour moi ca va dans Properties ça
+// router.post('/property/create', function (req, res) {
+//     photosMiddleware.upload(req, res, function (err) {
+//         console.log(err);
+//         res.status(400).send({ message: err.code, code: 400 })
+//     })
+// }, propertiesController.createProperty);
+
+router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
 router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
 router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
 
