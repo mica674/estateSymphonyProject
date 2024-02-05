@@ -104,14 +104,13 @@ const deleteStatus = async (req, res) => {
         const idStatus = req.params.id;
         const idStatusFound = await statusesTable.findByPk(idStatus);
         if (idStatusFound !== null) {
-
             const deletedStatus = await statusesTable.destroy({
                 where: { id: idStatus }
             })
-            console.log(deletedStatus);
             if (deletedStatus == 1) {
                 res.status(200).send({
-                    message: 'Status deleted'
+                    message: 'Status deleted',
+                    data: deleteStatus
                 })
             } else {
                 res.status(400).send({
