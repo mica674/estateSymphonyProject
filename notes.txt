@@ -1,9 +1,3 @@
-const user = await userTable findByPk(id, {
-attributes : ["firstname", "lastname"]
-include : [
-{model :users_cycles
-as users_cycles
-include : [cycles]
-}
-]
-});
+A installer:
+MUI
+Vitejs
