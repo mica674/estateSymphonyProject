@@ -4036,21 +4036,21 @@ router.get('/', (req, res) => {
 
 
 //------------------------------------- ROLES ROUTER -------------------------------------//Tested with swagger
-router.get('/role/:id', roleController.getRole);//S
-router.get('/roles', roleController.getAllRoles);//S
-router.post('/role/create', roleController.createRole);//S
-router.put('/role/modify/:id', roleController.modifyRole);//S
-router.delete('/role/delete/:id', roleController.deleteRole);//S
+router.get('/role/:id', roleController.getRole);
+router.get('/roles', roleController.getAllRoles);
+router.post('/role/create', roleController.createRole);
+router.put('/role/modify/:id', roleController.modifyRole);
+router.delete('/role/delete/:id', roleController.deleteRole);
 
 //------------------------------------- USERS ROUTER -------------------------------------//Tested with swagger
-router.get('/user/id/:id', userController.getUserId);//S
-router.get('/user/email/:email', userController.getUserEmail);//S
-router.get('/users', userController.getAllUser);//S
-router.get('/users/:idRole', userController.getAllUserByIdRole);//S
-router.post('/user/create', userController.createUser);//S
-router.post('/login', userController.loginUser);//S
-router.put('/user/modifyPassword', userController.middleWare, userController.modifyPassword);//S
-router.put('/user/modify', userController.middleWare, userController.modify);//S
+router.get('/user/id/:id', userController.getUserId);
+router.get('/user/email/:email', userController.getUserEmail);
+router.get('/users', userController.getAllUser);
+router.get('/users/:idRole', userController.getAllUserByIdRole);
+router.post('/user/create', userController.createUser);
+router.post('/login', userController.loginUser);
+router.put('/user/modifyPassword', userController.middleWare, userController.modifyPassword);
+router.put('/user/modify', userController.middleWare, userController.modify);
 // router.put('/user/modifyEmail', UserController.middleWare, UserController.modifyEmail);
 
 //------------------------------------- ESTIMATIONS ROUTER -------------------------------------//Tested with swagger

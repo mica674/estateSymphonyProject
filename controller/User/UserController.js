@@ -2,7 +2,6 @@ const db = require('../../models/index.js');
 const bcrypt = require('bcrypt');
 const userTable = db['User'];
 const jwt = require('jsonwebtoken');
-const { isNull } = require('util');
 require('dotenv').config();
 
 
@@ -15,10 +14,7 @@ const createUser = async (req, res) => {
         let userFound = await userTable.findOne({
             where: { email: email }
         })
-        console.log(userFound);
         if (userFound == null) {
-            console.log("Email est disponible");
-
             const { password } = req.body;
             //  Génération du SALT pour le chiffrement du mot de passe
             const salt = await bcrypt.genSaltSync(12);
@@ -26,7 +22,6 @@ const createUser = async (req, res) => {
             const hash = await bcrypt.hashSync(password, salt);
             //  Récupère les données du body et modifie le password et l'id de Role
             let data = { ...req.body, password: hash }
-            console.log(data);
             //  Créé l'utilisateur dans la base de données
             let userCreated = await userTable.create(data);
 
@@ -36,43 +31,16 @@ const createUser = async (req, res) => {
                 data: userCreated
             })
         } else {
-            throw new Error("L'adresse email renseignée n'est pas disponible !");
-        }
-
-    } catch (error) {
-        console.log(error.message);
-        if (error.name === 'SequelizeUniqueConstraintError') {
-            // Gérer l'erreur d'unicité (adresse e-mail déjà existante)
-            res.status(400).send({
-                message: 'L\'adresse e-mail existe déjà.',
-                error: error.message
-            });
-        } else if (true) {
-            res.status(400).send({
-                message: 'Une erreur est survenue.',
-                error: error.message
+            res.status(401).send({
+                message: 'Adresse email existe déjà'
             })
         }
 
-        // res.status(401).send({
-        //     message: 'Vous n\'êtes pas autorisé.',
-        //     error: error.message
-        // })
-
-        // res.status(403).send({
-        //     message: 'Vous n\'avez pas les droits d\'accès.',
-        //     error: error.message
-        // })
-
-        // res.status(404).send({
-        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
-        //     error: error.message
-        // })
-
-        // res.status(500).send({
-        //     message: 'Erreur serveur.',
-        //     error: error.message
-        // })
+    } catch (error) {
+        res.status(400).send({
+            message: 'Une erreur est survenue.',
+            error: error.message
+        })
     }
 }
 const loginUser = async (req, res, next) => {
@@ -91,10 +59,16 @@ const loginUser = async (req, res, next) => {
                 });
                 //Réponse HTTP 200 et le token en data
                 res.status(200).send({ token: token });
+            } else {
+                res.status(401).send({
+                    message: 'Adresse email et/ou mot de passe incorrect(s)'
+                })
             }
+        } else {
+            res.status(404).send({
+                message: 'Adresse email inconnue'
+            })
         }
-
-
     } catch (error) {
 
         res.status(400).send({
