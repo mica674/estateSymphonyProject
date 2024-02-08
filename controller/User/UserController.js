@@ -6,9 +6,7 @@ require('dotenv').config();
 
 
 const createUser = async (req, res) => {
-
     try {
-
         //Test si l'adresse email existe déjà en base
         const { email } = req.body;
         let userFound = await userTable.findOne({
@@ -31,7 +29,7 @@ const createUser = async (req, res) => {
                 data: userCreated
             })
         } else {
-            res.status(401).send({
+            res.status(422).send({
                 message: 'Adresse email existe déjà'
             })
         }
@@ -60,18 +58,18 @@ const loginUser = async (req, res) => {
                 //Réponse HTTP 200 et le token en data
                 res.status(200).send({ token: token });
             } else {
-                res.status(400).send({
+                res.status(422).send({
                     message: 'Adresse email et/ou mot de passe incorrect(s)'
                 })
             }
         } else {
-            res.status(404).send({
+            res.status(422).send({
                 message: 'Adresse email inconnue'
             })
         }
     } catch (error) {
 
-        res.status(400).send({
+        res.status(500).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })
@@ -146,7 +144,7 @@ const modifyEmail = async (req, res) => {
                 data: newEmail
             })
         } else {
-            res.status(400).send({
+            res.status(422).send({
                 message: 'Email was not updated'
             })
         }
@@ -170,22 +168,19 @@ const modify = async (req, res) => {
         //req.token est le token transmis par le middleware
         let email = jwt.verify(req.token, process.env.SECRET_TOKEN).email;
         console.log(email);
-
         const dataUpdated = await userTable.update(newData, {
             where: {
                 email: email
             }
         });
-
-
-        if (dataUpdated === 1) {
-
+        if (dataUpdated[0] === 1) {
+            console.log('Informations utilisateur mise à jour');
             res.status(200).send({
-                message: 'Vous avez bien modifié vos informations',
+                message: 'Data updated',
                 data: newData
             })
         } else {
-            res.status(400).send({
+            res.status(422).send({
                 message: 'User was not updated'
             })
         }
@@ -194,7 +189,7 @@ const modify = async (req, res) => {
 
         console.log(error);
 
-        res.status(400).send({
+        res.status(500).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })
@@ -204,7 +199,6 @@ const modify = async (req, res) => {
 }
 const modifyPassword = async (req, res) => {
     try {
-
         const { password } = req.body;
         const salt = await bcrypt.genSaltSync(12);
         const hash = await bcrypt.hashSync(password, salt);
@@ -212,25 +206,20 @@ const modifyPassword = async (req, res) => {
         //req.token est le token transmis par le middleware
         let email = jwt.verify(req.token, process.env.SECRET_TOKEN).email;
         console.log(email);
-
-
         const newPassword = await userTable.update(newData, {
             where: {
                 email: email
             }
         });
-
         if (newPassword === 1) {
-
             res.status(200).send({
                 message: 'Password updated'
             })
         } else {
-            res.status(400).send({
+            res.status(422).send({
                 message: 'Password was not updated'
             })
         }
-
     } catch (error) {
 
         console.log(error);
@@ -243,7 +232,6 @@ const modifyPassword = async (req, res) => {
     }
 }
 const getUserId = async (req, res) => {
-
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
         const user = await userTable.findByPk(req.params.id);
@@ -254,11 +242,10 @@ const getUserId = async (req, res) => {
                 data: user
             })
         } else {
-            res.status(404).send({
+            res.status(422).send({
                 message: 'User not found'
             })
         }
-
     } catch (error) {
         res.status(400).send({
             message: 'Erreur survenue lors de la récupération d\'un utilisateur par son ID.',
@@ -277,7 +264,7 @@ const getUserEmail = async (req, res) => {
                 data: user
             });
         } else (
-            res.status(404).send({
+            res.status(422).send({
                 message: "Aucune correspondance trouvée"
             })
         )
@@ -299,7 +286,7 @@ const getAllUser = async (req, res) => {
                 data: users
             })
         } else {
-            res.status(404).send({
+            res.status(422).send({
                 message: 'No user found'
             })
         }
@@ -325,7 +312,7 @@ const getAllUserByIdRole = async (req, res) => {
                 data: users
             })
         } else {
-            res.status(404).send({
+            res.status(422).send({
                 message: 'No user found'
             })
         }
