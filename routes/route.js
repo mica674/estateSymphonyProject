@@ -4043,10 +4043,10 @@ router.put('/role/modify/:id', roleController.modifyRole);
 router.delete('/role/delete/:id', roleController.deleteRole);
 
 //------------------------------------- USERS ROUTER -------------------------------------//Tested with swagger
-router.get('/user/id/:id', userController.getUserId);
-router.get('/user/email/:email', userController.getUserEmail);
-router.get('/users', userController.getAllUser);
-router.get('/users/:idRole', userController.getAllUserByIdRole);
+router.get('/user/id/:id', userController.middleWare, userController.getUserId);
+router.get('/user/email/:email', userController.middleWare, userController.getUserEmail);
+router.get('/users', userController.middleWare, userController.getAllUser);
+router.get('/users/:idRole', userController.middleWare, userController.getAllUserByIdRole);
 router.post('/user/create', userController.createUser);
 router.post('/login', userController.loginUser);
 router.put('/user/modifyPassword', userController.middleWare, userController.modifyPassword);
