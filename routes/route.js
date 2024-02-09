@@ -3159,21 +3159,22 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un dossier de propriété par son ID
  *          responses: 
  *              200:
  *                  description: PropertiesFolders by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: PropertiesFolders id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              message: PropertiesFolders id = 2
+ *                              data:
+ *                                  id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un dossier de propriété 
  *                  content: 
@@ -3181,6 +3182,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un dossier de propriété par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un dossier de propriété 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un dossier de propriété par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Id property n'existe pas
 */
 //  GET ALL
 /**
@@ -3198,22 +3212,14 @@
  *                        example:
  *                         message: Select all of propertiesFolders
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                             -    id: 1
+ *                                  idProperties: 1
+ *                                  idClientFolders: 1
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
- *                                  createdAt: "2024-01-08T14:47:27.000Z"
- *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idProperties: 2
+ *                                  idClientFolders: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3223,7 +3229,20 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les dossiers de propriété
  *                              error: Message de l'erreur spécifique le cas échéant
-*/
+ *              401:
+ *                  description: Erreur lors de la récupération des dossiers de propriété
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les dossiers de propriété
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Id property n'existe pas
+ */
 //  CREATE
 /**
  * @swagger
@@ -3239,15 +3258,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          idProperties: 
+ *                              type: integer
+ *                              description: ID de la propriété
+ *                              example: 1
+ *                          idClientFolders: 
+ *                              type: integer
+ *                              description: ID du dossier client
+ *                              example: 1           
  *      responses:
  *          200:
  *              description: Dossier de propriété créé avec succès
@@ -3257,9 +3275,8 @@
  *                          message: Dossier de propriété créé
  *                          data: 
  *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              idProperties: true
+ *                              idClientFolders: false
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -3269,7 +3286,20 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un dossier de propriété
  *                          error: Message de l'erreur spécifique le cas échéant
-*/
+ *          401:
+ *              description: Erreur lors de la création d'un dossier de propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création d'un dossier de propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Id property n'existe pas
+ */
 //  MODIFY 
 /**
  * @swagger
@@ -3285,6 +3315,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du dossier de la propriété dans la base de données
  *      requestBody:
  *          required: true
@@ -3293,18 +3324,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
- *                          idUsers:
+ *                          idProperties:
  *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
+ *                              description: ID de la propriété
+ *                              example: 1
+ *                          idClientFolders:
  *                              type: integer
- *                              description: ID de l'employé
+ *                              description: ID du dossier client
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Dossier de propriété modifié avec succès
@@ -3319,6 +3346,19 @@
  *                      example:
  *                          message: Echec de la modification du dossier de la propriété
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la modification du dossier de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du dossier de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Id property n'existe pas
 */
 //  DELETE
 /**
@@ -3334,6 +3374,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le dossier de propriété dans la base de données
  *          responses: 
  *              200:
@@ -3349,6 +3390,19 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un dossier de propriété par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                description: Erreur lors de la suppression d'un dossier de propriété
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un dossier de propriété par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Id propertiesFolders n'existe pas
  */
 
 
@@ -3368,21 +3422,21 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un historique utilisateur par son ID
  *          responses: 
  *              200:
  *                  description: Hystory by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Hystory id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: A MODIFIER APRES TEST
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un historique utilisateur 
  *                  content: 
@@ -3390,7 +3444,20 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
-*/
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Id history n'existe pas
+ */
 //  GET ALL
 /**
  * @swagger
