@@ -30,7 +30,7 @@ const createUser = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Adresse email existe déjà'
+                message: 'Adresse email déjà utilisée'
             })
         }
 
@@ -297,7 +297,6 @@ const getAllUser = async (req, res) => {
         })
     }
 }
-
 const getAllUserByIdRole = async (req, res) => {
     try {
         //  Récupération de tous les utilisateurs
