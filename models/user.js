@@ -27,12 +27,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idUsers',
         as: 'userEstimation'
       });
-      // User.hasMany(models.Favories,{
-      //   foreignKey : 'idFavories'
-      // });
-      // User.hasMany(models.Histories,{
-      //   foreignKey : 'idHistories'
-      // });
+      User.hasMany(models.Favories, {
+        foreignKey: 'idUsers',
+        as: 'userFavories'
+      });
+      User.hasMany(models.Histories, {
+        foreignKey: 'idUsers',
+        as: 'userHistories'
+      });
       User.belongsTo(models.Role, {
         foreignKey: 'idRole',
         as: 'role'

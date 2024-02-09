@@ -6,10 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   class Properties extends Model {
     static associate(models) {
       Properties.hasMany(models.Favories, {
-        foreignKey: 'idFavories'
+        foreignKey: 'idProperties',
+        as: 'favory'
       });
       Properties.hasMany(models.Histories, {
-        foreignKey: 'idHistories'
+        foreignKey: 'idProperties',
+        as: 'history'
       });
       Properties.belongsTo(models.District, {
         foreignKey: 'idDistrict',
@@ -23,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         through: 'properties_folder'
       });
       Properties.hasMany(models.Photos, {
-        foreignKey: 'id',
+        foreignKey: 'idProperties',
         as: 'photos'
       })
     }

@@ -3431,10 +3431,9 @@
  *                      application/json:
  *                          example:
  *                              data:
- *                                  id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3456,7 +3455,7 @@
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Id history n'existe pas
+ *                              message: Historique pas trouvé
  */
 //  GET ALL
 /**
@@ -3474,22 +3473,19 @@
  *                        example:
  *                         message: Select all of histories
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                             -    id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 2
+ *                                  idPorperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 1
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3499,6 +3495,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les historiques utilisateur
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Aucun historique trouvé
 */
 //  CREATE
 /**
@@ -3515,15 +3524,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          idUsers: 
+ *                              type: integer
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties: 
+ *                              type: integer
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Historique utilisateur créé avec succès
@@ -3532,10 +3540,9 @@
  *                      example:
  *                          message: Historique utilisateur créée
  *                          data: 
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              id: 1
+ *                              idUsers: 1
+ *                              idProperties: 2
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -3545,6 +3552,19 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un historique utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Historique pas créé
 */
 //  MODIFY 
 /**
@@ -3561,6 +3581,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations de l'historique utilisateur dans la base de données
  *      requestBody:
  *          required: true
@@ -3569,18 +3590,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
  *                          idUsers:
  *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties:
  *                              type: integer
- *                              description: ID de l'employé
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Historique utilisateur modifié avec succès
@@ -3595,6 +3612,19 @@
  *                      example:
  *                          message: Echec de la modification de l'historique utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Historique pas trouvé
 */
 //  DELETE
 /**
@@ -3610,6 +3640,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime l'historique utilisateur dans la base de données
  *          responses: 
  *              200:
@@ -3617,7 +3648,7 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: History deleted
+ *                              message: Historique supprimé
  *              400:
  *                description: Erreur lors de la suppression d'un historique utilisateur
  *                content: 
@@ -3625,7 +3656,20 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un historique utilisateur par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- */
+  *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Historique pas trouvé
+*/
 
 
 //  FAVORITES
@@ -4210,7 +4254,7 @@ router.get('/history/:id', historiesController.getHistory);
 router.get('/histories', historiesController.getHistories);
 router.post('/history/create', historiesController.createHistory);
 router.put('/history/modify/:id', historiesController.modifyHistory);
-router.delete('/history/:id', historiesController.deleteHistory);
+router.delete('/history/delete/:id', historiesController.deleteHistory);
 
 //------------------------------------- FAVORIES ROUTER -------------------------------------
 router.get('/favorite/:id', favoritesController.getFavorite);
