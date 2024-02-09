@@ -1,14 +1,20 @@
 const db = require('../../models/index.js');
 const usersPropertiesTable = db['Users_Properties'];
+const usersTable = db['Users'];
+const propertiesTable = db['Properties'];
 
 const getUserProperty = async (req, res) => {
     try {
         const userProperty = await usersPropertiesTable.findByPk(req.params.id);
-
-        res.status(200).send({
-            message: `User-Property ID :  ${userProperty.id}`,
-            data: userProperty
-        })
+        if (userProperty) {
+            res.status(200).send({
+                data: userProperty
+            })
+        } else {
+            res.status(422).send({
+                message: 'User-Property pas trouvé'
+            })
+        }
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -20,12 +26,15 @@ const getUserProperty = async (req, res) => {
 const getUsersProperties = async (req, res) => {
     try {
         const usersProperties = await usersPropertiesTable.findAll();
-
-        res.status(200).send({
-            message: 'Select all of Users-Properties',
-            data: usersProperties
-        })
-
+        if (usersProperties && usersProperties.length !== 0) {
+            res.status(200).send({
+                data: usersProperties
+            })
+        } else {
+            res.status(422).send({
+                message: 'Pas de User-Property trouvé'
+            })
+        }
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -37,12 +46,33 @@ const getUsersProperties = async (req, res) => {
 const createUserProperty = async (req, res) => {
     try {
         let data = { ...req.body };
-        const newUserProperty = await usersPropertiesTable.create(data);
-
-        res.status(200).send({
-            message: 'User-Property created',
-            data: newUserProperty
-        })
+        const idUser = data.idUsers;
+        const idUserFound = await usersTable.findByPk(idUser);
+        if (idUserFound) {
+            const idProperty = data.idProperties;
+            const idPropertyFound = await propertiesTable.findByPk(idProperty);
+            if (idPropertyFound) {
+                const newUserProperty = await usersPropertiesTable.create(data);
+                if (newUserProperty[0] === 1) {
+                    res.status(200).send({
+                        message: 'User-Property créé',
+                        data: newUserProperty
+                    })
+                } else {
+                    res.status(422).send({
+                        message: 'User-Property pas créé'
+                    })
+                }
+            } else {
+                res.status(422).send({
+                    message: 'Propriété pas trouvée'
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: 'Utilisater pas trouvé'
+            })
+        }
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -55,16 +85,41 @@ const modifyUserProperty = async (req, res) => {
     try {
         const newData = { ...req.body };
         const idUserProperty = req.params.id;
-        const updateUserProperty = await usersPropertiesTable.update(
-            newData,
-            {
-                where: {
-                    id: idUserProperty
+        const idUserPropertyFound = await usersPropertiesTable.findByPk(idUserProperty);
+        if (idUserPropertyFound) {
+            const idUser = newData.idUsers;
+            const idUserFound = await usersTable.findByPk(idUser);
+            if (idUserFound) {
+                const idProperty = newData.idProperties;
+                const idPropertyFound = await propertiesTable.findByPk(idProperty);
+                if (idPropertyFound) {
+                    const updateUserProperty = await usersPropertiesTable.update(
+                        newData,
+                        {
+                            where: { id: idUserProperty }
+                        })
+                    if (updateUserProperty[0] == 1) {
+                        res.status(200).send({
+                            message: 'User-Property modifié'
+                        })
+                    } else {
+                        res.status(422).send({
+                            message: 'User-Property pas modifié'
+                        })
+                    }
+                } else {
+                    res.status(422).send({
+                        message: 'Propriété pas trouvée'
+                    })
                 }
-            })
-        if (updateUserProperty[0] == 1) {
-            res.status(200).send({
-                message: 'User-Property updated'
+            } else {
+                res.status(422).send({
+                    message: 'Utilisateur pas trouvé'
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: 'User-Property pas trouvé'
             })
         }
     } catch (error) {
@@ -78,13 +133,23 @@ const modifyUserProperty = async (req, res) => {
 const deleteUserProperty = async (req, res) => {
     try {
         const idUserProperty = req.params.id;
-        const deletedUserProperty = await usersPropertiesTable.destroy({
-            where: { id: idUserProperty }
-        })
-        console.log(deletedUserProperty);
-        if (deletedUserProperty == 1) {
-            res.status(200).send({
-                message: 'User-Property deleted'
+        const idUserPropertyFound = await usersPropertiesTable.findByPk(idUserProperty);
+        if (idUserPropertyFound) {
+            const deletedUserProperty = await usersPropertiesTable.destroy({
+                where: { id: idUserProperty }
+            })
+            if (deletedUserProperty === 1) {
+                res.status(200).send({
+                    message: 'User-Property supprimé'
+                })
+            } else {
+                res.status(422).send({
+                    message: 'User-Property pas supprimé'
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: 'User-Property pas trouvé'
             })
         }
     } catch (error) {

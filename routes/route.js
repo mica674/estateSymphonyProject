@@ -3480,7 +3480,7 @@
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
  *                                  idUsers: 2
- *                                  idPorperties: 2
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 3
@@ -3959,21 +3959,20 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un usersProperties par son ID
  *          responses: 
  *              200:
  *                  description: UsersProperties by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: UsersProperties id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un usersProperties 
  *                  content: 
@@ -3981,6 +3980,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un usersProperties par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: User-Property pas trouvé
 */
 //  GET ALL
 /**
@@ -3996,24 +4008,20 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: Select all of usersProperties
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                             -    id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 43
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -4023,6 +4031,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les usersProperties
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas d'user-property  trouvé
 */
 //  CREATE
 /**
@@ -4039,15 +4060,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          idUsers: 
+ *                              type: integer
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties: 
+ *                              type: integer
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: UsersProperties créé avec succès
@@ -4056,10 +4076,9 @@
  *                      example:
  *                          message: UsersProperties créé
  *                          data: 
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              id: 1
+ *                              idUsers: 1
+ *                              idProperties: 2
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -4069,6 +4088,19 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un usersProperties
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Utilisateur pas trouvé
 */
 //  MODIFY 
 /**
@@ -4085,6 +4117,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du usersProperties dans la base de données
  *      requestBody:
  *          required: true
@@ -4093,18 +4126,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
  *                          idUsers:
  *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
+ *                              description: ID utilisateur
+ *                              example: 2
+ *                          idProperties:
  *                              type: integer
- *                              description: ID de l'employé
+ *                              description: ID propriété
+ *                              example: 2
  *      responses:
  *          200:
  *              description: UsersProperties modifié avec succès
@@ -4119,6 +4148,19 @@
  *                      example:
  *                          message: Echec de la modification du usersProperties
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: User-Property pas trouvé
 */
 //  DELETE
 /**
@@ -4134,6 +4176,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le usersProperties dans la base de données
  *          responses: 
  *              200:
@@ -4142,6 +4185,10 @@
  *                      application/json:
  *                          example:
  *                              message: UsersProperties deleted
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
  *              400:
  *                description: Erreur lors de la suppression d'un usersProperties
  *                content: 
@@ -4149,6 +4196,19 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un usersProperties par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: User-Property pas trouvé
  */
 
 
@@ -4299,7 +4359,13 @@ router.delete('/property/delete/:id', propertiesController.deleteProperty);
 //------------------------------------- PROPERTIES FOLDERS ROUTER -------------------------------------
 router.get('/propertiesFolders/one/:id', propertiesFoldersController.getPropertyFolder);
 router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFolders);
-//#NAWELLE Je sais pas si c'est normal qu'il y ait ca donc je laisse en commentaire mais pour moi ca va dans Properties ça
+router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
+router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
+router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
+
+//#NAWELLE 
+//  Je sais pas si c'est normal qu'il y ait ca donc je laisse en commentaire mais pour moi ca va dans Properties ça
+//
 // router.post('/property/create', function (req, res) {
 //     photosMiddleware.upload(req, res, function (err) {
 //         console.log(err);
@@ -4307,9 +4373,6 @@ router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFo
 //     })
 // }, propertiesController.createProperty);
 
-router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
-router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
-router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
 
 //------------------------------------- HISTORIES ROUTER -------------------------------------
 router.get('/history/:id', historiesController.getHistory);
@@ -4333,17 +4396,10 @@ router.put('/usersProperties/modify/:id', usersPropertiesController.modifyUserPr
 router.delete('/usersProperties/delete/:id', usersPropertiesController.deleteUserProperty);
 
 
-
-
 //------------------------------------- PHOTOS ROUTER -------------------------------------
 router.post('/photos', photosMiddleware.upload);
 
-
-
-
 //router.get('/me', middleWare );
-
-
 
 
 module.exports = router;
