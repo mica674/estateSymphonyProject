@@ -3,62 +3,62 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Users extends Model {
 
     static associate(models) {
       // define association here
-      User.hasMany(models.Agendas, {
+      Users.hasMany(models.Agendas, {
         foreignKey: 'idUsers',
         as: 'userAgenda'
       });
-      User.hasMany(models.clientFolders, {
+      Users.hasMany(models.clientFolders, {
         foreignKey: 'idUsers',
         as: 'userClientFolders'
       });
-      User.hasMany(models.Comments, {
+      Users.hasMany(models.Comments, {
         foreignKey: 'idUsers',
         as: 'userComment'
       });
-      User.hasMany(models.Employees, {
+      Users.hasMany(models.Employees, {
         foreignKey: 'idUsers',
         as: 'userEmployees'
       });
-      User.hasMany(models.Estimations, {
+      Users.hasMany(models.Estimations, {
         foreignKey: 'idUsers',
         as: 'userEstimation'
       });
-      User.hasMany(models.Favories, {
+      Users.hasMany(models.Favories, {
         foreignKey: 'idUsers',
         as: 'userFavories'
       });
-      User.hasMany(models.Histories, {
+      Users.hasMany(models.Histories, {
         foreignKey: 'idUsers',
         as: 'userHistories'
       });
-      User.belongsTo(models.Role, {
-        foreignKey: 'idRole',
+      Users.belongsTo(models.Roles, {
+        foreignKey: 'idRoles',
         as: 'role'
       });
-      User.hasMany(models.Messages, {
-        foreignKey: 'idUser1',
+      Users.hasMany(models.Messages, {
+        foreignKey: 'idUser',
         as: 'user1'
       });
-      User.hasMany(models.Messages, {
-        foreignKey: 'idUser2',
+      Users.hasMany(models.Messages, {
+        foreignKey: 'idUserB',
         as: 'user2'
       })
     }
   }
-  User.init({
+  Users.init({
     firstname: DataTypes.STRING,
     lastname: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
-    idRole: DataTypes.INTEGER
+    idRoles: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'Users',
   });
-  return User;
+  return Users;
 };
