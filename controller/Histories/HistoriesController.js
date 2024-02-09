@@ -1,7 +1,7 @@
 const db = require('../../models/index.js');
 const historiesTable = db['Histories'];
 const propertiesTable = db['Properties'];
-const usersTable = db['User'];
+const usersTable = db['Users'];
 
 const getHistory = async (req, res) => {
     try {

@@ -1,7 +1,7 @@
 const db = require('../../models/index.js');
 const employeesDistrictsTable = db['Employees_District'];
 const employeesTable = db['Employees'];
-const districtsTable = db['District'];
+const districtsTable = db['Districts'];
 
 const getEmployeeDistrict = async (req, res) => {
     try {

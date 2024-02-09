@@ -1,9 +1,9 @@
 const db = require('../../models/index.js');
-const roleTable = db['Role'];
+const rolesTable = db['Roles'];
 
 const getRole = async (req, res) => {
     try {
-        const role = await roleTable.findByPk(req.params.id);
+        const role = await rolesTable.findByPk(req.params.id);
         if (role !== null) {
             res.status(200).send({
                 message: `Role ${role.id}`,
@@ -24,7 +24,7 @@ const getRole = async (req, res) => {
 
 const getAllRoles = async (req, res) => {
     try {
-        const roles = await roleTable.findAll();
+        const roles = await rolesTable.findAll();
         if (roles !== null) {
             res.status(200).send({
                 data: roles
@@ -45,7 +45,7 @@ const getAllRoles = async (req, res) => {
 const createRole = async (req, res) => {
     try {
         let data = { ...req.body };
-        const newRole = await roleTable.create(data);
+        const newRole = await rolesTable.create(data);
         if (newRole !== null) {
             res.status(200).send({
                 message: 'Role created',
@@ -68,9 +68,9 @@ const modifyRole = async (req, res) => {
     try {
         const { name } = req.body;
         const RoleId = req.params.id;
-        const idRoleFound = await roleTable.findByPk(RoleId);
+        const idRoleFound = await rolesTable.findByPk(RoleId);
         if (idRoleFound !== null) {
-            const updateRole = await roleTable.update(
+            const updateRole = await rolesTable.update(
                 { name: name },
                 {
                     where: {
@@ -102,9 +102,9 @@ const modifyRole = async (req, res) => {
 const deleteRole = async (req, res) => {
     try {
         const RoleId = req.params.id;
-        const idRoleFound = await roleTable.findByPk(RoleId);
+        const idRoleFound = await rolesTable.findByPk(RoleId);
         if (idRoleFound !== null) {
-            const deletedRole = await roleTable.destroy({
+            const deletedRole = await rolesTable.destroy({
                 where: { id: RoleId }
             })
             if (deletedRole == 1) {

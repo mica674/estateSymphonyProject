@@ -12,31 +12,25 @@ module.exports = {
       //OWNER
       idUsers: {
         type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'users',
-          key : 'id',
+        references: {
+          model: 'users',
+          key: 'id',
         }
-
       },
       idProperties: {
         type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'properties',
-          key : 'id',
+        references: {
+          model: 'properties',
+          key: 'id',
         }
-
       },
       //BUYER
-      idUsers1: {
+      idUsersB: {
         type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'users',
-          key : 'id',
+        references: {
+          model: 'users',
+          key: 'id',
         }
-
       },
       createdAt: {
         allowNull: false,

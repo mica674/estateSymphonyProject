@@ -1,6 +1,6 @@
 const db = require('../../models/index.js');
 const messagesTable = db['Messages'];
-const usersTable = db['User']
+const usersTable = db['Users']
 
 const getMessageID = async (req, res) => {
     try {

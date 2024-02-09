@@ -1,6 +1,6 @@
 const db = require('../../models/index.js');
 const employeesTable = db['Employees'];
-const usersTable = db['User'];
+const usersTable = db['Users'];
 
 const getEmployee = async (req, res) => {
     try {

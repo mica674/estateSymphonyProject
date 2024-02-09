@@ -11,20 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Users_Properties.belongsTo(models.User, {
-      //   foreignKey : 'idUsers'
+      //   foreignKey : 'idUsers',
+      //  as: 'userOwner
       // });
       // Users_Properties.belongsTo(models.User, {
-      //   foreignKey : 'idUsers1'
+      //   foreignKey : 'idUsersB',
+      //  as: 'userBuyer
       // });
-      Users_Properties.belongsTo(models.Properties,{
-        foreignKey : 'idProperties'
+      Users_Properties.belongsTo(models.Properties, {
+        foreignKey: 'idProperties'
       })
     }
   }
   Users_Properties.init({
     idUsers: DataTypes.INTEGER,
     idProperties: DataTypes.INTEGER,
-    idUsers1: DataTypes.INTEGER
+    idUsersB: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Users_Properties',

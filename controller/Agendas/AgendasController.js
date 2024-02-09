@@ -1,6 +1,6 @@
 const db = require('../../models/index.js');
 const agendasTable = db['Agendas'];
-const usersTable = db['User'];
+const usersTable = db['Users'];
 const employeesTable = db['Employees'];
 
 const getAgenda = async (req, res) => {

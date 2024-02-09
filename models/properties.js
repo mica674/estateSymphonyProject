@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idStatus',
         as: 'status'
       });
-      Properties.belongsToMany(models.User, {
+      Properties.belongsToMany(models.Users, {
         through: 'properties_folder'
       });
       Properties.hasMany(models.Photos, {

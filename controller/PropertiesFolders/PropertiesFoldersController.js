@@ -20,26 +20,6 @@ const getPropertyFolder = async (req, res) => {
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })
-
-        // res.status(401).send({
-        //     message: 'Vous n\'êtes pas autorisé.',
-        //     error: error.message
-        // })
-
-        // res.status(403).send({
-        //     message: 'Vous n\'avez pas les droits d\'accès.',
-        //     error: error.message
-        // })
-
-        // res.status(404).send({
-        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
-        //     error: error.message
-        // })
-
-        // res.status(500).send({
-        //     message: 'Erreur serveur.',
-        //     error: error.message
-        // })
     }
 }
 const getPropertiesFolders = async (req, res) => {

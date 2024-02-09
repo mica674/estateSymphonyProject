@@ -6,20 +6,20 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Messages extends Model {
     static associate(models) {
-      Messages.belongsTo(models.User, {
-        foreignKey: 'idUser1',
-        as: 'user1'
+      Messages.belongsTo(models.Users, {
+        foreignKey: 'idUser',
+        as: 'userOwner'
       })
-      Messages.belongsTo(models.User, {
-        foreignKey: 'idUser2',
-        as: 'user2'
+      Messages.belongsTo(models.Users, {
+        foreignKey: 'idUserB',
+        as: 'userBuyer'
       })
     }
   }
   Messages.init({
     message: DataTypes.STRING,
-    idUser1: DataTypes.INTEGER,
-    idUser2: DataTypes.INTEGER
+    idUser: DataTypes.INTEGER,
+    idUserB: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Messages',

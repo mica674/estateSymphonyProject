@@ -1,6 +1,6 @@
 const db = require('../../models/index.js');
 const clientFoldersTable = db['clientFolders'];
-const usersTable = db['User'];
+const usersTable = db['Users'];
 
 const getClientFolder = async (req, res) => {
 

@@ -1,6 +1,6 @@
 const db = require('../../models/index.js');
 const commentsTable = db['Comments'];
-const usersTable = db['User'];
+const usersTable = db['Users'];
 
 const getComment = async (req, res) => {
     try {
