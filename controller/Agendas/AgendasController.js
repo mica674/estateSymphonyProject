@@ -4,23 +4,18 @@ const usersTable = db['Users'];
 const employeesTable = db['Employees'];
 
 const getAgenda = async (req, res) => {
-
     try {
-
         const agenda = await agendasTable.findByPk(req.params.id, { include: 'user', include: 'employee' });
-        if (agenda !== null) {
+        if (agenda) {
             res.status(200).send({
                 data: agenda
             })
         } else {
-            res.status(404).send({
-                message: 'Agenda not found'
+            res.status(422).send({
+                message: 'Agenda pas trouvé'
             })
         }
     } catch (error) {
-
-        console.log(error);
-
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
@@ -31,58 +26,52 @@ const getAgendas = async (req, res) => {
     try {
         //  Récupération de tous les utilisateurs
         const agendas = await agendasTable.findAll();
-        if (agendas !== null) {
+        if (agendas && agendas.length > 0) {
             res.status(200).send({
                 data: agendas
             })
         } else {
-            res.status(404).send({
-                message: 'No agenda found'
+            res.status(422).send({
+                message: 'Pas d\'agenda trouvé'
             })
         }
-
     } catch (error) {
-        console.log(error);
-
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })
     }
 }
-
 const createAgenda = async (req, res) => {
     try {
         const data = { ...req.body };
-        const idEmployeeFound = await employeesTable.findOne({
-            where: { id: data.idEmployee }
-        })
-        const idUserFound = await usersTable.findOne({
-            where: { id: data.idUser }
-        })
-        if (idEmployeeFound !== null && idUserFound !== null) {
+        const idEmployee = data.idEmployees
+        const idEmployeeFound = await employeesTable.findByPk(idEmployee)
+        const idUser = data.idUsers;
+        const idUserFound = await usersTable.findByPk(idUser);
+        if (idEmployeeFound && idUserFound) {
             const newAgenda = await agendasTable.create(data);
-            if (newAgenda !== null) {
+            if (newAgenda[0] === 1) {
                 res.status(200).send({
-                    message: 'Agenda created',
+                    message: 'Agenda créé',
                     data: newAgenda
                 })
             } else {
-                res.status(400).send({
-                    message: 'Agenda not created'
+                res.status(422).send({
+                    message: 'Agenda pas créé'
                 })
             }
-        } else if (idUserFound === null && idEmployeeFound !== null) {
-            res.status(404).send({
-                message: 'IdUser not found'
+        } else if (!idUserFound && idEmployeeFound) {
+            res.status(422).send({
+                message: 'Utilisateur pas trouvé'
             })
-        } else if (idEmployeeFound === null && idUserFound !== null) {
-            res.status(404).send({
-                message: 'IdEmployee not found'
+        } else if (!idEmployeeFound && idUserFound) {
+            res.status(422).send({
+                message: 'Employé pas trouvé'
             })
         } else {
-            res.status(404).send({
-                message: 'IdUser AND idEmployee not found'
+            res.status(422).send({
+                message: 'Utilisateur ET Employé pas trouvé'
             })
         }
     } catch (error) {
@@ -99,46 +88,42 @@ const modifyAgenda = async (req, res) => {
         const data = { ...req.body };
         const idAgendas = req.params.id;
         const idAgendasFound = await agendasTable.findByPk(idAgendas);
-        if (idAgendasFound !== null) {
-            const idEmployeeFound = await employeesTable.findOne({
-                where: { id: data.idEmployee }
-            })
-            const idUserFound = await usersTable.findOne({
-                where: { id: data.idUser }
-            })
-            if (idEmployeeFound !== null && idUserFound !== null) {
+        if (idAgendasFound) {
+            const idEmployee = data.idEmployees;
+            const idEmployeeFound = await employeesTable.findByPk(idEmployee);
+            const idUser = data.idUser;
+            const idUserFound = await usersTable.findByPk(idUser);
+            if (idEmployeeFound && idUserFound) {
                 const updateAgenda = await agendasTable.update(
                     data,
                     {
-                        where: {
-                            id: idAgendas
-                        }
+                        where: { id: idAgendas }
                     })
                 if (updateAgenda[0] == 1) {
                     res.status(200).send({
-                        message: 'Agenda updated'
+                        message: 'Agenda modifié'
                     })
                 } else {
-                    res.status(400).send({
-                        message: 'Agenda not updated'
+                    res.status(422).send({
+                        message: 'Agenda pas modifié'
                     })
                 }
-            } else if (idUserFound === null && idEmployeeFound !== null) {
-                res.status(404).send({
-                    message: 'idUser not found'
+            } else if (!idUserFound && idEmployeeFound) {
+                res.status(422).send({
+                    message: 'Utilisateur pas trouvé'
                 })
-            } else if (idEmployeeFound === null && idUserFound !== null) {
-                res.status(404).send({
-                    message: 'IdEmployee not found'
+            } else if (!idEmployeeFound && idUserFound) {
+                res.status(422).send({
+                    message: 'Employé pas trouvé'
                 })
             } else {
-                res.status(404).send({
-                    message: 'idUser AND idEmployee not found'
+                res.status(422).send({
+                    message: 'Utilisateur ET Employé pas trouvé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Agenda not found'
+            res.status(422).send({
+                message: 'Agenda pas trouvé'
             })
         }
     } catch (error) {
@@ -152,21 +137,23 @@ const modifyAgenda = async (req, res) => {
 const deleteAgenda = async (req, res) => {
     try {
         const idAgenda = req.params.id;
-        const idAgendaFound = await agendasTable.findOne({
-            where: { id: idAgenda }
-        })
-        if (idAgendaFound !== null) {
+        const idAgendaFound = await agendasTable.findByPk(idAgenda)
+        if (idAgendaFound) {
             const deletedAgenda = await agendasTable.destroy({
                 where: { id: idAgenda }
             })
             if (deletedAgenda == 1) {
                 res.status(200).send({
-                    message: 'Agenda deleted'
+                    message: 'Agenda supprimé'
+                })
+            } else {
+                res.status(422).send({
+                    message: 'Agenda pas supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Agenda not found'
+            res.status(422).send({
+                message: 'Agenda pas trouvé'
             })
         }
     } catch (error) {

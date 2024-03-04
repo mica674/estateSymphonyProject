@@ -3,21 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Status extends Model {
+  class Statuses extends Model {
     static associate(models) {
-      Status.hasMany(models.Properties, {
-        foreignKey: 'id',
+      Statuses.hasMany(models.Properties, {
+        foreignKey: 'idProperties',
         as: 'property'
       })
     }
   }
-  Status.init({
+  Statuses.init({
     sold: DataTypes.BOOLEAN,
     rent: DataTypes.BOOLEAN,
     hidden: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Status',
+    modelName: 'Statuses',
   });
-  return Status;
+  return Statuses;
 };

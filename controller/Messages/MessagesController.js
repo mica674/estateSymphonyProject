@@ -5,15 +5,13 @@ const usersTable = db['Users']
 const getMessageID = async (req, res) => {
     try {
         const message = await messagesTable.findByPk(req.params.id);
-        console.log(message);
-        if (message !== null) {
+        if (message) {
             res.status(200).send({
-                message: `Message id : ${message.id}`,
                 data: message
             })
         } else {
-            res.status(404).send({
-                message: 'Message was not found'
+            res.status(422).send({
+                message: 'Message pas trouvé'
             })
         }
     } catch (error) {
@@ -23,21 +21,19 @@ const getMessageID = async (req, res) => {
         })
     }
 }
-
 const getMessages = async (req, res) => {
     try {
         let messagefound = await messagesTable.findOne();
-        if (messagefound !== null) {
+        if (messagefound) {
             const messages = await messagesTable.findAll();
             res.status(200).send({
                 data: messages
             })
         } else {
-            res.status(400).send({
-                message: 'Empty table'
+            res.status(422).send({
+                message: 'Pas de message trouvé'
             })
         }
-
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -45,95 +41,38 @@ const getMessages = async (req, res) => {
         })
     }
 }
-
 const createMessage = async (req, res) => {
     try {
-        let data = { ...req.body };
-        // console.log(`idUser1 : ${data.idUser1} ; idUser2 : ${data.idUser2} `);
-        let idUser1Found = await usersTable.findOne({
-            where: { id: data.idUser1 }
-        });
-        let idUser2Found = await usersTable.findOne({
-            where: { id: data.idUser2 }
-        });
-        if (idUser1Found !== null && idUser2Found !== null) {
-
-            if (data.idUser1 !== data.idUser2) {
-
-                const newMessage = await messagesTable.create(data);
-                if (newMessage !== null) {
-
-                    res.status(200).send({
-                        message: 'Message created',
-                        data: newMessage
-                    })
-                } else {
-                    res.status(400).send({
-                        message: 'Message was not created'
-                    })
-                }
-            } else {
-                res.status(400).send({
-                    message: 'idUser1 & idUser2 can\'t are the same'
-                })
-            }
-        } else {
-            res.status(404).send({
-                message: 'User not existed'
-            })
-        }
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
-    }
-}
-
-const modifyMessage = async (req, res) => {
-    try {
         const data = { ...req.body };
-        let idUser1Found = await usersTable.findOne({
-            where: { id: data.idUser1 }
-        });
-        let idUser2Found = await usersTable.findOne({
-            where: { id: data.idUser2 }
-        });
-        if (idUser1Found !== null && idUser2Found !== null) {
-            if (data.idUser1 !== data.idUser2) {
-
-                const idMessage = req.params.id;
-                let messageFound = await messagesTable.findByPk(idMessage);
-                if (messageFound !== null) {
-                    const updateMessages = await messagesTable.update(
-                        data,
-                        {
-                            where: {
-                                id: idMessage
-                            }
-                        })
-                    if (updateMessages[0] == 1) {
+        const idUserOwnerFound = await usersTable.findByPk(data.idUsers);
+        if (idUserOwnerFound) {
+            const idUserBuyerFound = await usersTable.findByPk(data.idUsersB)
+            if (idUserBuyerFound) {
+                if (data.idUsers !== data.idUsersB) {
+                    const newMessage = await messagesTable.create(data);
+                    if (newMessage) {
                         res.status(200).send({
-                            message: 'Message updated'
+                            message: 'Message créé',
+                            data: newMessage
                         })
                     } else {
-                        res.status(400).send({
-                            message: 'Message was not updated'
+                        res.status(422).send({
+                            message: 'Message pas créé'
                         })
                     }
                 } else {
-                    res.status(400).send({
-                        message: 'Message was not found'
+                    res.status(422).send({
+                        message: 'Les utilisateurs doivent être différents'
                     })
                 }
             } else {
-                res.status(404).send({
-                    message: 'idUser1 & idUser2 can\'t are the same'
+                res.status(422).send({
+                    message: 'Utilisateur (Buyer) pas trouvé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'User not existed'
+            res.status(422).send({
+                message: 'Utilisateur (Owner) pas trouvé'
             })
         }
     } catch (error) {
@@ -143,27 +82,82 @@ const modifyMessage = async (req, res) => {
         })
     }
 }
-
+const modifyMessage = async (req, res) => {
+    try {
+        const data = { ...req.body };
+        const idUserOwner = data.idUsers;
+        const idUserOwnerFound = await usersTable.findByPk(idUserOwner);
+        if (idUserOwnerFound) {
+            const idUserBuyer = data.idUsersB;
+            const idUserBuyerFound = await usersTable.findByPk(idUserBuyer)
+            if (idUserBuyerFound) {
+                if (data.idUsers !== data.idUsersB) {
+                    const idMessage = req.params.id;
+                    const messageFound = await messagesTable.findByPk(idMessage);
+                    if (messageFound) {
+                        const updateMessages = await messagesTable.update(
+                            data,
+                            {
+                                where: {
+                                    id: idMessage
+                                }
+                            })
+                        if (updateMessages[0] == 1) {
+                            res.status(200).send({
+                                message: 'Message modifié'
+                            })
+                        } else {
+                            res.status(422).send({
+                                message: 'Message pas modifié'
+                            })
+                        }
+                    } else {
+                        res.status(422).send({
+                            message: 'Message pas trouvé'
+                        })
+                    }
+                } else {
+                    res.status(422).send({
+                        message: 'Les utilisateurs doivent être différents'
+                    })
+                }
+            } else {
+                res.status(422).send({
+                    message: 'Utilisateur (Buyer) pas trouvé'
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: 'Utilisateur (Owner) pas trouvé'
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+    }
+}
 const deleteMessage = async (req, res) => {
     try {
         const idMessage = req.params.id;
-        let messageFound = await messagesTable.findByPk(idMessage);
-        if (messageFound !== null) {
+        const idMessageFound = await messagesTable.findByPk(idMessage);
+        if (idMessageFound) {
             const deletedMessage = await messagesTable.destroy({
                 where: { id: idMessage }
             })
             if (deletedMessage == 1) {
                 res.status(200).send({
-                    message: 'Message deleted'
+                    message: 'Message supprimé'
                 })
             } else {
-                res.status(400).send({
-                    message: 'Message was not deleted'
+                res.status(422).send({
+                    message: 'Message pas supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Message was not found'
+            res.status(422).send({
+                message: 'Message pas trouvé'
             })
         }
     } catch (error) {

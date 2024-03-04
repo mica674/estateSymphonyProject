@@ -4,24 +4,24 @@ const {
 } = require('sequelize');
 const employees = require('./employees');
 module.exports = (sequelize, DataTypes) => {
-  class Employees_District extends Model {
+  class Employees_Districts extends Model {
     static associate(models) {
-      Employees_District.belongsTo(models.Employees, {
+      Employees_Districts.belongsTo(models.Employees, {
         foreignKey: 'idEmployees',
-        as: 'employees'
+        as: 'employee'
       });
-      Employees_District.belongsTo(models.District, {
-        foreignKey: 'idDistrict',
+      Employees_Districts.belongsTo(models.Districts, {
+        foreignKey: 'idDistricts',
         as: 'district'
       });
     }
   }
-  Employees_District.init({
-    idDistrict: DataTypes.INTEGER,
+  Employees_Districts.init({
+    idDistricts: DataTypes.INTEGER,
     idEmployees: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Employees_District',
+    modelName: 'Employees_Districts',
   });
-  return Employees_District;
+  return Employees_Districts;
 };

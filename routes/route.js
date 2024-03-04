@@ -43,6 +43,19 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération d'un utilisateur par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un utilisateur par son ID
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Utilisateur pas trouvé
 */
 //  GET BY EMAIL
 /**
@@ -83,8 +96,21 @@
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son EMAIL
+ *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son email
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un utilisateur par son email
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un utilisateur par son email
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Utilisateur pas trouvé pas trouvé
 */
 //  GET ALL
 /**
@@ -100,7 +126,6 @@
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Select all users
  *                          data: 
  *                              -   id: 1
  *                                  firstname: Nawelle
@@ -136,6 +161,19 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération de tous les utilisateurs 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération de tous les utilisateurs
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Pas d'utilisateur trouvé
 */
 //  GET ALL BY ID ROLE
 /**
@@ -178,6 +216,19 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs avec un role spécifique
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération de tous les utilisateurs avec un role spécifique
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération de tous les utilisateurs avec un role spécifique
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Pas d'utilisateur trouvé
 */
 //  CREATE
 /**
@@ -248,6 +299,19 @@
  *                      example:
  *                          message: L'adresse email existe déjà
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la création d'un utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la création d'un utilisateur
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Email déjà utilisée
 */
 //  LOGIN
 /**
@@ -278,7 +342,7 @@
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Login successed
+ *                          message: Connexion réussi
  *                          data: 
  *                              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFsYmVydGxlYmVhdWdvc3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwNTAwNzc3NywiZXhwIjoxNzA1MDk0MTc3fQ.7odUw0Z5gf3ONpAE5o96uyXgzlU6H3BweChaaj6IU2g
  *          400:
@@ -288,6 +352,19 @@
  *                      example:
  *                          message: La connexion a échouée
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la connexion d'un utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la connexion d'un utilisateur
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Adresse email et/ou mot de passe incorrect(s)
 */
 //  MODIFY PASSWORD
 /**
@@ -323,6 +400,19 @@
  *                      example:
  *                          message: Echec de la modification du mot de passe
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la modification de mot de passe de l'utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la modification de mot de passe de l'utilisateur
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Pas d'utilisateur trouvé
 */
 //  MODIFY 
 /**
@@ -369,6 +459,19 @@
  *                      example:
  *                          message: Echec de la modification des informations de l'utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la modification des informations de l'utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la modification des informations de l'utilisateur
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Informations pas modifiées
 */
 
 
@@ -864,8 +967,8 @@
 *                        example:
 *                            message: Erreur survenue lors de la suppression d'une estimation par son ID
 *                            error: Message de l'erreur spécifique le cas échéant
-*              404:
-*                description: Estimation was not found
+*              422:
+*                description: Estimation pas trouvé
 *                content: 
 *                    application/json:
 *                        example:
@@ -912,12 +1015,12 @@
  *                          example:
  *                              message: Erreur lors de la récupération du message
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Erreur lors de la récupération du message
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Message was not found
+ *                              message: Message pas trouvé
  *                              error: Message de l'erreur spécifique le cas échéant
  */
 //  GET ALL
@@ -1263,7 +1366,7 @@
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Comment was not updated
+ *                          message: Comment pas modifié
  *                          error: Message de l'erreur spécifique le cas échéant
 */
 //  DELETE
@@ -1294,14 +1397,14 @@
 *                content: 
 *                    application/json:
 *                        example:
-*                            message: Comment not deleted
+*                            message: Comment pas supprimé
 *                            error: Message de l'erreur spécifique le cas échéant
-*              404:
+*              422:
 *                description: Le commentaire a supprimer n'a pas été trouvé
 *                content: 
 *                    text/plain:
 *                        example:
-*                            message: Comment not found
+*                            message: Comment pas trouvé
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
@@ -1345,12 +1448,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération du dossier client par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Le dossier client n'a pas été trouvé 
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Client folder not found
+ *                              message: Client folder pas trouvé
  *                              error: Message de l'erreur spécifique le cas échéant
  */
 //  GET ALL
@@ -1399,7 +1502,7 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les dossiers clients
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Aucun dossier client n'a été trouvé
  *                  content: 
  *                      application/json:
@@ -1454,12 +1557,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création du dossier client
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: idUsers n'existe pas
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: idUsers not found
+ *                          message: idUsers pas trouvé
 */
 //  MODIFY 
 /**
@@ -1509,14 +1612,14 @@
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Client folder was not updated
+ *                          message: Client folder pas modifié
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: Le dossier client n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Client folder not found
+ *                          message: Client folder pas trouvé
 */
 //  DELETE
 /**
@@ -1546,14 +1649,14 @@
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Client folder was not deleted
+ *                            message: Client folder pas supprimé
  *                            error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                description: Le dossier client n'a pas été trouvé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Client folder not found
+ *                            message: Client folder pas trouvé
  */
 
 
@@ -1595,12 +1698,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de l'employé par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: L'employé n'a pas été trouvé 
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Employee not found
+ *                              message: Employee pas trouvé
  */
 //  GET ALL
 /**
@@ -1642,7 +1745,7 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les employés
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Aucun employés n'a été trouvé
  *                  content: 
  *                      application/json:
@@ -1693,12 +1796,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: L'idUsers n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: idUsers not found
+ *                          message: idUsers pas trouvé
 */
 //  MODIFY 
 /**
@@ -1750,12 +1853,12 @@
  *                      example:
  *                          message: Echec de la modification de l'employé
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: L'employé a modifier n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Employee not found
+ *                          message: Employee pas trouvé
 */
 //  DELETE
 /**
@@ -1792,12 +1895,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression de l'employé par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                description: L'employé n'a pas été trouvé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Employee not found
+ *                            message: Employee pas trouvé
  */
 
 
@@ -1837,12 +1940,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération du district par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Le district n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: District not found
+ *                              message: District pas trouvé
  */
 //  GET ALL
 /**
@@ -1882,7 +1985,7 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les districts
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Aucun district n'a été trouvé
  *                  content: 
  *                      application/json:
@@ -1970,12 +2073,12 @@
  *                      example:
  *                          message: Echec de la modification du district
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: Le district n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: District not found
+ *                          message: District pas trouvé
 */
 //  DELETE
 /**
@@ -2007,12 +2110,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression du district par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                description: Le district n'a pas été trouvé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: District not found
+ *                            message: District pas trouvé
  */
 
 
@@ -2053,12 +2156,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération du employees-districts par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: L'employees-districts n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Employees-Districts not found
+ *                              message: Employees-Districts pas trouvé
 */
 //  GET ALL
 /**
@@ -2097,7 +2200,7 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les employees-districts
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: La table Employees-Districts est vide
  *                  content: 
  *                      application/json:
@@ -2147,12 +2250,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création du employees-districts
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: L'employé n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Employee not found
+ *                          message: Employee pas trouvé
 */
 //  MODIFY 
 /**
@@ -2206,12 +2309,12 @@
  *                      example:
  *                          message: Echec de la modification du employees-districts
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: L'employé, le district ou l'employees-district n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Employee not found
+ *                          message: Employee pas trouvé
 */
 //  DELETE
 /**
@@ -2243,12 +2346,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression du employees-districts par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                description: L'employees-District n'a pas été trouvé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Employees-District not found
+ *                            message: Employees-District pas trouvé
  */
 
 
@@ -2274,16 +2377,16 @@
  *              200:
  *                  description: agenda by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              date: true
- *                              visitInformations: "Location meublé..."
- *                              idUsers: 52
- *                              idEmployees: 69
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  date: "2024-01-08T14:47:27.000Z"
+ *                                  visitInformations: "Location meublé..."
+ *                                  idUsers: 52
+ *                                  idEmployees: 69
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un agenda 
  *                  content: 
@@ -2291,12 +2394,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un agenda par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Agenda n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Agenda not found
+ *                              message: Agenda pas trouvé
 */
 //  GET ALL
 /**
@@ -2313,7 +2416,7 @@
  *                      application/json:
  *                        example:
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
+ *                             -    id: 1
  *                                  date: "2024-05-08T14:47:27.000Z"
  *                                  visitInformations: "Location meublée..."
  *                                  idUsers: 52
@@ -2322,14 +2425,14 @@
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
  *                                  date: "2024-05-08T14:47:27.000Z"
- *                                  visitInformations: "Location meublée..."
+ *                                  visitInformations: "Location non meublée..."
  *                                  idUsers: 52
  *                                  idEmployees: 69
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 3
  *                                  date: "2024-05-08T14:47:27.000Z"
- *                                  visitInformations: "Location meublée..."
+ *                                  visitInformations: "Location presques meublée..."
  *                                  idUsers: 52
  *                                  idEmployees: 69
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
@@ -2341,6 +2444,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les agendas
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Agenda pas trouvé
 */
 //  CREATE
 /**
@@ -2360,11 +2476,11 @@
  *                          date: 
  *                              type: string
  *                              description: Date du rendez-vous
- *                              example: EXAMPLE
+ *                              example: "2024-05-08T14:47:27.000Z"
  *                          visitInformations: 
  *                              type: string
  *                              description: Informations complémentaire pour le rendez-vous
- *                              example: EXAMPLE
+ *                              example: Location meublée
  *                          idUsers: 
  *                              type: integer
  *                              description: ID de l'utilisateur (client)
@@ -2379,7 +2495,7 @@
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Agenda created
+ *                          message: Agenda créé
  *                          data: 
  *                              id: 3
  *                              date: "2024-05-08T14:47:27.000Z"
@@ -2395,6 +2511,19 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un agenda
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Agenda pas trouvé
 */
 //  MODIFY 
 /**
@@ -2423,11 +2552,11 @@
  *                          date:
  *                              type: string
  *                              description: Date du rendez-vous
- *                              example: EXAMPLE
+ *                              example: "2024-05-08T14:47:27.000Z"
  *                          visitInformations:
  *                              type: string
  *                              description: Infomations complémentaires pour le rendez-vous
- *                              example: EXAMPLE
+ *                              example: Location meublée
  *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur (client)
@@ -2450,12 +2579,12 @@
  *                      example:
  *                          message: Echec de la modification d'un agenda
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: Cet agenda n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Agenda not found
+ *                          message: Agenda pas trouvé
 */
 //  DELETE
 /**
@@ -2487,12 +2616,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un agenda par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                description: Cet agenda n'a pas été trouvé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Agenda not found
+ *                            message: Agenda pas trouvé
  */
 
 
@@ -2534,12 +2663,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un status par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Ce status n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Status not found
+ *                              message: Status pas trouvé
 */
 //  GET ALL
 /**
@@ -2581,7 +2710,7 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les status
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: La table statuses est vide
  *                  content: 
  *                      application/json:
@@ -2686,12 +2815,12 @@
  *                          example:
  *                              message: Echec de la modification du status
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Ce status n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Status not found
+ *                              message: Status pas trouvé
 */
 //  DELETE
 /**
@@ -2723,12 +2852,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un status par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                description: Ce status n'a pas été trouvé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Status not found
+ *                            message: Status pas trouvé
  */
 
 
@@ -2783,12 +2912,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'une propriété par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Cette propriété n'a pas été trouvée
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Property not found
+ *                              message: Property pas trouvé
 */
 //  GET ALL
 /**
@@ -2848,7 +2977,7 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de toutes les propriétés
  *                              error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                  description: Aucune propriété n'a été trouvée
  *                  content: 
  *                      application/json:
@@ -3097,12 +3226,12 @@
  *                      example:
  *                          message: Echec de la modification de la propriété
  *                          error: Message de l'erreur spécifique le cas échéant
- *          404:
+ *          422:
  *              description: Cette propriété n'a pas été trouvée
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Property not found
+ *                          message: Property pas trouvé
 */
 //  DELETE
 /**
@@ -3134,12 +3263,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'une propriété par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- *              404:
+ *              422:
  *                description: Cette propriété n'a pas été trouvée
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Property not found
+ *                            message: Property pas trouvé
  */
 
 
@@ -3169,10 +3298,9 @@
  *                          example:
  *                              message: PropertiesFolders id = 2
  *                              data:
- *                                  id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  id: 1
+ *                                  idProperties: 1
+ *                                  idClientFolders: 12
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3194,7 +3322,7 @@
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Id property n'existe pas
+ *                              message: Propriété pas trouvée
 */
 //  GET ALL
 /**
@@ -3241,7 +3369,7 @@
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Id property n'existe pas
+ *                              message: Propriété pas trouvée
  */
 //  CREATE
 /**

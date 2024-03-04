@@ -7,19 +7,19 @@ module.exports = (sequelize, DataTypes) => {
   class Messages extends Model {
     static associate(models) {
       Messages.belongsTo(models.Users, {
-        foreignKey: 'idUser',
+        foreignKey: 'idUsers',
         as: 'userOwner'
       })
       Messages.belongsTo(models.Users, {
-        foreignKey: 'idUserB',
+        foreignKey: 'idUsersB',
         as: 'userBuyer'
       })
     }
   }
   Messages.init({
     message: DataTypes.STRING,
-    idUser: DataTypes.INTEGER,
-    idUserB: DataTypes.INTEGER
+    idUsers: DataTypes.INTEGER,
+    idUsersB: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Messages',

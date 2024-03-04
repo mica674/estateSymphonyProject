@@ -22,7 +22,6 @@ const getHistory = async (req, res) => {
         })
     }
 }
-
 const getHistories = async (req, res) => {
     try {
         const histories = await historiesTable.findAll();
@@ -53,14 +52,14 @@ const createHistory = async (req, res) => {
             const idUserFound = await usersTable.findByPk(idUser);
             if (idUserFound) {
                 const newHistory = await historiesTable.create(data);
-                if (newHistory !== null) {
+                if (newHistory[0] > 0) {
                     res.status(200).send({
-                        message: 'Historique crée',
+                        message: 'Historique créé',
                         data: newHistory
                     })
                 } else {
                     res.status(422).send({
-                        message: 'Historique pas crée'
+                        message: 'Historique pas créé'
                     })
                 }
             } else {
@@ -80,7 +79,6 @@ const createHistory = async (req, res) => {
         })
     }
 }
-
 const modifyHistory = async (req, res) => {
     try {
         const newData = { ...req.body };
@@ -129,7 +127,6 @@ const modifyHistory = async (req, res) => {
         })
     }
 }
-
 const deleteHistory = async (req, res) => {
     try {
         const idHistory = req.params.id;

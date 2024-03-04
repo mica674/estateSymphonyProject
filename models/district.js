@@ -3,23 +3,23 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class District extends Model {
+  class Districts extends Model {
     static associate(models) {
-      District.hasMany(models.Employees_District, {
-        foreignKey: 'idDistrict',
+      Districts.hasMany(models.Employees_Districts, {
+        foreignKey: 'idDistricts',
         as: 'district_EmployeesDistrict'
       });
-      District.hasMany(models.Properties, {
-        foreignKey: 'id',
+      Districts.hasMany(models.Properties, {
+        foreignKey: 'idDistricts',
         as: 'properties'
       })
     }
   }
-  District.init({
+  Districts.init({
     name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'District'
+    modelName: 'Districts'
   });
-  return District;
+  return Districts;
 };

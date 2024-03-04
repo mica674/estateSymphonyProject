@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idEmployees',
         as: 'employeesAgenda'
       });
-      Employees.hasMany(models.Employees_District, {
+      Employees.hasMany(models.Employees_Districts, {
         foreignKey: 'idEmployees',
         as: 'employees_EmployeesDistrict'
       });

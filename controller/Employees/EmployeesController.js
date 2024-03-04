@@ -5,13 +5,13 @@ const usersTable = db['Users'];
 const getEmployee = async (req, res) => {
     try {
         const employee = await employeesTable.findByPk(req.params.id);
-        if (employee != null) {
+        if (employee) {
             res.status(200).send({
                 data: employee
             })
         } else {
-            res.status(404).send({
-                message: 'Employee not found'
+            res.status(422).send({
+                message: 'Employé pas trouvé'
             })
         }
     } catch (error) {
@@ -21,17 +21,16 @@ const getEmployee = async (req, res) => {
         })
     }
 }
-
 const getEmployees = async (req, res) => {
     try {
         const employees = await employeesTable.findAll();
-        if (employees != null && employees.length > 0) {
+        if (employees && employees.length > 0) {
             res.status(200).send({
                 data: employees
             })
         } else {
-            res.status(404).send({
-                message: 'No employees found'
+            res.status(422).send({
+                message: 'Pas d\'employé trouvé'
             })
         }
     } catch (error) {
@@ -41,31 +40,31 @@ const getEmployees = async (req, res) => {
         })
     }
 }
-
 const createEmployee = async (req, res) => {
     try {
-        let data = { ...req.body };
-        let idUserFound = await usersTable.findOne({
-            where: { id: data.idUsers },
+        const data = { ...req.body };
+        const idUser = data.idUsers;
+        const idUserFound = await usersTable.findOne({
+            where: { id: idUser },
             include: 'userEmployees'
         });
-        if (idUserFound !== null) {
+        if (idUserFound) {
             //Name value from to idUserFound
             data = { ...req.body, name: idUserFound.firstname }
             const newEmployee = await employeesTable.create(data);
-            if (newEmployee !== null) {
+            if (newEmployee[0] === 1) {
                 res.status(200).send({
-                    message: 'Employee created',
+                    message: 'Employé créé',
                     data: newEmployee
                 })
             } else {
-                res.status(400).send({
-                    message: 'Employee was not created'
+                res.status(422).send({
+                    message: 'Employé pas créé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'idUsers not found'
+            res.status(422).send({
+                message: 'Utilisateur pas trouvé'
             })
         }
     } catch (error) {
@@ -75,18 +74,17 @@ const createEmployee = async (req, res) => {
         })
     }
 }
-
 const modifyEmployee = async (req, res) => {
     try {
-        let data = { ...req.body };
+        const data = { ...req.body };
         const idEmployee = req.params.id;
-        let idEmployeeFound = await employeesTable.findByPk(idEmployee)
-        if (idEmployeeFound !== null) {
-            let idUserFound = await usersTable.findOne({
+        const idEmployeeFound = await employeesTable.findByPk(idEmployee)
+        if (idEmployeeFound) {
+            const idUserFound = await usersTable.findOne({
                 where: { id: data.idUsers },
                 include: 'userEmployees'
             });
-            if (idUserFound !== null) {
+            if (idUserFound) {
                 //Name value from to idUserFound
                 data = { ...req.body, name: idUserFound.firstname }
                 const updateEmployee = await employeesTable.update(
@@ -102,18 +100,18 @@ const modifyEmployee = async (req, res) => {
                         data: data
                     })
                 } else {
-                    res.status(400).send({
-                        message: 'Employee was not updated'
+                    res.status(422).send({
+                        message: 'Employee pas modifié'
                     })
                 }
             } else {
-                res.status(404).send({
-                    message: 'idUsers not found'
+                res.status(422).send({
+                    message: 'idUsers pas trouvé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Employee not found'
+            res.status(422).send({
+                message: 'Employee pas trouvé'
             })
         }
     } catch (error) {
@@ -128,23 +126,23 @@ const deleteEmployee = async (req, res) => {
     try {
         const idEmployee = req.params.id;
         const idEmployeeFound = await employeesTable.findByPk(idEmployee);
-        if (idEmployeeFound !== null) {
+        if (idEmployeeFound) {
             const deletedEmployee = await employeesTable.destroy({
                 where: { id: idEmployee }
             })
-            if (deletedEmployee == 1) {
+            if (deletedEmployee[0] === 1) {
                 res.status(200).send({
-                    message: 'Employee deleted',
+                    message: 'Employé supprimé',
                     data: idEmployeeFound
                 })
             } else {
-                res.status(400).send({
-                    message: 'Employee was not deleted'
+                res.status(422).send({
+                    message: 'Employé pas supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Employee not found'
+            res.status(422).send({
+                message: 'Employé pas trouvé'
             })
         }
     } catch (error) {

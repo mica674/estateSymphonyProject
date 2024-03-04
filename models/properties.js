@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idProperties',
         as: 'history'
       });
-      Properties.belongsTo(models.District, {
-        foreignKey: 'idDistrict',
+      Properties.belongsTo(models.Districts, {
+        foreignKey: 'idDistricts',
         as: 'district'
       });
-      Properties.belongsTo(models.Status, {
-        foreignKey: 'idStatus',
+      Properties.belongsTo(models.Statuses, {
+        foreignKey: 'idStatuses',
         as: 'status'
       });
       Properties.belongsToMany(models.Users, {
@@ -44,8 +44,8 @@ module.exports = (sequelize, DataTypes) => {
     balcony: DataTypes.INTEGER,
     parking: DataTypes.BOOLEAN,
     rooms: DataTypes.INTEGER,
-    idStatus: DataTypes.INTEGER,
-    idDistrict: DataTypes.INTEGER
+    idStatuses: DataTypes.INTEGER,
+    idDistricts: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Properties',

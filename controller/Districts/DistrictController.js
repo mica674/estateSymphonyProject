@@ -4,13 +4,13 @@ const districtsTable = db['Districts'];
 const getDistrict = async (req, res) => {
     try {
         const district = await districtsTable.findByPk(req.params.id);
-        if (district !== null) {
+        if (district) {
             res.status(200).send({
                 data: district
             })
         } else {
-            res.status(404).send({
-                message: 'District not found'
+            res.status(422).send({
+                message: 'District pas trouvé'
             })
         }
     } catch (error) {
@@ -20,17 +20,16 @@ const getDistrict = async (req, res) => {
         })
     }
 }
-
 const getDistricts = async (req, res) => {
     try {
         const districts = await districtsTable.findAll();
-        if (districts !== null && districts.length > 0) {
+        if (districts && districts.length > 0) {
             res.status(200).send({
                 data: districts
             })
         } else {
-            res.status(404).send({
-                message: 'No district found'
+            res.status(422).send({
+                message: 'Pas de district trouvé'
             })
         }
     } catch (error) {
@@ -40,19 +39,18 @@ const getDistricts = async (req, res) => {
         })
     }
 }
-
 const createDistrict = async (req, res) => {
     try {
         let data = { ...req.body };
         const newDistrict = await districtsTable.create(data);
-        if (newDistrict !== null) {
+        if (newDistrict) {
             res.status(200).send({
-                message: 'District created',
+                message: 'District créé',
                 data: newDistrict
             })
         } else {
-            res.status(400).send({
-                message: 'District not created'
+            res.status(422).send({
+                message: 'District pas créé'
             })
         }
     } catch (error) {
@@ -62,33 +60,30 @@ const createDistrict = async (req, res) => {
         })
     }
 }
-
 const modifyDistrict = async (req, res) => {
     try {
         let data = { ...req.body };
         const idDistrict = req.params.id;
-        const idDistrictFound = await districtsTable.findOne(idDistrict);
-        if (idDistrictFound !== null) {
+        const idDistrictFound = await districtsTable.findByPk(idDistrict);
+        if (idDistrictFound) {
             const updateDistrict = await districtsTable.update(
                 data,
                 {
-                    where: {
-                        id: idDistrict
-                    }
+                    where: { id: idDistrict }
                 })
             if (updateDistrict[0] == 1) {
                 res.status(200).send({
-                    message: 'District updated',
+                    message: 'District modifié',
                     data: data
                 })
             } else {
-                res.status(400).send({
-                    message: 'District was not updated'
+                res.status(422).send({
+                    message: 'District pas modifié'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'District not found'
+            res.status(422).send({
+                message: 'District pas trouvé'
             })
         }
     } catch (error) {
@@ -98,28 +93,27 @@ const modifyDistrict = async (req, res) => {
         })
     }
 }
-
 const deleteDistrict = async (req, res) => {
     try {
         const idDistrict = req.params.id;
         const idDistrictFound = await districtsTable.findByPk(idDistrict);
-        if (idDistrictFound !== null) {
+        if (idDistrictFound) {
             const deletedDistrict = await districtsTable.destroy({
                 where: { id: idDistrict }
             })
             if (deletedDistrict == 1) {
                 res.status(200).send({
-                    message: 'District deleted',
+                    message: 'District supprimé',
                     data: idDistrictFound
                 })
             } else {
-                res.status(400).send({
-                    message: 'District not deleted'
+                res.status(422).send({
+                    message: 'District pas supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'District not found'
+            res.status(422).send({
+                message: 'District pas trouvé'
             })
         }
     } catch (error) {

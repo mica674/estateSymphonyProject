@@ -1,20 +1,18 @@
 const db = require('../../models/index.js');
-const employeesDistrictsTable = db['Employees_District'];
+const employeesDistrictsTable = db['Employees_Districts'];
 const employeesTable = db['Employees'];
 const districtsTable = db['Districts'];
 
 const getEmployeeDistrict = async (req, res) => {
     try {
         const employeeDistrict = await employeesDistrictsTable.findByPk(req.params.id);
-        console.log("coucou");
-        if (employeeDistrict !== null) {
-
+        if (employeeDistrict) {
             res.status(200).send({
                 data: employeeDistrict
             })
         } else {
-            res.status(404).send({
-                message: 'Employee-district not found'
+            res.status(422).send({
+                message: 'Employee-district pas trouvé'
             })
         }
     } catch (error) {
@@ -24,22 +22,18 @@ const getEmployeeDistrict = async (req, res) => {
         })
     }
 }
-
 const getEmployeesDistricts = async (req, res) => {
     try {
         const employeesDistricts = await employeesDistrictsTable.findAll();
-        console.log(employeesDistricts);
-        if (employeesDistricts !== null && employeesDistricts.length > 0) {
-
+        if (employeesDistricts && employeesDistricts.length > 0) {
             res.status(200).send({
                 data: employeesDistricts
             })
         } else {
-            res.status(404).send({
-                message: 'No employees-district found'
+            res.status(422).send({
+                message: 'Pas employees-district trouvé'
             })
         }
-
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -47,40 +41,36 @@ const getEmployeesDistricts = async (req, res) => {
         })
     }
 }
-
 const createEmployeeDistrict = async (req, res) => {
     try {
         let data = { ...req.body };
-
-        const idEmployeesFound = await employeesTable.findOne({
-            where: { id: data.idEmployees }
-        })
-        const idDistrictFound = await districtsTable.findOne({
-            where: { id: data.idDistrict }
-        })
-        if (idEmployeesFound !== null && idDistrictFound !== null) {
+        const idEmployee = data.idEmployees;
+        const idEmployeesFound = await employeesTable.findByPk(idEmployee);
+        const idDistrict = data.idDistricts;
+        const idDistrictFound = await districtsTable.findByPk(idDistrict);
+        if (idEmployeesFound && idDistrictFound) {
             const newEmployeeDistrict = await employeesDistrictsTable.create(data);
-            if (newEmployeeDistrict !== null) {
+            if (newEmployeeDistrict[0] === 1) {
                 res.status(200).send({
-                    message: 'Employee-District created',
+                    message: 'Employee-District créé',
                     data: newEmployeeDistrict
                 })
             } else {
-                res.status(400).send({
-                    message: 'Employee-district not created'
+                res.status(422).send({
+                    message: 'Employee-district pas créé'
                 })
             }
-        } else if (idDistrictFound === null && idEmployeesFound !== null) {
-            res.status(404).send({
-                message: 'IdDistrict not found'
+        } else if (!idDistrictFound && idEmployeesFound) {
+            res.status(422).send({
+                message: 'District pas trouvé'
             })
-        } else if (idEmployeesFound === null && idDistrictFound !== null) {
-            res.status(404).send({
-                message: 'IdEmployees not found'
+        } else if (!idEmployeesFound && idDistrictFound) {
+            res.status(422).send({
+                message: 'Employé pas trouvé'
             })
         } else {
-            res.status(404).send({
-                message: 'IdDistrict AND idEmployees not found'
+            res.status(422).send({
+                message: 'District ET employé n\'ont pas été trouvé'
             })
         }
     } catch (error) {
@@ -90,52 +80,47 @@ const createEmployeeDistrict = async (req, res) => {
         })
     }
 }
-
 const modifyEmployeeDistrict = async (req, res) => {
     try {
         const data = { ...req.body };
         const idEmployeeDistrict = req.params.id;
         const idEmployeeDistrictFound = await employeesDistrictsTable.findByPk(idEmployeeDistrict);
-        if (idEmployeeDistrictFound !== null) {
-            const idEmployeesFound = await employeesTable.findOne({
-                where: { id: data.idEmployees }
-            })
-            const idDistrictFound = await districtsTable.findOne({
-                where: { id: data.idDistrict }
-            })
-            if (idEmployeesFound !== null && idDistrictFound !== null) {
+        if (idEmployeeDistrictFound) {
+            const idEmployee = data.idEmployees;
+            const idEmployeesFound = await employeesTable.findByPk(idEmployee);
+            const idDistrict = data.idDistricts;
+            const idDistrictFound = await districtsTable.findByPk(idDistrict);
+            if (idEmployeesFound && idDistrictFound) {
                 const updateEmployeeDistrict = await employeesDistrictsTable.update(
                     data,
                     {
-                        where: {
-                            id: idEmployeeDistrict
-                        }
+                        where: { id: idEmployeeDistrict }
                     })
                 if (updateEmployeeDistrict[0] == 1) {
                     res.status(200).send({
-                        message: 'Employee-District updated'
+                        message: 'Employee-District modifié'
                     })
                 } else {
-                    res.status(400).send({
-                        message: 'Employee-District not updated'
+                    res.status(422).send({
+                        message: 'Employee-District pas modifié'
                     })
                 }
-            } else if (idDistrictFound === null && idEmployeesFound !== null) {
-                res.status(404).send({
-                    message: 'IdDistrict not found'
+            } else if (!idDistrictFound && idEmployeesFound) {
+                res.status(422).send({
+                    message: 'District pas trouvé'
                 })
-            } else if (idEmployeesFound === null && idDistrictFound !== null) {
-                res.status(404).send({
-                    message: 'IdEmployees not found'
+            } else if (!idEmployeesFound && idDistrictFound) {
+                res.status(422).send({
+                    message: 'Employé pas trouvé'
                 })
             } else {
-                res.status(404).send({
-                    message: 'IdDistrict AND idEmployees not found'
+                res.status(422).send({
+                    message: 'District ET Employé pas trouvé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Employee-District not found'
+            res.status(422).send({
+                message: 'Employee-District pas trouvé'
             })
         }
     } catch (error) {
@@ -145,25 +130,22 @@ const modifyEmployeeDistrict = async (req, res) => {
         })
     }
 }
-
 const deleteEmployeeDistrict = async (req, res) => {
     try {
         const idEmployeeDistrict = req.params.id;
-        const idEmployeeDistrictFound = await employeesDistrictsTable.findOne({
-            where: { id: idEmployeeDistrict }
-        })
-        if (idEmployeeDistrictFound !== null) {
+        const idEmployeeDistrictFound = await employeesDistrictsTable.findByPk(idEmployeeDistrict);
+        if (idEmployeeDistrictFound) {
             const deletedEmployeeDistrict = await employeesDistrictsTable.destroy({
                 where: { id: idEmployeeDistrict }
             })
-            if (deletedEmployeeDistrict == 1) {
+            if (deletedEmployeeDistrict[0] === 1) {
                 res.status(200).send({
-                    message: 'Employee-District deleted'
+                    message: 'Employee-District supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Employee-District not found'
+            res.status(422).send({
+                message: 'Employee-District pas trouvé'
             })
         }
     } catch (error) {

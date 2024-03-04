@@ -4,14 +4,13 @@ const rolesTable = db['Roles'];
 const getRole = async (req, res) => {
     try {
         const role = await rolesTable.findByPk(req.params.id);
-        if (role !== null) {
+        if (role) {
             res.status(200).send({
-                message: `Role ${role.id}`,
                 data: role
             })
         } else {
-            res.status(404).send({
-                message: 'Role not found'
+            res.status(422).send({
+                message: 'Role pas trouvé'
             })
         }
     } catch (error) {
@@ -21,17 +20,16 @@ const getRole = async (req, res) => {
         })
     }
 }
-
 const getAllRoles = async (req, res) => {
     try {
         const roles = await rolesTable.findAll();
-        if (roles !== null) {
+        if (roles && roles.length !== 0) {
             res.status(200).send({
                 data: roles
             })
         } else {
-            res.status(404).send({
-                message: 'No role found'
+            res.status(422).send({
+                message: 'Pas de role trouvé'
             })
         }
     } catch (error) {
@@ -41,19 +39,18 @@ const getAllRoles = async (req, res) => {
         })
     }
 }
-
 const createRole = async (req, res) => {
     try {
         let data = { ...req.body };
         const newRole = await rolesTable.create(data);
-        if (newRole !== null) {
+        if (newRole[0] === 1) {
             res.status(200).send({
-                message: 'Role created',
+                message: 'Role créé',
                 data: newRole
             })
         } else {
-            res.status(404).send({
-                message: 'Role not created'
+            res.status(422).send({
+                message: 'Role pas créé'
             })
         }
     } catch (error) {
@@ -63,32 +60,29 @@ const createRole = async (req, res) => {
         })
     }
 }
-
 const modifyRole = async (req, res) => {
     try {
         const { name } = req.body;
         const RoleId = req.params.id;
         const idRoleFound = await rolesTable.findByPk(RoleId);
-        if (idRoleFound !== null) {
+        if (idRoleFound) {
             const updateRole = await rolesTable.update(
                 { name: name },
                 {
-                    where: {
-                        id: RoleId
-                    }
+                    where: { id: RoleId }
                 })
             if (updateRole[0] == 1) {
                 res.status(200).send({
-                    message: 'Role updated'
+                    message: 'Role modifié'
                 })
             } else {
-                res.status(400).send({
-                    message: 'Role was not updated'
+                res.status(422).send({
+                    message: 'Role pas modifié'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Role not found'
+            res.status(422).send({
+                message: 'Role pas trouvé'
             })
         }
     } catch (error) {
@@ -98,28 +92,27 @@ const modifyRole = async (req, res) => {
         })
     }
 }
-
 const deleteRole = async (req, res) => {
     try {
         const RoleId = req.params.id;
         const idRoleFound = await rolesTable.findByPk(RoleId);
-        if (idRoleFound !== null) {
+        if (idRoleFound) {
             const deletedRole = await rolesTable.destroy({
                 where: { id: RoleId }
             })
-            if (deletedRole == 1) {
+            if (deletedRole === 1) {
                 res.status(200).send({
-                    message: 'Role deleted'
+                    message: 'Role supprimé'
                 })
             }
             else {
-                res.status(400).send({
-                    message: 'Role not deleted'
+                res.status(422).send({
+                    message: 'Role pas supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Role not found'
+            res.status(422).send({
+                message: 'Role pas trouvé'
             })
         }
     } catch (error) {

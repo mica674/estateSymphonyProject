@@ -3,17 +3,15 @@ const clientFoldersTable = db['clientFolders'];
 const usersTable = db['Users'];
 
 const getClientFolder = async (req, res) => {
-
     try {
-
         const clientFolder = await clientFoldersTable.findByPk(req.params.id, { include: 'userClientFolders' });
-        if (clientFolder !== null) {
+        if (clientFolder) {
             res.status(200).send({
                 data: clientFolder
             })
         } else {
-            res.status(404).send({
-                message: 'Client folder not found'
+            res.status(422).send({
+                message: 'Dossier client pas trouvé'
             })
         }
     } catch (error) {
@@ -26,13 +24,13 @@ const getClientFolder = async (req, res) => {
 const getClientFolders = async (req, res) => {
     try {
         const clientFolders = await clientFoldersTable.findAll();
-        if (clientFolders !== null && clientFolders.length > 0) {
+        if (clientFolders && clientFolders.length > 0) {
             res.status(200).send({
                 data: clientFolders
             })
         } else {
-            res.status(404).send({
-                message: 'No clients folders are found'
+            res.status(422).send({
+                message: 'Pas de dossier client trouvé'
             })
         }
     } catch (error) {
@@ -42,28 +40,26 @@ const getClientFolders = async (req, res) => {
         })
     }
 }
-
 const createClientFolder = async (req, res) => {
     try {
         const data = { ...req.body };
-        let idUserFound = await usersTable.findOne({
-            where: { id: data.idUsers }
-        });
-        if (idUserFound !== null) {
+        const idUser = data.idUsers;
+        const idUserFound = await usersTable.findByPk(idUser)
+        if (idUserFound) {
             const newClientFolders = await clientFoldersTable.create(data);
-            if (newClientFolders !== null) {
+            if (newClientFolders[0] === 1) {
                 res.status(200).send({
-                    message: 'Client folder created',
+                    message: 'Dossier client créé',
                     data: newClientFolders
                 })
             } else {
-                res.status(400).send({
-                    message: 'Client folder not created'
+                res.status(422).send({
+                    message: 'Dossier client pas créé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'idUsers not found'
+            res.status(422).send({
+                message: 'Utilisateur pas trouvé'
             })
         }
     } catch (error) {
@@ -75,38 +71,35 @@ const createClientFolder = async (req, res) => {
 }
 const modifyClientFolder = async (req, res) => {
     try {
-        const idClientFolders = req.params.id;
-        let idClientFoldersFound = await clientFoldersTable.findByPk(idClientFolders)
-        if (idClientFoldersFound !== null) {
+        const idClientFolder = req.params.id;
+        const idClientFoldersFound = await clientFoldersTable.findByPk(idClientFolder)
+        if (idClientFoldersFound) {
             const data = { ...req.body };
-            let idUserFound = await usersTable.findOne({
-                where: { id: data.idUsers }
-            });
-            if (idUserFound !== null) {
+            const idUser = data.idUsers;
+            const idUserFound = await usersTable.findByPk(idUser)
+            if (idUserFound) {
                 const updateClientFolders = await clientFoldersTable.update(
                     data,
                     {
-                        where: {
-                            id: idClientFolders
-                        }
+                        where: { id: idClientFolder }
                     })
-                if (updateClientFolders[0] == 1) {
+                if (updateClientFolders[0] === 1) {
                     res.status(200).send({
-                        message: 'Client folder updated'
+                        message: 'Dossier client modifié'
                     })
                 } else {
-                    res.status(400).send({
-                        message: 'Client folder not updated'
+                    res.status(422).send({
+                        message: 'Dossier client pas modifié'
                     })
                 }
             } else {
-                res.status(404).send({
-                    message: 'idUsers not found'
+                res.status(422).send({
+                    message: 'Utilisateur pas trouvé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Client folder not found'
+            res.status(422).send({
+                message: 'Dossier client pas trouvé'
             })
         }
     } catch (error) {
@@ -118,22 +111,22 @@ const modifyClientFolder = async (req, res) => {
 }
 const deleteClientFolder = async (req, res) => {
     try {
-        const idClientFolders = req.params.id;
-        let idClientFoldersFound = await clientFoldersTable.findByPk(idClientFolders, { include: 'userClientFolders' })
-        if (idClientFoldersFound !== null) {
-            const deleteClientFolder = await clientFoldersTable.destroy({ where: { id: req.params.id } });
-            if (deleteClientFolder !== null) {
-                res.status(201).send({
-                    message: 'Client folder deleted'
+        const idClientFolder = req.params.id;
+        const idClientFoldersFound = await clientFoldersTable.findByPk(idClientFolder)
+        if (idClientFoldersFound) {
+            const deleteClientFolder = await clientFoldersTable.destroy({ where: { id: idClientFolder } });
+            if (deleteClientFolder[0] === 1) {
+                res.status(200).send({
+                    message: 'Dossier client supprimé'
                 })
             } else {
-                res.status(400).send({
-                    message: 'Client folder not deleted'
+                res.status(422).send({
+                    message: 'Dossier client pas supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Client folder not found'
+            res.status(422).send({
+                message: 'Dossier client pas trouvé'
             })
         }
     } catch (error) {

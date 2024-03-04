@@ -68,7 +68,7 @@ const createPropertyFolder = async (req, res) => {
             }
         } else {
             res.status(422).send({
-                message: 'Property not found'
+                message: 'Property pas trouvé'
             })
         }
     } catch (error) {
