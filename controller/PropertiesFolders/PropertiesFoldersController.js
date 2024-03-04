@@ -6,13 +6,13 @@ const clientFoldersTable = db['clientFolders'];
 const getPropertyFolder = async (req, res) => {
     try {
         const propertyFolder = await propertiesFoldersTable.findByPk(req.params.id);
-        if (propertyFolder !== null) {
+        if (propertyFolder) {
             res.status(200).send({
                 data: propertyFolder
             })
         } else {
-            res.status(404).send({
-                message: 'Property Folder not found'
+            res.status(422).send({
+                message: 'Property Folder pas trouvé'
             })
         }
     } catch (error) {
@@ -30,8 +30,8 @@ const getPropertiesFolders = async (req, res) => {
                 data: propertiesFolders
             })
         } else {
-            res.status(404).send({
-                message: 'No propertiesFolders found'
+            res.status(422).send({
+                message: 'Pas de propertiesFolders trouvé'
             })
         }
     } catch (error) {
@@ -39,26 +39,6 @@ const getPropertiesFolders = async (req, res) => {
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })
-
-        // res.status(401).send({
-        //     message: 'Vous n\'êtes pas autorisé.',
-        //     error: error.message
-        // })
-
-        // res.status(403).send({
-        //     message: 'Vous n\'avez pas les droits d\'accès.',
-        //     error: error.message
-        // })
-
-        // res.status(404).send({
-        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
-        //     error: error.message
-        // })
-
-        // res.status(500).send({
-        //     message: 'Erreur serveur.',
-        //     error: error.message
-        // })
     }
 }
 const createPropertyFolder = async (req, res) => {
@@ -73,28 +53,25 @@ const createPropertyFolder = async (req, res) => {
                 const newPropertyFolder = await propertiesFoldersTable.create(data);
                 if (newPropertyFolder) {
                     res.status(200).send({
-                        message: 'Property-Folder created',
+                        message: 'Property-Folder créé',
                         data: newPropertyFolder
                     })
                 } else {
-                    res.status(400).send({
-                        message: 'PropertyFolder was not created'
+                    res.status(422).send({
+                        message: 'PropertyFolder pas créé'
                     })
                 }
             } else {
-                res.status(404).send({
-                    message: 'Client Folder not found'
+                res.status(422).send({
+                    message: 'Dossier lient pas trouvé'
                 })
             }
         } else {
-            res.status(404).send({
+            res.status(422).send({
                 message: 'Property not found'
             })
         }
     } catch (error) {
-
-        console.log(error.message);
-
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
@@ -102,9 +79,7 @@ const createPropertyFolder = async (req, res) => {
     }
 }
 const modifyPropertyFolder = async (req, res) => {
-
     try {
-
         const idPropertyFolder = req.params.id;
         const idPropertyFolderFound = await propertiesFoldersTable.findByPk(idPropertyFolder);
         if (idPropertyFolderFound) {
@@ -122,26 +97,26 @@ const modifyPropertyFolder = async (req, res) => {
                         })
                     if (updatePropertyFolder[0] == 1) {
                         res.status(200).send({
-                            message: 'Property-Folder updated'
+                            message: 'Property-Folder modifié'
                         })
                     } else {
-                        res.status(400).send({
-                            message: 'PropertyFolder not updated'
+                        res.status(422).send({
+                            message: 'PropertyFolder pas modifié'
                         })
                     }
                 } else {
-                    res.status(404).send({
-                        message: 'Client folder not found'
+                    res.status(422).send({
+                        message: 'Dossier client pas trouvé'
                     })
                 }
             } else {
-                res.status(404).send({
-                    message: 'Property not found'
+                res.status(422).send({
+                    message: 'Propriété pas trouvée'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'PropertyFolder not found'
+            res.status(422).send({
+                message: 'PropertyFolder pas trouvé'
             })
         }
     } catch (error) {
@@ -150,7 +125,6 @@ const modifyPropertyFolder = async (req, res) => {
             error: error.message
         })
     }
-
 }
 const deletePropertyFolder = async (req, res) => {
     try {
@@ -160,17 +134,17 @@ const deletePropertyFolder = async (req, res) => {
             const deletePropertyFolder = await propertiesFoldersTable.destroy({ where: { id: req.params.id } });
             if (deletePropertyFolder !== 0) {
                 res.status(200).send({
-                    message: 'Property Folder deleted',
+                    message: 'Property Folder supprimé',
                     data: deletePropertyFolder
                 })
             } else {
-                res.status(400).send({
-                    message: 'Property Folder was not deleted'
+                res.status(422).send({
+                    message: 'Property Folder pas supprimé'
                 })
             }
         } else {
-            res.status(404).send({
-                message: 'Property Folder not found'
+            res.status(422).send({
+                message: 'Property Folder pas trouvé'
             })
         }
     } catch (error) {
