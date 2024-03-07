@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const db = require('../../models/index.js');
 const propertiesTable = db['Properties'];
 const districtsTable = db['Districts'];
@@ -34,6 +35,42 @@ const getProperties = async (req, res) => {
             res.status(422).send({
                 message: 'Pas de propriété trouvée'
             })
+        }
+    }
+    catch (error) {
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+    }
+}
+const getPropertiesBySearch = async (req, res) => {
+    try {
+        const data = { ...req.body };
+        //Controle de la validité des valeurs des champs de recherche
+        const whereClause = {};
+        if (data.energising && data.energising !== '') {
+            whereClause.energising = data.energising;
+        }
+        if (data.floor) { whereClause.floor = data.floor; }
+        if (data.parking) { whereClause.parking = data.parking; }
+        if (data.rooms) { whereClause.rooms = data.rooms; }
+        if (data.showerRoom) { whereClause.showerRoom = data.showerRoom; }
+        if (data.surface) { whereClause.surface = data.surface; }
+        if (data && data.length !== 0) {
+            console.log(data.energising);
+            const propertiesBySearch = await propertiesTable.findAll({
+                where: whereClause
+            })
+            if (propertiesBySearch && propertiesBySearch.length !== 0) {
+                res.status(200).send({
+                    data: propertiesBySearch
+                })
+            } else {
+                res.status(422).send({
+                    message: 'Aucune propriété correspond à la recherche'
+                })
+            }
         }
     } catch (error) {
         res.status(400).send({
@@ -159,4 +196,4 @@ const deleteProperty = async (req, res) => {
     }
 }
 
-module.exports = { getProperty, getProperties, createProperty, modifyProperty, deleteProperty };
+module.exports = { getProperty, getProperties, getPropertiesBySearch, createProperty, modifyProperty, deleteProperty };

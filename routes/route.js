@@ -4480,6 +4480,7 @@ router.delete('/status/delete/:id', statusesController.deleteStatus);
 //------------------------------------- PROPERTIES ROUTER -------------------------------------
 router.get('/property/:id', propertiesController.getProperty);
 router.get('/properties', propertiesController.getProperties);
+router.post('/propertiesBySearch', propertiesController.getPropertiesBySearch);
 router.post('/property/create', photosMiddleware.upload, propertiesController.createProperty);
 router.put('/property/modify/:id', propertiesController.modifyProperty);
 router.delete('/property/delete/:id', propertiesController.deleteProperty);
