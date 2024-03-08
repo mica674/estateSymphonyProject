@@ -1,4 +1,4 @@
-const { where } = require('sequelize');
+const { Op } = require('sequelize');
 const db = require('../../models/index.js');
 const propertiesTable = db['Properties'];
 const districtsTable = db['Districts'];
@@ -47,20 +47,35 @@ const getProperties = async (req, res) => {
 const getPropertiesBySearch = async (req, res) => {
     try {
         const data = { ...req.body };
-        //Controle de la validité des valeurs des champs de recherche
-        const whereClause = {};
-        if (data.energising && data.energising !== '') {
-            whereClause.energising = data.energising;
-        }
-        if (data.floor) { whereClause.floor = data.floor; }
-        if (data.parking) { whereClause.parking = data.parking; }
-        if (data.rooms) { whereClause.rooms = data.rooms; }
-        if (data.showerRoom) { whereClause.showerRoom = data.showerRoom; }
-        if (data.surface) { whereClause.surface = data.surface; }
         if (data && data.length !== 0) {
-            console.log(data.energising);
+            //Controle de la validité des valeurs des champs de recherche
+            const whereClause = {};
+            if (data.price) { whereClause.price = { [Op.lte]: data.price } }
+            if (data.surface) { whereClause.surface = { [Op.gte]: data.surface }; } // opérateur between pour gérer 2 valeurs plus tard
+            if (data.showerRoom) { whereClause.showerRoom = { [Op.gte]: data.showerRoom }; }
+            if (data.energising) { whereClause.energising = data.energising; }
+            if (data.typeEnergic) { whereClause.typeEnergic = data.typeEnergic; }
+            if (data.heatingSystem) { whereClause.heatingSystem = data.heatingSystem; }
+            if (data.floor) { whereClause.floor = data.floor; }
+            if (data.balcony) { whereClause.balcony = data.balcony; }
+            if (data.parking) { whereClause.parking = data.parking; }
+            if (data.rooms) { whereClause.rooms = { [Op.gte]: data.rooms }; }
+            if (data.status) {
+                const statusFound = await statusesTable.findByPk(data.status);
+                if (statusFound) {
+                    whereClause.idStatuses = data.status
+                }
+            }
+            if (data.district) {
+                const districtFound = await districtsTable.findByPk(data.district);
+                if (districtFound) {
+                    whereClause.idDistricts = data.district
+                }
+            }
             const propertiesBySearch = await propertiesTable.findAll({
-                where: whereClause
+                where: whereClause,
+                order: ['price', 'surface']
+
             })
             if (propertiesBySearch && propertiesBySearch.length !== 0) {
                 res.status(200).send({
@@ -70,6 +85,7 @@ const getPropertiesBySearch = async (req, res) => {
                 res.status(422).send({
                     message: 'Aucune propriété correspond à la recherche'
                 })
+
             }
         }
     } catch (error) {

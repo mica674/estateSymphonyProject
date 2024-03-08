@@ -1,5 +1,5 @@
 const db = require('../../models/index.js');
-const statusesTable = db['Status'];
+const statusesTable = db['Statuses'];
 
 const getStatus = async (req, res) => {
     try {
