@@ -58,6 +58,42 @@ module.exports = {
         idDistrict: 73,
         createdAt: new Date(),
       },
+      {
+        price: 835,
+        location: 'Appartement',
+        surface: 65,
+        showerRoom: 1,
+        energising: 'B',
+        typeEnergic: 'Gaz',
+        clicCount: 123,
+        description: "T3 NEUF avec terrasse et parking à AMIENS. \n Résidence neuve située Quartier Intercampus et Paul Claudel. Proche des commerces et commodités. Appartement T3 de 65,9 m² avec une agréable terrasse de 11,3 m². Il se compose d'une entrée, d'un cellier, d'une belle pièce de vie ouverte sur un coin cuisine aménagé (évier, plaque de cuisson, meubles de rangement, plan de travail) et prolongée par la terrasse. Vous profiterez également de 2 chambres, d'une salle d'eau et d'un WC indépendant. Chauffage et eau chaude compris dans les charges.",
+        heatingSystem: 'NC',
+        floor: 2,
+        balcony: 1,
+        parking: 1,
+        rooms: 3,
+        idStatus: 2,
+        idDistrict: 80,
+        createdAt: new Date(),
+      },
+      {
+        price: 945,
+        location: 'Appartement',
+        surface: 80,
+        showerRoom: 1,
+        energising: 'B',
+        typeEnergic: 'Gaz',
+        clicCount: 234,
+        description: "APPARTEMENT. A Amiens SUD dans une résidence neuve à louer appartement de type 4 comprenant : une entrée avec placard, un séjour avec cuisine aménagée et équipée (hotte, plaque, four), trois chambres, une salle de bains avec baignoire, un wc séparé.Une place de stationnement.Chauffage collectif URBAIN. L'eau chaude et le chauffage sont compris dans la provision sur charges avec une régularisation annuelle.",
+        heatingSystem: 'NC',
+        floor: 2,
+        balcony: 1,
+        parking: 1,
+        rooms: 4,
+        idStatus: 2,
+        idDistrict: 80,
+        createdAt: new Date(),
+      },
     ], {});
   },
 
@@ -80,4 +116,9 @@ module.exports = {
     parking: DataTypes.BOOLEAN,
     rooms: DataTypes.INTEGER,
     idStatus: DataTypes.INTEGER,
-    idDistrict: DataTypes.INTEGER*/
+    idDistrict: DataTypes.INTEGER
+    
+    Dépend de la base de données :
+      HELP : idStatus possibles : 1(vendu),2(loué),3
+      HELP : idDistrict possibles : 73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90
+    */
