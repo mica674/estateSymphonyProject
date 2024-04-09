@@ -7,7 +7,7 @@ const photosTable = db['Photos'];
 
 const getProperty = async (req, res) => {
     try {
-        const property = await propertiesTable.findByPk(req.params.id);
+        const property = await propertiesTable.findByPk(req.params.id, { include: 'district' });
         if (property) {
             res.status(200).send({
                 data: property
@@ -48,12 +48,20 @@ const getPropertiesBySearch = async (req, res) => {
     try {
         const data = { ...req.body };
         if (data && data.length !== 0) {
+            console.log(data);
             //Controle de la validité des valeurs des champs de recherche
             const whereClause = {};
             if (data.price) { whereClause.price = { [Op.lte]: data.price } }
             if (data.surface) { whereClause.surface = { [Op.gte]: data.surface }; } // opérateur between pour gérer 2 valeurs plus tard
             if (data.showerRoom) { whereClause.showerRoom = { [Op.gte]: data.showerRoom }; }
-            if (data.energising) { whereClause.energising = data.energising; }
+            // if (data.energising) { 
+            //     let letterList = ['A', 'B','C','D','E','F','G'];
+            //     letterList.forEach(letter => {
+            //         if (letter === data.energising) {
+
+            //         }
+            //     });
+            //     whereClause.energising = data.energising; }
             if (data.typeEnergic) { whereClause.typeEnergic = data.typeEnergic; }
             if (data.heatingSystem) { whereClause.heatingSystem = data.heatingSystem; }
             if (data.floor) { whereClause.floor = data.floor; }
@@ -72,9 +80,10 @@ const getPropertiesBySearch = async (req, res) => {
                     whereClause.idDistricts = data.district
                 }
             }
+            //Si aucune condition, toutes les propriétés seront affichées de la plus récente à la plus ancienne
             const propertiesBySearch = await propertiesTable.findAll({
                 where: whereClause,
-                order: ['price', 'surface']
+                order: ['createdAt', 'updatedAt', 'price', 'surface']
 
             })
             if (propertiesBySearch && propertiesBySearch.length !== 0) {

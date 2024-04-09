@@ -785,6 +785,73 @@
  *                              message: Erreur survenue lors de la récupération de toutes les estimations
  *                              error: Message de l'erreur spécifique le cas échéant
  */
+//  GET ALL BY IDUSER
+/**
+ * @swagger
+ * /estimations/{id}:
+ *      get:
+ *          summary: Récupérer toutes les estimations d'un utilisateur de la base de données
+ *          tags: [ESTIMATION]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of User
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Récupère toutes les estimations d'un utilisateur dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Estimations ALL BY USER
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                             -    id: 1
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération de toutes les estimations
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de toutes les estimations
+ *                              error: Message de l'erreur spécifique le cas échéant
+ */
 //  CREATE
 /**
  * @swagger
@@ -3838,11 +3905,11 @@
  *                              message: Erreur survenue lors de la récupération d'un favori par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
  *              401:
- *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  description: Erreur lors de la récupération d'un favori d'un utilisateur 
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              message: Erreur survenue lors de la récupération d'un favori d'un utilisateur par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
  *              422:
  *                  description: Erreur à envoyé au client
@@ -3889,11 +3956,70 @@
  *                              message: Erreur survenue lors de la récupération de tous les favoris
  *                              error: Message de l'erreur spécifique le cas échéant
  *              401:
- *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  description: Erreur lors de la récupération des favoris 
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              message: Erreur survenue lors de la récupération des favoris par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de favoris trouvé
+*/
+//  GET ALL By IDUSER
+/**
+ * @swagger
+ * /favorites/{id}:
+ *      get:
+ *          summary: Récupérer tous les favoris de la base de données d'un utilisateur
+ *          tags: [FAVORITES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of user
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Récupère tous les favoris ajoutés dans la base de données pour un utilisateur
+ *          responses: 
+ *              200:
+ *                  description: Favorites ALL BY ONE USER
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                             -    id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  idUsers: 1
+ *                                  idProperties: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  idUsers: 1
+ *                                  idProperties: 3
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des favoris
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les favoris
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération des favoris d'un utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération des favoris d'un utilisateur
  *                              error: Message de l'erreur spécifique le cas échéant
  *              422:
  *                  description: Erreur à envoyé au client
@@ -4417,6 +4543,7 @@ router.put('/user/modify', userController.middleWare, userController.modify);
 //------------------------------------- ESTIMATIONS ROUTER -------------------------------------//Tested with swagger
 router.get('/estimation/:id', estimationController.getEstimationID);
 router.get('/estimations', estimationController.getEstimations);
+router.get('/estimations/:id', estimationController.getEstimationsByOne);
 router.post('/estimation/create', estimationController.createEstimation);
 router.put('/estimation/modify/:id', estimationController.modifyEstimation);
 router.delete('/estimation/delete/:id', estimationController.deleteEstimation);
@@ -4513,6 +4640,7 @@ router.delete('/history/delete/:id', historiesController.deleteHistory);
 //------------------------------------- FAVORIES ROUTER -------------------------------------
 router.get('/favorite/:id', favoritesController.getFavorite);
 router.get('/favorites', favoritesController.getFavorites);
+router.get('/favorites/:id', favoritesController.getFavoritesByOne);
 router.post('/favorite/create', favoritesController.createFavorite);
 router.put('/favorite/modify/:id', favoritesController.modifyFavorite);
 router.delete('/favorite/delete/:id', favoritesController.deleteFavorite);
