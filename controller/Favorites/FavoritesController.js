@@ -22,7 +22,6 @@ const getFavorite = async (req, res) => {
         })
     }
 }
-
 const getFavorites = async (req, res) => {
     try {
         const favoris = await favorisTable.findAll();
@@ -43,7 +42,29 @@ const getFavorites = async (req, res) => {
         })
     }
 }
-
+const getFavoritesByOne = async (req, res) => {
+    try {
+        const idUser = req.params.id;
+        const favoris = await favorisTable.findAll(
+            { where: { idUsers: idUser } }
+        );
+        if (favoris && favoris.length !== 0) {
+            res.status(200).send({
+                message: 'Select all of favoris',
+                data: favoris
+            })
+        } else {
+            res.status(422).send({
+                message: 'Pas de favoris trouvé pour cet utilisateur'
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+    }
+}
 const createFavorite = async (req, res) => {
     try {
         let data = { ...req.body };
@@ -81,7 +102,6 @@ const createFavorite = async (req, res) => {
         })
     }
 }
-
 const modifyFavorite = async (req, res) => {
     try {
         const newData = { ...req.body };
@@ -126,7 +146,6 @@ const modifyFavorite = async (req, res) => {
         })
     }
 }
-
 const deleteFavorite = async (req, res) => {
     try {
         const idFavori = req.params.id;
@@ -154,4 +173,4 @@ const deleteFavorite = async (req, res) => {
     }
 }
 
-module.exports = { getFavorite, getFavorites, createFavorite, modifyFavorite, deleteFavorite }
+module.exports = { getFavorite, getFavorites, getFavoritesByOne, createFavorite, modifyFavorite, deleteFavorite }
