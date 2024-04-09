@@ -43,6 +43,28 @@ const getEstimations = async (req, res) => {
         })
     }
 }
+const getEstimationsByOne = async (req, res) => {
+    try {
+        const idUser = req.params.id;
+        //  Récupération de toutes les estimations d'un utilisateur
+        const estimations = await estimationsTable.findAll({ where: { idUsers: idUser } });
+        if (estimations && estimations.length !== 0) {
+            //  Envoie de toutes les estimations
+            res.status(200).send({
+                data: estimations
+            })
+        } else {
+            res.status(422).send({
+                message: 'Pas d\'estimation trouvé'
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: 'Erreur de synthaxe de la requête.',
+            error: error.message
+        })
+    }
+}
 const createEstimation = async (req, res) => {
     try {
         let data = { ...req.body };
@@ -124,5 +146,5 @@ const deleteEstimation = async (req, res) => {
         })
     }
 }
-module.exports = { createEstimation, getEstimationID, getEstimations, modifyEstimation, deleteEstimation };
+module.exports = { createEstimation, getEstimationID, getEstimations, getEstimationsByOne, modifyEstimation, deleteEstimation };
 
