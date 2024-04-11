@@ -107,48 +107,61 @@ const getPropertiesBySearch = async (req, res) => {
 //#NAWELLE
 const createProperty = async (req, res, next) => {
     const transaction = await db.sequelize.transaction();
-    let files = req.files;
     try {
-        const data = { ...req.body };
-        const idDistrict = data.idDistricts;
-        const idDistrictFound = await districtsTable.findByPk(idDistrict);
-        if (idDistrictFound) {
-            const idStatus = data.idStatuses;
-            const idStatusFound = await statusesTable.findByPk(idStatus);
-            if (idStatusFound) {
-                const newProperties = await propertiesTable.create(req.body, { transaction: transaction });
-                if (!newProperties) {
-                    throw "error"
-                }
-                let newData = [];
-                files.forEach(item => {
-                    let path = `propertiesPhotos/${item.filename}`
-                    let newItem = {
-                        idProperties: newProperties.id,
-                        photo: path
+        let files = req.files;
+        if (files) {
+            const data = { ...req.body };
+            const idDistrict = data.idDistricts;
+            const idDistrictFound = await districtsTable.findByPk(idDistrict);
+            if (idDistrictFound) {
+                const idStatus = data.idStatuses;
+                const idStatusFound = await statusesTable.findByPk(idStatus);
+                if (idStatusFound) {
+                    const newProperties = await propertiesTable.create(req.body, { transaction: transaction });
+                    if (!newProperties) {
+                        res.status(422).send({
+                            message: 'La propriété n\'a pas été créée',
+                        })
+                        await transaction.rollback();
                     }
-                    newData.push(newItem);
-                });
-                const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
-                if (!newPhoto) {
-                    throw "error"
+                    let newData = [];
+                    console.log('FILES');
+                    console.log(files);
+                    files.forEach(item => {
+                        let path = `public/propertiesPhotos/${item.filename}`
+                        let newItem = {
+                            idProperties: newProperties.id,
+                            photo: path
+                        }
+                        newData.push(newItem);
+                    });
+                    const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
+                    console.log(newPhoto);
+                    if (!newPhoto) {
+                        throw "error"
+                    }
+                    await transaction.commit();
+                    res.status(200).send({
+                        message: 'Propriété créée',
+                        data: newProperties
+                    })
+                } else {
+                    res.status(422).send({
+                        message: 'Status pas trouvé'
+                    })
+                    await transaction.rollback();
                 }
-                await transaction.commit();
-                res.status(200).send({
-                    message: 'Propriété créée',
-                    data: newProperties
-                })
             } else {
                 res.status(422).send({
-                    message: 'Status pas trouvé'
+                    message: 'District pas trouvé'
                 })
-                throw 'error'
+                await transaction.rollback();
             }
         } else {
             res.status(422).send({
-                message: 'District pas trouvé'
+                message: 'Aucune image trouvée'
             })
-            throw 'error'
+            await transaction.rollback();
         }
     } catch (error) {
         await transaction.rollback();
