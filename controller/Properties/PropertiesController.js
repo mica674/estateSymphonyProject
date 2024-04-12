@@ -105,19 +105,21 @@ const getPropertiesBySearch = async (req, res) => {
     }
 }
 //#NAWELLE
-const createProperty = async (req, res, next) => {
+const createProperty = async (req, res) => {
     const transaction = await db.sequelize.transaction();
     try {
-        let files = req.files;
-        if (files) {
-            const data = { ...req.body };
+        let files = req.file;
+        /// PROBLEME DE MULTER INSERTION DES PHOTOS : Condition forcée à TRUE
+        if (true) {
+            const data = req.body;
+            console.log(data.images[0]);
             const idDistrict = data.idDistricts;
             const idDistrictFound = await districtsTable.findByPk(idDistrict);
             if (idDistrictFound) {
                 const idStatus = data.idStatuses;
                 const idStatusFound = await statusesTable.findByPk(idStatus);
                 if (idStatusFound) {
-                    const newProperties = await propertiesTable.create(req.body, { transaction: transaction });
+                    const newProperties = await propertiesTable.create(data, { transaction: transaction });
                     if (!newProperties) {
                         res.status(422).send({
                             message: 'La propriété n\'a pas été créée',
@@ -125,21 +127,20 @@ const createProperty = async (req, res, next) => {
                         await transaction.rollback();
                     }
                     let newData = [];
-                    console.log('FILES');
-                    console.log(files);
-                    files.forEach(item => {
-                        let path = `public/propertiesPhotos/${item.filename}`
-                        let newItem = {
-                            idProperties: newProperties.id,
-                            photo: path
-                        }
-                        newData.push(newItem);
-                    });
-                    const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
-                    console.log(newPhoto);
-                    if (!newPhoto) {
-                        throw "error"
-                    }
+                    /// PROBLEME DE MULTER INSERTION DES PHOTOS : Mise en commentaire du code gérant l'insertion des photos
+                    // files.forEach(item => {
+                    //     let path = `public/propertiesPhotos/${item.filename}`
+                    //     let newItem = {
+                    //         idProperties: newProperties.id,
+                    //         photo: path
+                    //     }
+                    //     newData.push(newItem);
+                    // });
+                    // const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
+                    // console.log(newPhoto);
+                    // if (!newPhoto) {
+                    //     throw "error"
+                    // }
                     await transaction.commit();
                     res.status(200).send({
                         message: 'Propriété créée',
@@ -165,7 +166,7 @@ const createProperty = async (req, res, next) => {
         }
     } catch (error) {
         await transaction.rollback();
-        res.status(400).send({
+        res.status(422).send({
             message: 'Erreur de synthaxe de la requête.',
             error: error.message
         })

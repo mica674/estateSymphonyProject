@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     console.log("Hello i'm the photos middleware ...");
 
-    callback(null, "public/propertiesPhotos");
+    callback(null, "/public/propertiesPhotos");
   },
   //supprimer les espaces dans le nom du fichier.
   filename: (req, file, callback, next) => {
@@ -25,10 +25,14 @@ const storage = multer.diskStorage({
 
     callback(null, name + '_' + Date.now() + '.' + extension);
     console.log('MULTER OK');
-    next;
+    next();
+  },
+  onError: (err, next) => {
+    console.log('error : ', err);
+    next(err);
   }
 })
 //On export le middleware multer en disant qu'on peut upload seulement 10 images.
-const upload = multer({ storage: storage }).array("image", 10);
+const upload = multer({ storage: storage }).single('images');
 
 module.exports = { upload }

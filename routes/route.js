@@ -4507,9 +4507,7 @@ const favoritesController = require('../controller/Favorites/FavoritesController
 const usersPropertiesController = require('../controller/UsersProperties/UsersProperties');
 
 //------------------------------------- PHOTOS -------------------------------------
-const photosMiddleware = require('../middleware/Photos/PhotosMiddleware');
-//------------------------------------- PHOTOS FOLDERS -------------------------------------
-const PhotosMiddleware = require('../middleware/Photos/PhotosMiddleware');
+const { upload } = require('../middleware/Photos/photosMiddleware');
 
 
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
@@ -4608,7 +4606,7 @@ router.delete('/status/delete/:id', statusesController.deleteStatus);
 router.get('/property/:id', propertiesController.getProperty);
 router.get('/properties', propertiesController.getProperties);
 router.post('/propertiesBySearch', propertiesController.getPropertiesBySearch);
-router.post('/property/create', photosMiddleware.upload, propertiesController.createProperty);
+router.post('/property/create', upload, propertiesController.createProperty);
 router.put('/property/modify/:id', propertiesController.modifyProperty);
 router.delete('/property/delete/:id', propertiesController.deleteProperty);
 
@@ -4654,7 +4652,7 @@ router.delete('/usersProperties/delete/:id', usersPropertiesController.deleteUse
 
 
 //------------------------------------- PHOTOS ROUTER -------------------------------------
-router.post('/photos', photosMiddleware.upload);
+// router.post('/photos', photosMiddleware.upload);
 
 //router.get('/me', middleWare );
 
