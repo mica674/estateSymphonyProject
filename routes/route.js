@@ -4463,8 +4463,6 @@ const router = express.Router();
 const { specs, swaggerUi, swaggerUiOptions } = require('../Swagger/swaggerConfig')
 
 
-//------------------------------------- API -------------------------------------
-const ApiIsAwake = require('../controller/API/ApiController');
 //------------------------------------- USER -------------------------------------
 const userController = require('../controller/Users/UsersController');
 //------------------------------------- ROLE -------------------------------------
@@ -4512,8 +4510,7 @@ router.get('/', (req, res) => {
 })
 
 
-//------------------------------------- API ROUTER -------------------------------------
-router.get('/api/awake', ApiIsAwake.getAwake);
+
 //------------------------------------- ROLES ROUTER -------------------------------------//Tested with swagger
 router.get('/role/:id', roleController.getRole);
 router.get('/roles', roleController.getAllRoles);
