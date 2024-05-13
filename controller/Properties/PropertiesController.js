@@ -112,7 +112,6 @@ const createProperty = async (req, res) => {
         /// PROBLEME DE MULTER INSERTION DES PHOTOS : Condition forcée à TRUE
         if (true) {
             const data = req.body;
-            console.log(data.images[0]);
             const idDistrict = data.idDistricts;
             const idDistrictFound = await districtsTable.findByPk(idDistrict);
             if (idDistrictFound) {
