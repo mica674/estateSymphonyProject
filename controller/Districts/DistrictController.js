@@ -1,3 +1,4 @@
+const { DistrictNoFound, NoDistrictFound, DistrictCreated, DistrictNotCreated, DistrictUpdated, DistrictNotUpdated, DistrictDeleted, DistrictNotDeleted, SyntaxErrorMessage } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const districtsTable = db['Districts'];
 
@@ -10,12 +11,12 @@ const getDistrict = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'District pas trouvé'
+                message: DistrictNoFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -29,12 +30,12 @@ const getDistricts = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas de district trouvé'
+                message: NoDistrictFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -45,17 +46,17 @@ const createDistrict = async (req, res) => {
         const newDistrict = await districtsTable.create(data);
         if (newDistrict) {
             res.status(200).send({
-                message: 'District créé',
+                message: DistrictCreated,
                 data: newDistrict
             })
         } else {
             res.status(422).send({
-                message: 'District pas créé'
+                message: DistrictNotCreated
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -73,22 +74,22 @@ const modifyDistrict = async (req, res) => {
                 })
             if (updateDistrict[0] == 1) {
                 res.status(200).send({
-                    message: 'District modifié',
+                    message: DistrictUpdated,
                     data: data
                 })
             } else {
                 res.status(422).send({
-                    message: 'District pas modifié'
+                    message: DistrictNotUpdated
                 })
             }
         } else {
             res.status(422).send({
-                message: 'District pas trouvé'
+                message: DistrictNoFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -103,22 +104,22 @@ const deleteDistrict = async (req, res) => {
             })
             if (deletedDistrict == 1) {
                 res.status(200).send({
-                    message: 'District supprimé',
+                    message: DistrictDeleted,
                     data: idDistrictFound
                 })
             } else {
                 res.status(422).send({
-                    message: 'District pas supprimé'
+                    message: DistrictNotDeleted
                 })
             }
         } else {
             res.status(422).send({
-                message: 'District pas trouvé'
+                message: DistrictNoFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }

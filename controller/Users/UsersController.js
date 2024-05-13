@@ -2,6 +2,7 @@ const db = require('../../models/index.js');
 const bcrypt = require('bcrypt');
 const usersTable = db['Users'];
 const jwt = require('jsonwebtoken');
+const { EmailAlreadyUsed, SyntaxErrorMessage, CredentialsFailed, UserCreated, InvalidToken, UserUpdatedPwd, UserUpdatedInfos, UserNotUpdatedInfos, UserNotUpdatedPwd, PwdOldInvalid, UserNoFound, NoUserFound } = require('../../config/Constants.js');
 require('dotenv').config();
 
 const createUser = async (req, res) => {
@@ -23,17 +24,17 @@ const createUser = async (req, res) => {
             let userCreated = await usersTable.create(data);
             //  Réponse avec l'action faite ('message') et les données de l'utilisateur créé ('data')
             res.status(200).send({
-                message: 'Created',
+                message: UserCreated,
                 data: userCreated
             })
         } else {
             res.status(422).send({
-                message: 'Adresse email déjà utilisée'
+                message: EmailAlreadyUsed
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Une erreur est survenue.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -56,18 +57,18 @@ const loginUser = async (req, res) => {
                 res.status(200).send({ token: token });
             } else {
                 res.status(422).send({
-                    message: 'Adresse email et/ou mot de passe incorrect(s)'
+                    message: CredentialsFailed
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Adresse email inconnue'
+                message: CredentialsFailed
             })
         }
     } catch (error) {
         console.error(error.message);
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -77,23 +78,23 @@ const middleWare = async (req, res, next) => {
         if (typeof req.headers['authorization'] === 'undefined') {
             // throw new Error("Erreur lors de la récupération du TOKEN (headers/Authorization)");
             res.status(401).send({
-                message: 'Token no valid'
+                message: InvalidToken
             })
         } else {
             let token = req.headers['authorization'].split(" ")[1];
             // console.log("token : " + token);
             // console.log(process.env.SECRET_TOKEN);
             let decoded = jwt.verify(token, process.env.SECRET_TOKEN);
-            console.log("decoded : " + decoded);
+            // console.log("decoded : " + decoded);
             req.user = decoded;
-            console.log("req.user : " + req.user.email);
+            // console.log("req.user : " + req.user.email);
             req.token = token;
             // res.status(200).json(req.user);
             next();
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Une erreur est survenue',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -131,17 +132,17 @@ const modifyEmail = async (req, res) => {
         });
         if (newEmail === 1) {
             res.status(200).send({
-                message: 'Email modifié',
+                message: EmailUpdated,
                 data: newEmail
             })
         } else {
             res.status(422).send({
-                message: 'Email pas modifié'
+                message: EmailNotUpdated
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -158,19 +159,18 @@ const modify = async (req, res) => {
             }
         });
         if (dataUpdated[0] === 1) {
-            console.log('Informations utilisateur mise à jour');
             res.status(200).send({
-                message: 'Informations modifiées',
+                message: UserUpdatedInfos,
                 data: newData
             })
         } else {
             res.status(422).send({
-                message: 'Informations pas modifiées'
+                message: UserNotUpdatedInfos
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -192,18 +192,17 @@ const modifyPassword = async (req, res) => {
                     where: { email: email }
                 });
                 if (newPassword[0] === 1) {
-                    console.log('Mot de passe modifié');
                     res.status(200).send({
-                        message: 'Mot de passe modifié'
+                        message: UserUpdatedPwd
                     })
                 } else {
                     res.status(422).send({
-                        message: 'Mot de passe pas modifié'
+                        message: UserNotUpdatedPwd
                     })
                 }
             } else {
                 res.status(422).send({
-                    message: 'Ancien mot de passe incorrect'
+                    message: PwdOldInvalid
                 })
             }
         } else {
@@ -212,7 +211,7 @@ const modifyPassword = async (req, res) => {
     } catch (error) {
         console.error('Erreur modification password : ', error.message);
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
 
@@ -228,12 +227,12 @@ const getUserId = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'User pas trouvé'
+                message: UserNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur survenue lors de la récupération d\'un utilisateur par son ID.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -241,19 +240,20 @@ const getUserId = async (req, res) => {
 const getUserEmail = async (req, res) => {
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const user = await usersTable.findOne({ where: { email: req.params.email } });
+        const UserEmail = req.params.email;
+        const user = await usersTable.findOne({ where: { email: UserEmail } });
         if (user) {
             res.status(200).send({
                 data: user
             });
         } else (
             res.status(422).send({
-                message: "Aucune correspondance trouvée"
+                message: NoUserFound
             })
         )
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -269,22 +269,23 @@ const getAllUser = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas d\'utilisateur trouvé'
+                message: NoUserFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
 const getAllUserByIdRole = async (req, res) => {
     try {
+        const idRoles = req.params.idRoles
         //  Récupération de tous les utilisateurs
         const users = await usersTable.findAll(
             {
-                where: { idRole: req.params.idRole }
+                where: { idRoles: idRoles }
             });
         if (users) {
             res.status(200).send({
@@ -292,12 +293,12 @@ const getAllUserByIdRole = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas d\'utilisateur trouvé'
+                message: UserNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }

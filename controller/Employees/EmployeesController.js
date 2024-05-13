@@ -1,3 +1,4 @@
+const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const employeesTable = db['Employees'];
 const usersTable = db['Users'];
@@ -11,12 +12,12 @@ const getEmployee = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Employé pas trouvé'
+                message: EmployeeNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -30,12 +31,12 @@ const getEmployees = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas d\'employé trouvé'
+                message: NoEmployeeFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -54,22 +55,22 @@ const createEmployee = async (req, res) => {
             const newEmployee = await employeesTable.create(data);
             if (newEmployee[0] === 1) {
                 res.status(200).send({
-                    message: 'Employé créé',
+                    message: EmployeeCreated,
                     data: newEmployee
                 })
             } else {
                 res.status(422).send({
-                    message: 'Employé pas créé'
+                    message: EmployeeNotCreated
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Utilisateur pas trouvé'
+                message: UserNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -96,27 +97,27 @@ const modifyEmployee = async (req, res) => {
                     })
                 if (updateEmployee[0] == 1) {
                     res.status(200).send({
-                        message: 'Employee updated',
+                        message: EmployeeUpdated,
                         data: data
                     })
                 } else {
                     res.status(422).send({
-                        message: 'Employee pas modifié'
+                        message: EmployeeNotUpdated
                     })
                 }
             } else {
                 res.status(422).send({
-                    message: 'idUsers pas trouvé'
+                    message: UserNoFound
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Employee pas trouvé'
+                message: EmployeeNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de syntaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -132,22 +133,22 @@ const deleteEmployee = async (req, res) => {
             })
             if (deletedEmployee[0] === 1) {
                 res.status(200).send({
-                    message: 'Employé supprimé',
+                    message: EmployeeDeleted,
                     data: idEmployeeFound
                 })
             } else {
                 res.status(422).send({
-                    message: 'Employé pas supprimé'
+                    message: EmployeeNotDeleted
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Employé pas trouvé'
+                message: EmployeeNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de syntaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }

@@ -1,3 +1,4 @@
+const { EmployeeDistrictNoFound, SyntaxErrorMessage, NoEmployeeDistrictFound, EmployeeDistrictCreated, EmployeeDistrictNotCreated, DistrictNoFound, EmployeeNoFound, EmployeeAndDistritNotFound, EmployeeDistrictUpdated, EmployeeDistrictNotUpdated, EmployeeDistrictDeleted, EmployeeDistrictNotDeleted } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const employeesDistrictsTable = db['Employees_Districts'];
 const employeesTable = db['Employees'];
@@ -12,12 +13,12 @@ const getEmployeeDistrict = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Employee-district pas trouvé'
+                message: EmployeeDistrictNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -31,12 +32,12 @@ const getEmployeesDistricts = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas employees-district trouvé'
+                message: NoEmployeeDistrictFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -52,30 +53,30 @@ const createEmployeeDistrict = async (req, res) => {
             const newEmployeeDistrict = await employeesDistrictsTable.create(data);
             if (newEmployeeDistrict[0] === 1) {
                 res.status(200).send({
-                    message: 'Employee-District créé',
+                    message: EmployeeDistrictCreated,
                     data: newEmployeeDistrict
                 })
             } else {
                 res.status(422).send({
-                    message: 'Employee-district pas créé'
+                    message: EmployeeDistrictNotCreated
                 })
             }
         } else if (!idDistrictFound && idEmployeesFound) {
             res.status(422).send({
-                message: 'District pas trouvé'
+                message: DistrictNoFound
             })
         } else if (!idEmployeesFound && idDistrictFound) {
             res.status(422).send({
-                message: 'Employé pas trouvé'
+                message: EmployeeNoFound
             })
         } else {
             res.status(422).send({
-                message: 'District ET employé n\'ont pas été trouvé'
+                message: EmployeeAndDistritNotFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -98,34 +99,34 @@ const modifyEmployeeDistrict = async (req, res) => {
                     })
                 if (updateEmployeeDistrict[0] == 1) {
                     res.status(200).send({
-                        message: 'Employee-District modifié'
+                        message: EmployeeDistrictUpdated
                     })
                 } else {
                     res.status(422).send({
-                        message: 'Employee-District pas modifié'
+                        message: EmployeeDistrictNotUpdated
                     })
                 }
             } else if (!idDistrictFound && idEmployeesFound) {
                 res.status(422).send({
-                    message: 'District pas trouvé'
+                    message: DistrictNoFound
                 })
             } else if (!idEmployeesFound && idDistrictFound) {
                 res.status(422).send({
-                    message: 'Employé pas trouvé'
+                    message: EmployeeNoFound
                 })
             } else {
                 res.status(422).send({
-                    message: 'District ET Employé pas trouvé'
+                    message: EmployeeAndDistritNotFound
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Employee-District pas trouvé'
+                message: EmployeeDistrictNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -140,17 +141,17 @@ const deleteEmployeeDistrict = async (req, res) => {
             })
             if (deletedEmployeeDistrict[0] === 1) {
                 res.status(200).send({
-                    message: 'Employee-District supprimé'
+                    message: EmployeeDistrictDeleted
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Employee-District pas trouvé'
+                message: EmployeeDistrictNotDeleted
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }

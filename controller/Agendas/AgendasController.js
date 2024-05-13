@@ -1,4 +1,6 @@
+const { where } = require('sequelize');
 const db = require('../../models/index.js');
+const { NoAgendaFound, SyntaxErrorMessage, AgendaNoFound, UserNoFound, AgendaCreated, AgendaNotCreated, EmployeeNoFound, UserEmployeeNoFound, AgendaUpdated, AgendaNotUpdated, AgendaDeleted, AgendaNotDeleted } = require('../../config/Constants.js');
 const agendasTable = db['Agendas'];
 const usersTable = db['Users'];
 const employeesTable = db['Employees'];
@@ -12,12 +14,12 @@ const getAgenda = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Agenda pas trouvé'
+                message: AgendaNoFound,
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -32,12 +34,40 @@ const getAgendas = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas d\'agenda trouvé'
+                message: NoAgendaFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getAgendasByUser = async (req, res) => {
+    try {
+        //  Récupération de l'agenda d'un seul utilisateur
+        const idUser = req.params.id;
+        const idUserFound = await usersTable.findByPk(idUser);
+        if (idUserFound) {
+            const agendas = await agendasTable.findAll({ where: { idUsers: idUser } });
+            if (agendas && agendas.length > 0) {
+                res.status(200).send({
+                    data: agendas
+                })
+            } else {
+                res.status(422).send({
+                    message: NoAgendaFound
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: UserNoFound
+            })
+        }
+    } catch (error) {
+        res.status(400).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -53,30 +83,30 @@ const createAgenda = async (req, res) => {
             const newAgenda = await agendasTable.create(data);
             if (newAgenda[0] === 1) {
                 res.status(200).send({
-                    message: 'Agenda créé',
+                    message: AgendaCreated,
                     data: newAgenda
                 })
             } else {
                 res.status(422).send({
-                    message: 'Agenda pas créé'
+                    message: AgendaNotCreated
                 })
             }
         } else if (!idUserFound && idEmployeeFound) {
             res.status(422).send({
-                message: 'Utilisateur pas trouvé'
+                message: UserNoFound
             })
         } else if (!idEmployeeFound && idUserFound) {
             res.status(422).send({
-                message: 'Employé pas trouvé'
+                message: EmployeeNoFound
             })
         } else {
             res.status(422).send({
-                message: 'Utilisateur ET Employé pas trouvé'
+                message: UserEmployeeNoFoundd
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
 
@@ -101,34 +131,34 @@ const modifyAgenda = async (req, res) => {
                     })
                 if (updateAgenda[0] == 1) {
                     res.status(200).send({
-                        message: 'Agenda modifié'
+                        message: AgendaUpdated
                     })
                 } else {
                     res.status(422).send({
-                        message: 'Agenda pas modifié'
+                        message: AgendaNotUpdated
                     })
                 }
             } else if (!idUserFound && idEmployeeFound) {
                 res.status(422).send({
-                    message: 'Utilisateur pas trouvé'
+                    message: UserNoFound
                 })
             } else if (!idEmployeeFound && idUserFound) {
                 res.status(422).send({
-                    message: 'Employé pas trouvé'
+                    message: EmployeeNoFound
                 })
             } else {
                 res.status(422).send({
-                    message: 'Utilisateur ET Employé pas trouvé'
+                    message: UserEmployeeNoFound
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Agenda pas trouvé'
+                message: AgendaNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -144,23 +174,23 @@ const deleteAgenda = async (req, res) => {
             })
             if (deletedAgenda == 1) {
                 res.status(200).send({
-                    message: 'Agenda supprimé'
+                    message: AgendaDeleted
                 })
             } else {
                 res.status(422).send({
-                    message: 'Agenda pas supprimé'
+                    message: AgendaNotDeleted
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Agenda pas trouvé'
+                message: AgendaNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
-module.exports = { createAgenda, getAgenda, getAgendas, modifyAgenda, deleteAgenda };
+module.exports = { createAgenda, getAgenda, getAgendasByUser, getAgendas, modifyAgenda, deleteAgenda };

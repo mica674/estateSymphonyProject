@@ -1,3 +1,4 @@
+const { ClientFolderNoFound, SyntaxErrorMessage, NoClientFolderFound, ClientFolderCreated, ClientFolderNotCreated, UserNoFound, ClientFolderUpdated, ClientFolderNotUpdated, ClientFolderDeleted, ClientFolderNotDeleted } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const clientFoldersTable = db['clientFolders'];
 const usersTable = db['Users'];
@@ -11,12 +12,12 @@ const getClientFolder = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Dossier client pas trouvé'
+                message: ClientFolderNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -30,12 +31,12 @@ const getClientFolders = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas de dossier client trouvé'
+                message: NoClientFolderFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -49,22 +50,22 @@ const createClientFolder = async (req, res) => {
             const newClientFolders = await clientFoldersTable.create(data);
             if (newClientFolders[0] === 1) {
                 res.status(200).send({
-                    message: 'Dossier client créé',
+                    message: ClientFolderCreated,
                     data: newClientFolders
                 })
             } else {
                 res.status(422).send({
-                    message: 'Dossier client pas créé'
+                    message: ClientFolderNotCreated
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Utilisateur pas trouvé'
+                message: UserNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -85,26 +86,26 @@ const modifyClientFolder = async (req, res) => {
                     })
                 if (updateClientFolders[0] === 1) {
                     res.status(200).send({
-                        message: 'Dossier client modifié'
+                        message: ClientFolderUpdated
                     })
                 } else {
                     res.status(422).send({
-                        message: 'Dossier client pas modifié'
+                        message: ClientFolderNotUpdated
                     })
                 }
             } else {
                 res.status(422).send({
-                    message: 'Utilisateur pas trouvé'
+                    message: UserNoFound
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Dossier client pas trouvé'
+                message: ClientFolderNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -117,21 +118,21 @@ const deleteClientFolder = async (req, res) => {
             const deleteClientFolder = await clientFoldersTable.destroy({ where: { id: idClientFolder } });
             if (deleteClientFolder[0] === 1) {
                 res.status(200).send({
-                    message: 'Dossier client supprimé'
+                    message: ClientFolderDeleted
                 })
             } else {
                 res.status(422).send({
-                    message: 'Dossier client pas supprimé'
+                    message: ClientFolderNotDeleted
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Dossier client pas trouvé'
+                message: ClientFolderNoFound
             })
         }
     } catch (error) {
         res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
