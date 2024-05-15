@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const db = require('../../models/index.js');
+const { SyntaxErrorMessage, PropertyNoFound, PropertyNotDeleted, PropertyDeleted, PropertyArchived, PropertyNotArchived, PropertyRestored, PropertyNotRestored, PropertyNotUpdated, PropertyUpdated, DistrictNoFound, StatusNoFound, PropertyCreated, PropertyNotCreated, NoPropertyFoundWithSearch, NoPropertyFound, PropertyAlreadyArchived, PropertyAlreadyRestored } = require('../../config/Constants.js');
 const propertiesTable = db['Properties'];
 const districtsTable = db['Districts'];
 const statusesTable = db['Statuses'];
@@ -14,12 +15,12 @@ const getProperty = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Propriété pas trouvée'
+                message: PropertyNoFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -33,13 +34,14 @@ const getProperties = async (req, res) => {
             })
         } else {
             res.status(422).send({
-                message: 'Pas de propriété trouvée'
+                message: NoPropertyFound
             })
         }
     }
     catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        console.log(error.message);
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -80,6 +82,7 @@ const getPropertiesBySearch = async (req, res) => {
                     whereClause.idDistricts = data.district
                 }
             }
+            whereClause.archived = false;
             //Si aucune condition, toutes les propriétés seront affichées de la plus récente à la plus ancienne
             const propertiesBySearch = await propertiesTable.findAll({
                 where: whereClause,
@@ -92,14 +95,14 @@ const getPropertiesBySearch = async (req, res) => {
                 })
             } else {
                 res.status(422).send({
-                    message: 'Aucune propriété correspond à la recherche'
+                    message: NoPropertyFoundWithSearch,
                 })
 
             }
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -121,7 +124,7 @@ const createProperty = async (req, res) => {
                     const newProperties = await propertiesTable.create(data, { transaction: transaction });
                     if (!newProperties) {
                         res.status(422).send({
-                            message: 'La propriété n\'a pas été créée',
+                            message: PropertyNotCreated,
                         })
                         await transaction.rollback();
                     }
@@ -142,18 +145,18 @@ const createProperty = async (req, res) => {
                     // }
                     await transaction.commit();
                     res.status(200).send({
-                        message: 'Propriété créée',
+                        message: PropertyCreated,
                         data: newProperties
                     })
                 } else {
                     res.status(422).send({
-                        message: 'Status pas trouvé'
+                        message: StatusNoFound
                     })
                     await transaction.rollback();
                 }
             } else {
                 res.status(422).send({
-                    message: 'District pas trouvé'
+                    message: DistrictNoFound
                 })
                 await transaction.rollback();
             }
@@ -166,7 +169,7 @@ const createProperty = async (req, res) => {
     } catch (error) {
         await transaction.rollback();
         res.status(422).send({
-            message: 'Erreur de synthaxe de la requête.',
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -184,21 +187,95 @@ const modifyProperty = async (req, res) => {
                 })
             if (updateProperty[0] === 1) {
                 res.status(200).send({
-                    message: 'Propriété modifiée'
+                    message: PropertyUpdated
                 })
             } else {
                 res.status(422).send({
-                    message: 'Propriété pas modifiée'
+                    message: PropertyNotUpdated
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Propriété pas trouvée'
+                message: PropertyNoFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const archiveProperty = async (req, res) => {
+    try {
+        const idProperty = req.params.id;
+        const idPropertyFound = await propertiesTable.findByPk(idProperty);
+        if (!idPropertyFound.archived) {
+
+            if (idPropertyFound) {
+                const archiveProperty = await propertiesTable.update(
+                    { archived: 1 },
+                    { where: { id: idProperty } }
+                )
+                if (archiveProperty[0] === 1) {
+                    res.status(200).send({
+                        message: PropertyArchived
+                    })
+                } else {
+                    res.status(422).send({
+                        message: PropertyNotArchived
+                    })
+                }
+            } else {
+                res.status(422).send({
+                    message: PropertyNoFound
+                })
+            }
+        } else {
+            res.status(200).send({
+                message: PropertyAlreadyArchived
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const restoreProperty = async (req, res) => {
+    try {
+        const idProperty = req.params.id;
+        const idPropertyFound = await propertiesTable.findByPk(idProperty);
+        if (idPropertyFound.archived) {
+
+            if (idPropertyFound) {
+                const archiveProperty = await propertiesTable.update(
+                    { archived: 0 },
+                    { where: { id: idProperty } }
+                )
+                if (archiveProperty[0] === 1) {
+                    res.status(200).send({
+                        message: PropertyRestored
+                    })
+                } else {
+                    res.status(422).send({
+                        message: PropertyNotRestored,
+                    })
+                }
+            } else {
+                res.status(422).send({
+                    message: PropertyNoFound
+                })
+            }
+        } else {
+            res.status(200).send({
+                message: PropertyAlreadyRestored
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
@@ -213,25 +290,25 @@ const deleteProperty = async (req, res) => {
             });
             if (deleteProperty === 1) {
                 res.status(200).send({
-                    message: 'Propriété supprimée',
+                    message: PropertyDeleted,
                     data: deleteProperty
                 })
             } else {
                 res.status(422).send({
-                    message: 'Propriété pas supprimée'
+                    message: PropertyNotDeleted
                 })
             }
         } else {
             res.status(422).send({
-                message: 'Proprité pas trouvée'
+                message: PropertyNoFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
 
-module.exports = { getProperty, getProperties, getPropertiesBySearch, createProperty, modifyProperty, deleteProperty };
+module.exports = { getProperty, getProperties, getPropertiesBySearch, createProperty, modifyProperty, archiveProperty, restoreProperty, deleteProperty };

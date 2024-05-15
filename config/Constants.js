@@ -105,10 +105,17 @@ const HistoryNotDeleted = 'L\'historique n\'a pas été supprimé';
 //#region Properties
 const PropertyNoFound = 'La propriété n\'a pas été trouvée';
 const NoPropertyFound = 'Aucune propriété trouvée';
+const NoPropertyFoundWithSearch = 'Aucune propriété correspond à la recherche';
 const PropertyCreated = 'Propriété créée';
 const PropertyNotCreated = 'La propriété n\'a pas été créée';
 const PropertyUpdated = 'Propriété modifiée';
 const PropertyNotUpdated = 'La propriété n\'a pas été modifiée';
+const PropertyArchived = 'Propriété archivée';
+const PropertyNotArchived = 'La propriété n\'a pas été archivée';
+const PropertyAlreadyArchived = 'Propriété déjà archivée';
+const PropertyRestored = 'Propriété restaurée';
+const PropertyNotRestored = 'La propriété n\'a pas été restaurée';
+const PropertyAlreadyRestored = 'Propriété déjà restaurée';
 const PropertyDeleted = 'Propriété supprimée';
 const PropertyNotDeleted = 'La propriété n\'a pas été supprimée';
 //#endregion Properties
@@ -270,11 +277,18 @@ module.exports = {
     PropertyNotCreated,
     PropertyUpdated,
     PropertyNotUpdated,
+    PropertyArchived,
+    PropertyNotArchived,
+    PropertyAlreadyArchived,
+    PropertyRestored,
+    PropertyNotRestored,
+    PropertyAlreadyRestored,
     PropertyDeleted,
     PropertyNotDeleted,
 
     PropertyFolderNoFound,
     NoPropertyFolderFound,
+    NoPropertyFoundWithSearch,
     PropertyFolderCreated,
     PropertyFolderNotCreated,
     PropertyFolderUpdated,

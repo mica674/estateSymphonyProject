@@ -4600,6 +4600,8 @@ router.get('/properties', propertiesController.getProperties);
 router.post('/propertiesBySearch', propertiesController.getPropertiesBySearch);
 router.post('/property/create', upload, propertiesController.createProperty);
 router.put('/property/modify/:id', propertiesController.modifyProperty);
+router.put('/property/archive/:id', propertiesController.archiveProperty);
+router.put('/property/restore/:id', propertiesController.restoreProperty);
 router.delete('/property/delete/:id', propertiesController.deleteProperty);
 
 //------------------------------------- PROPERTIES FOLDERS ROUTER -------------------------------------
