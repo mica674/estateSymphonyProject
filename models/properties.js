@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     balcony: DataTypes.INTEGER,
     parking: DataTypes.BOOLEAN,
     rooms: DataTypes.INTEGER,
+    archived: DataTypes.BOOLEAN,
     idStatuses: DataTypes.INTEGER,
     idDistricts: DataTypes.INTEGER
   }, {

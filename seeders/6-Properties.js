@@ -20,6 +20,7 @@ module.exports = {
         rooms: 3,
         idStatus: 1,
         idDistrict: 73,
+        archived: false,
         createdAt: new Date(),
       },
       {
@@ -38,6 +39,7 @@ module.exports = {
         rooms: 1,
         idStatus: 1,
         idDistrict: 74,
+        archived: false,
         createdAt: new Date(),
       },
       {
@@ -56,6 +58,7 @@ module.exports = {
         rooms: 4,
         idStatus: 2,
         idDistrict: 73,
+        archived: false,
         createdAt: new Date(),
       },
       {
@@ -74,6 +77,7 @@ module.exports = {
         rooms: 3,
         idStatus: 2,
         idDistrict: 80,
+        archived: false,
         createdAt: new Date(),
       },
       {
@@ -92,6 +96,7 @@ module.exports = {
         rooms: 4,
         idStatus: 2,
         idDistrict: 80,
+        archived: false,
         createdAt: new Date(),
       },
     ], {});
