@@ -5,6 +5,92 @@ const jwt = require('jsonwebtoken');
 const { EmailAlreadyUsed, SyntaxErrorMessage, CredentialsFailed, UserCreated, InvalidToken, UserUpdatedPwd, UserUpdatedInfos, UserNotUpdatedInfos, UserNotUpdatedPwd, PwdOldInvalid, UserNoFound, NoUserFound } = require('../../config/Constants.js');
 require('dotenv').config();
 
+const getUserId = async (req, res) => {
+    try {
+        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
+        const user = await usersTable.findByPk(req.params.id);
+        if (user) {
+            res.status(200).send({
+                data: user
+            })
+        } else {
+            res.status(422).send({
+                message: UserNoFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getUserEmail = async (req, res) => {
+    try {
+        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
+        const UserEmail = req.params.email;
+        const user = await usersTable.findOne({ where: { email: UserEmail } });
+        if (user) {
+            res.status(200).send({
+                data: user
+            });
+        } else (
+            res.status(422).send({
+                message: NoUserFound
+            })
+        )
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getAllUser = async (req, res) => {
+    try {
+        //  Récupération de tous les utilisateurs
+        const users = await usersTable.findAll();
+        if (users) {
+            //  Envoie de tous les utilisateurs
+            res.status(200).send({
+                data: users
+            })
+        } else {
+            res.status(422).send({
+                message: NoUserFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getAllUserByIdRole = async (req, res) => {
+    try {
+        const idRoles = req.params.idRoles
+        //  Récupération de tous les utilisateurs selon le role
+        const users = await usersTable.findAll(
+            {
+                where: { idRoles: idRoles }
+            });
+        if (users) {
+            res.status(200).send({
+                data: users
+            })
+        } else {
+            res.status(422).send({
+                message: UserNoFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
 const createUser = async (req, res) => {
     try {
         //Test si l'adresse email existe déjà en base
@@ -33,7 +119,7 @@ const createUser = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -67,7 +153,7 @@ const loginUser = async (req, res) => {
         }
     } catch (error) {
         console.error(error.message);
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -93,7 +179,7 @@ const middleWare = async (req, res, next) => {
             next();
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -141,7 +227,7 @@ const modifyEmail = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -169,7 +255,7 @@ const modify = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -210,97 +296,11 @@ const modifyPassword = async (req, res) => {
         }
     } catch (error) {
         console.error('Erreur modification password : ', error.message);
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
 
-    }
-}
-const getUserId = async (req, res) => {
-    try {
-        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const user = await usersTable.findByPk(req.params.id);
-        if (user) {
-            res.status(200).send({
-                data: user
-            })
-        } else {
-            res.status(422).send({
-                message: UserNoFound
-            })
-        }
-    } catch (error) {
-        res.status(400).send({
-            message: SyntaxErrorMessage,
-            error: error.message
-        })
-    }
-}
-const getUserEmail = async (req, res) => {
-    try {
-        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const UserEmail = req.params.email;
-        const user = await usersTable.findOne({ where: { email: UserEmail } });
-        if (user) {
-            res.status(200).send({
-                data: user
-            });
-        } else (
-            res.status(422).send({
-                message: NoUserFound
-            })
-        )
-    } catch (error) {
-        res.status(400).send({
-            message: SyntaxErrorMessage,
-            error: error.message
-        })
-    }
-}
-const getAllUser = async (req, res) => {
-    try {
-        //  Récupération de tous les utilisateurs
-        const users = await usersTable.findAll();
-        if (users) {
-            //  Envoie de tous les utilisateurs
-            res.status(200).send({
-                data: users
-            })
-        } else {
-            res.status(422).send({
-                message: NoUserFound
-            })
-        }
-    } catch (error) {
-        res.status(400).send({
-            message: SyntaxErrorMessage,
-            error: error.message
-        })
-    }
-}
-const getAllUserByIdRole = async (req, res) => {
-    try {
-        const idRoles = req.params.idRoles
-        //  Récupération de tous les utilisateurs
-        const users = await usersTable.findAll(
-            {
-                where: { idRoles: idRoles }
-            });
-        if (users) {
-            res.status(200).send({
-                data: users
-            })
-        } else {
-            res.status(422).send({
-                message: UserNoFound
-            })
-        }
-    } catch (error) {
-        res.status(400).send({
-            message: SyntaxErrorMessage,
-            error: error.message
-        })
     }
 }
 module.exports = { createUser, loginUser, middleWare, modifyEmail, modifyPassword, getUserId, getUserEmail, getAllUser, getAllUserByIdRole, modify };

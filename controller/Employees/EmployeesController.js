@@ -1,11 +1,12 @@
-const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted } = require('../../config/Constants.js');
+const { where } = require('sequelize');
+const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted, UserNotUpdatedInfos } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const employeesTable = db['Employees'];
 const usersTable = db['Users'];
 
 const getEmployee = async (req, res) => {
     try {
-        const employee = await employeesTable.findByPk(req.params.id);
+        const employee = await employeesTable.findByPk(req.params.id, { include: 'userEmployees' });
         if (employee) {
             res.status(200).send({
                 data: employee
@@ -16,7 +17,7 @@ const getEmployee = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -24,7 +25,7 @@ const getEmployee = async (req, res) => {
 }
 const getEmployees = async (req, res) => {
     try {
-        const employees = await employeesTable.findAll();
+        const employees = await employeesTable.findAll({ include: 'userEmployees' });
         if (employees && employees.length > 0) {
             res.status(200).send({
                 data: employees
@@ -35,7 +36,7 @@ const getEmployees = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -45,23 +46,28 @@ const createEmployee = async (req, res) => {
     try {
         const data = { ...req.body };
         const idUser = data.idUsers;
+        const idRole = data.idRoles;
         const idUserFound = await usersTable.findOne({
-            where: { id: idUser },
-            include: 'userEmployees'
+            where: { id: idUser }
         });
         if (idUserFound) {
-            //Name value from to idUserFound
-            data = { ...req.body, name: idUserFound.firstname }
             const newEmployee = await employeesTable.create(data);
-            if (newEmployee[0] === 1) {
-                res.status(200).send({
-                    message: EmployeeCreated,
-                    data: newEmployee
-                })
+            if (newEmployee) {
+                const userRoleUpdated = await usersTable.update(
+                    { idRoles: idRole },
+                    { where: { id: idUser } }
+                )
+                if (userRoleUpdated) {
+
+                    res.status(200).send({
+                        message: EmployeeCreated,
+                        data: newEmployee
+                    })
+                } else {
+                    res.status(422).send({ message: EmployeeNotCreated, })
+                }
             } else {
-                res.status(422).send({
-                    message: EmployeeNotCreated
-                })
+                res.status(422).send({ message: EmployeeNotCreated, })
             }
         } else {
             res.status(422).send({
@@ -69,54 +75,71 @@ const createEmployee = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
 const modifyEmployee = async (req, res) => {
+    const transaction = await db.sequelize.transaction();
     try {
         const data = { ...req.body };
         const idEmployee = req.params.id;
+        const idUser = data.idUsers;
         const idEmployeeFound = await employeesTable.findByPk(idEmployee)
         if (idEmployeeFound) {
+
             const idUserFound = await usersTable.findOne({
                 where: { id: data.idUsers },
                 include: 'userEmployees'
             });
             if (idUserFound) {
+                const updateEmployeeData = { descriptions: data.descriptions, name: data.name }
+                const updateUserData = { firstname: data.firstname, lastname: data.lastname, email: data.email, phone: data.phone, idRoles: data.idRoles };
                 //Name value from to idUserFound
-                data = { ...req.body, name: idUserFound.firstname }
                 const updateEmployee = await employeesTable.update(
-                    data,
-                    {
-                        where: {
-                            id: idEmployee
-                        }
-                    })
+                    updateEmployeeData,
+                    { where: { id: idEmployee } },
+                    { transaction: transaction }
+                )
                 if (updateEmployee[0] == 1) {
-                    res.status(200).send({
-                        message: EmployeeUpdated,
-                        data: data
-                    })
+                    const updateUser = await usersTable.update(
+                        updateUserData,
+                        { where: { id: idUser } },
+                        { transaction: transaction }
+                    )
+                    if (updateUser[0] == 1) {
+                        await transaction.commit();
+                        res.status(200).send({
+                            message: EmployeeUpdated,
+                            data: data
+                        })
+                    } else {
+                        res.status(422).send({
+                            message: UserNotUpdatedInfos
+                        })
+                    }
                 } else {
                     res.status(422).send({
                         message: EmployeeNotUpdated
                     })
+                    await transaction.rollback();
                 }
             } else {
                 res.status(422).send({
                     message: UserNoFound
                 })
+                await transaction.rollback();
             }
         } else {
             res.status(422).send({
                 message: EmployeeNoFound
             })
+            await transaction.rollback();
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -131,7 +154,8 @@ const deleteEmployee = async (req, res) => {
             const deletedEmployee = await employeesTable.destroy({
                 where: { id: idEmployee }
             })
-            if (deletedEmployee[0] === 1) {
+            if (deletedEmployee) {
+                await usersTable.update({ idRoles: 4 }, { where: { id: idEmployeeFound.idUsers } })
                 res.status(200).send({
                     message: EmployeeDeleted,
                     data: idEmployeeFound
@@ -147,7 +171,7 @@ const deleteEmployee = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })

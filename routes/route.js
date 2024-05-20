@@ -2953,6 +2953,7 @@
  *                                  rooms: 3
  *                                  idStatus: 3
  *                                  idDistrict: 2
+ *                                  archived: 0
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3000,6 +3001,7 @@
  *                                  rooms: 3
  *                                  idStatus: 3
  *                                  idDistrict: 2
+ *                                  archived: 0
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                              -   id: 2
@@ -3018,6 +3020,149 @@
  *                                  rooms: 2
  *                                  idStatus: 1
  *                                  idDistrict: 53
+ *                                  archived: 0
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des propriétés
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de toutes les propriétés
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucune propriété n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de propriété trouvée
+*/
+//  GET PROPERTIES BY STATUS
+/**
+ * @swagger
+ * /propertiesByStatus/{id}:
+ *      get:
+ *          summary: Récupérer toutes les propriétés de la base de données avec un status déterminé par l'id
+ *          tags: [PROPERTIES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of property
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Récupère toutes les propriétés ajoutées dans la base de données avec un status déterminé par l'id
+ *          responses: 
+ *              200:
+ *                  description: Toutes les propriétés qui ont un idStatuses = :id
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                              -   id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 1
+ *                                  idDistrict: 2
+ *                                  archived: 0
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -   id: 2
+ *                                  price: 898
+ *                                  location: string
+ *                                  surface: 67
+ *                                  showerRoom: 12
+ *                                  energising: E
+ *                                  typeEnergic: Electrique
+ *                                  clicCount: 23
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 9
+ *                                  balcony: 0
+ *                                  parking: 0
+ *                                  rooms: 2
+ *                                  idStatus: 1
+ *                                  idDistrict: 53
+ *                                  archived: 0
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des propriétés
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de toutes les propriétés
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucune propriété n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de propriété trouvée
+*/
+//  GET ARCHIVED PROPERTIES
+/**
+ * @swagger
+ * /properties/archived:
+ *      get:
+ *          summary: Récupérer toutes les propriétés de la base de données ayant archived = 1
+ *          tags: [PROPERTIES]
+ *          description: Récupère toutes les propriétés ajoutées dans la base de données ayant archived = 1
+ *          responses: 
+ *              200:
+ *                  description: Toutes les propriétés qui ont archived = 1
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                              -   id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 1
+ *                                  idDistrict: 2
+ *                                  archived: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -   id: 2
+ *                                  price: 898
+ *                                  location: string
+ *                                  surface: 67
+ *                                  showerRoom: 12
+ *                                  energising: E
+ *                                  typeEnergic: Electrique
+ *                                  clicCount: 23
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 9
+ *                                  balcony: 0
+ *                                  parking: 0
+ *                                  rooms: 2
+ *                                  idStatus: 1
+ *                                  idDistrict: 53
+ *                                  archived: 1
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3141,6 +3286,7 @@
  *                              rooms: 2
  *                              idStatus: 1
  *                              idDistrict: 53
+ *                              archived: 0
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -3249,13 +3395,17 @@
  *                              type: int
  *                              description: ID du district affecté au bien
  *                              example: 1
+ *                          archived: 
+ *                              type: int
+ *                              description: Archivée (1) ou non (0)
+ *                              example: 0
  *      responses:
  *          200:
  *              description: Propriété modifiée avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Property updated
+ *                          message: Propriété modifiée
  *                          data: 
  *                              id: 2
  *                              price: 898
@@ -3273,6 +3423,123 @@
  *                              rooms: 2
  *                              idStatus: 1
  *                              idDistrict: 53
+ *                              archived: 0
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la modification de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Cette propriété n'a pas été trouvée
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété pas trouvée
+*/
+//  PROPERTY ARCHIVE 
+/**
+ * @swagger
+ * /property/archive/{id}:
+ *  put:
+ *      summary: Archiver une propriété
+ *      tags: [PROPERTIES]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID de la propriété
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *                  example: 1
+ *      description: Passe le booléen archived à 1 dans la base de données
+ *      responses:
+ *          200:
+ *              description: Propriété archivée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété archivée
+ *                          data: 
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
+ *                              archived: 1
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la modification de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Cette propriété n'a pas été trouvée
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété pas trouvée
+*/
+//  PROPERTY RESTORE 
+/**
+ * @swagger
+ * /property/restore/{id}:
+ *  put:
+ *      summary: Restaurer une propriété
+ *      tags: [PROPERTIES]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID de la propriété
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *                  example: 1
+ *      description: Passe le booléen archived à 0 dans la base de données
+ *      responses:
+ *          200:
+ *              description: Propriété restaurée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété restaurée
+ *                          data: 
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
+ *                              archived: 0
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -4598,6 +4865,8 @@ router.delete('/status/delete/:id', statusesController.deleteStatus);
 router.get('/property/:id', propertiesController.getProperty);
 router.get('/properties', propertiesController.getProperties);
 router.post('/propertiesBySearch', propertiesController.getPropertiesBySearch);
+router.get('/propertiesByStatus/:id', propertiesController.getPropertiesByStatus);
+router.get('/properties/archived', propertiesController.getPropertiesArchived);
 router.post('/property/create', upload, propertiesController.createProperty);
 router.put('/property/modify/:id', propertiesController.modifyProperty);
 router.put('/property/archive/:id', propertiesController.archiveProperty);
