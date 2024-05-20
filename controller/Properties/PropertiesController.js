@@ -107,7 +107,45 @@ const getPropertiesBySearch = async (req, res) => {
         })
     }
 }
-//#NAWELLE
+const getPropertiesByStatus = async (req, res) => {
+    try {
+        const idStatus = req.params.id;
+        const properties = await propertiesTable.findAll({ where: { idStatuses: idStatus, archived: 0 } })
+        if (properties) {
+            res.status(200).send({
+                data: properties
+            })
+        } else {
+            res.status(422).send({
+                message: NoPropertyFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getPropertiesArchived = async (req, res) => {
+    try {
+        const properties = await propertiesTable.findAll({ where: { archived: 1 } })
+        if (properties) {
+            res.status(200).send({
+                data: properties
+            })
+        } else {
+            res.status(422).send({
+                message: NoPropertyFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
 const createProperty = async (req, res) => {
     const transaction = await db.sequelize.transaction();
     try {
@@ -311,4 +349,4 @@ const deleteProperty = async (req, res) => {
     }
 }
 
-module.exports = { getProperty, getProperties, getPropertiesBySearch, createProperty, modifyProperty, archiveProperty, restoreProperty, deleteProperty };
+module.exports = { getProperty, getProperties, getPropertiesBySearch, getPropertiesByStatus, getPropertiesArchived, createProperty, modifyProperty, archiveProperty, restoreProperty, deleteProperty };
