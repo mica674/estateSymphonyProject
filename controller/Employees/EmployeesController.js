@@ -1,8 +1,40 @@
-const { where } = require('sequelize');
-const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted, UserNotUpdatedInfos } = require('../../config/Constants.js');
+const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted, UserNotUpdatedInfos, EmployeeDistrictNotCreated } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const employeesTable = db['Employees'];
+const districtsTable = db['Districts'];
 const usersTable = db['Users'];
+const employeesDistrictsTable = db['Employees_Districts'];
+const { sequelize } = require('../../models/index.js');
+
+//#region FONCTIONS ANNEXES 
+const createEmployeeDistrict = async (idEmployees, idDistricts, transaction) => {
+    try {
+        const data = { idEmployees, idDistricts };
+        const idDistrictFound = await districtsTable.findByPk(idDistricts);
+        if (idDistrictFound) {
+            const newEmployeeDistrict = await employeesDistrictsTable.create(data, { transaction });
+            if (newEmployeeDistrict) {
+                return newEmployeeDistrict;
+            } else {
+                transaction.rollback();
+                return null;
+            }
+        } else if (!idDistrictFound) {
+            transaction.rollback();
+            return null;
+        } else if (idDistrictFound) {
+            transaction.rollback();
+            return null;
+        } else {
+            transaction.rollback();
+            return null;
+        }
+    } catch (error) {
+        transaction.rollback();
+        console.log(error);
+    }
+}
+//#endregion FONCTIONS ANNEXES
 
 const getEmployee = async (req, res) => {
     try {
@@ -43,38 +75,52 @@ const getEmployees = async (req, res) => {
     }
 }
 const createEmployee = async (req, res) => {
+    const transaction = await sequelize.transaction();
     try {
         const data = { ...req.body };
         const idUser = data.idUsers;
         const idRole = data.idRoles;
         const idUserFound = await usersTable.findOne({
-            where: { id: idUser }
+            where: { id: idUser },
+            transaction
         });
         if (idUserFound) {
-            const newEmployee = await employeesTable.create(data);
+            const newEmployee = await employeesTable.create(data,
+                { transaction: transaction }
+            );
             if (newEmployee) {
                 const userRoleUpdated = await usersTable.update(
                     { idRoles: idRole },
-                    { where: { id: idUser } }
+                    { where: { id: idUser }, transaction: transaction }
                 )
-                if (userRoleUpdated) {
-
+                const employeeDistrictCreated = await createEmployeeDistrict(
+                    newEmployee.dataValues.id, data.idDistricts, transaction
+                );
+                if (userRoleUpdated && employeeDistrictCreated) {
+                    await transaction.commit();
                     res.status(200).send({
                         message: EmployeeCreated,
                         data: newEmployee
                     })
-                } else {
+                } else if (!userRoleUpdated) {
+                    await transaction.rollback();
                     res.status(422).send({ message: EmployeeNotCreated, })
+                } else if (!employeeDistrictCreated) {
+                    await transaction.rollback();
+                    res.status(422).send({ message: EmployeeDistrictNotCreated, })
                 }
             } else {
+                await transaction.rollback();
                 res.status(422).send({ message: EmployeeNotCreated, })
             }
         } else {
+            await transaction.rollback();
             res.status(422).send({
                 message: UserNoFound
             })
         }
     } catch (error) {
+        await transaction.rollback();
         res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
@@ -89,7 +135,6 @@ const modifyEmployee = async (req, res) => {
         const idUser = data.idUsers;
         const idEmployeeFound = await employeesTable.findByPk(idEmployee)
         if (idEmployeeFound) {
-
             const idUserFound = await usersTable.findOne({
                 where: { id: data.idUsers },
                 include: 'userEmployees'
@@ -116,29 +161,31 @@ const modifyEmployee = async (req, res) => {
                             data: data
                         })
                     } else {
+                        await transaction.rollback();
                         res.status(422).send({
                             message: UserNotUpdatedInfos
                         })
                     }
                 } else {
+                    await transaction.rollback();
                     res.status(422).send({
                         message: EmployeeNotUpdated
                     })
-                    await transaction.rollback();
                 }
             } else {
+                await transaction.rollback();
                 res.status(422).send({
                     message: UserNoFound
                 })
-                await transaction.rollback();
             }
         } else {
+            await transaction.rollback();
             res.status(422).send({
                 message: EmployeeNoFound
             })
-            await transaction.rollback();
         }
     } catch (error) {
+        await transaction.rollback();
         res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
