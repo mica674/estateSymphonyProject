@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Employees_Districts.init({
-    idDistricts: DataTypes.INTEGER,
-    idEmployees: DataTypes.INTEGER
+    idDistricts: { type: DataTypes.INTEGER, unique: true },
+    idEmployees: { type: DataTypes.INTEGER, unique: true }
   }, {
     sequelize,
     modelName: 'Employees_Districts',

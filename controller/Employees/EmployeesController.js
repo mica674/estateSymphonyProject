@@ -1,4 +1,4 @@
-const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted, UserNotUpdatedInfos, EmployeeDistrictNotCreated } = require('../../config/Constants.js');
+const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted, UserNotUpdatedInfos, EmployeeDistrictNotCreated, EmployeeOrDistrictAlreadyUsed } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const employeesTable = db['Employees'];
 const districtsTable = db['Districts'];
@@ -10,6 +10,7 @@ const { sequelize } = require('../../models/index.js');
 const createEmployeeDistrict = async (idEmployees, idDistricts, transaction) => {
     try {
         const data = { idEmployees, idDistricts };
+        console.log(data);
         const idDistrictFound = await districtsTable.findByPk(idDistricts);
         if (idDistrictFound) {
             const newEmployeeDistrict = await employeesDistrictsTable.create(data, { transaction });
@@ -57,7 +58,7 @@ const getEmployee = async (req, res) => {
 }
 const getEmployees = async (req, res) => {
     try {
-        const employees = await employeesTable.findAll({ include: 'userEmployees' });
+        const employees = await employeesTable.findAll({ include: ['userEmployees', 'employees_EmployeesDistrict'] });
         if (employees && employees.length > 0) {
             res.status(200).send({
                 data: employees
@@ -89,26 +90,40 @@ const createEmployee = async (req, res) => {
                 { transaction: transaction }
             );
             if (newEmployee) {
+                console.log(idUser);
                 const userRoleUpdated = await usersTable.update(
                     { idRoles: idRole },
                     { where: { id: idUser }, transaction: transaction }
                 )
-                const employeeDistrictCreated = await createEmployeeDistrict(
-                    newEmployee.dataValues.id, data.idDistricts, transaction
-                );
-                if (userRoleUpdated && employeeDistrictCreated) {
-                    await transaction.commit();
-                    res.status(200).send({
-                        message: EmployeeCreated,
-                        data: newEmployee
-                    })
-                } else if (!userRoleUpdated) {
+                const idDistrictAlreadyUsed = await employeesDistrictsTable.findOne({
+                    where: {
+                        idDistricts: data.idDistricts,
+                    }
+                })
+                if (!idDistrictAlreadyUsed) {
+                    const employeeDistrictCreated = await createEmployeeDistrict(
+                        newEmployee.dataValues.id, data.idDistricts, transaction
+                    );
+                    if (userRoleUpdated && employeeDistrictCreated) {
+                        await transaction.commit();
+                        res.status(200).send({
+                            message: EmployeeCreated,
+                            data: newEmployee
+                        })
+                    } else if (!userRoleUpdated) {
+                        await transaction.rollback();
+                        res.status(422).send({ message: EmployeeNotCreated, })
+                    } else if (!employeeDistrictCreated) {
+                        await transaction.rollback();
+                        res.status(422).send({ message: EmployeeDistrictNotCreated, })
+                    }
+                } else {
                     await transaction.rollback();
-                    res.status(422).send({ message: EmployeeNotCreated, })
-                } else if (!employeeDistrictCreated) {
-                    await transaction.rollback();
-                    res.status(422).send({ message: EmployeeDistrictNotCreated, })
+                    const employeeWithThisDistrict = await employeesTable.findByPk(idDistrictAlreadyUsed.dataValues.idEmployees);
+                    const userWithThisDistrict = await usersTable.findByPk(employeeWithThisDistrict.dataValues.idUsers);
+                    res.status(422).send({ message: `${EmployeeOrDistrictAlreadyUsed} : ${userWithThisDistrict.dataValues.firstname} ${userWithThisDistrict.dataValues.lastname}` })
                 }
+
             } else {
                 await transaction.rollback();
                 res.status(422).send({ message: EmployeeNotCreated, })

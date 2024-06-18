@@ -58,6 +58,7 @@ const EmployeeNotDeleted = 'L\'employé n\'a pas été supprimé';
 //#endregion Employees
 
 //#region EmployeesDistricts
+const EmployeeOrDistrictAlreadyUsed = 'Le quartier est déjà affecté à un autre employé'
 const EmployeeDistrictNoFound = 'L\'employé-Quartier n\'a pas été trouvé';
 const NoEmployeeDistrictFound = 'Aucun employé-Quartier trouvé';
 const EmployeeAndDistritNotFound = 'District ET Employé n\'ont pas été trouvés'
@@ -234,6 +235,7 @@ module.exports = {
     EmployeeDeleted,
     EmployeeNotDeleted,
 
+    EmployeeOrDistrictAlreadyUsed,
     EmployeeDistrictNoFound,
     NoEmployeeDistrictFound,
     EmployeeAndDistritNotFound,

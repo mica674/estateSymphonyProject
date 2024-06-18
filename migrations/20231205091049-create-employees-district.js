@@ -11,21 +11,19 @@ module.exports = {
       },
       idDistricts: {
         type: Sequelize.INTEGER,
-
+        unique: true,
         references: {
           model: 'districts',
           key: 'id',
         }
-
       },
       idEmployees: {
         type: Sequelize.INTEGER,
-
+        unique: true,
         references: {
           model: 'employees',
           key: 'id',
         }
-
       },
       createdAt: {
         allowNull: false,

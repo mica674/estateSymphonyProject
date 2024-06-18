@@ -2177,6 +2177,41 @@
  *                          example:
  *                              message: L'employé-Quartier n'a pas été trouvé
 */
+//  GET BY ID EMPLOYEE
+/**
+ * @swagger
+ * /employeesDistrictsByIdEmployee/{id}:
+ *      get:
+ *          summary: Pour trouver un employees-districts avec l'id d'un employé
+ *          tags: [EMPLOYEES_DISTRICTS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID de l'employé
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Obtenir un employees-districts selon l'id d'un employé
+ *          responses: 
+ *              200:
+ *                  description: employees-districts par l'id d'un employé
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 2
+ *                                  idEmployees: 73
+ *                                  idDistricts: 82
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              422:
+ *                  description: L'employé-Quartier n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'employé-Quartier n'a pas été trouvé
+*/
 //  GET ALL
 /**
  * @swagger
@@ -4841,6 +4876,7 @@ router.delete('/district/delete/:id', districtController.deleteDistrict);
 
 //------------------------------------- EMPLOYEES DISTRICTS ROUTER -------------------------------------
 router.get('/employeesDistricts/one/:id', employeeDistrictController.getEmployeeDistrict);
+router.get('/employeesDistrictsByIdEmployee/:id', employeeDistrictController.getEmpDisByIdEmployee);
 router.get('/employeesDistricts/all', employeeDistrictController.getEmployeesDistricts);
 router.post('/employeesDistricts/create', employeeDistrictController.createEmployeeDistrict);
 router.put('/employeesDistricts/modify/:id', employeeDistrictController.modifyEmployeeDistrict);

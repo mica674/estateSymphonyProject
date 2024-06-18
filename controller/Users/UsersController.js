@@ -29,6 +29,7 @@ const getUserEmail = async (req, res) => {
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
         const UserEmail = req.params.email;
+        console.log(UserEmail);
         const user = await usersTable.findOne({ where: { email: UserEmail } });
         if (user) {
             res.status(200).send({
@@ -137,7 +138,7 @@ const loginUser = async (req, res) => {
             if (compare) {
                 //Génération d'un token contenant les informations (id et email) & la clé secrète 'SECRET_TOKEN'
                 let token = jwt.sign({ email: user.email }, process.env.SECRET_TOKEN, {
-                    expiresIn: '1d'
+                    expiresIn: '1y'
                 });
                 //Réponse HTTP 200 et le token en data
                 res.status(200).send({ token: token });

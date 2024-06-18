@@ -1,8 +1,10 @@
-const { EmployeeDistrictNoFound, SyntaxErrorMessage, NoEmployeeDistrictFound, EmployeeDistrictCreated, EmployeeDistrictNotCreated, DistrictNoFound, EmployeeNoFound, EmployeeAndDistritNotFound, EmployeeDistrictUpdated, EmployeeDistrictNotUpdated, EmployeeDistrictDeleted, EmployeeDistrictNotDeleted } = require('../../config/Constants.js');
+const { EmployeeDistrictNoFound, SyntaxErrorMessage, NoEmployeeDistrictFound, EmployeeDistrictCreated, EmployeeDistrictNotCreated, DistrictNoFound, EmployeeNoFound, EmployeeAndDistritNotFound, EmployeeDistrictUpdated, EmployeeDistrictNotUpdated, EmployeeDistrictDeleted, EmployeeDistrictNotDeleted, EmployeeOrDistrictAlreadyUsed } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const employeesDistrictsTable = db['Employees_Districts'];
 const employeesTable = db['Employees'];
 const districtsTable = db['Districts'];
+const { Op } = require('sequelize');
+
 
 const getEmployeeDistrict = async (req, res) => {
     try {
@@ -17,7 +19,34 @@ const getEmployeeDistrict = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getEmpDisByIdEmployee = async (req, res) => {
+    try {
+        const idEmployee = req.params.id;
+        const employeeFound = await employeesTable.findByPk(idEmployee);
+        if (employeeFound) {
+            const employeeDistrict = await employeesDistrictsTable.findOne({ where: { idEmployees: idEmployee } });
+            if (employeeDistrict) {
+                res.status(200).send({
+                    data: employeeDistrict,
+                })
+            } else {
+                res.status(422).send({
+                    message: EmployeeDistrictNoFound
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: EmployeeNoFound,
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -36,7 +65,7 @@ const getEmployeesDistricts = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -51,7 +80,7 @@ const createEmployeeDistrict = async (req, res) => {
         const idDistrictFound = await districtsTable.findByPk(idDistrict);
         if (idEmployeesFound && idDistrictFound) {
             const newEmployeeDistrict = await employeesDistrictsTable.create(data);
-            if (newEmployeeDistrict[0] === 1) {
+            if (newEmployeeDistrict) {
                 res.status(200).send({
                     message: EmployeeDistrictCreated,
                     data: newEmployeeDistrict
@@ -75,7 +104,7 @@ const createEmployeeDistrict = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -85,47 +114,59 @@ const modifyEmployeeDistrict = async (req, res) => {
     try {
         const data = { ...req.body };
         const idEmployeeDistrict = req.params.id;
-        const idEmployeeDistrictFound = await employeesDistrictsTable.findByPk(idEmployeeDistrict);
-        if (idEmployeeDistrictFound) {
-            const idEmployee = data.idEmployees;
-            const idEmployeesFound = await employeesTable.findByPk(idEmployee);
-            const idDistrict = data.idDistricts;
-            const idDistrictFound = await districtsTable.findByPk(idDistrict);
-            if (idEmployeesFound && idDistrictFound) {
-                const updateEmployeeDistrict = await employeesDistrictsTable.update(
-                    data,
-                    {
-                        where: { id: idEmployeeDistrict }
+        const idDistrict = data.idDistricts;
+        const idEmployee = data.idEmployees;
+        const idDistrictAlreadyUsed = await employeesDistrictsTable.findOne({
+            where: {
+                idDistricts: idDistrict,
+                id: { [Op.ne]: idEmployeeDistrict }
+            }
+        })
+        if (!idDistrictAlreadyUsed) {
+            const idEmployeeDistrictFound = await employeesDistrictsTable.findByPk(idEmployeeDistrict);
+            if (idEmployeeDistrictFound) {
+                const idEmployeesFound = await employeesTable.findByPk(idEmployee);
+                const idDistrictFound = await districtsTable.findByPk(idDistrict);
+                if (idEmployeesFound && idDistrictFound) {
+                    const updateEmployeeDistrict = await employeesDistrictsTable.update(
+                        data,
+                        {
+                            where: { id: idEmployeeDistrict }
+                        })
+                    if (updateEmployeeDistrict) {
+                        res.status(200).send({
+                            message: EmployeeDistrictUpdated
+                        })
+                    } else {
+                        res.status(422).send({
+                            message: EmployeeDistrictNotUpdated
+                        })
+                    }
+                } else if (!idDistrictFound && idEmployeesFound) {
+                    res.status(422).send({
+                        message: DistrictNoFound
                     })
-                if (updateEmployeeDistrict[0] == 1) {
-                    res.status(200).send({
-                        message: EmployeeDistrictUpdated
+                } else if (!idEmployeesFound && idDistrictFound) {
+                    res.status(422).send({
+                        message: EmployeeNoFound,
                     })
                 } else {
                     res.status(422).send({
-                        message: EmployeeDistrictNotUpdated
+                        message: EmployeeAndDistritNotFound,
                     })
                 }
-            } else if (!idDistrictFound && idEmployeesFound) {
-                res.status(422).send({
-                    message: DistrictNoFound
-                })
-            } else if (!idEmployeesFound && idDistrictFound) {
-                res.status(422).send({
-                    message: EmployeeNoFound
-                })
             } else {
                 res.status(422).send({
-                    message: EmployeeAndDistritNotFound
+                    message: EmployeeDistrictNoFound,
                 })
             }
         } else {
             res.status(422).send({
-                message: EmployeeDistrictNoFound
+                message: EmployeeOrDistrictAlreadyUsed,
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
@@ -150,11 +191,11 @@ const deleteEmployeeDistrict = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(400).send({
+        res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
 
-module.exports = { getEmployeeDistrict, getEmployeesDistricts, createEmployeeDistrict, modifyEmployeeDistrict, deleteEmployeeDistrict }
+module.exports = { getEmployeeDistrict, getEmpDisByIdEmployee, getEmployeesDistricts, createEmployeeDistrict, modifyEmployeeDistrict, deleteEmployeeDistrict }

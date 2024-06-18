@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   Employees.init({
     descriptions: DataTypes.STRING,
     name: DataTypes.STRING,
-    idUsers: DataTypes.INTEGER
+    idUsers: { type: DataTypes.INTEGER, unique: true }
   }, {
     sequelize,
     modelName: 'Employees',
