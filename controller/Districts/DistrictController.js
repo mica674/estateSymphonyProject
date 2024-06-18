@@ -72,7 +72,7 @@ const modifyDistrict = async (req, res) => {
                 {
                     where: { id: idDistrict }
                 })
-            if (updateDistrict[0] == 1) {
+            if (updateDistrict[0] === 1) {
                 res.status(200).send({
                     message: DistrictUpdated,
                     data: data
