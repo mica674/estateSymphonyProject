@@ -1,14 +1,18 @@
 const db = require('../../models/index.js');
-const roleTable = db['Role'];
+const rolesTable = db['Roles'];
 
 const getRole = async (req, res) => {
     try {
-        const role = await roleTable.findByPk(req.params.id);
-
-        res.status(200).send({
-            message: `Role ${role.id}`,
-            data: role
-        })
+        const role = await rolesTable.findByPk(req.params.id);
+        if (role) {
+            res.status(200).send({
+                data: role
+            })
+        } else {
+            res.status(422).send({
+                message: 'Role pas trouvé'
+            })
+        }
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -16,16 +20,18 @@ const getRole = async (req, res) => {
         })
     }
 }
-
 const getAllRoles = async (req, res) => {
     try {
-        const roles = await roleTable.findAll();
-
-        res.status(200).send({
-            message: 'select all',
-            data: roles
-        })
-
+        const roles = await rolesTable.findAll();
+        if (roles && roles.length !== 0) {
+            res.status(200).send({
+                data: roles
+            })
+        } else {
+            res.status(422).send({
+                message: 'Pas de role trouvé'
+            })
+        }
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -33,16 +39,20 @@ const getAllRoles = async (req, res) => {
         })
     }
 }
-
 const createRole = async (req, res) => {
     try {
         let data = { ...req.body };
-        const newRole = await roleTable.create(data);
-
-        res.status(200).send({
-            message: 'Role créé',
-            data: newRole
-        })
+        const newRole = await rolesTable.create(data);
+        if (newRole[0] === 1) {
+            res.status(200).send({
+                message: 'Role créé',
+                data: newRole
+            })
+        } else {
+            res.status(422).send({
+                message: 'Role pas créé'
+            })
+        }
     } catch (error) {
         res.status(400).send({
             message: 'Erreur de synthaxe de la requête.',
@@ -50,21 +60,29 @@ const createRole = async (req, res) => {
         })
     }
 }
-
 const modifyRole = async (req, res) => {
     try {
         const { name } = req.body;
         const RoleId = req.params.id;
-        const updateRole = await roleTable.update(
-            { name: name },
-            {
-                where: {
-                    id: RoleId
-                }
-            })
-        if (updateRole[0] == 1) {
-            res.status(200).send({
-                message: 'Role modifié'
+        const idRoleFound = await rolesTable.findByPk(RoleId);
+        if (idRoleFound) {
+            const updateRole = await rolesTable.update(
+                { name: name },
+                {
+                    where: { id: RoleId }
+                })
+            if (updateRole[0] == 1) {
+                res.status(200).send({
+                    message: 'Role modifié'
+                })
+            } else {
+                res.status(422).send({
+                    message: 'Role pas modifié'
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: 'Role pas trouvé'
             })
         }
     } catch (error) {
@@ -74,22 +92,27 @@ const modifyRole = async (req, res) => {
         })
     }
 }
-
 const deleteRole = async (req, res) => {
     try {
         const RoleId = req.params.id;
-        const deletedRole = await roleTable.destroy({
-            where: { id: RoleId }
-        })
-        console.log(deletedRole);
-        if (deletedRole == 1) {
-            res.status(200).send({
-                message: 'Role supprimé'
+        const idRoleFound = await rolesTable.findByPk(RoleId);
+        if (idRoleFound) {
+            const deletedRole = await rolesTable.destroy({
+                where: { id: RoleId }
             })
-        }
-        else {
-            res.status(404).send({
-                message: '(DELETE) le role n\' a pas été supprimé'
+            if (deletedRole === 1) {
+                res.status(200).send({
+                    message: 'Role supprimé'
+                })
+            }
+            else {
+                res.status(422).send({
+                    message: 'Role pas supprimé'
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: 'Role pas trouvé'
             })
         }
     } catch (error) {

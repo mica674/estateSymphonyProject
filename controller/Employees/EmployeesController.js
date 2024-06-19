@@ -1,97 +1,243 @@
+const { EmployeeNoFound, SyntaxErrorMessage, NoEmployeeFound, EmployeeCreated, EmployeeNotCreated, UserNoFound, EmployeeUpdated, EmployeeNotUpdated, EmployeeDeleted, EmployeeNotDeleted, UserNotUpdatedInfos, EmployeeDistrictNotCreated, EmployeeOrDistrictAlreadyUsed } = require('../../config/Constants.js');
 const db = require('../../models/index.js');
 const employeesTable = db['Employees'];
+const districtsTable = db['Districts'];
+const usersTable = db['Users'];
+const employeesDistrictsTable = db['Employees_Districts'];
+const { sequelize } = require('../../models/index.js');
 
-const getEmployee = async (req,res)=>{
+//#region FONCTIONS ANNEXES 
+const createEmployeeDistrict = async (idEmployees, idDistricts, transaction) => {
     try {
-        const employee = await employeesTable.findByPk(req.params.id);
-
-        res.status(200).send({
-            message: `Employé ${employee.id}`,
-            data:employee
-        })
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })  
-    }
-}
-
-const getEmployees = async (req,res)=>{
-    try {
-        const employees = await employeesTable.findAll();
-
-        res.status(200).send({
-            message : 'select all',
-            data:   employees
-        })
-
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
-    }
-}
-
-const createEmployee = async (req,res)=>{
-    try {
-        let data = {...req.body};
-        const newEmployees = await employeesTable.create(data);
-        
-        res.status(200).send({
-            message : 'Employé créé',
-            data: newEmployees
-        })
-    } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
-    }
-}
-
-const modifyEmployee = async (req,res)=>{
-    try {
-        const {employee} = req.body;
-        const idEmployee = req.params.id;
-        const updateEmployee = await employeesTable.update(
-            {employee : employee},
-            {where :{
-                    id : idEmployee
-                }
-            })
-            if(updateEmployee[0] == 1){
-                res.status(200).send({
-                    message : 'Employé modifié'
-                })
+        const data = { idEmployees, idDistricts };
+        console.log(data);
+        const idDistrictFound = await districtsTable.findByPk(idDistricts);
+        if (idDistrictFound) {
+            const newEmployeeDistrict = await employeesDistrictsTable.create(data, { transaction });
+            if (newEmployeeDistrict) {
+                return newEmployeeDistrict;
+            } else {
+                transaction.rollback();
+                return null;
             }
+        } else if (!idDistrictFound) {
+            transaction.rollback();
+            return null;
+        } else if (idDistrictFound) {
+            transaction.rollback();
+            return null;
+        } else {
+            transaction.rollback();
+            return null;
+        }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
-            error: error.message
-        })
+        transaction.rollback();
+        console.log(error);
     }
 }
+//#endregion FONCTIONS ANNEXES
 
-const deleteEmployee =async (req, res)=>{
+const getEmployee = async (req, res) => {
     try {
-        const idEmployee = req.params.id;
-        const deletedEmployee = await employeesTable.destroy({
-            where  : {id : idEmployee}
-        })
-        console.log(deletedEmployee);
-        if (deletedEmployee == 1) {
+        const employee = await employeesTable.findByPk(req.params.id, { include: 'userEmployees' });
+        if (employee) {
             res.status(200).send({
-                message: 'Employé supprimé'
+                data: employee
+            })
+        } else {
+            res.status(422).send({
+                message: EmployeeNoFound
             })
         }
     } catch (error) {
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getEmployees = async (req, res) => {
+    try {
+        const employees = await employeesTable.findAll({ include: ['userEmployees', 'employees_EmployeesDistrict'] });
+        if (employees && employees.length > 0) {
+            res.status(200).send({
+                data: employees
+            })
+        } else {
+            res.status(422).send({
+                message: NoEmployeeFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const createEmployee = async (req, res) => {
+    const transaction = await sequelize.transaction();
+    try {
+        const data = { ...req.body };
+        const idUser = data.idUsers;
+        const idRole = data.idRoles;
+        const idUserFound = await usersTable.findOne({
+            where: { id: idUser },
+            transaction
+        });
+        if (idUserFound) {
+            const newEmployee = await employeesTable.create(data,
+                { transaction: transaction }
+            );
+            if (newEmployee) {
+                console.log(idUser);
+                const userRoleUpdated = await usersTable.update(
+                    { idRoles: idRole },
+                    { where: { id: idUser }, transaction: transaction }
+                )
+                const idDistrictAlreadyUsed = await employeesDistrictsTable.findOne({
+                    where: {
+                        idDistricts: data.idDistricts,
+                    }
+                })
+                if (!idDistrictAlreadyUsed) {
+                    const employeeDistrictCreated = await createEmployeeDistrict(
+                        newEmployee.dataValues.id, data.idDistricts, transaction
+                    );
+                    if (userRoleUpdated && employeeDistrictCreated) {
+                        await transaction.commit();
+                        res.status(200).send({
+                            message: EmployeeCreated,
+                            data: newEmployee
+                        })
+                    } else if (!userRoleUpdated) {
+                        await transaction.rollback();
+                        res.status(422).send({ message: EmployeeNotCreated, })
+                    } else if (!employeeDistrictCreated) {
+                        await transaction.rollback();
+                        res.status(422).send({ message: EmployeeDistrictNotCreated, })
+                    }
+                } else {
+                    await transaction.rollback();
+                    const employeeWithThisDistrict = await employeesTable.findByPk(idDistrictAlreadyUsed.dataValues.idEmployees);
+                    const userWithThisDistrict = await usersTable.findByPk(employeeWithThisDistrict.dataValues.idUsers);
+                    res.status(422).send({ message: `${EmployeeOrDistrictAlreadyUsed} : ${userWithThisDistrict.dataValues.firstname} ${userWithThisDistrict.dataValues.lastname}` })
+                }
+
+            } else {
+                await transaction.rollback();
+                res.status(422).send({ message: EmployeeNotCreated, })
+            }
+        } else {
+            await transaction.rollback();
+            res.status(422).send({
+                message: UserNoFound
+            })
+        }
+    } catch (error) {
+        await transaction.rollback();
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const modifyEmployee = async (req, res) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const data = { ...req.body };
+        const idEmployee = req.params.id;
+        const idUser = data.idUsers;
+        const idEmployeeFound = await employeesTable.findByPk(idEmployee)
+        if (idEmployeeFound) {
+            const idUserFound = await usersTable.findOne({
+                where: { id: data.idUsers },
+                include: 'userEmployees'
+            });
+            if (idUserFound) {
+                const updateEmployeeData = { descriptions: data.descriptions, name: data.name }
+                const updateUserData = { firstname: data.firstname, lastname: data.lastname, email: data.email, phone: data.phone, idRoles: data.idRoles };
+                //Name value from to idUserFound
+                const updateEmployee = await employeesTable.update(
+                    updateEmployeeData,
+                    { where: { id: idEmployee } },
+                    { transaction: transaction }
+                )
+                if (updateEmployee[0] == 1) {
+                    const updateUser = await usersTable.update(
+                        updateUserData,
+                        { where: { id: idUser } },
+                        { transaction: transaction }
+                    )
+                    if (updateUser[0] == 1) {
+                        await transaction.commit();
+                        res.status(200).send({
+                            message: EmployeeUpdated,
+                            data: data
+                        })
+                    } else {
+                        await transaction.rollback();
+                        res.status(422).send({
+                            message: UserNotUpdatedInfos
+                        })
+                    }
+                } else {
+                    await transaction.rollback();
+                    res.status(422).send({
+                        message: EmployeeNotUpdated
+                    })
+                }
+            } else {
+                await transaction.rollback();
+                res.status(422).send({
+                    message: UserNoFound
+                })
+            }
+        } else {
+            await transaction.rollback();
+            res.status(422).send({
+                message: EmployeeNoFound
+            })
+        }
+    } catch (error) {
+        await transaction.rollback();
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
 
-module.exports = {getEmployee, getEmployees, createEmployee, modifyEmployee, deleteEmployee}
+const deleteEmployee = async (req, res) => {
+    try {
+        const idEmployee = req.params.id;
+        const idEmployeeFound = await employeesTable.findByPk(idEmployee);
+        if (idEmployeeFound) {
+            const deletedEmployee = await employeesTable.destroy({
+                where: { id: idEmployee }
+            })
+            if (deletedEmployee) {
+                await usersTable.update({ idRoles: 4 }, { where: { id: idEmployeeFound.idUsers } })
+                res.status(200).send({
+                    message: EmployeeDeleted,
+                    data: idEmployeeFound
+                })
+            } else {
+                res.status(422).send({
+                    message: EmployeeNotDeleted
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: EmployeeNoFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+
+module.exports = { getEmployee, getEmployees, createEmployee, modifyEmployee, deleteEmployee }

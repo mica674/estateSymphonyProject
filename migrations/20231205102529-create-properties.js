@@ -48,25 +48,29 @@ module.exports = {
       rooms: {
         type: Sequelize.INTEGER
       },
-      idStatus: {
+      idStatuses: {
         allowNull: false,
         type: Sequelize.INTEGER,
 
-        references: { 
-          model : 'statuses',
-          key : 'id',
+        references: {
+          model: 'statuses',
+          key: 'id',
         }
 
       },
-      idDistrict: {
+      idDistricts: {
         allowNull: false,
         type: Sequelize.INTEGER,
 
-        references: { 
-          model : 'districts',
-          key : 'id',
+        references: {
+          model: 'districts',
+          key: 'id',
         }
 
+      },
+      archived: {
+        allowNull: true,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

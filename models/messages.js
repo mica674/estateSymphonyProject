@@ -5,24 +5,21 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
   class Messages extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // Messages.belongsTo(models.User, {
-      //   foreignKey : 'userId'
-      // })
-      // Messages.belongsTo(models.User, {
-      //   foreignKey : 'userId2'
-      // })
+      Messages.belongsTo(models.Users, {
+        foreignKey: 'idUsers',
+        as: 'userOwner'
+      })
+      Messages.belongsTo(models.Users, {
+        foreignKey: 'idUsersB',
+        as: 'userBuyer'
+      })
     }
   }
   Messages.init({
     message: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
-    userId2: DataTypes.INTEGER
+    idUsers: DataTypes.INTEGER,
+    idUsersB: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Messages',

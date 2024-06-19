@@ -1,188 +1,344 @@
-const { Sequelize } = require('sequelize');
+const { Op } = require('sequelize');
 const db = require('../../models/index.js');
+const { SyntaxErrorMessage, PropertyNoFound, PropertyNotDeleted, PropertyDeleted, PropertyArchived, PropertyNotArchived, PropertyRestored, PropertyNotRestored, PropertyNotUpdated, PropertyUpdated, DistrictNoFound, StatusNoFound, PropertyCreated, PropertyNotCreated, NoPropertyFoundWithSearch, NoPropertyFound, PropertyAlreadyArchived, PropertyAlreadyRestored } = require('../../config/Constants.js');
 const propertiesTable = db['Properties'];
+const districtsTable = db['Districts'];
+const statusesTable = db['Statuses'];
 const photosTable = db['Photos'];
 
 const getProperty = async (req, res) => {
-
     try {
-        //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
-        const property = await propertiesTable.findByPk(req.params.id);
-
-        res.status(200).send({
-            message: `Property ID : ${property.id}`,
-            data: property
-        })
-
+        const property = await propertiesTable.findByPk(req.params.id, { include: 'district' });
+        if (property) {
+            res.status(200).send({
+                data: property
+            })
+        } else {
+            res.status(422).send({
+                message: PropertyNoFound
+            })
+        }
     } catch (error) {
-
-        console.log(error);
-
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
-
-        // res.status(401).send({
-        //     message: 'Vous n\'êtes pas autorisé.',
-        //     error: error.message
-        // })
-
-        // res.status(403).send({
-        //     message: 'Vous n\'avez pas les droits d\'accès.',
-        //     error: error.message
-        // })
-
-        // res.status(404).send({
-        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
-        //     error: error.message
-        // })
-
-        // res.status(500).send({
-        //     message: 'Erreur serveur.',
-        //     error: error.message
-        // })
     }
 }
 const getProperties = async (req, res) => {
     try {
-        //  Récupération de tous les utilisateurs
         const properties = await propertiesTable.findAll();
-
-        //  Envoie de tous les utilisateurs
-        res.status(200).send({
-            message: 'Select all of properties',
-            data: properties
-        })
-
-    } catch (error) {
-        console.log(error);
-
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        if (properties && properties.length !== 0) {
+            res.status(200).send({
+                data: properties
+            })
+        } else {
+            res.status(422).send({
+                message: NoPropertyFound
+            })
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
-
-        // res.status(401).send({
-        //     message: 'Vous n\'êtes pas autorisé.',
-        //     error: error.message
-        // })
-
-        // res.status(403).send({
-        //     message: 'Vous n\'avez pas les droits d\'accès.',
-        //     error: error.message
-        // })
-
-        // res.status(404).send({
-        //     message: 'Le serveur n\'a pas trouvé la source demandé.',
-        //     error: error.message
-        // })
-
-        // res.status(500).send({
-        //     message: 'Erreur serveur.',
-        //     error: error.message
-        // })
     }
 }
-const createProperty = async (req, res, next) => {
-
-    //const transaction = await sequelize.transaction();
-    const transaction = await sequelize.transaction();
-
-    let files = req.files;
-
-    //console.log(files)
-    //console.log(req.body.name);
+const getPropertiesBySearch = async (req, res) => {
     try {
+        const data = { ...req.body };
+        if (data && data.length !== 0) {
+            console.log(data);
+            //Controle de la validité des valeurs des champs de recherche
+            const whereClause = {};
+            if (data.price) { whereClause.price = { [Op.lte]: data.price } }
+            if (data.surface) { whereClause.surface = { [Op.gte]: data.surface }; } // opérateur between pour gérer 2 valeurs plus tard
+            if (data.showerRoom) { whereClause.showerRoom = { [Op.gte]: data.showerRoom }; }
+            // if (data.energising) { 
+            //     let letterList = ['A', 'B','C','D','E','F','G'];
+            //     letterList.forEach(letter => {
+            //         if (letter === data.energising) {
 
-
-        const newProperties = await propertiesTable.create(req.body, { transaction: transaction });
-        if (!newProperties) {
-            throw "error"
-        }
-
-        let newData = [];
-
-        files.forEach(item => {
-            console.log(item);
-            let path = `propertiesPhotos/${item.filename}`
-            let newItem = {
-                idProperties: newProperties.id,
-                photo: path
+            //         }
+            //     });
+            //     whereClause.energising = data.energising; }
+            if (data.typeEnergic) { whereClause.typeEnergic = data.typeEnergic; }
+            if (data.heatingSystem) { whereClause.heatingSystem = data.heatingSystem; }
+            if (data.floor) { whereClause.floor = data.floor; }
+            if (data.balcony) { whereClause.balcony = data.balcony; }
+            if (data.parking) { whereClause.parking = data.parking; }
+            if (data.rooms) { whereClause.rooms = { [Op.gte]: data.rooms }; }
+            if (data.status) {
+                const statusFound = await statusesTable.findByPk(data.status);
+                if (statusFound) {
+                    whereClause.idStatuses = data.status
+                }
             }
-            newData.push(newItem);
+            if (data.district) {
+                const districtFound = await districtsTable.findByPk(data.district);
+                if (districtFound) {
+                    whereClause.idDistricts = data.district
+                }
+            }
+            whereClause.archived = false;
+            //Si aucune condition, toutes les propriétés seront affichées de la plus récente à la plus ancienne
+            const propertiesBySearch = await propertiesTable.findAll({
+                where: whereClause,
+                order: ['createdAt', 'updatedAt', 'price', 'surface']
 
-        });
+            })
+            if (propertiesBySearch && propertiesBySearch.length !== 0) {
+                res.status(200).send({
+                    data: propertiesBySearch
+                })
+            } else {
+                res.status(422).send({
+                    message: NoPropertyFoundWithSearch,
+                })
 
-        const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
-        if (!newPhoto) {
-            throw "error"
+            }
         }
-
-        await transaction.commit();
-
-        //const  = await propertiesTable.create(data);
-
-
-        res.status(200).send({
-            message: 'Create',
-            data: newProperties
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
         })
-
+    }
+}
+const getPropertiesByStatus = async (req, res) => {
+    try {
+        const idStatus = req.params.id;
+        const properties = await propertiesTable.findAll({ where: { idStatuses: idStatus, archived: 0 } })
+        if (properties) {
+            res.status(200).send({
+                data: properties
+            })
+        } else {
+            res.status(422).send({
+                message: NoPropertyFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const getPropertiesArchived = async (req, res) => {
+    try {
+        const properties = await propertiesTable.findAll({ where: { archived: 1 } })
+        if (properties) {
+            res.status(200).send({
+                data: properties
+            })
+        } else {
+            res.status(422).send({
+                message: NoPropertyFound
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const createProperty = async (req, res) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const photos = req.files;
+        if (photos && photos.length > 0) {
+            const data = req.body;
+            const idDistrict = data.idDistricts;
+            const idDistrictFound = await districtsTable.findByPk(idDistrict);
+            if (idDistrictFound) {
+                const idStatus = data.idStatuses;
+                const idStatusFound = await statusesTable.findByPk(idStatus);
+                if (idStatusFound) {
+                    const newProperties = await propertiesTable.create(data, { transaction: transaction });
+                    if (!newProperties) {
+                        await transaction.rollback();
+                        res.status(422).send({
+                            message: PropertyNotCreated,
+                        })
+                    }
+                    const newData = photos.map(photo => ({
+                        idProperties: newProperties.id,
+                        photo: `./public/propertiesPhotos/${photo.filename}`
+                    }));
+                    const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
+                    if (!newPhoto) {
+                        throw new Error('Photos not created');
+                    }
+                    await transaction.commit();
+                    res.status(200).send({
+                        message: PropertyCreated,
+                        data: newProperties
+                    })
+                } else {
+                    await transaction.rollback();
+                    res.status(422).send({
+                        message: StatusNoFound
+                    })
+                }
+            } else {
+                await transaction.rollback();
+                res.status(422).send({
+                    message: DistrictNoFound
+                })
+            }
+        } else {
+            await transaction.rollback();
+            res.status(422).send({
+                message: 'Aucune image trouvée'
+            })
+        }
     } catch (error) {
         await transaction.rollback();
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
 const modifyProperty = async (req, res) => {
-
     try {
-
         const newData = { ...req.body };
         const idProperty = req.params.id;
-        const updateProperty = await propertiesTable.update(
-            newData,
-            {
-                where: {
-                    id: idProperty
-                }
-            })
-        if (updateProperty[0] == 1) {
-            res.status(200).send({
-                message: 'Property updated'
+        const idPropertyFound = await propertiesTable.findByPk(idProperty);
+        if (idPropertyFound) {
+            const updateProperty = await propertiesTable.update(
+                newData,
+                {
+                    where: { id: idProperty }
+                })
+            if (updateProperty[0] === 1) {
+                res.status(200).send({
+                    message: PropertyUpdated
+                })
+            } else {
+                res.status(422).send({
+                    message: PropertyNotUpdated
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: PropertyNoFound
             })
         }
-
     } catch (error) {
-
-        console.log(error);
-
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
+}
+const archiveProperty = async (req, res) => {
+    try {
+        const idProperty = req.params.id;
+        const idPropertyFound = await propertiesTable.findByPk(idProperty);
+        if (!idPropertyFound.archived) {
 
+            if (idPropertyFound) {
+                const archiveProperty = await propertiesTable.update(
+                    { archived: 1 },
+                    { where: { id: idProperty } }
+                )
+                if (archiveProperty[0] === 1) {
+                    res.status(200).send({
+                        message: PropertyArchived
+                    })
+                } else {
+                    res.status(422).send({
+                        message: PropertyNotArchived
+                    })
+                }
+            } else {
+                res.status(422).send({
+                    message: PropertyNoFound
+                })
+            }
+        } else {
+            res.status(200).send({
+                message: PropertyAlreadyArchived
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
+}
+const restoreProperty = async (req, res) => {
+    try {
+        const idProperty = req.params.id;
+        const idPropertyFound = await propertiesTable.findByPk(idProperty);
+        if (idPropertyFound.archived) {
+
+            if (idPropertyFound) {
+                const archiveProperty = await propertiesTable.update(
+                    { archived: 0 },
+                    { where: { id: idProperty } }
+                )
+                if (archiveProperty[0] === 1) {
+                    res.status(200).send({
+                        message: PropertyRestored
+                    })
+                } else {
+                    res.status(422).send({
+                        message: PropertyNotRestored,
+                    })
+                }
+            } else {
+                res.status(422).send({
+                    message: PropertyNoFound
+                })
+            }
+        } else {
+            res.status(200).send({
+                message: PropertyAlreadyRestored
+            })
+        }
+    } catch (error) {
+        res.status(422).send({
+            message: SyntaxErrorMessage,
+            error: error.message
+        })
+    }
 }
 const deleteProperty = async (req, res) => {
     try {
-
-        const deleteProperty = await propertiesTable.destroy({ where: { id: req.params.id } });
-        res.status(201).send({
-            message: 'Property deleted',
-            data: deleteProperty
-        })
-
+        const idProperty = req.params.id;
+        const idPropertyFound = await propertiesTable.findByPk(idProperty);
+        if (idPropertyFound) {
+            const deleteProperty = await propertiesTable.destroy({
+                where: { id: idProperty }
+            });
+            if (deleteProperty === 1) {
+                res.status(200).send({
+                    message: PropertyDeleted,
+                    data: deleteProperty
+                })
+            } else {
+                res.status(422).send({
+                    message: PropertyNotDeleted
+                })
+            }
+        } else {
+            res.status(422).send({
+                message: PropertyNoFound
+            })
+        }
     } catch (error) {
-        console.log(error);
-
-        res.status(400).send({
-            message: 'Erreur de synthaxe de la requête.',
+        res.status(422).send({
+            message: SyntaxErrorMessage,
             error: error.message
         })
     }
 }
-module.exports = { getProperty, getProperties, createProperty, modifyProperty, deleteProperty };
+
+module.exports = { getProperty, getProperties, getPropertiesBySearch, getPropertiesByStatus, getPropertiesArchived, createProperty, modifyProperty, archiveProperty, restoreProperty, deleteProperty };

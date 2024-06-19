@@ -9,23 +9,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idDistrict: {
+      idDistricts: {
         type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'districts',
-          key : 'id',
+        unique: true,
+        references: {
+          model: 'districts',
+          key: 'id',
         }
-
       },
       idEmployees: {
         type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'employees',
-          key : 'id',
+        unique: true,
+        references: {
+          model: 'employees',
+          key: 'id',
         }
-
       },
       createdAt: {
         allowNull: false,

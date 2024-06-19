@@ -17,7 +17,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique : true //Définit l'adresse email comme unique
+        unique: true //Définit l'adresse email comme unique
       },
       password: {
         type: Sequelize.STRING
@@ -25,12 +25,11 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
-      idRole: {
+      idRoles: {
         type: Sequelize.INTEGER,
-
-        references: { 
-          model : 'roles',
-          key : 'id',
+        references: {
+          model: 'roles',
+          key: 'id',
         }
       },
       createdAt: {

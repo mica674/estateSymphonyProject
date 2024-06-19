@@ -43,6 +43,19 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération d'un utilisateur par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un utilisateur par son ID
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Utilisateur n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Utilisateur pas trouvé
 */
 //  GET BY EMAIL
 /**
@@ -83,8 +96,21 @@
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son EMAIL
+ *                          message: Erreur survenue lors de la récupération d\'un utilisateur par son email
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un utilisateur par son email
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un utilisateur par son email
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Utilisateur n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Utilisateur n'a pas été trouvé
 */
 //  GET ALL
 /**
@@ -100,7 +126,6 @@
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Select all users
  *                          data: 
  *                              -   id: 1
  *                                  firstname: Nawelle
@@ -136,19 +161,32 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération de tous les utilisateurs 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération de tous les utilisateurs
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Aucun utilisateur trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Pas d'utilisateur trouvé
 */
 //  GET ALL BY ID ROLE
 /**
  * @swagger
- * /users/{idRole}:
+ * /users/{idRoles}:
  *  get:
  *      summary: Récupérer tous les utilisateurs qui ont un role spécifique
  *      tags: [USER]
  *      parameters:
  *          -   in : path
- *              name: idRole
+ *              name: idRoles
  *              required: true
- *              description: idRole of User
+ *              description: idRoles of User
  *              schema:
  *                  type: integer
  *                  description: Id du role cible
@@ -178,6 +216,19 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération de tous les utilisateurs avec un role spécifique
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération de tous les utilisateurs avec un role spécifique
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération de tous les utilisateurs avec un role spécifique
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Aucun utilisateur trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Aucun utilisateur trouvé
 */
 //  CREATE
 /**
@@ -225,7 +276,7 @@
  *                              required: false
  *                              example: 4
  *      responses:
- *          200:
+ *          201:
  *              description: Utilisateur créé avec succès
  *              content:
  *                  application/json:
@@ -248,6 +299,12 @@
  *                      example:
  *                          message: L'adresse email existe déjà
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Email déjà utilisé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Email déjà utilisé
 */
 //  LOGIN
 /**
@@ -278,7 +335,7 @@
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Login successed
+ *                          message: Connexion réussi
  *                          data: 
  *                              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFsYmVydGxlYmVhdWdvc3NlQGdtYWlsLmNvbSIsImlhdCI6MTcwNTAwNzc3NywiZXhwIjoxNzA1MDk0MTc3fQ.7odUw0Z5gf3ONpAE5o96uyXgzlU6H3BweChaaj6IU2g
  *          400:
@@ -288,6 +345,19 @@
  *                      example:
  *                          message: La connexion a échouée
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la connexion d'un utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la connexion d'un utilisateur
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Adresse email et/ou mot de passe incorrect(s)
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Adresse email et/ou mot de passe incorrect(s)
 */
 //  MODIFY PASSWORD
 /**
@@ -323,6 +393,19 @@
  *                      example:
  *                          message: Echec de la modification du mot de passe
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la modification de mot de passe de l'utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la modification de mot de passe de l'utilisateur
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Ancien mot de passe incorrect
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Ancien mot de passe incorrect
 */
 //  MODIFY 
 /**
@@ -369,6 +452,19 @@
  *                      example:
  *                          message: Echec de la modification des informations de l'utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la modification des informations de l'utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la modification des informations de l'utilisateur
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Les informations n'ont pas été modifiées
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Les informations n'ont pas été modifiées
 */
 
 
@@ -408,6 +504,12 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération d\'un role par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Le role n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Le role n'a pas été trouvé
  */
 //  GET ALL
 /**
@@ -448,6 +550,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les roles
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *              description: Le role n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Le role n'a pas été trouvé
  */
 //  CREATE
 /**
@@ -469,7 +577,7 @@
  *                              description: Nom du role
  *                              example: userOverrited
  *      responses:
- *          200:
+ *          201:
  *              description: Role créé avec succès
  *              content:
  *                  application/json:
@@ -487,6 +595,12 @@
  *                      example:
  *                          message: L'adresse email existe déjà
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Le role n'a pas été créé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Le role n'a pas été créé
 */
 //  MODIFY 
 /**
@@ -523,44 +637,42 @@
  *                  application/json:
  *                      example:
  *                          message: Role modifié avec succès
- *          400:
- *              description: Erreur lors de la modification du role
+ *          422:
+ *              description: Le role n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du nom du role
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: Le role n'a pas été trouvé
 */
 //  DELETE
 /**
 * @swagger
-* /role/delete/{id}:
-*      delete:
-*          summary: To delete a 'Role' with his ID
-*          tags: [ROLE]
-*          parameters:
-*              -   in : path
-*                  name: id
-*                  description: ID of Role
-*                  schema: 
-*                      type: integer
-*                      required: true
-*                      example: 28
-*          description: Deleting a 'Role' in the database
-*          responses: 
-*              200:
-*                  description: Delete Role by ID
-*                  content:
-*                      application/json:
-*                          example:
-*                              message: Role supprimé
-*              400:
-*                description: Erreur lors de la suppression du role
-*                content: 
-*                    application/json:
-*                        example:
-*                            message: Erreur survenue lors de la suppression d\'un role par son ID
-*                            error: Message de l'erreur spécifique le cas échéant
+ * /role/delete/{id}:
+ *      delete:
+ *          summary: To delete a 'Role' with his ID
+ *          tags: [ROLE]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of Role
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 28
+ *          description: Deleting a 'Role' in the database
+ *          responses: 
+ *              200:
+ *                  description: Delete Role by ID
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Role supprimé
+ *              422:
+ *              description: Le role n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Le role n'a pas été trouvé
 */
 
 
@@ -580,6 +692,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1 
  *          description: Obtenir une estimation par son ID
  *          responses: 
  *              200:
@@ -590,6 +703,15 @@
  *                          message: Estimation 2
  *                          data:
  *                              id: 2
+ *                              location: Achat
+ *                              houseType: Maison
+ *                              surface: 90
+ *                              showerRoom: 1
+ *                              room: 5
+ *                              floor: 2
+ *                              balcony: 1
+ *                              parking: true
+ *                              idUsers: 1
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -599,6 +721,12 @@
  *                      example:
  *                          message: Erreur survenue lors de la récupération d\'une estimation par son ID
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *                  description: L'estimation n'a pas été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Estimation pas trouvée
  */
 //  GET ALL
 /**
@@ -616,22 +744,54 @@
  *                        example:
  *                         message: select all
  *                         data: 
- *                             -   id: 1
- *                                 name: A MODIFIER APRES TEST
- *                                 createdAt: 
- *                                 updatedAt: 
- *                             -   id: 2
- *                                 name: Manager
- *                                 createdAt: 
- *                                 updatedAt: 
- *                             -   id: 3
- *                                 name: Employee
- *                                 createdAt: 
- *                                 updatedAt: 
- *                             -   id: 4
- *                                 name: User
- *                                 createdAt: 
- *                                 updatedAt: 
+ *                             -    id: 1
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 4
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération de toutes les estimations
  *                  content: 
@@ -639,6 +799,85 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de toutes les estimations
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucune estimation n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas d'estimation trouvée
+ */
+//  GET ALL BY IDUSER
+/**
+ * @swagger
+ * /estimations/{id}:
+ *      get:
+ *          summary: Récupérer toutes les estimations d'un utilisateur de la base de données
+ *          tags: [ESTIMATION]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of User
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Récupère toutes les estimations d'un utilisateur dans la base de données
+ *          responses: 
+ *              200:
+ *                  description: Estimations ALL BY USER
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                             -    id: 1
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  location: Achat
+ *                                  houseType: Maison
+ *                                  surface: 90
+ *                                  showerRoom: 1
+ *                                  room: 5
+ *                                  floor: 2
+ *                                  balcony: 1
+ *                                  parking: true
+ *                                  idUsers: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération de toutes les estimations
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de toutes les estimations
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: L'estimation n'a pas été créée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'estimation n'a pas été créée
  */
 //  CREATE
 /**
@@ -652,48 +891,47 @@
  *          required: true
  *          content:
  *              application/json:
- *                  example:
- *                      location: Achat
- *                      houseType: Maison
- *                      surface: 90
- *                      showerRoom: 1
- *                      room: 5
- *                      floor: 2
- *                      balcony: 1
- *                      parking: true
- *                      idUser: 1
  *                  schema:
  *                      type: object
  *                      properties:
  *                          location:
  *                              type: string
- *                              description: Type de vente (achat/vente ou location) du bien
+ *                              description: Type de vente (Achat/Vente ou Location) du bien
+ *                              example: Achat
  *                          houseType:
  *                              type: string
  *                              description: Type de bien (maison, appartement ...)
+ *                              example: Maison
  *                          surface:
  *                              type: integer
  *                              description: Surface en m²
+ *                              example: 90
  *                          showerRoom:
  *                              type: integer
  *                              description: Nombre de pièces d'eau (salle de bain, salle de douche ...)
+ *                              example: 1
  *                          room:
  *                              type: integer
  *                              description: Nombre de pièces du bien
+ *                              example: 3
  *                          floor:
  *                              type: integer
  *                              description: Nombre d'étage du bien
+ *                              example: 1
  *                          balcony:
  *                              type: integer
  *                              description: Balcon/Terrasse
+ *                              example: 1
  *                          parking:
  *                              type: boolean
  *                              description: Présence d'une place parking (true/false)
+ *                              example: false
  *                          idUser:
  *                              type: integer
  *                              description: ID de l'utilisateur demandeur de l'estimation
+ *                              example: 2
  *      responses:
- *          200:
+ *          201:
  *              description: Estimation créée avec succès
  *              content:
  *                  application/json:
@@ -701,9 +939,15 @@
  *                          message: Estimation créée
  *                          data: 
  *                              id: 25
- *                              name: A MODIFIER APRES TEST
- *                              updatedAt: "2024-01-09T08:43:54.003Z"
- *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *                              location: Achat
+ *                              houseType: Maison
+ *                              surface: 90
+ *                              showerRoom: 1
+ *                              room: 5
+ *                              floor: 2
+ *                              balcony: 1
+ *                              parking: true
+ *                              idUsers: 1
  *          400:
  *              description: Erreur lors de la création de l'estimation
  *              content: 
@@ -711,6 +955,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'une estimation
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *                  description: L'estimation n'a pas été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'estimation n'a pas été trouvée
 */
 //  MODIFY 
 /**
@@ -727,58 +977,58 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations d'une estimation dans la base de données d'après son ID
  *      requestBody:
  *          required: true
  *          content:
  *              application/json:
- *                  example:
- *                      location: Achat
- *                      houseType: Maison
- *                      surface: 90
- *                      showerRoom: 1
- *                      room: 5
- *                      floor: 2
- *                      balcony: 1
- *                      parking: true
- *                      idUser: 1
  *                  schema:
  *                      type: object
  *                      properties:
  *                          location:
  *                              type: string
  *                              description: Type de vente (achat/vente ou location) du bien
+ *                              example: Achat
  *                          houseType:
  *                              type: string
  *                              description: Type de bien (maison, appartement ...)
+ *                              example: Maison
  *                          surface:
  *                              type: integer
  *                              description: Surface en m²
+ *                              example: 90
  *                          showerRoom:
  *                              type: integer
  *                              description: Nombre de pièces d'eau (salle de bain, salle de douche ...)
+ *                              example: 1
  *                          room:
  *                              type: integer
  *                              description: Nombre de pièces du bien
+ *                              example: 3
  *                          floor:
  *                              type: integer
  *                              description: Nombre d'étage du bien
+ *                              example: 1
  *                          balcony:
  *                              type: integer
  *                              description: Balcon/Terrasse
+ *                              example: 1
  *                          parking:
  *                              type: boolean
  *                              description: Présence d'une place parking (true/false)
+ *                              example: 1
  *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur demandeur de l'estimation
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Informations de l'estimation modifiées avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Estimation modifiée avec succès
+ *                          message: Estimation modifiée
  *          400:
  *              description: Erreur lors de la modification des informations de l'estimation
  *              content: 
@@ -786,6 +1036,12 @@
  *                      example:
  *                          message: Echec de la modification des informations de l'estimation
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *                  description: L'estimation n'a pas été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'estimation n'a pas été trouvée
 */
 //  DELETE
 /**
@@ -801,6 +1057,7 @@
 *                  schema: 
 *                      type: integer
 *                      required: true
+*                      example: 1
 *          description: Deleting a 'Estimation' in the database
 *          responses: 
 *              200:
@@ -808,14 +1065,20 @@
 *                  content:
 *                      application/json:
 *                          example:
-*                              message: Estimation supprimée
+*                              message: Estimation deleted
 *              400:
 *                description: Erreur lors de la suppression de l'estimation
 *                content: 
 *                    application/json:
 *                        example:
-*                            message: Erreur survenue lors de la suppression d\'une estimation par son ID
+*                            message: Erreur survenue lors de la suppression d'une estimation par son ID
 *                            error: Message de l'erreur spécifique le cas échéant
+*              422:
+*                description: Estimation n'a pas été trouvée
+*                content: 
+*                    application/json:
+*                        example:
+*                            message: L'estimation n'a pas été trouvée
 */
 
 
@@ -826,7 +1089,7 @@
  * @swagger
  * /message/{id}:
  *      get:
- *          summary: To find a 'Message' with his ID
+ *          summary: To find a 'Message' with his ID (OBSOLETE)
  *          tags: [MESSAGE]
  *          parameters:
  *              -   in : path
@@ -835,32 +1098,42 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un message par son ID
  *          responses: 
  *              200:
  *                  description: Message by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Message id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération du message
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Erreur survenue lors de la récupération d\'un message par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      application/json:
+ *                          example:
+ *                              message: Message id = 2
+ *                              data:
+ *                                  id: 2
+ *                                  message: Message test
+ *                                  idUser1: 1
+ *                                  idUser2: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du message
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur lors de la récupération du message
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur lors de la récupération du message
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Message n'a pas été trouvé
  */
 //  GET ALL
 /**
  * @swagger
  * /messages:
  *      get:
- *          summary: Récupérer tous les messages de la base de données
+ *          summary: Récupérer tous les messages de la base de données (OBSOLETE)
  *          tags: [MESSAGE]
  *          description: Récupère tous les messages ajoutés dans la base de données
  *          responses: 
@@ -872,21 +1145,29 @@
  *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 message: Contenu du message
+ *                                 idUser1: 1
+ *                                 idUser2: 2
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 message: Message avec immagination
+ *                                 idUser1: 2
+ *                                 idUser2: 1
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 3
- *                                 name: Employee
+ *                                 message: Bonjour je suis un message
+ *                                 idUser1: 1
+ *                                 idUser2: 2
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 4
- *                                 name: User
+ *                                 message: Bonjour moi aussi je suis un message
+ *                                 idUser1: 2
+ *                                 idUser2: 1
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
+ *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *              400:
  *                  description: Erreur lors de la récupération des messages
  *                  content: 
@@ -900,7 +1181,7 @@
  * @swagger
  * /message/create:
  *  post:
- *      summary: Créer un nouveau message
+ *      summary: Créer un nouveau message (OBSOLETE)
  *      tags: [MESSAGE]
  *      description: Crée un nouveau message dans la base de données
  *      requestBody:
@@ -913,24 +1194,29 @@
  *                          message:
  *                              type: string
  *                              description: Contenu du message
- *                          userIdSender:
+ *                              example: Exemple de message 
+ *                          idUser1:
  *                              type: integer
  *                              description: ID de l'utilisateur expéditeur du message
- *                          userIdReceiver:
+ *                              example: 1 
+ *                          idUser2:
  *                              type: integer
  *                              description: ID de l'utilisateur destinataire du message
+ *                              example: 2 
  *      responses:
- *          200:
+ *          201:
  *              description: Message créé avec succès
  *              content:
  *                  application/json:
  *                      example:
  *                          message: Message créé
  *                          data: 
- *                              id: 25
- *                              name: A MODIFIER APRES TEST
- *                              updatedAt: "2024-01-09T08:43:54.003Z"
- *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *                              id: 1
+ *                              message: Contenu du message
+ *                              idUser1: 1
+ *                              idUser2: 2
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T08:22:15.000Z"
  *          400:
  *              description: Erreur lors de la création du message
  *              content: 
@@ -944,7 +1230,7 @@
  * @swagger
  * /message/modify/{id}:
  *  put:
- *      summary: Modifier le contenu d'un message
+ *      summary: Modifier le contenu d'un message (OBSOLETE)
  *      tags: [MESSAGE]
  *      parameters:
  *          -   in: path
@@ -954,6 +1240,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie le contenu d'un message dans la base de données
  *      requestBody:
  *          required: true
@@ -965,6 +1252,15 @@
  *                          message:
  *                              type: string
  *                              description: Contenu du message
+ *                              example: Message type
+ *                          idUser1:
+ *                              type: string
+ *                              description: Id de l'utilisateur expéditeur
+ *                              example: 1
+ *                          idUser2:
+ *                              type: string
+ *                              description: Id de l'utilisateur destinataire
+ *                              example: 2
  *      responses:
  *          200:
  *              description: Contenu du message modifié avec succès
@@ -985,7 +1281,7 @@
 * @swagger
 * /message/delete/{id}:
 *      delete:
-*          summary: To delete a 'Message' with his ID
+*          summary: To delete a 'Message' with his ID (OBSOLETE)
 *          tags: [MESSAGE]
 *          parameters:
 *              -   in : path
@@ -994,6 +1290,7 @@
 *                  schema: 
 *                      type: integer
 *                      required: true
+*                      example: 1
 *          description: Deleting a 'Message' in the database
 *          responses: 
 *              200:
@@ -1007,7 +1304,7 @@
 *                content: 
 *                    application/json:
 *                        example:
-*                            message: Erreur survenue lors de la suppression d\'un message par son ID
+*                            message: Erreur survenue lors de la suppression d'un message par son ID
 *                            error: Message de l'erreur spécifique le cas échéant
 */
 
@@ -1024,30 +1321,38 @@
  *          parameters:
  *              -   in : path
  *                  name: id
-
  *                  description: ID du commentaire
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un commentaire par son ID
  *          responses: 
  *              200:
  *                  description: Commentaire par son ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          Comments: Comment id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération du commentaire 
+ *                      application/json:
+ *                          example:
+ *                              Comments: Comment id = 1
+ *                              data:
+ *                                  id: 1
+ *                                  content: Contenu du message
+ *                                  idUsers: 1 
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du commentaire 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération du commentaire par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *              description: Le commentaire n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Erreur survenue lors de la récupération du commentaire par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: Le commentaire n'a pas été trouvé
  */
 //  GET ALL
 /**
@@ -1066,28 +1371,26 @@
  *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 content: Contenu du message
+ *                                 idUsers: 23
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 content: Contenu du message
+ *                                 idUsers: 52
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
+ *                                 content: Contenu du message
+ *                                 idUsers: 74
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
- *                             -   id: 4
- *                                 name: User
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
- *              400:
- *                  description: Erreur lors de la récupération de tous les commentaires
- *                  content: 
- *                      application/json:
- *                          example:
- *                              message: Erreur survenue lors de la récupération de tous les commentaires
- *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *              description: Aucun commentaire trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Aucun commentaire trouvé
  */
 //  CREATE
 /**
@@ -1104,31 +1407,33 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          userID:
+ *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur auteur du commentaire
+ *                              example: 1
  *                          comment:
  *                              type: string
  *                              description: Contenu du commentaire
+ *                              example: Exemple de commentaire
  *      responses:
  *          200:
  *              description: Commentaire créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Commentaire créé
+ *                          message: Comment created
  *                          data: 
- *                              id: 25
- *                              name: A MODIFIER APRES TEST
+ *                              id: 1
+ *                              idUsers: 1
+ *                              comment: Exemple de commentaire
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
- *          400:
- *              description: Erreur lors de la création du commentaire
+ *          422:
+ *              description: Le commentaire n'a pas été créé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Une erreur est survenue lors de la création du commentaire
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: Le commentaire n'a pas été créé
 */
 //  MODIFY 
 /**
@@ -1145,6 +1450,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie le contenu d'un commentaire dans la base de données
  *      requestBody:
  *          required: true
@@ -1156,20 +1462,20 @@
  *                          comment:
  *                              type: string
  *                              description: Contenu du commentaire
+ *                              example: Nouveau commentaire
  *      responses:
  *          200:
  *              description: Commentaire modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Commentaire modifié avec succès
- *          400:
- *              description: Erreur lors de la modification du commentaire
+ *                          message: Comment was updated
+ *          422:
+ *              description: Le commentaire n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du contenu du commentaire
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: Le commentaire n'a pas été trouvé
 */
 //  DELETE
 /**
@@ -1185,6 +1491,7 @@
 *                  schema: 
 *                      type: integer
 *                      required: true
+*                      example: 1
 *          description: Supprime le commentaire dans la base de données
 *          responses: 
 *              200:
@@ -1192,14 +1499,13 @@
 *                  content:
 *                      application/json:
 *                          example:
-*                              message: Commentaire supprimé
-*              400:
-*                description: Erreur lors de la suppression du commentaire
-*                content: 
-*                    application/json:
-*                        example:
-*                            message: Erreur survenue lors de la suppression du commentaire par son ID
-*                            error: Message de l'erreur spécifique le cas échéant
+*                              message: Comment deleted
+*              422:
+ *              description: Le commentaire n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Le commentaire n'a pas été trouvé
 */
 
 
@@ -1219,25 +1525,35 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un dossier client par son ID
  *          responses: 
  *              200:
  *                  description: ClientFolder by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Dossier client id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération du dossier client 
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Erreur survenue lors de la récupération du dossier client par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      application/json:
+ *                          example:
+ *                              message: Dossier client id = 2
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  name: Nom du fichier
+ *                                  pdf: Chemin du fichier
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération du dossier client 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération du dossier client par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Le dossier client n'a pas été trouvé 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Le dossier client n'a pas été trouvé
  */
 //  GET ALL
 /**
@@ -1253,22 +1569,29 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 idUsers: 32
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 idUsers: 143
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
+ *                                 idUsers: 235
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 4
- *                                 name: User
+ *                                 idUsers: 1245
+ *                                 name: Nom du fichier
+ *                                 pdf: Chemin du fichier
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *              400:
@@ -1278,6 +1601,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les dossiers clients
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucun dossier client trouvé 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Aucun dossier client trouvé
  */
 //  CREATE
 /**
@@ -1294,25 +1623,30 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          userId:
+ *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur
+ *                              example: 1
  *                          name:
  *                              type: string
  *                              description: Nom du dossier
+ *                              example: Folder name
  *                          pdf:
  *                              type: string
  *                              description: Nom du fichier pdf
+ *                              example: File name
  *      responses:
  *          200:
  *              description: Dossier client créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Dossier client créé
+ *                          message: Client folder created
  *                          data: 
- *                              userId: 2
- *                              name: A MODIFIER APRES TEST
+ *                              id: 3
+ *                              idUsers: 2
+ *                              name: Nom du dossier
+ *                              pdfcreate: Nom du fichier
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
  *          400:
@@ -1322,6 +1656,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création du dossier client
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: L'utilisateur n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: L'utilisateur n'a pas été trouvé
 */
 //  MODIFY 
 /**
@@ -1338,6 +1678,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie le contenu d'un dossier client dans la base de données
  *      requestBody:
  *          required: true
@@ -1346,29 +1687,31 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          userId:
+ *                          idUsers:
  *                              type: integer
  *                              description: Id de l'utilisateur
+ *                              example: 1
  *                          name:
  *                              type: string
  *                              description: Nom du dossier
+ *                              example: Nom du dossier modifié
  *                          pdf:
  *                              type: string
  *                              description: Nom du fichier pdf
+ *                              example: Nom du fichier modifié
  *      responses:
  *          200:
  *              description: Dossier client modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Dossier client modifié avec succès
- *          400:
- *              description: Erreur lors de la modification du dossier client
+ *                          message: Client folder modifié
+ *          422:
+ *              description: Le dossier client n'a pas été trouvé
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification du dossier client
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: Le dossier client n'a pas été trouvé
 */
 //  DELETE
 /**
@@ -1384,6 +1727,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le dossier client dans la base de données
  *          responses: 
  *              200:
@@ -1391,14 +1735,13 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Dossier client supprimé
- *              400:
- *                description: Erreur lors de la suppression du dossier client
+ *                              message: Client folder supprimé
+ *              422:
+ *                description: Le dossier client n'a pas été trouvé
  *                content: 
  *                    application/json:
  *                        example:
- *                            message: Erreur survenue lors de la suppression du dossier client par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
+ *                            message: Le dossier client n'a pas été trouvé
  */
 
 
@@ -1418,25 +1761,27 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un employé par son ID
  *          responses: 
  *              200:
  *                  description: Employee by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Employé id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la récupération de l'employé 
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Erreur survenue lors de la récupération de l'employé par son ID
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  descriptions: Description employé
+ *                                  name: Mickaël
+ *                                  idUsers: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              422:
+ *                  description: L'employé n'a pas été trouvé 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'employé n'a pas été trouvé
  */
 //  GET ALL
 /**
@@ -1452,31 +1797,31 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 descriptions: Description employé
+ *                                 name: Mickaël
+ *                                 idUsers: 2
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: "2024-01-09T08:22:15.000Z"
+ *                                 updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 descriptions: Description employé
+ *                                 name: Nicolas
+ *                                 idUsers: 52
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
+ *                                 descriptions: Description employé
+ *                                 name: Alfred
+ *                                 idUsers: 5432
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
- *                             -   id: 4
- *                                 name: User
- *                                 createdAt: "2024-01-08T14:47:27.000Z"
- *                                 updatedAt: null
- *              400:
- *                  description: Erreur lors de la récupération des employés
+ *              422:
+ *                  description: Aucun employé trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération de tous les employés
- *                              error: Message de l'erreur spécifique le cas échéant
+ *                              message: Aucun employé trouvé
  */
 //  CREATE
 /**
@@ -1493,34 +1838,34 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          description:
+ *                          descriptions:
  *                              type: string
  *                              description: Description de l'employé
- *                          name:
- *                              type: string
- *                              description: Nom de l'employé
- *                          idUser:
+ *                              example: Description de l'employé
+ *                          idUsers:
  *                              type: integer
  *                              description: ID utilisateur (foreign key)
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Employé créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employé créé
+ *                          message: Employee created
  *                          data: 
- *                              userId: 2
- *                              name: A MODIFIER APRES TEST
+ *                              id: 2
+ *                              descriptions: Description de l'employé
+ *                              idUsers: 2
+ *                              name: Nom de l'employé
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
- *          400:
- *              description: Erreur lors de la création de l'employé
+ *          422:
+ *              description: L'employé n'a pas été créé 
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Une erreur est survenue lors de la création de l'employé
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: L'employé n'a pas été créé
 */
 //  MODIFY 
 /**
@@ -1537,6 +1882,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations de l'employé dans la base de données
  *      requestBody:
  *          required: true
@@ -1548,26 +1894,28 @@
  *                          descriptions:
  *                              type: string
  *                              description: Description de l'employé
- *                          name:
- *                              type: string
- *                              description: Nom de l'employé
- *                          idUser:
+ *                              example: Description de l'employé
+ *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Employé modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employé modifié avec succès
- *          400:
- *              description: Erreur lors de la modification de l'employé
+ *                          message: Employee updated
+ *                          data: 
+ *                              descriptions: Description de l'employé 
+ *                              idUsers: 2 
+ *                              name: Mickaël
+ *          422:
+ *              description: L'employé n'a pas été trouvé 
  *              content: 
  *                  application/json:
  *                      example:
- *                          message: Echec de la modification de l'employé
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: L'employé n'a pas été trouvé
 */
 //  DELETE
 /**
@@ -1583,6 +1931,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime l'employé dans la base de données
  *          responses: 
  *              200:
@@ -1590,14 +1939,18 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Employé supprimé
- *              400:
- *                description: Erreur lors de la suppression de l'employé
- *                content: 
- *                    application/json:
- *                        example:
- *                            message: Erreur survenue lors de la suppression de l'employé par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
+ *                              message: Employee deleted
+ *                              data: 
+ *                                  id: 2 
+ *                                  descriptions: Description de l'employé 
+ *                                  name: Mickaël 
+ *                                  idUsers: 2 
+ *              422:
+ *                  description: L'employé n'a pas été trouvé 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'employé n'a pas été trouvé
  */
 
 
@@ -1617,25 +1970,25 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un district par son ID
  *          responses: 
  *              200:
  *                  description: District by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: District id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *              400:
- *                  description: Erreur lors de la récupération du district 
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 2
+ *                                  name: Centre-ville
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              422:
+ *                  description: Le district n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération du district par son ID
- *                              error: Message de l'erreur spécifique le cas échéant
+ *                              message: Le district n'a pas été trouvé
  */
 //  GET ALL
 /**
@@ -1651,31 +2004,29 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all
  *                         data: 
  *                             -   id: 1
- *                                 name: MODIFIER APRES TEST
+ *                                 name: Centre-ville
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -   id: 2
- *                                 name: Manager
+ *                                 name: Quartier Nord
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 3
- *                                 name: Employee
+ *                                 name: Quartier Sud
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
  *                             -   id: 4
- *                                 name: User
+ *                                 name: Gare
  *                                 createdAt: "2024-01-08T14:47:27.000Z"
  *                                 updatedAt: null
- *              400:
- *                  description: Erreur lors de la récupération des districts
+ *              422:
+ *                  description: Le district n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération de tous les districts
- *                              error: Message de l'erreur spécifique le cas échéant
+ *                              message: Le district n'a pas été trouvé
  */
 //  CREATE
 /**
@@ -1695,25 +2046,25 @@
  *                          name:
  *                              type: string
  *                              description: Nom du district
+ *                              example: Quartier
  *      responses:
  *          200:
  *              description: District créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: District créé
+ *                          message: District created
  *                          data: 
  *                              id: 2
- *                              name: A MODIFIER APRES TEST
+ *                              name: Quartier
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
- *          400:
- *              description: Erreur lors de la création du district
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Une erreur est survenue lors de la création du district
- *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *                  description: Le district n'a pas été créé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Le district n'a pas été créé
 */
 //  MODIFY 
 /**
@@ -1730,6 +2081,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du district dans la base de données
  *      requestBody:
  *          required: true
@@ -1741,20 +2093,20 @@
  *                          name:
  *                              type: string
  *                              description: Nom du district
+ *                              example: Quartier
  *      responses:
  *          200:
  *              description: District modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: District modifié avec succès
- *          400:
- *              description: Erreur lors de la modification du district
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Echec de la modification du district
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: District updated
+ *          422:
+ *                  description: Le district n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Le district n'a pas été trouvé
 */
 //  DELETE
 /**
@@ -1770,6 +2122,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le district dans la base de données
  *          responses: 
  *              200:
@@ -1778,13 +2131,12 @@
  *                      application/json:
  *                          example:
  *                              message: District deleted
- *              400:
- *                description: Erreur lors de la suppression du district
- *                content: 
- *                    application/json:
- *                        example:
- *                            message: Erreur survenue lors de la suppression du district par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Le district n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Le district n'a pas été trouvé
  */
 
 
@@ -1804,32 +2156,66 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un employees-districts par son ID
  *          responses: 
  *              200:
  *                  description: employees-districts by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: employees-districts id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              idEmployees: 1
- *                              idDistricts: 3
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *              400:
- *                  description: Erreur lors de la récupération du employees-districts 
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 2
+ *                                  idEmployees: 73
+ *                                  idDistricts: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              422:
+ *                  description: L'employé-Quartier n'a pas été trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération du employees-districts par son ID
- *                              error: Message de l'erreur spécifique le cas échéant
+ *                              message: L'employé-Quartier n'a pas été trouvé
+*/
+//  GET BY ID EMPLOYEE
+/**
+ * @swagger
+ * /employeesDistrictsByIdEmployee/{id}:
+ *      get:
+ *          summary: Pour trouver un employees-districts avec l'id d'un employé
+ *          tags: [EMPLOYEES_DISTRICTS]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID de l'employé
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Obtenir un employees-districts selon l'id d'un employé
+ *          responses: 
+ *              200:
+ *                  description: employees-districts par l'id d'un employé
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 2
+ *                                  idEmployees: 73
+ *                                  idDistricts: 82
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              422:
+ *                  description: L'employé-Quartier n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'employé-Quartier n'a pas été trouvé
 */
 //  GET ALL
 /**
  * @swagger
- * /employees-districts/all:
+ * /employeesDistricts/all:
  *      get:
  *          summary: Récupérer tous les employees-districts de la base de données
  *          tags: [EMPLOYEES_DISTRICTS]
@@ -1840,35 +2226,33 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all of employees-districts
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  idEmployees: 1
+ *                             -    id: 1
+ *                                  idEmployees: 73
  *                                  idDistricts: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -    id: 2
- *                                  idEmployees: 1
+ *                                  idEmployees: 74
  *                                  idDistricts: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T08:22:15.000Z"
  *                             -    id: 3
- *                                  idEmployees: 1
+ *                                  idEmployees: 75
  *                                  idDistricts: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T08:22:15.000Z"
- *              400:
- *                  description: Erreur lors de la récupération des employees-districts
+ *              422:
+ *                  description: Aucun employé-Quartier trouvé
  *                  content: 
  *                      application/json:
  *                          example:
- *                              message: Erreur survenue lors de la récupération de tous les employees-districts
- *                              error: Message de l'erreur spécifique le cas échéant
+ *                              message: Aucun employé-Quartier trouvé
  */
 //  CREATE
 /**
  * @swagger
- * /employees-districts/create:
+ * /employeesDistricts/create:
  *  post:
  *      summary: Créer un nouvel employees-districts
  *      tags: [EMPLOYEES_DISTRICTS]
@@ -1883,34 +2267,35 @@
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
+ *                              example: 1
  *                          idDistrict:
  *                              type: integer
  *                              description: ID du district
+ *                              example: 73
  *      responses:
  *          200:
  *              description: Employees-districts créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employees-districts créé
+ *                          message: Employee-district created
  *                          data: 
  *                              id: 2
- *                              idEmployees: A MODIFIER APRES TEST
- *                              idDistricts: A MODIFIER APRES TEST
+ *                              idEmployees: 1
+ *                              idDistrict: 73
  *                              updatedAt: "2024-01-09T08:43:54.003Z"
  *                              createdAt: "2024-01-09T08:43:54.003Z"
- *          400:
- *              description: Erreur lors de la création du employees-districts
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Une erreur est survenue lors de la création du employees-districts
- *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *                  description: L'employé-Quartier n'a pas été créé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'employé-Quartier n'a pas été créé
 */
 //  MODIFY 
 /**
  * @swagger
- * /employees-districts/modify/{id}:
+ * /employeesDistricts/modify/{id}:
  *  put:
  *      summary: Modifier les informations du employees-districts
  *      tags: [EMPLOYEES_DISTRICTS]
@@ -1922,6 +2307,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du employees-districts dans la base de données
  *      requestBody:
  *          required: true
@@ -1933,28 +2319,35 @@
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
- *                          idDistricts:
+ *                              example: 2
+ *                          idDistrict:
  *                              type: integer
  *                              description: ID du district
+ *                              example: 73
  *      responses:
  *          200:
  *              description: Employees-districts modifié avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Employees-districts modifié avec succès
- *          400:
- *              description: Erreur lors de la modification du employees-districts
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Echec de la modification du employees-districts
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                          message: Employees-districts updated
+ *                          data: 
+ *                              id: 2
+ *                              idEmployees: 1
+ *                              idDistrict: 73
+ *                              updatedAt: "2024-01-09T08:43:54.003Z"
+ *                              createdAt: "2024-01-09T08:43:54.003Z"
+ *          422:
+ *                  description: L'employé-Quartier n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'employé-Quartier n'a pas été trouvé
 */
 //  DELETE
 /**
  * @swagger
- * /employees-districts/delete/{id}:
+ * /employeesDistricts/delete/{id}:
  *      delete:
  *          summary: Pour supprimer un employees-districts avec son ID
  *          tags: [EMPLOYEES_DISTRICTS]
@@ -1965,6 +2358,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le employees-districts dans la base de données
  *          responses: 
  *              200:
@@ -1972,14 +2366,13 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Employees-districts deleted
- *              400:
- *                description: Erreur lors de la suppression du employees-districts
- *                content: 
- *                    application/json:
- *                        example:
- *                            message: Erreur survenue lors de la suppression du employees-districts par son ID
- *                            error: Message de l'erreur spécifique le cas échéant
+ *                              message: Employee-district deleted
+ *              422:
+ *                  description: L'employé-Quartier n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: L'employé-Quartier n'a pas été trouvé
  */
 
 
@@ -1988,7 +2381,7 @@
 //  GET BY ID
 /**
  * @swagger
- * /agendas/{id}:
+ * /agenda/{id}:
  *      get:
  *          summary: Pour trouver un agenda avec son ID
  *          tags: [AGENDA]
@@ -1999,22 +2392,22 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un agenda par son ID
  *          responses: 
  *              200:
  *                  description: agenda by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: agenda id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              date: true
- *                              visitInformations: "Location meublé..."
- *                              idUsers: 52
- *                              idEmployees: 69
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                           data:
+ *                                  id: 1
+ *                                  date: "2024-01-08T14:47:27.000Z"
+ *                                  visitInformations: "Location meublé..."
+ *                                  idUsers: 52
+ *                                  idEmployees: 69
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un agenda 
  *                  content: 
@@ -2022,6 +2415,70 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un agenda par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Agenda n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Agenda pas trouvé
+*/
+//  GET BY ID USER
+/**
+ * @swagger
+ * /agendas/{idUsers}:
+ *      get:
+ *          summary: Pour trouver les agendas d'un utilisateur
+ *          tags: [AGENDA]
+ *          parameters:
+ *              -   in : path
+ *                  name: idUsers
+ *                  description: ID of user
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Obtenir les agendas d'un utilisateur
+ *          responses: 
+ *              200:
+ *                  description: agenda by ID USER
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                           data: 
+ *                              -    id: 1
+ *                                   date: "2024-05-08T14:47:27.000Z"
+ *                                   visitInformations: "Location meublée..."
+ *                                   idUsers: 52
+ *                                   idEmployees: 69
+ *                                   createdAt: "2024-01-08T14:47:27.000Z"
+ *                                   updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -    id: 2
+ *                                   date: "2024-05-08T14:47:27.000Z"
+ *                                   visitInformations: "Location non meublée..."
+ *                                   idUsers: 52
+ *                                   idEmployees: 69
+ *                                   createdAt: "2024-01-08T14:47:27.000Z"
+ *                                   updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -    id: 3
+ *                                   date: "2024-05-08T14:47:27.000Z"
+ *                                   visitInformations: "Location presques meublée..."
+ *                                   idUsers: 52
+ *                                   idEmployees: 69
+ *                                   createdAt: "2024-01-08T14:47:27.000Z"
+ *                                   updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des agendas d'un utilisateur
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération des agendas d'un utilisateur
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Agendas pas trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Agenda pas trouvé
 */
 //  GET ALL
 /**
@@ -2036,30 +2493,29 @@
  *                  description: Agendas ALL
  *                  content:
  *                      application/json:
- *                        example:
- *                         message: select all of agendas
- *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  date: "2024-05-08T14:47:27.000Z"
- *                                  visitInformations: "Location meublée..."
- *                                  idUsers: 52
- *                                  idEmployees: 69
- *                                  createdAt: "2024-01-08T14:47:27.000Z"
- *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 2
- *                                  date: "2024-05-08T14:47:27.000Z"
- *                                  visitInformations: "Location meublée..."
- *                                  idUsers: 52
- *                                  idEmployees: 69
- *                                  createdAt: "2024-01-08T14:47:27.000Z"
- *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 3
- *                                  date: "2024-05-08T14:47:27.000Z"
- *                                  visitInformations: "Location meublée..."
- *                                  idUsers: 52
- *                                  idEmployees: 69
- *                                  createdAt: "2024-01-08T14:47:27.000Z"
- *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                          example:
+ *                           data: 
+ *                              -    id: 1
+ *                                   date: "2024-05-08T14:47:27.000Z"
+ *                                   visitInformations: "Location meublée..."
+ *                                   idUsers: 52
+ *                                   idEmployees: 69
+ *                                   createdAt: "2024-01-08T14:47:27.000Z"
+ *                                   updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -    id: 2
+ *                                   date: "2024-05-08T14:47:27.000Z"
+ *                                   visitInformations: "Location non meublée..."
+ *                                   idUsers: 52
+ *                                   idEmployees: 69
+ *                                   createdAt: "2024-01-08T14:47:27.000Z"
+ *                                   updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -    id: 3
+ *                                   date: "2024-05-08T14:47:27.000Z"
+ *                                   visitInformations: "Location presques meublée..."
+ *                                   idUsers: 52
+ *                                   idEmployees: 69
+ *                                   createdAt: "2024-01-08T14:47:27.000Z"
+ *                                   updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération des agendas
  *                  content: 
@@ -2067,6 +2523,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les agendas
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Agenda pas trouvé
 */
 //  CREATE
 /**
@@ -2086,15 +2555,19 @@
  *                          date: 
  *                              type: string
  *                              description: Date du rendez-vous
+ *                              example: "2024-05-08T14:47:27.000Z"
  *                          visitInformations: 
  *                              type: string
  *                              description: Informations complémentaire pour le rendez-vous
+ *                              example: Location meublée
  *                          idUsers: 
  *                              type: integer
  *                              description: ID de l'utilisateur (client)
+ *                              example: 1
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Agenda créé avec succès
@@ -2117,6 +2590,19 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un agenda
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Agenda pas trouvé
 */
 //  MODIFY 
 /**
@@ -2133,6 +2619,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du agenda dans la base de données
  *      requestBody:
  *          required: true
@@ -2144,15 +2631,19 @@
  *                          date:
  *                              type: string
  *                              description: Date du rendez-vous
+ *                              example: "2024-05-08T14:47:27.000Z"
  *                          visitInformations:
  *                              type: string
  *                              description: Infomations complémentaires pour le rendez-vous
+ *                              example: Location meublée
  *                          idUsers:
  *                              type: integer
  *                              description: ID de l'utilisateur (client)
+ *                              example: 1
  *                          idEmployees:
  *                              type: integer
  *                              description: ID de l'employé
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Agenda modifié avec succès
@@ -2167,6 +2658,12 @@
  *                      example:
  *                          message: Echec de la modification d'un agenda
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Cet agenda n'a pas été trouvé
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Agenda pas trouvé
 */
 //  DELETE
 /**
@@ -2182,6 +2679,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime l'agenda dans la base de données
  *          responses: 
  *              200:
@@ -2197,6 +2695,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un agenda par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                description: Cet agenda n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Agenda pas trouvé
  */
 
 
@@ -2208,7 +2712,7 @@
  * /status/{id}:
  *      get:
  *          summary: Pour trouver un status avec son ID
- *          tags: [STATUS]
+ *          tags: [STATUSES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2216,21 +2720,21 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un status par son ID
  *          responses: 
  *              200:
  *                  description: Status by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Status id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un status 
  *                  content: 
@@ -2238,6 +2742,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un status par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Ce status n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Status pas trouvé
 */
 //  GET ALL
 /**
@@ -2245,7 +2755,7 @@
  * /statuses:
  *      get:
  *          summary: Récupérer tous les status de la base de données
- *          tags: [STATUS]
+ *          tags: [STATUSES]
  *          description: Récupère tous les status ajoutés dans la base de données
  *          responses: 
  *              200:
@@ -2253,9 +2763,8 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: select all of statuses
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
+ *                             -    id: 1
  *                                  sold: true
  *                                  rent: false
  *                                  hidden: false
@@ -2280,102 +2789,123 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les status
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: La table statuses est vide
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de status trouvé
 */
 //  CREATE
 /**
  * @swagger
  * /status/create:
- *  post:
- *      summary: Créer un nouveau status
- *      tags: [STATUS]
- *      description: Crée un nouveau status dans la base de données
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: Bien vendu (true/false)
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
- *      responses:
- *          200:
- *              description: Status créé avec succès
+ *      post:
+ *          summary: Créer un nouveau status
+ *          tags: [STATUSES]
+ *          description: Crée un nouveau status dans la base de données
+ *          requestBody:
+ *              required: true
  *              content:
  *                  application/json:
- *                      example:
- *                          message: Status créé
- *                          data: 
- *                              id: 3
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
- *          400:
- *              description: Erreur lors de la création du status
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Une erreur est survenue lors de la création du status
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              sold: 
+ *                                  type: boolean
+ *                                  description: Bien vendu (true/false)
+ *                                  example: false
+ *                              rent: 
+ *                                  type: boolean
+ *                                  description: Bien loué (true/false)
+ *                                  example: false
+ *                              hidden: 
+ *                                  type: boolean
+ *                                  description: Bien caché (true/false)
+ *                                  example: false
+ *          responses:
+ *              200:
+ *                  description: Status créé avec succès
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              data: 
+ *                                  id: 3
+ *                                  sold: true
+ *                                  rent: false
+ *                                  hidden: false
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la création du status
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Une erreur est survenue lors de la création du status
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucun status n'a été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de status trouvé
 */
 //  MODIFY 
 /**
  * @swagger
  * /status/modify/{id}:
- *  put:
- *      summary: Modifier les informations du status
- *      tags: [STATUS]
- *      parameters:
- *          -   in: path
- *              name: id
- *              required: true
- *              description: ID du status
- *              schema:
- *                  type: integer
+ *      put:
+ *          summary: Modifier les informations du status
+ *          tags: [STATUSES]
+ *          parameters:
+ *              -   in: path
+ *                  name: id
  *                  required: true
- *      description: Modifie les informations du status dans la base de données
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
+ *                  description: ID du status
  *                  schema:
- *                      type: object
- *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
- *                          idUsers:
- *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
- *                              type: integer
- *                              description: ID de l'employé
- *      responses:
- *          200:
- *              description: Status modifié avec succès
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Modifie les informations du status dans la base de données
+ *          requestBody:
+ *              required: true
  *              content:
  *                  application/json:
- *                      example:
- *                          message: Status modifié avec succès
- *          400:
- *              description: Erreur lors de la modification du status
- *              content: 
- *                  application/json:
- *                      example:
- *                          message: Echec de la modification du status
- *                          error: Message de l'erreur spécifique le cas échéant
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              sold: 
+ *                                  type: boolean
+ *                                  description: Bien vendu (true/false)
+ *                                  example: true
+ *                              rent: 
+ *                                  type: boolean
+ *                                  description: Bien loué (true/false)
+ *                                  example: false
+ *                              hidden: 
+ *                                  type: boolean
+ *                                  description: Bien caché (true/false)
+ *                                  example: false
+ *          responses:
+ *              200:
+ *                  description: Status modifié avec succès
+ *                  content:
+ *                      application/json:
+ *                          example:
+ *                              message: Status updated
+ *              400:
+ *                  description: Erreur lors de la modification du status
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Echec de la modification du status
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Ce status n'a pas été trouvé
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Status pas trouvé
 */
 //  DELETE
 /**
@@ -2383,7 +2913,7 @@
  * /status/delete/{id}:
  *      delete:
  *          summary: Pour supprimer un status avec son ID
- *          tags: [STATUS]
+ *          tags: [STATUSES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2391,6 +2921,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le status dans la base de données
  *          responses: 
  *              200:
@@ -2406,6 +2937,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un status par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                description: Ce status n'a pas été trouvé
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Status pas trouvé
  */
 
 
@@ -2417,7 +2954,7 @@
  * /property/{id}:
  *      get:
  *          summary: Pour trouver une propriété avec son ID
- *          tags: [PROPERTY]
+ *          tags: [PROPERTIES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2425,21 +2962,35 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir une propriété par son ID
  *          responses: 
  *              200:
  *                  description: Property by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Property id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              message: Property id = 2
+ *                              data:
+ *                                  id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 3
+ *                                  idDistrict: 2
+ *                                  archived: 0
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'une propriété 
  *                  content: 
@@ -2447,6 +2998,12 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'une propriété par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Cette propriété n'a pas été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Propriété pas trouvée
 */
 //  GET ALL
 /**
@@ -2454,7 +3011,7 @@
  * /properties:
  *      get:
  *          summary: Récupérer toutes les propriétés de la base de données
- *          tags: [PROPERTY]
+ *          tags: [PROPERTIES]
  *          description: Récupère toutes les propriétés ajoutées dans la base de données
  *          responses: 
  *              200:
@@ -2462,24 +3019,43 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: Select all of properties
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                              -   id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 3
+ *                                  idDistrict: 2
+ *                                  archived: 0
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
- *                                  createdAt: "2024-01-08T14:47:27.000Z"
- *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                              -   id: 2
+ *                                  price: 898
+ *                                  location: string
+ *                                  surface: 67
+ *                                  showerRoom: 12
+ *                                  energising: E
+ *                                  typeEnergic: Electrique
+ *                                  clicCount: 23
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 9
+ *                                  balcony: 0
+ *                                  parking: 0
+ *                                  rooms: 2
+ *                                  idStatus: 1
+ *                                  idDistrict: 53
+ *                                  archived: 0
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -2489,6 +3065,154 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de toutes les propriétés
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucune propriété n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de propriété trouvée
+*/
+//  GET PROPERTIES BY STATUS
+/**
+ * @swagger
+ * /propertiesByStatus/{id}:
+ *      get:
+ *          summary: Récupérer toutes les propriétés de la base de données avec un status déterminé par l'id
+ *          tags: [PROPERTIES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of property
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Récupère toutes les propriétés ajoutées dans la base de données avec un status déterminé par l'id
+ *          responses: 
+ *              200:
+ *                  description: Toutes les propriétés qui ont un idStatuses = :id
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                              -   id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 1
+ *                                  idDistrict: 2
+ *                                  archived: 0
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -   id: 2
+ *                                  price: 898
+ *                                  location: string
+ *                                  surface: 67
+ *                                  showerRoom: 12
+ *                                  energising: E
+ *                                  typeEnergic: Electrique
+ *                                  clicCount: 23
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 9
+ *                                  balcony: 0
+ *                                  parking: 0
+ *                                  rooms: 2
+ *                                  idStatus: 1
+ *                                  idDistrict: 53
+ *                                  archived: 0
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des propriétés
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de toutes les propriétés
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucune propriété n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de propriété trouvée
+*/
+//  GET ARCHIVED PROPERTIES
+/**
+ * @swagger
+ * /properties/archived:
+ *      get:
+ *          summary: Récupérer toutes les propriétés de la base de données ayant archived = 1
+ *          tags: [PROPERTIES]
+ *          description: Récupère toutes les propriétés ajoutées dans la base de données ayant archived = 1
+ *          responses: 
+ *              200:
+ *                  description: Toutes les propriétés qui ont archived = 1
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                              -   id: 1
+ *                                  price: 1000
+ *                                  location: string
+ *                                  surface: 50
+ *                                  showerRoom: 50
+ *                                  energising: A
+ *                                  typeEnergic: Gas
+ *                                  clicCount: 234
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 3
+ *                                  balcony: 1
+ *                                  parking: 1
+ *                                  rooms: 3
+ *                                  idStatus: 1
+ *                                  idDistrict: 2
+ *                                  archived: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                              -   id: 2
+ *                                  price: 898
+ *                                  location: string
+ *                                  surface: 67
+ *                                  showerRoom: 12
+ *                                  energising: E
+ *                                  typeEnergic: Electrique
+ *                                  clicCount: 23
+ *                                  description: Description du bien
+ *                                  heatingSystem: String
+ *                                  floor: 9
+ *                                  balcony: 0
+ *                                  parking: 0
+ *                                  rooms: 2
+ *                                  idStatus: 1
+ *                                  idDistrict: 53
+ *                                  archived: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des propriétés
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de toutes les propriétés
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Aucune propriété n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de propriété trouvée
 */
 //  CREATE
 /**
@@ -2496,36 +3220,108 @@
  * /property/create:
  *  post:
  *      summary: Créer une nouvelle propriété
- *      tags: [PROPERTY]
+ *      tags: [PROPERTIES]
  *      description: Crée une nouvelle propriété dans la base de données
  *      requestBody:
  *          required: true
  *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties: 
+ *                          file: 
+ *                              type: string 
+ *                              format: binary
+ *                              pattern: .*\/(jpeg|jpg|png)$
  *              application/json:
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          price: 
+ *                              type: int
+ *                              description: Prix du bien 
+ *                              example: 999 
+ *                          location: 
+ *                              type: string
+ *                              description: Location
+ *                              example: Location
+ *                          surface: 
+ *                              type: int
+ *                              description: Surface du bien
+ *                              example: 50
+ *                          showerRoom: 
+ *                              type: int
+ *                              description: Nombre de salle de bain
+ *                              example: 1
+ *                          energising: 
+ *                              type: string
+ *                              description: Catégorie énergétique
+ *                              example: A
+ *                          typeEnergic: 
+ *                              type: string
+ *                              description: Type de chauffage
+ *                              example: Electrique
+ *                          clicCount: 
+ *                              type: int
+ *                              description: Nombre de clique sur le bien
+ *                              example: 312
+ *                          description: 
+ *                              type: string
+ *                              description: Description du bien
+ *                              example: Maison de campagne
+ *                          heatingSystem: 
+ *                              type: string
+ *                              description: String
+ *                              example: Je sais pas
+ *                          floor: 
+ *                              type: int
+ *                              description: Nombre d'étage du bien
+ *                              example: 2
+ *                          balcony: 
+ *                              type: int
+ *                              description: Nombre de balcon
+ *                              example: 1
+ *                          parking: 
+ *                              type: int
+ *                              description: Nombre de place de parking
+ *                              example: 1
+ *                          rooms: 
+ *                              type: int
+ *                              description: Nombre de pièces totales du bien
+ *                              example: 1
+ *                          idStatus: 
+ *                              type: int
+ *                              description: ID du status correspond au bien
+ *                              example: 1
+ *                          idDistrict: 
+ *                              type: int
+ *                              description: ID du district affecté au bien
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Propriété créée avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Propriété créée
+ *                          message: Property created
  *                          data: 
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
+ *                              archived: 0
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -2535,6 +3331,12 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'une propriété
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *                  description: Aucune propriété n'a été trouvée
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: La propriété n'a pas été créée
 */
 //  MODIFY 
 /**
@@ -2542,7 +3344,7 @@
  * /property/modify/{id}:
  *  put:
  *      summary: Modifier les informations d'une propriété
- *      tags: [PROPERTY]
+ *      tags: [PROPERTIES]
  *      parameters:
  *          -   in: path
  *              name: id
@@ -2551,33 +3353,114 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations de la propriété dans la base de données
  *      requestBody:
  *          required: true
  *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      type: object
+ *                      properties: 
+ *                          file: 
+ *                              type: string 
+ *                              format: binary
+ *                              pattern: .*\/(jpeg|jpg|png)$
  *              application/json:
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
+ *                          price: 
+ *                              type: int
+ *                              description: Prix du bien 
+ *                              example: 999 
+ *                          location: 
  *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
- *                          idUsers:
- *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
- *                              type: integer
- *                              description: ID de l'employé
+ *                              description: Location
+ *                              example: Location
+ *                          surface: 
+ *                              type: int
+ *                              description: Surface du bien
+ *                              example: 50
+ *                          showerRoom: 
+ *                              type: int
+ *                              description: Nombre de salle de bain
+ *                              example: 1
+ *                          energising: 
+ *                              type: string
+ *                              description: Catégorie énergétique
+ *                              example: A
+ *                          typeEnergic: 
+ *                              type: string
+ *                              description: Type de chauffage
+ *                              example: Electrique
+ *                          clicCount: 
+ *                              type: int
+ *                              description: Nombre de clique sur le bien
+ *                              example: 312
+ *                          description: 
+ *                              type: string
+ *                              description: Description du bien
+ *                              example: Maison de campagne
+ *                          heatingSystem: 
+ *                              type: string
+ *                              description: String
+ *                              example: Je sais pas
+ *                          floor: 
+ *                              type: int
+ *                              description: Nombre d'étage du bien
+ *                              example: 2
+ *                          balcony: 
+ *                              type: int
+ *                              description: Nombre de balcon
+ *                              example: 1
+ *                          parking: 
+ *                              type: int
+ *                              description: Nombre de place de parking
+ *                              example: 1
+ *                          rooms: 
+ *                              type: int
+ *                              description: Nombre de pièces totales du bien
+ *                              example: 1
+ *                          idStatus: 
+ *                              type: int
+ *                              description: ID du status correspond au bien
+ *                              example: 1
+ *                          idDistrict: 
+ *                              type: int
+ *                              description: ID du district affecté au bien
+ *                              example: 1
+ *                          archived: 
+ *                              type: int
+ *                              description: Archivée (1) ou non (0)
+ *                              example: 0
  *      responses:
  *          200:
  *              description: Propriété modifiée avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Propriété modifiée avec succès
+ *                          message: Propriété modifiée
+ *                          data: 
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
+ *                              archived: 0
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
  *              description: Erreur lors de la modification de la propriété
  *              content: 
@@ -2585,6 +3468,128 @@
  *                      example:
  *                          message: Echec de la modification de la propriété
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Cette propriété n'a pas été trouvée
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété pas trouvée
+*/
+//  PROPERTY ARCHIVE 
+/**
+ * @swagger
+ * /property/archive/{id}:
+ *  put:
+ *      summary: Archiver une propriété
+ *      tags: [PROPERTIES]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID de la propriété
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *                  example: 1
+ *      description: Passe le booléen archived à 1 dans la base de données
+ *      responses:
+ *          200:
+ *              description: Propriété archivée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété archivée
+ *                          data: 
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
+ *                              archived: 1
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la modification de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Cette propriété n'a pas été trouvée
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété pas trouvée
+*/
+//  PROPERTY RESTORE 
+/**
+ * @swagger
+ * /property/restore/{id}:
+ *  put:
+ *      summary: Restaurer une propriété
+ *      tags: [PROPERTIES]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              required: true
+ *              description: ID de la propriété
+ *              schema:
+ *                  type: integer
+ *                  required: true
+ *                  example: 1
+ *      description: Passe le booléen archived à 0 dans la base de données
+ *      responses:
+ *          200:
+ *              description: Propriété restaurée avec succès
+ *              content:
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété restaurée
+ *                          data: 
+ *                              id: 2
+ *                              price: 898
+ *                              location: string
+ *                              surface: 67
+ *                              showerRoom: 12
+ *                              energising: E
+ *                              typeEnergic: Electrique
+ *                              clicCount: 23
+ *                              description: Description du bien
+ *                              heatingSystem: String
+ *                              floor: 9
+ *                              balcony: 0
+ *                              parking: 0
+ *                              rooms: 2
+ *                              idStatus: 1
+ *                              idDistrict: 53
+ *                              archived: 0
+ *                              createdAt: "2024-01-08T14:47:27.000Z"
+ *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *          400:
+ *              description: Erreur lors de la modification de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Cette propriété n'a pas été trouvée
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Propriété pas trouvée
 */
 //  DELETE
 /**
@@ -2592,7 +3597,7 @@
  * /property/delete/{id}:
  *      delete:
  *          summary: Pour supprimer une propriété avec son ID
- *          tags: [PROPERTY]
+ *          tags: [PROPERTIES]
  *          parameters:
  *              -   in : path
  *                  name: id
@@ -2600,6 +3605,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime la propriété dans la base de données
  *          responses: 
  *              200:
@@ -2615,6 +3621,12 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'une propriété par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                description: Cette propriété n'a pas été trouvée
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Propriété pas trouvée
  */
 
 
@@ -2634,21 +3646,21 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un dossier de propriété par son ID
  *          responses: 
  *              200:
  *                  description: PropertiesFolders by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: PropertiesFolders id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              message: PropertiesFolders id = 2
+ *                              data:
+ *                                  id: 1
+ *                                  idProperties: 1
+ *                                  idClientFolders: 12
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un dossier de propriété 
  *                  content: 
@@ -2656,6 +3668,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un dossier de propriété par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un dossier de propriété 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un dossier de propriété par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Propriété pas trouvée
 */
 //  GET ALL
 /**
@@ -2673,22 +3698,14 @@
  *                        example:
  *                         message: Select all of propertiesFolders
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                             -    id: 1
+ *                                  idProperties: 1
+ *                                  idClientFolders: 1
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
- *                                  createdAt: "2024-01-08T14:47:27.000Z"
- *                                  updatedAt: "2024-01-09T14:52:34.000Z"
- *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idProperties: 2
+ *                                  idClientFolders: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -2698,7 +3715,20 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les dossiers de propriété
  *                              error: Message de l'erreur spécifique le cas échéant
-*/
+ *              401:
+ *                  description: Erreur lors de la récupération des dossiers de propriété
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les dossiers de propriété
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Propriété pas trouvée
+ */
 //  CREATE
 /**
  * @swagger
@@ -2714,15 +3744,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          idProperties: 
+ *                              type: integer
+ *                              description: ID de la propriété
+ *                              example: 1
+ *                          idClientFolders: 
+ *                              type: integer
+ *                              description: ID du dossier client
+ *                              example: 1           
  *      responses:
  *          200:
  *              description: Dossier de propriété créé avec succès
@@ -2732,9 +3761,8 @@
  *                          message: Dossier de propriété créé
  *                          data: 
  *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              idProperties: true
+ *                              idClientFolders: false
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -2744,7 +3772,20 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un dossier de propriété
  *                          error: Message de l'erreur spécifique le cas échéant
-*/
+ *          401:
+ *              description: Erreur lors de la création d'un dossier de propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Une erreur est survenue lors de la création d'un dossier de propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Id property n'existe pas
+ */
 //  MODIFY 
 /**
  * @swagger
@@ -2760,6 +3801,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du dossier de la propriété dans la base de données
  *      requestBody:
  *          required: true
@@ -2768,18 +3810,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
- *                          idUsers:
+ *                          idProperties:
  *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
+ *                              description: ID de la propriété
+ *                              example: 1
+ *                          idClientFolders:
  *                              type: integer
- *                              description: ID de l'employé
+ *                              description: ID du dossier client
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Dossier de propriété modifié avec succès
@@ -2794,6 +3832,19 @@
  *                      example:
  *                          message: Echec de la modification du dossier de la propriété
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la modification du dossier de la propriété
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Echec de la modification du dossier de la propriété
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Id property n'existe pas
 */
 //  DELETE
 /**
@@ -2809,6 +3860,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le dossier de propriété dans la base de données
  *          responses: 
  *              200:
@@ -2824,6 +3876,19 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un dossier de propriété par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                description: Erreur lors de la suppression d'un dossier de propriété
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la suppression d'un dossier de propriété par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Id propertiesFolders n'existe pas
  */
 
 
@@ -2843,21 +3908,20 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un historique utilisateur par son ID
  *          responses: 
  *              200:
  *                  description: Hystory by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Hystory id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un historique utilisateur 
  *                  content: 
@@ -2865,7 +3929,20 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
-*/
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Historique pas trouvé
+ */
 //  GET ALL
 /**
  * @swagger
@@ -2882,22 +3959,19 @@
  *                        example:
  *                         message: Select all of histories
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                             -    id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 2
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 1
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -2907,6 +3981,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les historiques utilisateur
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Aucun historique trouvé
 */
 //  CREATE
 /**
@@ -2923,15 +4010,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          idUsers: 
+ *                              type: integer
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties: 
+ *                              type: integer
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Historique utilisateur créé avec succès
@@ -2940,10 +4026,9 @@
  *                      example:
  *                          message: Historique utilisateur créée
  *                          data: 
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              id: 1
+ *                              idUsers: 1
+ *                              idProperties: 2
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -2953,6 +4038,19 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un historique utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Historique pas créé
 */
 //  MODIFY 
 /**
@@ -2969,6 +4067,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations de l'historique utilisateur dans la base de données
  *      requestBody:
  *          required: true
@@ -2977,18 +4076,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
  *                          idUsers:
  *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties:
  *                              type: integer
- *                              description: ID de l'employé
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Historique utilisateur modifié avec succès
@@ -3003,6 +4098,19 @@
  *                      example:
  *                          message: Echec de la modification de l'historique utilisateur
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Historique pas trouvé
 */
 //  DELETE
 /**
@@ -3018,6 +4126,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime l'historique utilisateur dans la base de données
  *          responses: 
  *              200:
@@ -3025,7 +4134,7 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: History deleted
+ *                              message: Historique supprimé
  *              400:
  *                description: Erreur lors de la suppression d'un historique utilisateur
  *                content: 
@@ -3033,7 +4142,20 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un historique utilisateur par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- */
+  *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Historique pas trouvé
+*/
 
 
 //  FAVORITES
@@ -3052,21 +4174,20 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un favori par son ID
  *          responses: 
  *              200:
  *                  description: Favorite by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: Favorite id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un favori 
  *                  content: 
@@ -3074,6 +4195,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un favori par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un favori d'un utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un favori d'un utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Favori pas trouvé
 */
 //  GET ALL
 /**
@@ -3089,24 +4223,20 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: Select all of favorites
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                             -    id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3116,6 +4246,78 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les favoris
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération des favoris 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération des favoris par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de favoris trouvé
+*/
+//  GET ALL By IDUSER
+/**
+ * @swagger
+ * /favorites/{id}:
+ *      get:
+ *          summary: Récupérer tous les favoris de la base de données d'un utilisateur
+ *          tags: [FAVORITES]
+ *          parameters:
+ *              -   in : path
+ *                  name: id
+ *                  description: ID of user
+ *                  schema: 
+ *                      type: integer
+ *                      required: true
+ *                      example: 1
+ *          description: Récupère tous les favoris ajoutés dans la base de données pour un utilisateur
+ *          responses: 
+ *              200:
+ *                  description: Favorites ALL BY ONE USER
+ *                  content:
+ *                      application/json:
+ *                        example:
+ *                         data: 
+ *                             -    id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 2
+ *                                  idUsers: 1
+ *                                  idProperties: 2
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *                             -    id: 3
+ *                                  idUsers: 1
+ *                                  idProperties: 3
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
+ *              400:
+ *                  description: Erreur lors de la récupération des favoris
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération de tous les favoris
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération des favoris d'un utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération des favoris d'un utilisateur
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas de favoris trouvé
 */
 //  CREATE
 /**
@@ -3132,27 +4334,25 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          idUsers: 
+ *                              type: integer
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties: 
+ *                              type: integer
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Favori créé avec succès
  *              content:
  *                  application/json:
  *                      example:
- *                          message: Favori créée
+ *                          message: Favori créé
  *                          data: 
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              id: 3
+ *                              idUsers: 1
+ *                              idProperties: 1
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -3162,6 +4362,19 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un favori
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Favori pas trouvé
 */
 //  MODIFY 
 /**
@@ -3178,6 +4391,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du favori dans la base de données
  *      requestBody:
  *          required: true
@@ -3186,18 +4400,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
  *                          idUsers:
  *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties:
  *                              type: integer
- *                              description: ID de l'employé
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: Favori modifié avec succès
@@ -3212,6 +4422,19 @@
  *                      example:
  *                          message: Echec de la modification du favori
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Favori pas trouvé
 */
 //  DELETE
 /**
@@ -3227,6 +4450,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le favori dans la base de données
  *          responses: 
  *              200:
@@ -3234,7 +4458,13 @@
  *                  content:
  *                      application/json:
  *                          example:
- *                              message: Favorite deleted
+ *                              message: Favorite supprimé
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 3
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                description: Erreur lors de la suppression d'un favori
  *                content: 
@@ -3242,7 +4472,20 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un favori par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
- */
+ *              401:
+ *                description: Erreur lors de la récupération d'un historique utilisateur 
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                            error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                description: Erreur à envoyé au client
+ *                content: 
+ *                    application/json:
+ *                        example:
+ *                            message: Historique pas trouvé
+*/
 
 
 //  USERS PROPERTIES
@@ -3261,21 +4504,20 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Obtenir un usersProperties par son ID
  *          responses: 
  *              200:
  *                  description: UsersProperties by ID
  *                  content:
- *                  application/json:
- *                      example:
- *                          message: UsersProperties id = 2
- *                          data:
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
- *                              createdAt: "2024-01-08T14:47:27.000Z"
- *                              updatedAt: "2024-01-09T14:52:34.000Z"
+ *                      application/json:
+ *                          example:
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
+ *                                  createdAt: "2024-01-08T14:47:27.000Z"
+ *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
  *                  description: Erreur lors de la récupération d'un usersProperties 
  *                  content: 
@@ -3283,6 +4525,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération d'un usersProperties par son ID
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: User-Property pas trouvé
 */
 //  GET ALL
 /**
@@ -3298,24 +4553,20 @@
  *                  content:
  *                      application/json:
  *                        example:
- *                         message: Select all of usersProperties
  *                         data: 
- *                             -    id: A MODIFIER APRES TEST
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                             -    id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 2
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 2
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 3
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *                             -    id: 3
- *                                  sold: true
- *                                  rent: false
- *                                  hidden: false
+ *                                  idUsers: 1
+ *                                  idProperties: 43
  *                                  createdAt: "2024-01-08T14:47:27.000Z"
  *                                  updatedAt: "2024-01-09T14:52:34.000Z"
  *              400:
@@ -3325,6 +4576,19 @@
  *                          example:
  *                              message: Erreur survenue lors de la récupération de tous les usersProperties
  *                              error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Pas d'user-property  trouvé
 */
 //  CREATE
 /**
@@ -3341,15 +4605,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          sold: 
- *                              type: boolean
- *                              description: A MODIFIER APRES TEST
- *                          rent: 
- *                              type: boolean
- *                              description: Bien loué (true/false)
- *                          hidden: 
- *                              type: boolean
- *                              description: Bien caché (true/false)
+ *                          idUsers: 
+ *                              type: integer
+ *                              description: ID utilisateur
+ *                              example: 1
+ *                          idProperties: 
+ *                              type: integer
+ *                              description: ID propriété
+ *                              example: 1
  *      responses:
  *          200:
  *              description: UsersProperties créé avec succès
@@ -3358,10 +4621,9 @@
  *                      example:
  *                          message: UsersProperties créé
  *                          data: 
- *                              id: A MODIFIER APRES TEST
- *                              sold: true
- *                              rent: false
- *                              hidden: false
+ *                              id: 1
+ *                              idUsers: 1
+ *                              idProperties: 2
  *                              createdAt: "2024-01-08T14:47:27.000Z"
  *                              updatedAt: "2024-01-09T14:52:34.000Z"
  *          400:
@@ -3371,6 +4633,19 @@
  *                      example:
  *                          message: Une erreur est survenue lors de la création d'un usersProperties
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Utilisateur pas trouvé
 */
 //  MODIFY 
 /**
@@ -3387,6 +4662,7 @@
  *              schema:
  *                  type: integer
  *                  required: true
+ *                  example: 1
  *      description: Modifie les informations du usersProperties dans la base de données
  *      requestBody:
  *          required: true
@@ -3395,18 +4671,14 @@
  *                  schema:
  *                      type: object
  *                      properties:
- *                          date:
- *                              type: MODIFIER APRES TEST
- *                              description: Date du rendez-vous
- *                          visitInformations:
- *                              type: string
- *                              description: Infomations complémentaires pour le rendez-vous
  *                          idUsers:
  *                              type: integer
- *                              description: ID de l'utilisateur (client)
- *                          idEmployees:
+ *                              description: ID utilisateur
+ *                              example: 2
+ *                          idProperties:
  *                              type: integer
- *                              description: ID de l'employé
+ *                              description: ID propriété
+ *                              example: 2
  *      responses:
  *          200:
  *              description: UsersProperties modifié avec succès
@@ -3421,6 +4693,19 @@
  *                      example:
  *                          message: Echec de la modification du usersProperties
  *                          error: Message de l'erreur spécifique le cas échéant
+ *          401:
+ *              description: Erreur lors de la récupération d'un historique utilisateur 
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                          error: Message de l'erreur spécifique le cas échéant
+ *          422:
+ *              description: Erreur à envoyé au client
+ *              content: 
+ *                  application/json:
+ *                      example:
+ *                          message: User-Property pas trouvé
 */
 //  DELETE
 /**
@@ -3436,6 +4721,7 @@
  *                  schema: 
  *                      type: integer
  *                      required: true
+ *                      example: 1
  *          description: Supprime le usersProperties dans la base de données
  *          responses: 
  *              200:
@@ -3444,6 +4730,10 @@
  *                      application/json:
  *                          example:
  *                              message: UsersProperties deleted
+ *                              data:
+ *                                  id: 1
+ *                                  idUsers: 1
+ *                                  idProperties: 1
  *              400:
  *                description: Erreur lors de la suppression d'un usersProperties
  *                content: 
@@ -3451,6 +4741,19 @@
  *                        example:
  *                            message: Erreur survenue lors de la suppression d'un usersProperties par son ID
  *                            error: Message de l'erreur spécifique le cas échéant
+ *              401:
+ *                  description: Erreur lors de la récupération d'un historique utilisateur 
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: Erreur survenue lors de la récupération d'un historique utilisateur par son ID
+ *                              error: Message de l'erreur spécifique le cas échéant
+ *              422:
+ *                  description: Erreur à envoyé au client
+ *                  content: 
+ *                      application/json:
+ *                          example:
+ *                              message: User-Property pas trouvé
  */
 
 
@@ -3461,8 +4764,9 @@ const router = express.Router();
 //SWAGGER
 const { specs, swaggerUi, swaggerUiOptions } = require('../Swagger/swaggerConfig')
 
+
 //------------------------------------- USER -------------------------------------
-const userController = require('../controller/User/UserController');
+const userController = require('../controller/Users/UsersController');
 //------------------------------------- ROLE -------------------------------------
 const roleController = require('../controller/Roles/RolesController');
 //------------------------------------- ESTIMATIONS -------------------------------------
@@ -3472,13 +4776,13 @@ const messageController = require('../controller/Messages/MessagesController');
 //------------------------------------- COMMENTS -------------------------------------
 const commentController = require('../controller/Comments/CommentsController');
 //------------------------------------- CLIENTS FOLDERS -------------------------------------
-const clientFolderController = require('../controller/Client Folder/ClientFolderController');
+const clientFolderController = require('../controller/ClientFolders/ClientFoldersController');
 //------------------------------------- EMPLOYEES -------------------------------------
 const employeeController = require('../controller/Employees/EmployeesController');
 //------------------------------------- DISTRICTS -------------------------------------
 const districtController = require('../controller/Districts/DistrictController');
 //------------------------------------- EMPLOYEES DISTRICTS -------------------------------------
-const employeeDistrictController = require('../controller/EmployeesDistricts/EmployeesDistricts');
+const employeeDistrictController = require('../controller/EmployeesDistricts/EmployeesDistrictsController');
 //------------------------------------- AGENDAS -------------------------------------
 const agendasController = require('../controller/Agendas/AgendasController');
 //------------------------------------- STATUSES -------------------------------------
@@ -3495,9 +4799,7 @@ const favoritesController = require('../controller/Favorites/FavoritesController
 const usersPropertiesController = require('../controller/UsersProperties/UsersProperties');
 
 //------------------------------------- PHOTOS -------------------------------------
-const photosMiddleware = require('../middleware/Photos/PhotosMiddleware');
-//------------------------------------- PHOTOS FOLDERS -------------------------------------
-const PhotosMiddleware = require('../middleware/Photos/PhotosMiddleware');
+const { upload } = require('../middleware/Photos/photosMiddleware');
 
 
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
@@ -3510,27 +4812,29 @@ router.get('/', (req, res) => {
 })
 
 
+
 //------------------------------------- ROLES ROUTER -------------------------------------//Tested with swagger
-router.get('/role/:id', roleController.getRole);//S
-router.get('/roles', roleController.getAllRoles);//S
-router.post('/role/create', roleController.createRole);//S
-router.put('/role/modify/:id', roleController.modifyRole);//S
-router.delete('/role/delete/:id', roleController.deleteRole);//S
+router.get('/role/:id', roleController.getRole);
+router.get('/roles', roleController.getAllRoles);
+router.post('/role/create', roleController.createRole);
+router.put('/role/modify/:id', roleController.modifyRole);
+router.delete('/role/delete/:id', roleController.deleteRole);
 
 //------------------------------------- USERS ROUTER -------------------------------------//Tested with swagger
-router.get('/user/id/:id', userController.getUserId);//S
-router.get('/user/email/:email', userController.getUserEmail);//S
-router.get('/users', userController.getAllUser);//S
-router.get('/users/:idRole', userController.getAllUserByIdRole);//S
-router.post('/user/create', userController.createUser);//S
-router.post('/login', userController.loginUser);//S
-router.put('/user/modifyPassword', userController.middleWare, userController.modifyPassword);//S
-router.put('/user/modify', userController.middleWare, userController.modify);//S
+router.get('/user/id/:id', userController.middleWare, userController.getUserId);
+router.get('/user/email/:email', userController.middleWare, userController.getUserEmail);
+router.get('/users', userController.middleWare, userController.getAllUser);
+router.get('/users/:idRoles', userController.middleWare, userController.getAllUserByIdRole);
+router.post('/user/create', userController.createUser);
+router.post('/login', userController.loginUser);
+router.put('/user/modifyPassword', userController.middleWare, userController.modifyPassword);
+router.put('/user/modify', userController.middleWare, userController.modify);
 // router.put('/user/modifyEmail', UserController.middleWare, UserController.modifyEmail);
 
 //------------------------------------- ESTIMATIONS ROUTER -------------------------------------//Tested with swagger
 router.get('/estimation/:id', estimationController.getEstimationID);
 router.get('/estimations', estimationController.getEstimations);
+router.get('/estimations/:id', estimationController.getEstimationsByOne);
 router.post('/estimation/create', estimationController.createEstimation);
 router.put('/estimation/modify/:id', estimationController.modifyEstimation);
 router.delete('/estimation/delete/:id', estimationController.deleteEstimation);
@@ -3547,7 +4851,7 @@ router.get('/comment/:id', commentController.getComment);
 router.get('/comments', commentController.getComments);
 router.post('/comment/create', commentController.createComment);
 router.put('/comment/modify/:id', commentController.modifyComment);
-router.delete('/comment/delete/;id', commentController.deleteComment);
+router.delete('/comment/delete/:id', commentController.deleteComment);
 
 //------------------------------------- CLIENTFOLDERS ROUTER -------------------------------------
 router.post('/clientFolder/create', clientFolderController.createClientFolder);
@@ -3572,6 +4876,7 @@ router.delete('/district/delete/:id', districtController.deleteDistrict);
 
 //------------------------------------- EMPLOYEES DISTRICTS ROUTER -------------------------------------
 router.get('/employeesDistricts/one/:id', employeeDistrictController.getEmployeeDistrict);
+router.get('/employeesDistrictsByIdEmployee/:id', employeeDistrictController.getEmpDisByIdEmployee);
 router.get('/employeesDistricts/all', employeeDistrictController.getEmployeesDistricts);
 router.post('/employeesDistricts/create', employeeDistrictController.createEmployeeDistrict);
 router.put('/employeesDistricts/modify/:id', employeeDistrictController.modifyEmployeeDistrict);
@@ -3580,6 +4885,7 @@ router.delete('/employeesDistricts/delete/:id', employeeDistrictController.delet
 //------------------------------------- AGENDAS ROUTER -------------------------------------
 router.get('/agenda/:id', agendasController.getAgenda);
 router.get('/agendas', agendasController.getAgendas);
+router.get('/agendas/:id', agendasController.getAgendasByUser);
 router.post('/agenda/create', agendasController.createAgenda);
 router.put('/agenda/modify/:id', agendasController.modifyAgenda);
 router.delete('/agenda/delete/:id', agendasController.deleteAgenda);
@@ -3594,32 +4900,52 @@ router.delete('/status/delete/:id', statusesController.deleteStatus);
 //------------------------------------- PROPERTIES ROUTER -------------------------------------
 router.get('/property/:id', propertiesController.getProperty);
 router.get('/properties', propertiesController.getProperties);
-router.post('/property/create', photosMiddleware.upload, propertiesController.createProperty);
+router.post('/propertiesBySearch', propertiesController.getPropertiesBySearch);
+router.get('/propertiesByStatus/:id', propertiesController.getPropertiesByStatus);
+router.get('/properties/archived', propertiesController.getPropertiesArchived);
+router.post('/property/create', upload, propertiesController.createProperty);
+router.post('/upload-test', upload, (req, res) => {
+    if (req.file) {
+        console.log('File uploaded successfully:', req.file);
+        res.send('File uploaded successfully');
+    } else {
+        res.send('No file uploaded');
+    }
+})
 router.put('/property/modify/:id', propertiesController.modifyProperty);
+router.put('/property/archive/:id', propertiesController.archiveProperty);
+router.put('/property/restore/:id', propertiesController.restoreProperty);
 router.delete('/property/delete/:id', propertiesController.deleteProperty);
 
 //------------------------------------- PROPERTIES FOLDERS ROUTER -------------------------------------
 router.get('/propertiesFolders/one/:id', propertiesFoldersController.getPropertyFolder);
 router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFolders);
-router.post('/property/create', function (req, res) {
-    photosMiddleware.upload(req, res, function (err) {
-        console.log(err);
-        res.status(400).send({ message: err.code, code: 400 })
-    })
-}, propertiesController.createProperty);
+router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
 router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
 router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
+
+//#NAWELLE 
+//  Je sais pas si c'est normal qu'il y ait ca donc je laisse en commentaire mais pour moi ca va dans Properties ça
+//
+// router.post('/property/create', function (req, res) {
+//     photosMiddleware.upload(req, res, function (err) {
+//         console.log(err);
+//         res.status(400).send({ message: err.code, code: 400 })
+//     })
+// }, propertiesController.createProperty);
+
 
 //------------------------------------- HISTORIES ROUTER -------------------------------------
 router.get('/history/:id', historiesController.getHistory);
 router.get('/histories', historiesController.getHistories);
 router.post('/history/create', historiesController.createHistory);
 router.put('/history/modify/:id', historiesController.modifyHistory);
-router.delete('/history/:id', historiesController.deleteHistory);
+router.delete('/history/delete/:id', historiesController.deleteHistory);
 
 //------------------------------------- FAVORIES ROUTER -------------------------------------
 router.get('/favorite/:id', favoritesController.getFavorite);
 router.get('/favorites', favoritesController.getFavorites);
+router.get('/favorites/:id', favoritesController.getFavoritesByOne);
 router.post('/favorite/create', favoritesController.createFavorite);
 router.put('/favorite/modify/:id', favoritesController.modifyFavorite);
 router.delete('/favorite/delete/:id', favoritesController.deleteFavorite);
@@ -3632,17 +4958,10 @@ router.put('/usersProperties/modify/:id', usersPropertiesController.modifyUserPr
 router.delete('/usersProperties/delete/:id', usersPropertiesController.deleteUserProperty);
 
 
-
-
 //------------------------------------- PHOTOS ROUTER -------------------------------------
-router.post('/photos', photosMiddleware.upload);
-
-
-
+// router.post('/photos', photosMiddleware.upload);
 
 //router.get('/me', middleWare );
-
-
 
 
 module.exports = router;

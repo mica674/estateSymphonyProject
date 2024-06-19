@@ -4,30 +4,29 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Properties extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      Properties.hasMany(models.Favories,{
-        foreignKey : 'idFavories'
+      Properties.hasMany(models.Favories, {
+        foreignKey: 'idProperties',
+        as: 'favory'
       });
-      Properties.hasMany(models.Histories,{
-        foreignKey : 'idHistories'
+      Properties.hasMany(models.Histories, {
+        foreignKey: 'idProperties',
+        as: 'history'
       });
-      Properties.belongsTo(models.District,{
-        foreignKey : 'idDistrict'
+      Properties.belongsTo(models.Districts, {
+        foreignKey: 'idDistricts',
+        as: 'district'
       });
-      Properties.belongsTo(models.Status, {
-        foreignKey : 'idStatus'
+      Properties.belongsTo(models.Statuses, {
+        foreignKey: 'idStatuses',
+        as: 'status'
       });
-      Properties.belongsToMany(models.User, {
-        through : 'properties_folder'
+      Properties.belongsToMany(models.Users, {
+        through: 'properties_folder'
       });
-      Properties.hasMany(models.Photos,{
-        foreignKey : 'idPhotos'
+      Properties.hasMany(models.Photos, {
+        foreignKey: 'idProperties',
+        as: 'photos'
       })
     }
   }
@@ -45,8 +44,9 @@ module.exports = (sequelize, DataTypes) => {
     balcony: DataTypes.INTEGER,
     parking: DataTypes.BOOLEAN,
     rooms: DataTypes.INTEGER,
-    idStatus: DataTypes.INTEGER,
-    idDistrict: DataTypes.INTEGER
+    archived: DataTypes.BOOLEAN,
+    idStatuses: DataTypes.INTEGER,
+    idDistricts: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Properties',
