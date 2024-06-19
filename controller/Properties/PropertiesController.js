@@ -149,9 +149,8 @@ const getPropertiesArchived = async (req, res) => {
 const createProperty = async (req, res) => {
     const transaction = await db.sequelize.transaction();
     try {
-        let files = req.file;
-        /// PROBLEME DE MULTER INSERTION DES PHOTOS : Condition forcée à TRUE
-        if (true) {
+        const photos = req.files;
+        if (photos && photos.length > 0) {
             const data = req.body;
             const idDistrict = data.idDistricts;
             const idDistrictFound = await districtsTable.findByPk(idDistrict);
@@ -161,48 +160,41 @@ const createProperty = async (req, res) => {
                 if (idStatusFound) {
                     const newProperties = await propertiesTable.create(data, { transaction: transaction });
                     if (!newProperties) {
+                        await transaction.rollback();
                         res.status(422).send({
                             message: PropertyNotCreated,
                         })
-                        await transaction.rollback();
                     }
-                    let newData = [];
-                    /// PROBLEME DE MULTER INSERTION DES PHOTOS : Mise en commentaire du code gérant l'insertion des photos
-                    // files.forEach(item => {
-                    //     let path = `public/propertiesPhotos/${item.filename}`
-                    //     let newItem = {
-                    //         idProperties: newProperties.id,
-                    //         photo: path
-                    //     }
-                    //     newData.push(newItem);
-                    // });
-                    // const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
-                    // console.log(newPhoto);
-                    // if (!newPhoto) {
-                    //     throw "error"
-                    // }
+                    const newData = photos.map(photo => ({
+                        idProperties: newProperties.id,
+                        photo: `./public/propertiesPhotos/${photo.filename}`
+                    }));
+                    const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
+                    if (!newPhoto) {
+                        throw new Error('Photos not created');
+                    }
                     await transaction.commit();
                     res.status(200).send({
                         message: PropertyCreated,
                         data: newProperties
                     })
                 } else {
+                    await transaction.rollback();
                     res.status(422).send({
                         message: StatusNoFound
                     })
-                    await transaction.rollback();
                 }
             } else {
+                await transaction.rollback();
                 res.status(422).send({
                     message: DistrictNoFound
                 })
-                await transaction.rollback();
             }
         } else {
+            await transaction.rollback();
             res.status(422).send({
                 message: 'Aucune image trouvée'
             })
-            await transaction.rollback();
         }
     } catch (error) {
         await transaction.rollback();

@@ -4904,6 +4904,14 @@ router.post('/propertiesBySearch', propertiesController.getPropertiesBySearch);
 router.get('/propertiesByStatus/:id', propertiesController.getPropertiesByStatus);
 router.get('/properties/archived', propertiesController.getPropertiesArchived);
 router.post('/property/create', upload, propertiesController.createProperty);
+router.post('/upload-test', upload, (req, res) => {
+    if (req.file) {
+        console.log('File uploaded successfully:', req.file);
+        res.send('File uploaded successfully');
+    } else {
+        res.send('No file uploaded');
+    }
+})
 router.put('/property/modify/:id', propertiesController.modifyProperty);
 router.put('/property/archive/:id', propertiesController.archiveProperty);
 router.put('/property/restore/:id', propertiesController.restoreProperty);
