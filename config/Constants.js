@@ -185,6 +185,10 @@ const UserPropertyDeleted = 'Propriété-utilisateur supprimée';
 const UserPropertyNotDeleted = 'La propriété-utilisateur n\'a pas été supprimée';
 //#endregion UsersProperties
 
+//#region Photos
+const PhotosNoFound = 'La photo n\'a pas été trouvée';
+const PhotosNoFoundForProperty = 'Aucune photo trouvée pour cette propriété';
+//#endregion Photos
 
 
 module.exports = {
@@ -343,5 +347,6 @@ module.exports = {
     EmailNotUpdated,
     PwdOldInvalid,
 
-
+    PhotosNoFound,
+    PhotosNoFoundForProperty,
 }

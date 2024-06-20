@@ -4797,9 +4797,9 @@ const historiesController = require('../controller/Histories/HistoriesController
 const favoritesController = require('../controller/Favorites/FavoritesController');
 //------------------------------------- USERS PROPERTIES -------------------------------------
 const usersPropertiesController = require('../controller/UsersProperties/UsersProperties');
-
 //------------------------------------- PHOTOS -------------------------------------
 const { upload } = require('../middleware/Photos/photosMiddleware');
+const photosController = require('../controller/Photos/PhotosController')
 
 
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
@@ -4905,8 +4905,9 @@ router.get('/propertiesByStatus/:id', propertiesController.getPropertiesByStatus
 router.get('/properties/archived', propertiesController.getPropertiesArchived);
 router.post('/property/create', upload, propertiesController.createProperty);
 router.post('/upload-test', upload, (req, res) => {
-    if (req.file) {
-        console.log('File uploaded successfully:', req.file);
+    console.log(req.files);
+    if (req.body.photo) {
+        console.log('File uploaded successfully:', req.body);
         res.send('File uploaded successfully');
     } else {
         res.send('No file uploaded');
@@ -4923,17 +4924,6 @@ router.get('/propertiesFolders/all', propertiesFoldersController.getPropertiesFo
 router.post('/propertiesFolders/create', propertiesFoldersController.createPropertyFolder);
 router.put('/propertiesFolders/modify/:id', propertiesFoldersController.modifyPropertyFolder);
 router.delete('/propertiesFolders/delete/:id', propertiesFoldersController.deletePropertyFolder);
-
-//#NAWELLE 
-//  Je sais pas si c'est normal qu'il y ait ca donc je laisse en commentaire mais pour moi ca va dans Properties ça
-//
-// router.post('/property/create', function (req, res) {
-//     photosMiddleware.upload(req, res, function (err) {
-//         console.log(err);
-//         res.status(400).send({ message: err.code, code: 400 })
-//     })
-// }, propertiesController.createProperty);
-
 
 //------------------------------------- HISTORIES ROUTER -------------------------------------
 router.get('/history/:id', historiesController.getHistory);
@@ -4959,7 +4949,7 @@ router.delete('/usersProperties/delete/:id', usersPropertiesController.deleteUse
 
 
 //------------------------------------- PHOTOS ROUTER -------------------------------------
-// router.post('/photos', photosMiddleware.upload);
+router.get('/photosByProperty/:id', photosController.getPhotosByProperty);
 
 //router.get('/me', middleWare );
 

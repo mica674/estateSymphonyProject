@@ -50,20 +50,19 @@ const getPropertiesBySearch = async (req, res) => {
     try {
         const data = { ...req.body };
         if (data && data.length !== 0) {
-            console.log(data);
             //Controle de la validité des valeurs des champs de recherche
             const whereClause = {};
             if (data.price) { whereClause.price = { [Op.lte]: data.price } }
             if (data.surface) { whereClause.surface = { [Op.gte]: data.surface }; } // opérateur between pour gérer 2 valeurs plus tard
             if (data.showerRoom) { whereClause.showerRoom = { [Op.gte]: data.showerRoom }; }
-            // if (data.energising) { 
-            //     let letterList = ['A', 'B','C','D','E','F','G'];
-            //     letterList.forEach(letter => {
-            //         if (letter === data.energising) {
-
-            //         }
-            //     });
-            //     whereClause.energising = data.energising; }
+            if (data.energising) {
+                let letterList = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+                letterList.forEach(letter => {
+                    if (letter === data.energising) {
+                        whereClause.energising = data.energising;
+                    }
+                });
+            }
             if (data.typeEnergic) { whereClause.typeEnergic = data.typeEnergic; }
             if (data.heatingSystem) { whereClause.heatingSystem = data.heatingSystem; }
             if (data.floor) { whereClause.floor = data.floor; }
@@ -167,7 +166,7 @@ const createProperty = async (req, res) => {
                     }
                     const newData = photos.map(photo => ({
                         idProperties: newProperties.id,
-                        photo: `./public/propertiesPhotos/${photo.filename}`
+                        photo: `/public/propertiesPhotos/${photo.filename}`
                     }));
                     const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
                     if (!newPhoto) {

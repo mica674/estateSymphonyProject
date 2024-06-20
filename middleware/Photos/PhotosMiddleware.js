@@ -24,7 +24,6 @@ const storage = multer.diskStorage({
     let name = file.originalname.split(" ").join("_");
     name = name.substring(0, name.length - extension.length - 1);
     callback(null, name + '_' + Date.now() + '.' + extension);
-    console.log('MULTER OK');
   }
 });
 
