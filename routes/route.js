@@ -4905,15 +4905,13 @@ router.get('/propertiesByStatus/:id', propertiesController.getPropertiesByStatus
 router.get('/properties/archived', propertiesController.getPropertiesArchived);
 router.post('/property/create', upload, propertiesController.createProperty);
 router.post('/upload-test', upload, (req, res) => {
-    console.log(req.files);
     if (req.body.photo) {
-        console.log('File uploaded successfully:', req.body);
         res.send('File uploaded successfully');
     } else {
         res.send('No file uploaded');
     }
 })
-router.put('/property/modify/:id', propertiesController.modifyProperty);
+router.put('/property/modify/:id', upload, propertiesController.modifyProperty);
 router.put('/property/archive/:id', propertiesController.archiveProperty);
 router.put('/property/restore/:id', propertiesController.restoreProperty);
 router.delete('/property/delete/:id', propertiesController.deleteProperty);
@@ -4950,7 +4948,7 @@ router.delete('/usersProperties/delete/:id', usersPropertiesController.deleteUse
 
 //------------------------------------- PHOTOS ROUTER -------------------------------------
 router.get('/photosByProperty/:id', photosController.getPhotosByProperty);
-
+router.delete('/photo/delete/:id', photosController.deletePhoto);
 //router.get('/me', middleWare );
 
 

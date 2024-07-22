@@ -186,8 +186,15 @@ const UserPropertyNotDeleted = 'La propriété-utilisateur n\'a pas été suppri
 //#endregion UsersProperties
 
 //#region Photos
-const PhotosNoFound = 'La photo n\'a pas été trouvée';
-const PhotosNoFoundForProperty = 'Aucune photo trouvée pour cette propriété';
+const PhotoNoFound = 'La photo n\'a pas été trouvée';
+const PhotoNoFoundForProperty = 'Aucune photo trouvée pour cette propriété';
+const PhotoCreated = 'Photo créée';
+const PhotoNotCreated = 'La photo n\'a pas été créée';
+const PhotoUpdated = 'Photo modifiée';
+const PhotoNotUpdated = 'La photo n\'a pas été modifiée';
+const PhotoDeleted = 'Photo supprimée';
+const PhotoNotDeleted = 'La photo n\'a pas été supprimée';
+
 //#endregion Photos
 
 
@@ -347,6 +354,12 @@ module.exports = {
     EmailNotUpdated,
     PwdOldInvalid,
 
-    PhotosNoFound,
-    PhotosNoFoundForProperty,
+    PhotoNoFound,
+    PhotoNoFoundForProperty,
+    PhotoCreated,
+    PhotoNotCreated,
+    PhotoUpdated,
+    PhotoNotUpdated,
+    PhotoDeleted,
+    PhotoNotDeleted,
 }

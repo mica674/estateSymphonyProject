@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const db = require('../../models/index.js');
-const { SyntaxErrorMessage, PropertyNoFound, PropertyNotDeleted, PropertyDeleted, PropertyArchived, PropertyNotArchived, PropertyRestored, PropertyNotRestored, PropertyNotUpdated, PropertyUpdated, DistrictNoFound, StatusNoFound, PropertyCreated, PropertyNotCreated, NoPropertyFoundWithSearch, NoPropertyFound, PropertyAlreadyArchived, PropertyAlreadyRestored } = require('../../config/Constants.js');
+const { SyntaxErrorMessage, PropertyNoFound, PropertyNotDeleted, PropertyDeleted, PropertyArchived, PropertyNotArchived, PropertyRestored, PropertyNotRestored, PropertyNotUpdated, PropertyUpdated, DistrictNoFound, StatusNoFound, PropertyCreated, PropertyNotCreated, NoPropertyFoundWithSearch, NoPropertyFound, PropertyAlreadyArchived, PropertyAlreadyRestored, PhotoNotCreated, PhotoNoFound } = require('../../config/Constants.js');
 const propertiesTable = db['Properties'];
 const districtsTable = db['Districts'];
 const statusesTable = db['Statuses'];
@@ -170,7 +170,8 @@ const createProperty = async (req, res) => {
                     }));
                     const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
                     if (!newPhoto) {
-                        throw new Error('Photos not created');
+                        await transaction.rollback();
+                        throw new Error(PhotoNotCreated);
                     }
                     await transaction.commit();
                     res.status(200).send({
@@ -192,7 +193,7 @@ const createProperty = async (req, res) => {
         } else {
             await transaction.rollback();
             res.status(422).send({
-                message: 'Aucune image trouvée'
+                message: PhotoNoFound
             })
         }
     } catch (error) {
@@ -204,7 +205,10 @@ const createProperty = async (req, res) => {
     }
 }
 const modifyProperty = async (req, res) => {
+    const transaction = await db.sequelize.transaction();
     try {
+        const photos = req.files;
+        console.log(photos);
         const newData = { ...req.body };
         const idProperty = req.params.id;
         const idPropertyFound = await propertiesTable.findByPk(idProperty);
@@ -212,23 +216,39 @@ const modifyProperty = async (req, res) => {
             const updateProperty = await propertiesTable.update(
                 newData,
                 {
-                    where: { id: idProperty }
+                    where: { id: idProperty },
+                    transaction: transaction,
                 })
             if (updateProperty[0] === 1) {
-                res.status(200).send({
-                    message: PropertyUpdated
-                })
+                if (photos && photos.length > 0) {
+                    const newData = photos.map(photo => ({
+                        idProperties: idProperty,
+                        photo: `/public/propertiesPhotos/${photo.filename}`
+                    }));
+                    const newPhoto = await photosTable.bulkCreate(newData, { transaction: transaction });
+                    if (!newPhoto) {
+                        throw new Error(PhotoNotCreated);
+                    }
+                } else {
+                    await transaction.commit();
+                    res.status(200).send({
+                        message: PropertyUpdated
+                    })
+                }
             } else {
+                await transaction.rollback();
                 res.status(422).send({
                     message: PropertyNotUpdated
                 })
             }
         } else {
+            await transaction.rollback();
             res.status(422).send({
                 message: PropertyNoFound
             })
         }
     } catch (error) {
+        await transaction.rollback();
         res.status(422).send({
             message: SyntaxErrorMessage,
             error: error.message

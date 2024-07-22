@@ -29,7 +29,6 @@ const getUserEmail = async (req, res) => {
     try {
         //  Récupération de l'utilisateur avec son id passé en paramètre d'URL
         const UserEmail = req.params.email;
-        console.log(UserEmail);
         const user = await usersTable.findOne({ where: { email: UserEmail } });
         if (user) {
             res.status(200).send({
