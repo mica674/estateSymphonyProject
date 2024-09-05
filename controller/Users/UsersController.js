@@ -105,7 +105,7 @@ const createUser = async (req, res) => {
             //  Chiffrement du mot de passe avec 'bcrypt'
             const hash = await bcrypt.hashSync(password, salt);
             //  Récupère les données du body et modifie le password et l'id de Role
-            let data = { ...req.body, password: hash, idRole: 4 }
+            let data = { ...req.body, password: hash, idRoles: 4 }
             //  Créé l'utilisateur dans la base de données
             let userCreated = await usersTable.create(data);
             //  Réponse avec l'action faite ('message') et les données de l'utilisateur créé ('data')
