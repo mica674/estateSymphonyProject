@@ -61,8 +61,8 @@ const getEmployees = async (req, res) => {
         const employees = await employeesTable.findAll({
             include: [
                 {
-                    model: usersTable, // Assurez-vous que `usersTable` est le bon alias pour la table Users
-                    as: 'userEmployees' // Alias utilisé dans votre association
+                    model: usersTable,
+                    as: 'userEmployees'
                 },
                 'employees_EmployeesDistrict'
             ],

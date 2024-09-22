@@ -4903,6 +4903,7 @@ router.get('/properties', propertiesController.getProperties);
 router.post('/propertiesBySearch', propertiesController.getPropertiesBySearch);
 router.get('/propertiesByStatus/:id', propertiesController.getPropertiesByStatus);
 router.get('/properties/archived', propertiesController.getPropertiesArchived);
+router.get('/properties/notArchived', propertiesController.getPropertiesNotArchived);
 router.post('/property/create', upload, propertiesController.createProperty);
 router.post('/upload-test', upload, (req, res) => {
     if (req.body.photo) {
