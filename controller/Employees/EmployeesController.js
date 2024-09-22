@@ -58,7 +58,16 @@ const getEmployee = async (req, res) => {
 }
 const getEmployees = async (req, res) => {
     try {
-        const employees = await employeesTable.findAll({ include: ['userEmployees', 'employees_EmployeesDistrict'] });
+        const employees = await employeesTable.findAll({
+            include: [
+                {
+                    model: usersTable, // Assurez-vous que `usersTable` est le bon alias pour la table Users
+                    as: 'userEmployees' // Alias utilisé dans votre association
+                },
+                'employees_EmployeesDistrict'
+            ],
+            order: [[{ model: usersTable, as: 'userEmployees' }, 'idRoles', 'ASC']] // Tri par idRoles dans la table Users
+        });
         if (employees && employees.length > 0) {
             res.status(200).send({
                 data: employees
