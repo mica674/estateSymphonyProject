@@ -98,14 +98,19 @@ const createUser = async (req, res) => {
         let userFound = await usersTable.findOne({
             where: { email: email }
         })
+
         if (userFound == null) {
+
             const { password } = req.body;
             //  Génération du SALT pour le chiffrement du mot de passe
             const salt = await bcrypt.genSaltSync(12);
             //  Chiffrement du mot de passe avec 'bcrypt'
             const hash = await bcrypt.hashSync(password, salt);
+            console.log("coucou");
             //  Récupère les données du body et modifie le password et l'id de Role
             let data = { ...req.body, password: hash, idRoles: 4 }
+            console.log(data);
+
             //  Créé l'utilisateur dans la base de données
             let userCreated = await usersTable.create(data);
             //  Réponse avec l'action faite ('message') et les données de l'utilisateur créé ('data')
