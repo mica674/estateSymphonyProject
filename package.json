@@ -8,7 +8,7 @@
     "seed": "npx sequelize-cli db:seed:all --unsafe-perm",
     "dev": "nodemon index.js",
     "rebuild": "npm rebuild bcryptjs",
-    "instance": "npx sequelize-cli db:drop --unsafe-perm && npx sequelize-cli db:create --unsafe-perm && npx sequelize-cli db:migrate --unsafe-perm && npx sequelize-cli db:seed:all --unsafe-perm"
+    "instance": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "engines": {
     "node": "18.x"

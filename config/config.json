@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "estatesymphony7893",
-    "password": "75BUHrHjyNX0k5ahhCj9ajjlY5t93j6z",
-    "database": "estatesymphony",
-    "host": "dpg-cmgj49ol5elc73fuf20g-a",
+    "username": "estatesymphony_h85j_user",
+    "password": "sxdJfQ3WQQ5BeOJc9tX8XlNq0jqwyFZ5",
+    "database": "estatesymphony_h85j",
+    "host": "dpg-csrkv19u0jms7392f7fg-a",
     "dialect": "postgres",
     "port": 5432
   }
