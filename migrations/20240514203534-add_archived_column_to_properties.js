@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('properties', 'archived', {
+    await queryInterface.addColumn('Properties', 'archived', {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
@@ -10,6 +10,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('properties', 'archived');
+    await queryInterface.removeColumn('Properties', 'archived');
   }
 };
