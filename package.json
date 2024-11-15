@@ -5,13 +5,16 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "rebuild": "npm rebuild bcrypt",
+    "rebuild": "npm rebuild bcryptjs",
     "instance": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.19.2",

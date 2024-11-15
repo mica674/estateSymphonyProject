@@ -1,5 +1,5 @@
 const db = require('../../models/index.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const usersTable = db['Users'];
 const jwt = require('jsonwebtoken');
 const { EmailAlreadyUsed, SyntaxErrorMessage, CredentialsFailed, UserCreated, InvalidToken, UserUpdatedPwd, UserUpdatedInfos, UserNotUpdatedInfos, UserNotUpdatedPwd, PwdOldInvalid, UserNoFound, NoUserFound } = require('../../config/Constants.js');
