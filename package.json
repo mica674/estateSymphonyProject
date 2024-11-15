@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "migrate_undo": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate --env production",
     "migrate": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate --env production",
     "seed": "node ./node_modules/sequelize-cli/lib/sequelize db:seed:all --env production",
     "dev": "nodemon index.js",
