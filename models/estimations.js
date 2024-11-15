@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Estimations.belongsTo(models.Users, {
         foreignKey: 'idUsers',
-        as: 'users'
+        as: 'Users'
       })
     }
   }

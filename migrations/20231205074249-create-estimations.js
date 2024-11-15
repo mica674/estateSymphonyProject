@@ -38,7 +38,7 @@ module.exports = {
         required: true,
 
         references: {
-          model: 'users',
+          model: 'Users',
           key: 'id',
         }
 

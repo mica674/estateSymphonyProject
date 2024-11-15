@@ -15,9 +15,9 @@ module.exports = {
       idProperties: {
         type: Sequelize.INTEGER,
 
-        references: { 
-          model : 'properties',
-          key : 'id',
+        references: {
+          model: 'Properties',
+          key: 'id',
         }
 
       },
