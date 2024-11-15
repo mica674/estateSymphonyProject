@@ -4799,7 +4799,7 @@ const favoritesController = require('../controller/Favorites/FavoritesController
 const usersPropertiesController = require('../controller/UsersProperties/UsersProperties');
 
 //------------------------------------- PHOTOS -------------------------------------
-const { upload } = require('../middleware/Photos/photosMiddleware');
+const { upload } = require('../middleware/Photos/PhotosMiddleware');
 
 
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
