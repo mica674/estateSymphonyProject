@@ -5,7 +5,7 @@ const app = express();
 const router = require('./routes/route')
 
 
-const hostname = '127.0.0.1';
+const hostname = '0.0.0.0';
 const port = 3000;
 
 app.use(express.json());
