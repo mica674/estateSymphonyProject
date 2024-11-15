@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('clientFolders');
+    await queryInterface.dropTable('ClientFolders');
   }
 };
