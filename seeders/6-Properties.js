@@ -19,7 +19,7 @@ module.exports = {
         parking: true,
         rooms: 3,
         idStatuses: 1,
-        idDistricts: 73,
+        idDistricts: 1,
         archived: false,
         createdAt: new Date(),
       },
@@ -38,14 +38,14 @@ module.exports = {
         parking: true,
         rooms: 1,
         idStatuses: 1,
-        idDistricts: 74,
+        idDistricts: 2,
         archived: false,
         createdAt: new Date(),
       },
       {
         price: 900,
         location: 'Maison',
-        surface: 73,
+        surface: 1,
         showerRoom: 1,
         energising: 'C',
         typeEnergic: 'Gaz',
@@ -57,7 +57,7 @@ module.exports = {
         parking: true,
         rooms: 4,
         idStatuses: 2,
-        idDistricts: 73,
+        idDistricts: 1,
         archived: false,
         createdAt: new Date(),
       },
@@ -76,14 +76,14 @@ module.exports = {
         parking: true,
         rooms: 3,
         idStatuses: 2,
-        idDistricts: 80,
+        idDistricts: 8,
         archived: false,
         createdAt: new Date(),
       },
       {
         price: 945,
         location: 'Appartement',
-        surface: 80,
+        surface: 8,
         showerRoom: 1,
         energising: 'B',
         typeEnergic: 'Gaz',
@@ -95,7 +95,7 @@ module.exports = {
         parking: true,
         rooms: 4,
         idStatuses: 2,
-        idDistricts: 80,
+        idDistricts: 8,
         archived: false,
         createdAt: new Date(),
       },
@@ -125,5 +125,5 @@ module.exports = {
     
     Dépend de la base de données :
       HELP : idStatuses possibles : 1(vendu),2(loué),3
-      HELP : idDistricts possibles : 73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90
+      HELP : idDistricts possibles : 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
     */
