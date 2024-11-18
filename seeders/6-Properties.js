@@ -18,8 +18,8 @@ module.exports = {
         balcony: 1,
         parking: 1,
         rooms: 3,
-        idStatus: 1,
-        idDistrict: 73,
+        idStatuses: 1,
+        idDistricts: 73,
         archived: false,
         createdAt: new Date(),
       },
@@ -37,8 +37,8 @@ module.exports = {
         balcony: 1,
         parking: 1,
         rooms: 1,
-        idStatus: 1,
-        idDistrict: 74,
+        idStatuses: 1,
+        idDistricts: 74,
         archived: false,
         createdAt: new Date(),
       },
@@ -56,8 +56,8 @@ module.exports = {
         balcony: 0,
         parking: 2,
         rooms: 4,
-        idStatus: 2,
-        idDistrict: 73,
+        idStatuses: 2,
+        idDistricts: 73,
         archived: false,
         createdAt: new Date(),
       },
@@ -75,8 +75,8 @@ module.exports = {
         balcony: 1,
         parking: 1,
         rooms: 3,
-        idStatus: 2,
-        idDistrict: 80,
+        idStatuses: 2,
+        idDistricts: 80,
         archived: false,
         createdAt: new Date(),
       },
@@ -94,8 +94,8 @@ module.exports = {
         balcony: 1,
         parking: 1,
         rooms: 4,
-        idStatus: 2,
-        idDistrict: 80,
+        idStatuses: 2,
+        idDistricts: 80,
         archived: false,
         createdAt: new Date(),
       },
@@ -120,10 +120,10 @@ module.exports = {
     balcony: DataTypes.INTEGER,
     parking: DataTypes.BOOLEAN,
     rooms: DataTypes.INTEGER,
-    idStatus: DataTypes.INTEGER,
-    idDistrict: DataTypes.INTEGER
+    idStatuses: DataTypes.INTEGER,
+    idDistricts: DataTypes.INTEGER
     
     Dépend de la base de données :
-      HELP : idStatus possibles : 1(vendu),2(loué),3
-      HELP : idDistrict possibles : 73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90
+      HELP : idStatuses possibles : 1(vendu),2(loué),3
+      HELP : idDistricts possibles : 73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90
     */
