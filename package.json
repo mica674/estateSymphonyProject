@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "db_reset": "node ./node_modules/sequelize-cli/lib/sequelize db:drop && node ./node_modules/sequelize-cli/lib/sequelize db:create",
+    "db_reset": "npx sequelize-cli db:drop --env production && npx sequelize-cli db:create --env production",
     "migrate_undo": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate:undo:all --env production",
     "migrate": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate --env production",
     "seed": "node ./node_modules/sequelize-cli/lib/sequelize db:seed:all --env production",
